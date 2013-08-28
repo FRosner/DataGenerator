@@ -22,6 +22,10 @@ public class Instance implements Iterable<FeatureValue> {
 		_values = ImmutableList.copyOf(values);
 	}
 
+	public FeatureValue getFeatureValue(int index) {
+		return _values.get(index);
+	}
+
 	@Override
 	public Iterator<FeatureValue> iterator() {
 		return _values.listIterator();
