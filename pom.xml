@@ -26,6 +26,11 @@
 		<artifactId>fest-assert</artifactId>
 		<version>1.4</version>
 	</dependency>
+	<dependency>
+		<groupId>net.sf.qualitycheck</groupId>
+		<artifactId>quality-check</artifactId>
+		<version>1.0-RC1</version>
+	</dependency>
 	</dependencies>
   
   	<build>
