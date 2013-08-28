@@ -25,4 +25,14 @@ public class InstanceTest {
 		}
 	}
 
+	@Test
+	public void testEquals() {
+		Instance instanceUnderTest = new Instance(0, new ContinuousFeatureValue(1));
+		Instance instance1 = new Instance(0, new ContinuousFeatureValue(1));
+		Instance instance2 = new Instance(1, new ContinuousFeatureValue(1));
+		Instance instance3 = new Instance(0, new ContinuousFeatureValue(2));
+		assertThat(instanceUnderTest.equals(instance1)).isTrue();
+		assertThat(instanceUnderTest.equals(instance2)).isFalse();
+		assertThat(instanceUnderTest.equals(instance3)).isFalse();
+	}
 }

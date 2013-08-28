@@ -42,4 +42,19 @@ public class Instance implements Iterable<FeatureValue> {
 		return _values.toString();
 	}
 
+	@Override
+	public int hashCode() {
+		return _id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Instance) {
+			Instance i = (Instance) o;
+			return (i._id == _id) && (i._values.equals(_values));
+		} else {
+			return false;
+		}
+	}
+
 }
