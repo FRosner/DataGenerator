@@ -39,4 +39,9 @@ public class GaussianDistribution implements Distribution {
 		return new ContinuousFeatureValue((_generator.nextGaussian() + _mean) * _sigma);
 	}
 
+	@Override
+	public String toString() {
+		return GaussianDistribution.class.getSimpleName() + " (mean = " + _mean + ", sigma = " + _sigma + ")";
+	}
+
 }
