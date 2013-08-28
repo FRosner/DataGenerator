@@ -27,4 +27,9 @@ public class Instance implements Iterable<FeatureValue> {
 		return _values.listIterator();
 	}
 
+	@Override
+	public String toString() {
+		return _values.toString();
+	}
+
 }
