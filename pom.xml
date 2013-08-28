@@ -21,6 +21,11 @@
 		<artifactId>guava</artifactId>
 		<version>r05</version>
 	</dependency>
+	<dependency>
+		<groupId>org.easytesting</groupId>
+		<artifactId>fest-assert</artifactId>
+		<version>1.4</version>
+	</dependency>
 	</dependencies>
   
   	<build>
