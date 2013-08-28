@@ -3,6 +3,7 @@ package de.frosner.datagenerator.distributions;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
 
@@ -11,6 +12,7 @@ import org.apache.commons.math3.analysis.function.Gaussian;
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
 
+@Immutable
 public class GaussianDistribution implements Distribution {
 
 	private final Random _generator;
