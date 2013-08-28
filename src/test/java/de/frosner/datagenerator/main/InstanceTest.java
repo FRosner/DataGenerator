@@ -12,12 +12,12 @@ public class InstanceTest {
 
 	@Test(expected = IllegalNullElementsException.class)
 	public void testCreationWithNullArguments() {
-		new Instance(new ContinuousFeatureValue(0), null);
+		new Instance(0, new ContinuousFeatureValue(0), null);
 	}
 
 	@Test
 	public void testIterator() {
-		Instance instance = new Instance(new ContinuousFeatureValue(1), new ContinuousFeatureValue(2),
+		Instance instance = new Instance(0, new ContinuousFeatureValue(1), new ContinuousFeatureValue(2),
 				new ContinuousFeatureValue(3));
 		int i = 1;
 		for (FeatureValue value : instance) {

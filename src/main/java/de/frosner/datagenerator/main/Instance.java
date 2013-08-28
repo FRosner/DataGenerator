@@ -15,15 +15,21 @@ import de.frosner.datagenerator.features.FeatureValue;
 @Immutable
 public class Instance implements Iterable<FeatureValue> {
 
+	private final int _id;
 	private final List<FeatureValue> _values;
 
-	public Instance(@Nonnull FeatureValue... values) {
+	public Instance(int id, @Nonnull FeatureValue... values) {
 		Check.noNullElements(values, "All feature values must not be null.");
 		_values = ImmutableList.copyOf(values);
+		_id = id;
 	}
 
 	public FeatureValue getFeatureValue(int index) {
 		return _values.get(index);
+	}
+
+	public int getId() {
+		return _id;
 	}
 
 	@Override
