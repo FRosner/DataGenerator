@@ -9,7 +9,7 @@ import de.frosner.datagenerator.distributions.Distribution;
 import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.util.GsonUtil;
 
-public class FeatureDefintionTest {
+public class FeatureDefinitionTest {
 
 	private FeatureDefinition _featureDefinition;
 	private static final String FEATURE_NAME = "feature";
