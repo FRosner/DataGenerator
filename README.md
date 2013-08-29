@@ -7,3 +7,5 @@ Project Set Up
 ==============
 
 This is a Maven 3.1.0 project. Generate Eclipse project files by executing `mvn eclipse:eclipse`. Don't forget to add the M2\_REPO variable to your Eclipse workspace Java build path.
+
+Please make sure to read the [coding rules](https://github.com/FRosner/DataGenerator/wiki/Coding-Rules) before contributing.
