@@ -4,22 +4,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import de.frosner.datagenerator.distributions.Distribution;
-import de.frosner.datagenerator.util.GsonSerializable;
 
 @Immutable
-@GsonSerializable
 public class FeatureDefinition {
 
-	@Expose
-	@SerializedName("name")
 	private final String _name;
-	@Expose
-	@SerializedName("distribution")
 	private final Distribution _distribution;
 
 	public FeatureDefinition(@Nonnull String name, @Nonnull Distribution distribution) {

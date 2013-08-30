@@ -9,27 +9,16 @@ import net.sf.qualitycheck.Check;
 
 import org.apache.commons.math3.analysis.function.Gaussian;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
-import de.frosner.datagenerator.util.GsonSerializable;
 
 @Immutable
-@GsonSerializable
 public class GaussianDistribution implements Distribution {
 
 	private final Random _generator;
 	private final Gaussian _function;
-	@Expose
-	@SerializedName("type")
 	private final String _type = GaussianDistribution.class.getSimpleName();
-	@Expose
-	@SerializedName("mean")
 	private final double _mean;
-	@Expose
-	@SerializedName("sigma")
 	private final double _sigma;
 
 	public GaussianDistribution(double mean, double sigma) {
