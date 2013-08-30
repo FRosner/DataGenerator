@@ -12,6 +12,10 @@ import org.apache.commons.math3.analysis.function.Gaussian;
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
 
+/**
+ * Representation of a Gaussian distribution. It samples {@link ContinuousFeatureValue}s around the given mean with the
+ * specified standard deviation.
+ */
 @Immutable
 public class GaussianDistribution implements Distribution {
 
@@ -21,6 +25,12 @@ public class GaussianDistribution implements Distribution {
 	private final double _mean;
 	private final double _sigma;
 
+	/**
+	 * Construct a {@link GaussianDistribution} with the given mean and standard deviation.
+	 * 
+	 * @param mean
+	 * @param sigma
+	 */
 	public GaussianDistribution(double mean, double sigma) {
 		_generator = new Random();
 		_function = new Gaussian(mean, sigma);
