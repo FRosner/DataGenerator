@@ -2,11 +2,20 @@ package de.frosner.datagenerator.features;
 
 import javax.annotation.concurrent.Immutable;
 
+/**
+ * Representation of a continuous feature / variable.
+ */
 @Immutable
 public class ContinuousFeatureValue implements FeatureValue {
 
 	private final double _value;
 
+	/**
+	 * Constructs a {@link ContinuousFeatureValue} containing the specified floating point number.
+	 * 
+	 * @param value
+	 *            of the continuous feature
+	 */
 	public ContinuousFeatureValue(double value) {
 		_value = value;
 	}
