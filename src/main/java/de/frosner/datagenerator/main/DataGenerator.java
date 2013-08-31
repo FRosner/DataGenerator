@@ -8,11 +8,10 @@ import javax.annotation.Nonnull;
 import net.sf.qualitycheck.Check;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.features.FeatureValue;
+import de.frosner.datagenerator.main.Instance.InstanceBuilder;
 
 /**
  * Class for sampling a sequence of {@link Instance}s having the specified {@link FeatureDefinition}s. Sampled instances
@@ -51,11 +50,11 @@ public class DataGenerator {
 	 */
 	public void generate() {
 		for (int i = 0; i < _numberOfInstances; i++) {
-			List<FeatureValue> featureValues = Lists.newArrayList();
+			InstanceBuilder instanceBuilder = Instance.builder(i);
 			for (FeatureDefinition featureDefinition : _featureDefinitions) {
-				featureValues.add(featureDefinition.getDistribution().sample());
+				instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
 			}
-			_out.export(new Instance(i, featureValues.toArray(new FeatureValue[0])));
+			_out.export(instanceBuilder.build());
 		}
 		try {
 			_out.close();
