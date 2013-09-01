@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-public class ConsoleMenu {
+public final class ConsoleMenu {
 
 	private final List<String> _errors = Lists.newArrayList();
 	private final List<String> _warnings = Lists.newArrayList();
