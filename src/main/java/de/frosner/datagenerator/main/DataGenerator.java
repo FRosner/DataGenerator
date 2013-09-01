@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.main.Instance.InstanceBuilder;
+import de.frosner.datagenerator.util.ExceptionUtil;
 
 /**
  * Class for sampling a sequence of {@link Instance}s having the specified {@link FeatureDefinition}s. Sampled instances
@@ -105,7 +106,7 @@ public final class DataGenerator {
 		try {
 			_out.close();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			ExceptionUtil.uncheckException(e);
 		}
 	}
 
