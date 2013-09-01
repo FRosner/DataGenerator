@@ -6,7 +6,7 @@ import javax.annotation.concurrent.Immutable;
  * Representation of a continuous feature / variable.
  */
 @Immutable
-public class ContinuousFeatureValue implements FeatureValue {
+public final class ContinuousFeatureValue implements FeatureValue {
 
 	private final double _value;
 
