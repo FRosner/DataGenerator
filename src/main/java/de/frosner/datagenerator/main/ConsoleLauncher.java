@@ -14,7 +14,7 @@ import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
-public class ConsoleLauncher {
+public final class ConsoleLauncher {
 
 	private static final ConsoleMenu _menu = ConsoleMenu.INSTANCE;
 
