@@ -13,7 +13,7 @@ import de.frosner.datagenerator.main.DataGenerator;
  * {@link Instance} generated.
  */
 @Immutable
-public class FeatureDefinition {
+public final class FeatureDefinition {
 
 	private final String _name;
 	private final Distribution _distribution;
