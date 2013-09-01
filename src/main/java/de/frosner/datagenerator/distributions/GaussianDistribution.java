@@ -17,7 +17,7 @@ import de.frosner.datagenerator.features.FeatureValue;
  * specified standard deviation.
  */
 @Immutable
-public class GaussianDistribution implements Distribution {
+public final class GaussianDistribution implements Distribution {
 
 	private final Random _generator;
 	private final Gaussian _function;
