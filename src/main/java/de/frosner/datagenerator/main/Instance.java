@@ -35,7 +35,7 @@ public final class Instance implements Iterable<FeatureValue> {
 	public static final class InstanceBuilder {
 
 		private final int _id;
-		private List<FeatureValue> _values;
+		private final List<FeatureValue> _values;
 
 		/**
 		 * Creates a new builder for building an {@link Instance} with the specified ID.
