@@ -17,7 +17,7 @@ import de.frosner.datagenerator.main.Instance.InstanceBuilder;
  * Class for sampling a sequence of {@link Instance}s having the specified {@link FeatureDefinition}s. Sampled instances
  * will be exported to the specified {@link ExportConnection}.
  */
-public class DataGenerator {
+public final class DataGenerator {
 
 	private final int _numberOfInstances;
 	private final ExportConnection _out;
