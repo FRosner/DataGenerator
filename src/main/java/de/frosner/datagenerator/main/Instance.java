@@ -24,7 +24,7 @@ import de.frosner.datagenerator.features.FeatureValue;
  * Other terms for instances, depending on the scientific context, may be <i>object</i>, <i>record</i> or <i>entity</i>.
  */
 @Immutable
-public class Instance implements Iterable<FeatureValue> {
+public final class Instance implements Iterable<FeatureValue> {
 
 	private final int _id;
 	private final List<FeatureValue> _values;
