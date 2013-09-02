@@ -1,6 +1,7 @@
 package de.frosner.datagenerator.main;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import net.sf.qualitycheck.exception.IllegalEmptyArgumentException;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.GaussianDistribution;
-import de.frosner.datagenerator.export.ExportConnection;
+import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
 public final class ConsoleLauncher {
@@ -73,25 +74,17 @@ public final class ConsoleLauncher {
 					String fileName = userIn.next();
 					System.out.print("Number of instances: ");
 					int numberOfInstances = userIn.nextInt();
-					DataGenerator generator = new DataGenerator(numberOfInstances, new ExportConnection() {
-
-						@Override
-						public void export(Instance instance) {
-							System.err.println(instance);
-						}
-
-						@Override
-						public void close() throws IOException {
-
-						}
-
-					}, Check.notEmpty(_featureDefinitions).toArray(new FeatureDefinition[0]));
+					DataGenerator generator = new DataGenerator(numberOfInstances, new CsvExportConnection(
+							new FileOutputStream(fileName)), Check.notEmpty(_featureDefinitions).toArray(
+							new FeatureDefinition[0]));
 					generator.generate();
 					System.out.println("Bye!");
 					System.exit(0);
 				} catch (InputMismatchException e) {
 					userIn.next();
 					_menu.addError("Invalid parameter!");
+				} catch (FileNotFoundException e) {
+					_menu.addError("Could not find file " + e.getMessage());
 				}
 				break;
 			default:
