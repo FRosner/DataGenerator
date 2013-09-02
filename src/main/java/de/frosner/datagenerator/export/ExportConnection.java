@@ -1,6 +1,7 @@
 package de.frosner.datagenerator.export;
 
 import java.io.Closeable;
+import java.io.IOException;
 
 import de.frosner.datagenerator.main.DataGenerator;
 import de.frosner.datagenerator.main.Instance;
@@ -20,7 +21,8 @@ public interface ExportConnection extends Closeable {
 	 * 
 	 * @param instance
 	 *            to export
+	 * @throws IOException
 	 */
-	public void export(Instance instance);
+	public void export(Instance instance) throws IOException;
 
 }

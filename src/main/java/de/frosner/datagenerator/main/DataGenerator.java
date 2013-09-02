@@ -96,14 +96,14 @@ public final class DataGenerator {
 	 * Sample and export instances to the corresponding {@link ExportConnection}.
 	 */
 	public void generate() {
-		for (int i = 0; i < _numberOfInstances; i++) {
-			InstanceBuilder instanceBuilder = Instance.builder(i);
-			for (FeatureDefinition featureDefinition : _featureDefinitions) {
-				instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
-			}
-			_out.export(instanceBuilder.build());
-		}
 		try {
+			for (int i = 0; i < _numberOfInstances; i++) {
+				InstanceBuilder instanceBuilder = Instance.builder(i);
+				for (FeatureDefinition featureDefinition : _featureDefinitions) {
+					instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
+				}
+				_out.export(instanceBuilder.build());
+			}
 			_out.close();
 		} catch (IOException e) {
 			ExceptionUtil.uncheckException(e);
