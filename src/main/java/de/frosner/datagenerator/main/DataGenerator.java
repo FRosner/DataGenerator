@@ -50,14 +50,14 @@ public class DataGenerator {
 	 * Sample and export instances to the corresponding {@link ExportConnection}.
 	 */
 	public void generate() {
-		for (int i = 0; i < _numberOfInstances; i++) {
-			List<FeatureValue> featureValues = Lists.newArrayList();
-			for (FeatureDefinition featureDefinition : _featureDefinitions) {
-				featureValues.add(featureDefinition.getDistribution().sample());
-			}
-			_out.export(new Instance(i, featureValues.toArray(new FeatureValue[0])));
-		}
 		try {
+			for (int i = 0; i < _numberOfInstances; i++) {
+				List<FeatureValue> featureValues = Lists.newArrayList();
+				for (FeatureDefinition featureDefinition : _featureDefinitions) {
+					featureValues.add(featureDefinition.getDistribution().sample());
+				}
+				_out.export(new Instance(i, featureValues.toArray(new FeatureValue[0])));
+			}
 			_out.close();
 		} catch (IOException e) {
 			throw new RuntimeException(e);

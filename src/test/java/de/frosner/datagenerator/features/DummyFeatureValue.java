@@ -10,12 +10,17 @@ public class DummyFeatureValue implements FeatureValue {
 
 	@Override
 	public Object getValue() {
-		return null;
+		return DummyFeatureValue.class.getSimpleName();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		return (o == this);
+	}
+
+	@Override
+	public String toString() {
+		return (String) getValue();
 	}
 
 }
