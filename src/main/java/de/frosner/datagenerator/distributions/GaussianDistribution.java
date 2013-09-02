@@ -38,6 +38,10 @@ public class GaussianDistribution implements Distribution {
 		_sigma = sigma;
 	}
 
+	void setSeed(long seed) {
+		_generator.setSeed(seed);
+	}
+
 	@Override
 	public double getProbabilityOf(@Nonnull FeatureValue value) {
 		Check.notNull(value);
@@ -47,7 +51,7 @@ public class GaussianDistribution implements Distribution {
 
 	@Override
 	public FeatureValue sample() {
-		return new ContinuousFeatureValue((_generator.nextGaussian() + _mean) * _sigma);
+		return new ContinuousFeatureValue(_generator.nextGaussian() * _sigma + _mean);
 	}
 
 	@Override
