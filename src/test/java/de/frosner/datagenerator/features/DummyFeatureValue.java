@@ -20,7 +20,12 @@ public class DummyFeatureValue implements FeatureValue {
 
 	@Override
 	public String toString() {
-		return (String) getValue();
+		return getValue().toString();
+	}
+
+	@Override
+	public String getValueAsString() {
+		return getValue().toString();
 	}
 
 }

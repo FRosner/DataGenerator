@@ -9,11 +9,17 @@ import javax.annotation.concurrent.Immutable;
 public interface FeatureValue {
 
 	/**
-	 * Returns the wrapped value. Call {@link Object#toString()} in order to get an exportable {@link String}
-	 * representation of the value.
+	 * Returns the wrapped value.
 	 * 
-	 * @return
+	 * @return wrapped value
 	 */
 	public Object getValue();
+
+	/**
+	 * Returns a string representation of the wrapped value.
+	 * 
+	 * @return string representation of wrapped value
+	 */
+	public String getValueAsString();
 
 }

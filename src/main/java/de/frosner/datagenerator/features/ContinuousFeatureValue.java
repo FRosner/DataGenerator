@@ -26,6 +26,11 @@ public final class ContinuousFeatureValue implements FeatureValue {
 	}
 
 	@Override
+	public String getValueAsString() {
+		return Double.toString(_value);
+	}
+
+	@Override
 	public String toString() {
 		return Double.toString(_value);
 	}

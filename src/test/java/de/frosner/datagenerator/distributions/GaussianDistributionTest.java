@@ -62,6 +62,11 @@ public class GaussianDistributionTest {
 			public Object getValue() {
 				return null;
 			}
+
+			@Override
+			public String getValueAsString() {
+				return null;
+			}
 		};
 		_distribution.getProbabilityOf(wrongFeatureValueType);
 	}
