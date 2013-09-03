@@ -29,7 +29,8 @@ public class CsvExportConnectionTest {
 	public void testExport_oneInstance_oneFeature() throws IOException {
 		_csvExportConnection.export(_dummyInstanceWithOneFeature);
 		_csvExportConnection.close();
-		assertThat(_out.toString()).isEqualTo(_dummyInstanceWithOneFeature.getFeatureValue(0).toString() + "\n");
+		assertThat(_out.toString())
+				.isEqualTo(_dummyInstanceWithOneFeature.getFeatureValue(0).getValueAsString() + "\n");
 	}
 
 	@Test
@@ -38,8 +39,8 @@ public class CsvExportConnectionTest {
 		_csvExportConnection.export(_dummyInstanceWithOneFeature);
 		_csvExportConnection.close();
 		assertThat(_out.toString()).isEqualTo(
-				_dummyInstanceWithOneFeature.getFeatureValue(0).toString() + "\n"
-						+ _dummyInstanceWithOneFeature.getFeatureValue(0).toString() + "\n");
+				_dummyInstanceWithOneFeature.getFeatureValue(0).getValueAsString() + "\n"
+						+ _dummyInstanceWithOneFeature.getFeatureValue(0).getValueAsString() + "\n");
 	}
 
 	@Test
@@ -47,8 +48,8 @@ public class CsvExportConnectionTest {
 		_csvExportConnection.export(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
 		assertThat(_out.toString()).isEqualTo(
-				_dummyInstanceWithTwoFeatures.getFeatureValue(0).toString() + ","
-						+ _dummyInstanceWithTwoFeatures.getFeatureValue(1).toString() + "\n");
+				_dummyInstanceWithTwoFeatures.getFeatureValue(0).getValueAsString() + ","
+						+ _dummyInstanceWithTwoFeatures.getFeatureValue(1).getValueAsString() + "\n");
 	}
 
 	@Test
@@ -57,10 +58,10 @@ public class CsvExportConnectionTest {
 		_csvExportConnection.export(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
 		assertThat(_out.toString()).isEqualTo(
-				_dummyInstanceWithTwoFeatures.getFeatureValue(0).toString() + ","
-						+ _dummyInstanceWithTwoFeatures.getFeatureValue(1).toString() + "\n"
-						+ _dummyInstanceWithTwoFeatures.getFeatureValue(0).toString() + ","
-						+ _dummyInstanceWithTwoFeatures.getFeatureValue(1).toString() + "\n");
+				_dummyInstanceWithTwoFeatures.getFeatureValue(0).getValueAsString() + ","
+						+ _dummyInstanceWithTwoFeatures.getFeatureValue(1).getValueAsString() + "\n"
+						+ _dummyInstanceWithTwoFeatures.getFeatureValue(0).getValueAsString() + ","
+						+ _dummyInstanceWithTwoFeatures.getFeatureValue(1).getValueAsString() + "\n");
 	}
 
 	@Test(expected = IOException.class)

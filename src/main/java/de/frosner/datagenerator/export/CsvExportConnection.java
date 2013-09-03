@@ -26,7 +26,7 @@ public class CsvExportConnection implements ExportConnection {
 	public void export(Instance instance) throws IOException {
 		Iterator<FeatureValue> values = instance.iterator();
 		while (values.hasNext()) {
-			_out.write(values.next().getValue().toString());
+			_out.write(values.next().getValueAsString());
 			if (values.hasNext()) {
 				_out.write(",");
 			}
