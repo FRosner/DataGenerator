@@ -7,7 +7,7 @@ public class DummyDistribution implements Distribution {
 
 	private final String _type = DummyDistribution.class.getSimpleName();
 	public static final double PROBABILITY_OF_ANY_VALUE = 0;
-	public static final FeatureValue ANY_SAMPLE = DummyFeatureValue.INSTANCE;
+	public static final FeatureValue ANY_SAMPLE = new DummyFeatureValue(new Object());
 
 	@Override
 	public double getProbabilityOf(FeatureValue value) {

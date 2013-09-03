@@ -2,20 +2,24 @@ package de.frosner.datagenerator.features;
 
 public class DummyFeatureValue implements FeatureValue {
 
-	public static DummyFeatureValue INSTANCE = new DummyFeatureValue();
+	private final Object _value;
 
-	private DummyFeatureValue() {
-
+	public DummyFeatureValue(Object value) {
+		_value = value;
 	}
 
 	@Override
 	public Object getValue() {
-		return DummyFeatureValue.class.getSimpleName();
+		return _value;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		return (o == this);
+		if (o instanceof DummyFeatureValue) {
+			return ((DummyFeatureValue) o).getValue().equals(_value);
+		} else {
+			return false;
+		}
 	}
 
 	@Override
