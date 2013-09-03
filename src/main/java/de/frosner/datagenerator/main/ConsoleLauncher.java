@@ -2,6 +2,7 @@ package de.frosner.datagenerator.main;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -85,6 +86,8 @@ public final class ConsoleLauncher {
 					_menu.addError("Invalid parameter!");
 				} catch (FileNotFoundException e) {
 					_menu.addError("Could not find file " + e.getMessage());
+				} catch (IOException e) {
+					_menu.addError("An IOException occured: " + e.getMessage());
 				}
 				break;
 			default:

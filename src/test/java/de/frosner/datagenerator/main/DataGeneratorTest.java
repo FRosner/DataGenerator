@@ -1,5 +1,6 @@
 package de.frosner.datagenerator.main;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -86,4 +87,17 @@ public class DataGeneratorTest {
 		verify(_mockedOut).close();
 	}
 
+	@Test(expected = IOException.class)
+	public void testCrashingConnectionWhenExporting() throws IOException {
+		doThrow(new IOException()).when(_mockedOut).export(new Instance(0, DummyDistribution.ANY_SAMPLE));
+		_generator = new DataGenerator(1, _mockedOut, _x);
+		_generator.generate();
+	}
+
+	@Test(expected = IOException.class)
+	public void testCrashingConnectionWhenClosing() throws IOException {
+		doThrow(new IOException()).when(_mockedOut).close();
+		_generator = new DataGenerator(1, _mockedOut, _x);
+		_generator.generate();
+	}
 }

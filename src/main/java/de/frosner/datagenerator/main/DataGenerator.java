@@ -13,7 +13,6 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.main.Instance.InstanceBuilder;
-import de.frosner.datagenerator.util.ExceptionUtil;
 
 /**
  * Class for sampling a sequence of {@link Instance}s having the specified {@link FeatureDefinition}s. Sampled instances
@@ -94,20 +93,18 @@ public final class DataGenerator {
 
 	/**
 	 * Sample and export instances to the corresponding {@link ExportConnection}.
+	 * 
+	 * @throws IOException
 	 */
-	public void generate() {
-		try {
-			for (int i = 0; i < _numberOfInstances; i++) {
-				InstanceBuilder instanceBuilder = Instance.builder(i);
-				for (FeatureDefinition featureDefinition : _featureDefinitions) {
-					instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
-				}
-				_out.export(instanceBuilder.build());
+	public void generate() throws IOException {
+		for (int i = 0; i < _numberOfInstances; i++) {
+			InstanceBuilder instanceBuilder = Instance.builder(i);
+			for (FeatureDefinition featureDefinition : _featureDefinitions) {
+				instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
 			}
-			_out.close();
-		} catch (IOException e) {
-			ExceptionUtil.uncheckException(e);
+			_out.export(instanceBuilder.build());
 		}
+		_out.close();
 	}
 
 }
