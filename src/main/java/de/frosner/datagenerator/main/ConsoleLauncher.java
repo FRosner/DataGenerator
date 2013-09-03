@@ -24,7 +24,7 @@ public final class ConsoleLauncher {
 
 	public static void main(String[] args) {
 
-		_menu.addInfo("Welcome to DataGenerator (" + VersionInformation.VERSION + ")");
+		_menu.addInfo("Welcome to DataGenerator (" + ApplicationMetaData.VERSION + ")");
 
 		Scanner userIn = new Scanner(System.in);
 		while (true) {
