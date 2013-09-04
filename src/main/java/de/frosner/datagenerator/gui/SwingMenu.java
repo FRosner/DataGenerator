@@ -1,13 +1,18 @@
 package de.frosner.datagenerator.gui;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 import de.frosner.datagenerator.main.ApplicationMetaData;
 import de.frosner.datagenerator.util.ExceptionUtil;
@@ -22,7 +27,7 @@ public final class SwingMenu extends JFrame {
 	private static final int TEXT_FIELD_HEIGHT = 25;
 	private static final int TEXT_FIELD_WIDTH = 180;
 	private static final int ROW_MARGIN = 15;
-	private static final int SECTION_MARGIN = 50;
+	private static final int SECTION_MARGIN = 25;
 	private static final int PANEL_HEIGHT = 500;
 	private static final int PANEL_WIDTH = 500;
 
@@ -48,30 +53,36 @@ public final class SwingMenu extends JFrame {
 
 	private final JList _featureList = new JList(new Object[] { "Feature 1", "Feature 2", "Feature 3" });
 
+	private final JProgressBar _progressBar = new JProgressBar(0, 100);
+
+	private final JTextArea _logArea = new JTextArea();
+
 	public SwingMenu() {
 		initUi();
 		initPanel();
 		initFeatureSection();
 		initGenerationSection();
+		initLogArea();
 
 		HorizontalRuler.alignBottomAt(TEXT_FIELD_HEIGHT + ROW_MARGIN, _gaussianNameLabel, _gaussianNameField);
 		HorizontalRuler.alignBottomAt(2 * (TEXT_FIELD_HEIGHT + ROW_MARGIN), _gaussianMeanLabel, _gaussianMeanField);
 		HorizontalRuler.alignBottomAt(3 * (TEXT_FIELD_HEIGHT + ROW_MARGIN), _gaussianSigmaLabel, _gaussianSigmaField,
 				_featureList);
-		VerticalRuler.alignRightAt(75, _gaussianNameLabel, _gaussianMeanLabel, _gaussianSigmaLabel,
-				_numberOfInstancesLabel, _exportFileLabel);
-
 		HorizontalRuler.alignBottomAt(4 * (TEXT_FIELD_HEIGHT + ROW_MARGIN), _addFeatureButton, _removeFeatureButton);
-		VerticalRuler.alignRightAt(260, _addFeatureButton, _generateDataButton, _gaussianNameField, _gaussianMeanField,
-				_gaussianSigmaField, _exportFileButton, _numberOfInstancesField);
-		VerticalRuler.alignRightAt(_exportFileButton.getX(), _exportFileField);
-
-		VerticalRuler.alignRightAt(PANEL_WIDTH - 40, _removeFeatureButton, _featureList);
 		HorizontalRuler.alignBottomAt(5 * (TEXT_FIELD_HEIGHT + ROW_MARGIN) + SECTION_MARGIN, _numberOfInstancesField,
 				_numberOfInstancesLabel);
 		HorizontalRuler.alignBottomAt(6 * (TEXT_FIELD_HEIGHT + ROW_MARGIN) + SECTION_MARGIN, _exportFileLabel,
 				_exportFileButton, _exportFileField);
-		HorizontalRuler.alignBottomAt(7 * (TEXT_FIELD_HEIGHT + ROW_MARGIN) + SECTION_MARGIN, _generateDataButton);
+		HorizontalRuler.alignBottomAt(7 * (TEXT_FIELD_HEIGHT + ROW_MARGIN) + SECTION_MARGIN, _generateDataButton,
+				_progressBar);
+		HorizontalRuler.alignBottomAt(11 * (TEXT_FIELD_HEIGHT + ROW_MARGIN) + SECTION_MARGIN / 2, _logArea);
+
+		VerticalRuler.alignRightAt(260, _addFeatureButton, _generateDataButton, _gaussianNameField, _gaussianMeanField,
+				_gaussianSigmaField, _exportFileButton, _numberOfInstancesField);
+		VerticalRuler.alignRightAt(_exportFileButton.getX(), _exportFileField);
+		VerticalRuler.alignRightAt(75, _gaussianNameLabel, _gaussianMeanLabel, _gaussianSigmaLabel,
+				_numberOfInstancesLabel, _exportFileLabel);
+		VerticalRuler.alignRightAt(PANEL_WIDTH - 40, _removeFeatureButton, _featureList, _progressBar, _logArea);
 	}
 
 	private void initUi() {
@@ -102,6 +113,7 @@ public final class SwingMenu extends JFrame {
 	private void initGenerationSection() {
 		initGenerationMask();
 		initGenerateDataButton();
+		initGeneratorProgressBar();
 	}
 
 	private void initGaussianFeatureMask() {
@@ -160,6 +172,18 @@ public final class SwingMenu extends JFrame {
 		_generateDataButton.setBounds(-1, -1, width, height);
 		_generateDataButton.addActionListener(new GenerateDataButtonActionListener());
 		_panel.add(_generateDataButton);
+	}
+
+	private void initGeneratorProgressBar() {
+		_progressBar.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
+		_progressBar.setValue(33);
+		_panel.add(_progressBar);
+	}
+
+	private void initLogArea() {
+		_logArea.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
+		_logArea.setBorder(new LineBorder(Color.BLACK, 1));
+		_panel.add(_logArea);
 	}
 
 	public void openExportFileChooserDialog() {
