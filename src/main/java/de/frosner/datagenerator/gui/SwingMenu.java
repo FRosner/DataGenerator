@@ -79,6 +79,7 @@ public final class SwingMenu extends JFrame {
 		setSize(PANEL_WIDTH, PANEL_HEIGHT);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {
