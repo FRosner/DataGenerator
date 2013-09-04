@@ -7,10 +7,6 @@ import net.sf.qualitycheck.Check;
 
 public final class HorizontalRuler {
 
-	public static final class RulerOutOfBoundsException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
-	}
-
 	private final int _y;
 
 	public HorizontalRuler(int y) {

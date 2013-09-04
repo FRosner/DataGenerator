@@ -7,8 +7,6 @@ import javax.swing.JButton;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.frosner.datagenerator.gui.HorizontalRuler.RulerOutOfBoundsException;
-
 public class HorizontalRulerTest {
 
 	private static final int BIG_BUTTON_HEIGHT = 80;
