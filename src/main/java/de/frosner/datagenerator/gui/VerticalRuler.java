@@ -7,25 +7,24 @@ import net.sf.qualitycheck.Check;
 
 public final class VerticalRuler {
 
-	private final int _x;
+	private VerticalRuler() {
 
-	public VerticalRuler(int x) {
-		Check.stateIsTrue(x >= 0, RulerOutOfBoundsException.class);
-		_x = x;
 	}
 
-	public void alignRight(@Nonnull JComponent... components) {
+	public static void alignRightAt(int atX, @Nonnull JComponent... components) {
+		Check.stateIsTrue(atX >= 0, RulerOutOfBoundsException.class);
 		Check.noNullElements(components);
 		for (JComponent component : components) {
-			int newX = _x - component.getWidth();
+			int newX = atX - component.getWidth();
 			component.setBounds(newX, component.getY(), component.getWidth(), component.getHeight());
 		}
 	}
 
-	public void alignLeft(@Nonnull JComponent... components) {
+	public static void alignLeftAt(int atX, @Nonnull JComponent... components) {
+		Check.stateIsTrue(atX >= 0, RulerOutOfBoundsException.class);
 		Check.noNullElements(components);
 		for (JComponent component : components) {
-			int newX = _x;
+			int newX = atX;
 			component.setBounds(newX, component.getY(), component.getWidth(), component.getHeight());
 		}
 	}

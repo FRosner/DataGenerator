@@ -7,25 +7,24 @@ import net.sf.qualitycheck.Check;
 
 public final class HorizontalRuler {
 
-	private final int _y;
+	private HorizontalRuler() {
 
-	public HorizontalRuler(int y) {
-		Check.stateIsTrue(y >= 0, RulerOutOfBoundsException.class);
-		_y = y;
 	}
 
-	public void alignBottom(@Nonnull JComponent... components) {
+	public static void alignBottomAt(int atY, @Nonnull JComponent... components) {
+		Check.stateIsTrue(atY >= 0, RulerOutOfBoundsException.class);
 		Check.noNullElements(components);
 		for (JComponent component : components) {
-			int newY = _y - component.getHeight();
+			int newY = atY - component.getHeight();
 			component.setBounds(component.getX(), newY, component.getWidth(), component.getHeight());
 		}
 	}
 
-	public void alignTop(@Nonnull JComponent... components) {
+	public static void alignTopAt(int atY, @Nonnull JComponent... components) {
+		Check.stateIsTrue(atY >= 0, RulerOutOfBoundsException.class);
 		Check.noNullElements(components);
 		for (JComponent component : components) {
-			int newY = _y;
+			int newY = atY;
 			component.setBounds(component.getX(), newY, component.getWidth(), component.getHeight());
 		}
 	}

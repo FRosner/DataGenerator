@@ -16,7 +16,6 @@ public class HorizontalRulerTest {
 	private static final int SMALL_BUTTON_WIDTH = 20;
 	private static final int SMALL_BUTTON_X = 200;
 
-	private HorizontalRuler _ruler = new HorizontalRuler(100);
 	private JButton _bigButton = new JButton("Big Button");
 	private JButton _smallButton = new JButton("Small Button");
 
@@ -28,7 +27,7 @@ public class HorizontalRulerTest {
 
 	@Test
 	public void testAlignBottom() {
-		_ruler.alignBottom(_smallButton, _bigButton);
+		HorizontalRuler.alignBottomAt(100, _smallButton, _bigButton);
 		assertThat(_bigButton.getX()).isEqualTo(BIG_BUTTON_X);
 		assertThat(_bigButton.getY()).isEqualTo(20);
 		assertThat(_bigButton.getWidth()).isEqualTo(BIG_BUTTON_WIDTH);
@@ -41,7 +40,7 @@ public class HorizontalRulerTest {
 
 	@Test
 	public void testAlignTop() {
-		_ruler.alignTop(_smallButton, _bigButton);
+		HorizontalRuler.alignTopAt(100, _smallButton, _bigButton);
 		assertThat(_bigButton.getX()).isEqualTo(BIG_BUTTON_X);
 		assertThat(_bigButton.getY()).isEqualTo(100);
 		assertThat(_bigButton.getWidth()).isEqualTo(BIG_BUTTON_WIDTH);
@@ -53,7 +52,12 @@ public class HorizontalRulerTest {
 	}
 
 	@Test(expected = RulerOutOfBoundsException.class)
-	public void testRulerOutOfBounds() {
-		new HorizontalRuler(-1);
+	public void testAlignTop_RulerOutOfBounds() {
+		HorizontalRuler.alignTopAt(-1, _smallButton, _bigButton);
+	}
+
+	@Test(expected = RulerOutOfBoundsException.class)
+	public void testAlignBottom_RulerOutOfBounds() {
+		HorizontalRuler.alignBottomAt(-1, _smallButton, _bigButton);
 	}
 }
