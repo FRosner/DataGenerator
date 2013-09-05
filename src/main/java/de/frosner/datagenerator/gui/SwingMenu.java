@@ -11,11 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import de.frosner.datagenerator.main.ApplicationMetaData;
-import de.frosner.datagenerator.util.ExceptionUtil;
 
 public final class SwingMenu extends JFrame {
 
@@ -91,11 +89,6 @@ public final class SwingMenu extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-		try {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception e) {
-			ExceptionUtil.uncheckException(e);
-		}
 	}
 
 	private void initPanel() {
