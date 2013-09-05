@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.main;
+package de.frosner.datagenerator.generator;
 
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;

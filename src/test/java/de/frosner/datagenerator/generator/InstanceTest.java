@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.main;
+package de.frosner.datagenerator.generator;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.fail;
