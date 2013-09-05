@@ -16,7 +16,6 @@ import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
-import de.frosner.datagenerator.generator.MenuState;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 public final class ConsoleLauncher {
