@@ -126,7 +126,7 @@ public final class SwingMenu extends JFrame {
 
 	private void initFeatureList() {
 		_featureList.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT * 3 + ROW_MARGIN * 2);
-		_featureList.setBorder(new LineBorder(Color.BLACK, 1));
+		_featureList.setBorder(new LineBorder(Color.gray, 1));
 		_panel.add(_featureList);
 	}
 
@@ -176,7 +176,7 @@ public final class SwingMenu extends JFrame {
 
 	private void initLogArea() {
 		_logArea.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
-		_logArea.setBorder(new LineBorder(Color.BLACK, 1));
+		_logArea.setBorder(new LineBorder(Color.gray, 1));
 		_panel.add(_logArea);
 	}
 
