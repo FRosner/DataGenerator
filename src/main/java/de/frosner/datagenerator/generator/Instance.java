@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.main;
+package de.frosner.datagenerator.generator;
 
 import java.util.Iterator;
 import java.util.List;

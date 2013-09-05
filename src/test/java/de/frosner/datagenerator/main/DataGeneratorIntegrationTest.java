@@ -12,6 +12,7 @@ import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.generator.DataGenerator;
 
 public class DataGeneratorIntegrationTest {
 

@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 
 import de.frosner.datagenerator.features.FeatureValue;
-import de.frosner.datagenerator.main.Instance;
+import de.frosner.datagenerator.generator.Instance;
 
 public class CsvExportConnection implements ExportConnection {
 

@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.main;
+package de.frosner.datagenerator.generator;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.main.Instance.InstanceBuilder;
+import de.frosner.datagenerator.generator.Instance.InstanceBuilder;
 
 /**
  * Class for sampling a sequence of {@link Instance}s having the specified {@link FeatureDefinition}s. Sampled instances

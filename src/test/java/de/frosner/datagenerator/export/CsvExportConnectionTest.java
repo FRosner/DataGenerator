@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.frosner.datagenerator.features.DummyFeatureValue;
-import de.frosner.datagenerator.main.Instance;
+import de.frosner.datagenerator.generator.Instance;
 
 public class CsvExportConnectionTest {
 

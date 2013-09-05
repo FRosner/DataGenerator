@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
+import de.frosner.datagenerator.generator.Instance;
 
 public class InstanceTest {
 

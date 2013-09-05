@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.main;
+package de.frosner.datagenerator.generator;
 
 public enum MenuState {
 

@@ -1,8 +1,10 @@
-package de.frosner.datagenerator.main;
+package de.frosner.datagenerator.gui;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
+
+import de.frosner.datagenerator.generator.MenuState;
 
 public final class ConsoleMenu {
 

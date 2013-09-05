@@ -19,6 +19,8 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.generator.DataGenerator;
+import de.frosner.datagenerator.generator.Instance;
 
 public class DataGeneratorTest {
 

@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import de.frosner.datagenerator.main.ApplicationMetaData;
+import de.frosner.datagenerator.generator.ApplicationMetaData;
 
 public final class SwingMenu extends JFrame {
 
