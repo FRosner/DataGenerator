@@ -34,15 +34,27 @@ public final class SwingMenu extends JFrame {
 	private final JPanel _panel = new JPanel();
 
 	private final JButton _addFeatureButton = new JButton("Add Feature");
+	// visible for testing
+	static final String ADD_FEATURE_BUTTON_NAME = "Add Feature";
 	private final JButton _removeFeatureButton = new JButton("Remove Feature");
+	// visible for testing
+	static final String REMOVE_FEATURE_BUTTON_NAME = "Remove Feature";
 	private final JButton _generateDataButton = new JButton("Generate Data");
+	// visible for testing
+	static final String GENERATE_DATA_BUTTON_NAME = "Generate Data";
 
 	private final JLabel _gaussianNameLabel = new JLabel("Name", JLabel.RIGHT);
 	private final JTextField _gaussianNameField = new JTextField();
+	// visible for testing
+	static final String FEATURE_NAME_FIELD_NAME = "Name";
 	private final JLabel _gaussianMeanLabel = new JLabel("Mean", JLabel.RIGHT);
 	private final JTextField _gaussianMeanField = new JTextField();
+	// visible for testing
+	static final String FEATURE_MEAN_FIELD_NAME = "Mean";
 	private final JLabel _gaussianSigmaLabel = new JLabel("Sigma", JLabel.RIGHT);
 	private final JTextField _gaussianSigmaField = new JTextField();
+	// visible for testing
+	static final String FEATURE_SIGMA_FIELD_NAME = "Sigma";
 
 	private final JLabel _numberOfInstancesLabel = new JLabel("#Instances", JLabel.RIGHT);
 	private final JTextField _numberOfInstancesField = new JTextField();
@@ -115,14 +127,17 @@ public final class SwingMenu extends JFrame {
 	private void initGaussianFeatureMask() {
 		_gaussianNameLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianNameField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
+		_gaussianNameField.setName(FEATURE_NAME_FIELD_NAME);
 		_panel.add(_gaussianNameLabel);
 		_panel.add(_gaussianNameField);
 		_gaussianMeanLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianMeanField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
+		_gaussianMeanField.setName(FEATURE_MEAN_FIELD_NAME);
 		_panel.add(_gaussianMeanLabel);
 		_panel.add(_gaussianMeanField);
 		_gaussianSigmaLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianSigmaField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
+		_gaussianSigmaField.setName(FEATURE_SIGMA_FIELD_NAME);
 		_panel.add(_gaussianSigmaLabel);
 		_panel.add(_gaussianSigmaField);
 	}
@@ -138,6 +153,7 @@ public final class SwingMenu extends JFrame {
 		int height = BUTTON_HEIGHT;
 		_addFeatureButton.setBounds(-1, -1, width, height);
 		_addFeatureButton.addActionListener(new AddFeatureButtonActionListener());
+		_addFeatureButton.setName(ADD_FEATURE_BUTTON_NAME);
 		_panel.add(_addFeatureButton);
 	}
 
@@ -146,6 +162,7 @@ public final class SwingMenu extends JFrame {
 		int height = BUTTON_HEIGHT;
 		_removeFeatureButton.setBounds(-1, -1, width, height);
 		_removeFeatureButton.addActionListener(new RemoveFeatureButtonActionListener());
+		_removeFeatureButton.setName(REMOVE_FEATURE_BUTTON_NAME);
 		_panel.add(_removeFeatureButton);
 	}
 
@@ -168,6 +185,7 @@ public final class SwingMenu extends JFrame {
 		int height = BUTTON_HEIGHT;
 		_generateDataButton.setBounds(-1, -1, width, height);
 		_generateDataButton.addActionListener(new GenerateDataButtonActionListener());
+		_generateDataButton.setName(GENERATE_DATA_BUTTON_NAME);
 		_panel.add(_generateDataButton);
 	}
 
@@ -203,5 +221,20 @@ public final class SwingMenu extends JFrame {
 
 	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
 		_featureListModel.addElement(featureDefinition.getName());
+	}
+
+	// visible for testing
+	JTextField getGaussianNameField() {
+		return _gaussianNameField;
+	}
+
+	// visible for testing
+	JTextField getGaussianMeanField() {
+		return _gaussianMeanField;
+	}
+
+	// visible for testing
+	JTextField getGaussianSigmaField() {
+		return _gaussianSigmaField;
 	}
 }
