@@ -1,10 +1,15 @@
 package de.frosner.datagenerator.gui;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import javax.swing.JButton;
 
+import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
+import org.fest.swing.edt.GuiQuery;
+import org.fest.swing.edt.GuiTask;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class VerticalRulerTest {
@@ -16,13 +21,41 @@ public class VerticalRulerTest {
 	private static final int SMALL_BUTTON_WIDTH = 30;
 	private static final int SMALL_BUTTON_Y = 200;
 
-	private JButton _bigButton = new JButton("Big Button");
-	private JButton _smallButton = new JButton("Small Button");
+	private JButton _bigButton;
+	private JButton _smallButton;
+
+	@BeforeClass
+	public static void setUpOnce() {
+		FailOnThreadViolationRepaintManager.install();
+	}
 
 	@Before
 	public void initButtons() {
-		_bigButton.setBounds(0, BIG_BUTTON_Y, BIG_BUTTON_WIDTH, BIG_BUTTON_HEIGHT);
-		_smallButton.setBounds(30, SMALL_BUTTON_Y, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT);
+		_bigButton = execute(new GuiQuery<JButton>() {
+			@Override
+			public JButton executeInEDT() {
+				return new JButton("Big Button");
+			}
+		});
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				_bigButton.setBounds(0, BIG_BUTTON_Y, BIG_BUTTON_WIDTH, BIG_BUTTON_HEIGHT);
+			}
+		});
+
+		_smallButton = execute(new GuiQuery<JButton>() {
+			@Override
+			public JButton executeInEDT() {
+				return new JButton("Small Button");
+			}
+		});
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				_smallButton.setBounds(30, SMALL_BUTTON_Y, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT);
+			}
+		});
 	}
 
 	@Test
