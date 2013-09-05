@@ -18,12 +18,18 @@ public final class DataGeneratorService {
 	private final List<FeatureDefinition> _featureDefinitions = Lists.newArrayList();
 	private DataGenerator _dataGenerator;
 
-	private DataGeneratorService() {
+	// visible for testing
+	DataGeneratorService() {
 	}
 
 	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
 		_featureDefinitions.add(featureDefinition);
 		LOGGER.info("Added Feature: " + featureDefinition.getName());
+	}
+
+	// visible for testing
+	List<FeatureDefinition> getFeatureDefinitions() {
+		return Lists.newArrayList(_featureDefinitions);
 	}
 
 }
