@@ -2,6 +2,7 @@ package de.frosner.datagenerator.gui;
 
 import java.awt.Color;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 public final class SwingMenu extends JFrame {
@@ -49,7 +51,8 @@ public final class SwingMenu extends JFrame {
 	private final JButton _exportFileButton = new JButton(".");
 	private final JTextField _exportFileField = new JTextField();
 
-	private final JList _featureList = new JList(new Object[] { "Feature 1", "Feature 2", "Feature 3" });
+	private final DefaultListModel _featureListModel = new DefaultListModel();
+	private final JList _featureList = new JList(_featureListModel);
 
 	private final JProgressBar _progressBar = new JProgressBar(0, 100);
 
@@ -186,4 +189,19 @@ public final class SwingMenu extends JFrame {
 		}
 	}
 
+	public String getAddFeatureName() {
+		return _gaussianNameField.getText();
+	}
+
+	public String getAddFeatureMean() {
+		return _gaussianMeanField.getText();
+	}
+
+	public String getAddFeatureSigma() {
+		return _gaussianSigmaField.getText();
+	}
+
+	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
+		_featureListModel.addElement(featureDefinition.getName());
+	}
 }
