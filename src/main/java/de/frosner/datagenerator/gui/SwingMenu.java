@@ -3,6 +3,7 @@ package de.frosner.datagenerator.gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -162,7 +163,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_numberOfInstancesField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
 		_exportFileLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_exportFileButton.setBounds(-1, -1, TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
-		_exportFileButton.addActionListener(new ExportFileButtonActionListener());
+		_exportFileButton.addActionListener(this);
 		_exportFileField.setBounds(-1, -1, TEXT_FIELD_WIDTH - TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_panel.add(_numberOfInstancesLabel);
 		_panel.add(_numberOfInstancesField);
@@ -175,7 +176,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		int width = 140;
 		int height = BUTTON_HEIGHT;
 		_generateDataButton.setBounds(-1, -1, width, height);
-		_generateDataButton.addActionListener(new GenerateDataButtonActionListener());
+		_generateDataButton.addActionListener(this);
 		_panel.add(_generateDataButton);
 	}
 
@@ -189,12 +190,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_logArea.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
 		_logArea.setBorder(new LineBorder(Color.gray, 1));
 		_panel.add(_logArea);
-	}
-
-	public void openExportFileChooserDialog() {
-		if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-			_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
-		}
 	}
 
 	public String getAddFeatureName() {
@@ -228,6 +223,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				DataGeneratorService.INSTANCE.removeFeatureDefinition(selected);
 				_featureListModel.remove(selected);
 			}
+		} else if (e.getSource().equals(_exportFileButton)) {
+			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
+			}
+		} else if (e.getSource().equals(_generateDataButton)) {
+			int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
+			File exportFile = _exportFileDialog.getSelectedFile();
+			DataGeneratorService.INSTANCE.generateData(numberOfInstances, exportFile);
 		}
 	}
 
