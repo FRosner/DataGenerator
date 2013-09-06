@@ -1,5 +1,7 @@
 package de.frosner.datagenerator.gui;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
@@ -7,6 +9,7 @@ import org.fest.swing.fixture.FrameFixture;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SwingMenuGuiTest {
@@ -37,7 +40,41 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void test() {
+	@Ignore("#58: Validators not implemented, yet")
+	public void testValidateFeatureName() {
+		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("");
+		assertThat(_frame.getGaussianNameField().isValid()).isFalse();
+		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
+		assertThat(_frame.getGaussianNameField().isValid()).isTrue();
+	}
 
+	@Test
+	@Ignore("#58: Validators not implemented, yet")
+	public void testValidateFeatureMean() {
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("");
+		assertThat(_frame.getGaussianMeanField().isValid()).isFalse();
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("Test");
+		assertThat(_frame.getGaussianMeanField().isValid()).isFalse();
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("1");
+		assertThat(_frame.getGaussianMeanField().isValid()).isTrue();
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("-1");
+		assertThat(_frame.getGaussianMeanField().isValid()).isTrue();
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("1.0");
+		assertThat(_frame.getGaussianMeanField().isValid()).isTrue();
+	}
+
+	@Test
+	@Ignore("#58: Validators not implemented, yet")
+	public void testValidateFeatureSigma() {
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("");
+		assertThat(_frame.getGaussianSigmaField().isValid()).isFalse();
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("Test");
+		assertThat(_frame.getGaussianSigmaField().isValid()).isFalse();
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1");
+		assertThat(_frame.getGaussianSigmaField().isValid()).isTrue();
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("-1");
+		assertThat(_frame.getGaussianSigmaField().isValid()).isTrue();
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
+		assertThat(_frame.getGaussianSigmaField().isValid()).isTrue();
 	}
 }
