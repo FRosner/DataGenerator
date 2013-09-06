@@ -27,6 +27,10 @@ public final class DataGeneratorService {
 		LOGGER.info("Added Feature: " + featureDefinition.getName());
 	}
 
+	public void removeFeatureDefinition(int index) {
+		LOGGER.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
+	}
+
 	// visible for testing
 	List<FeatureDefinition> getFeatureDefinitions() {
 		return Lists.newArrayList(_featureDefinitions);

@@ -137,6 +137,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private void initFeatureList() {
 		_featureList.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT * 3 + ROW_MARGIN * 2);
 		_featureList.setBorder(new LineBorder(Color.gray, 1));
+		_featureList.setName(TestUtils.FEATURE_LIST_NAME);
 		_panel.add(_featureList);
 	}
 
@@ -152,7 +153,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		int width = 140;
 		int height = BUTTON_HEIGHT;
 		_removeFeatureButton.setBounds(-1, -1, width, height);
-		_removeFeatureButton.addActionListener(new RemoveFeatureButtonActionListener());
+		_removeFeatureButton.addActionListener(this);
 		_panel.add(_removeFeatureButton);
 	}
 
@@ -221,6 +222,12 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			FeatureDefinition featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean, sigma));
 			DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
 			_featureListModel.addElement(featureDefinition.getName());
+		} else if (e.getSource().equals(_removeFeatureButton)) {
+			int selected = _featureList.getSelectedIndex();
+			if (selected > -1) {
+				DataGeneratorService.INSTANCE.removeFeatureDefinition(selected);
+				_featureListModel.remove(selected);
+			}
 		}
 	}
 
@@ -230,6 +237,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		static final String FEATURE_NAME_FIELD_NAME = "Name";
 		static final String FEATURE_MEAN_FIELD_NAME = "Mean";
 		static final String FEATURE_SIGMA_FIELD_NAME = "Sigma";
+		static final String FEATURE_LIST_NAME = "Features";
 
 		JTextField getGaussianNameField() {
 			return _gaussianNameField;
@@ -245,6 +253,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		void clickAddFeatureButton() {
 			actionPerformed(new ActionEvent(_addFeatureButton, 1, ""));
+		}
+
+		void clickRemoveFeatureButton() {
+			actionPerformed(new ActionEvent(_removeFeatureButton, 1, ""));
+		}
+
+		void selectFeature(int i) {
+			_featureList.setSelectedIndex(i);
 		}
 
 		DefaultListModel getFeatureDefinitionListModel() {

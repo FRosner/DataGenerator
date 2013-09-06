@@ -81,7 +81,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testAddFeature() throws InterruptedException {
+	public void testAddAndRemoveFeature() throws InterruptedException {
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().size()).isEqualTo(0);
 		_testFrame.textBox(SwingMenu.TestUtils.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
 		_testFrame.textBox(SwingMenu.TestUtils.FEATURE_MEAN_FIELD_NAME).enterText("0");
@@ -93,5 +93,20 @@ public class SwingMenuGuiTest {
 			}
 		});
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().get(0)).isEqualTo("Feature 1");
+
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_frame.testUtils().selectFeature(0);
+			}
+		});
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_frame.testUtils().clickRemoveFeatureButton();
+			}
+		});
+		assertThat(_frame.testUtils().getFeatureDefinitionListModel().size()).isEqualTo(0);
 	}
+
 }

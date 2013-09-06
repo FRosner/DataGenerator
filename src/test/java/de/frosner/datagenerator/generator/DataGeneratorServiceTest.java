@@ -28,4 +28,17 @@ public class DataGeneratorServiceTest {
 		_service.addFeatureDefinition(feature2);
 		assertThat(_service.getFeatureDefinitions()).containsExactly(feature1, feature2);
 	}
+
+	public void testRemoveFeatureDefinition(int index) {
+		FeatureDefinition feature1 = new FeatureDefinition("1", new DummyDistribution());
+		FeatureDefinition feature2 = new FeatureDefinition("2", new DummyDistribution());
+		_service.getFeatureDefinitions().add(feature1);
+		_service.getFeatureDefinitions().add(feature2);
+
+		_service.removeFeatureDefinition(0);
+		assertThat(_service.getFeatureDefinitions()).containsExactly(feature2);
+
+		_service.removeFeatureDefinition(0);
+		assertThat(_service.getFeatureDefinitions()).isEmpty();
+	}
 }
