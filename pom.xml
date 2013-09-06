@@ -11,7 +11,7 @@
 	
 	<properties>
 		<jdk.version>1.6</jdk.version>
-		<main.class>de.frosner.datagenerator.gui.ConsoleLauncher</main.class>
+		<main.class>de.frosner.datagenerator.gui.SwingLauncher</main.class>
 	</properties>
 	
 	<dependencies>
