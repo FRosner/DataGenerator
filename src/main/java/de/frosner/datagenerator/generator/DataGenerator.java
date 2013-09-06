@@ -7,9 +7,6 @@ import javax.annotation.Nonnull;
 
 import net.sf.qualitycheck.Check;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -22,8 +19,6 @@ import de.frosner.datagenerator.generator.Instance.InstanceBuilder;
  * will be exported to the specified {@link ExportConnection}.
  */
 public final class DataGenerator {
-
-	private static Logger _logger = LogManager.getLogger();
 
 	private final int _numberOfInstances;
 	private final ExportConnection _out;
@@ -102,7 +97,6 @@ public final class DataGenerator {
 	 * @throws IOException
 	 */
 	public void generate() throws IOException {
-		_logger.info("Starting generating " + _numberOfInstances + " instances");
 		for (int i = 0; i < _numberOfInstances; i++) {
 			InstanceBuilder instanceBuilder = Instance.builder(i);
 			for (FeatureDefinition featureDefinition : _featureDefinitions) {
@@ -111,6 +105,5 @@ public final class DataGenerator {
 			_out.export(instanceBuilder.build());
 		}
 		_out.close();
-		_logger.info("Generation complete");
 	}
 }
