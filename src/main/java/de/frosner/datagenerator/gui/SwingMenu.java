@@ -169,6 +169,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileButton.setBounds(-1, -1, TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_exportFileButton.addActionListener(this);
 		_exportFileField.setBounds(-1, -1, TEXT_FIELD_WIDTH - TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
+		_exportFileField.setEditable(false);
 		_panel.add(_numberOfInstancesLabel);
 		_panel.add(_numberOfInstancesField);
 		_panel.add(_exportFileLabel);
