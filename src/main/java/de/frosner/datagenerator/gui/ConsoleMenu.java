@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-
 public final class ConsoleMenu {
 
 	private final List<String> _errors = Lists.newArrayList();
@@ -14,6 +13,7 @@ public final class ConsoleMenu {
 	public static final ConsoleMenu INSTANCE = new ConsoleMenu();
 
 	private ConsoleMenu() {
+		throw new UnsupportedOperationException();
 	}
 
 	private MenuState _state = MenuState.MAIN_MENU;
