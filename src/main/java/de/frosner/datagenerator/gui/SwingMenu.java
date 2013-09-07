@@ -14,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
 import de.frosner.datagenerator.distributions.GaussianDistribution;
@@ -62,7 +64,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	private final JProgressBar _progressBar = new JProgressBar(0, 100);
 
-	private final JTextArea _logArea = new JTextArea();
+	private final JTextArea _logAreaTextArea = new JTextArea();
+	private final JScrollPane _logArea = new JScrollPane(_logAreaTextArea);
 
 	public SwingMenu() {
 		initUi();
@@ -89,7 +92,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		VerticalRuler.alignRightAt(_exportFileButton.getX(), _exportFileField);
 		VerticalRuler.alignRightAt(75, _gaussianNameLabel, _gaussianMeanLabel, _gaussianSigmaLabel,
 				_numberOfInstancesLabel, _exportFileLabel);
-		VerticalRuler.alignRightAt(PANEL_WIDTH - 40, _removeFeatureButton, _featureList, _progressBar, _logArea);
+		VerticalRuler
+				.alignRightAt(PANEL_WIDTH - 40, _removeFeatureButton, _featureList, _progressBar, _logArea);
 	}
 
 	private void initUi() {
@@ -188,11 +192,13 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	}
 
 	private void initLogArea() {
+		_logAreaTextArea.setBorder(new LineBorder(Color.gray, 1));
+		_logAreaTextArea.setEditable(false);
+		_logAreaTextArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		TextAreaLogger.setLogArea(_logAreaTextArea);
+		_logAreaTextArea.setAutoscrolls(true);
+		_logArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		_logArea.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
-		_logArea.setBorder(new LineBorder(Color.gray, 1));
-		_logArea.setEditable(false);
-		_logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-		TextAreaLogger.setLogArea(_logArea);
 		_panel.add(_logArea);
 	}
 
