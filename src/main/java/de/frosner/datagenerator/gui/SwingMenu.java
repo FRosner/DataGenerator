@@ -280,7 +280,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			return _featureListModel;
 		}
 
-		public String getLog() {
+		String getLog() {
 			return _logAreaTextArea.getText();
 		}
 
