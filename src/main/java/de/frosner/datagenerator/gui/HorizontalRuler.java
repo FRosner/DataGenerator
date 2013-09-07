@@ -8,7 +8,7 @@ import net.sf.qualitycheck.Check;
 public final class HorizontalRuler {
 
 	private HorizontalRuler() {
-
+		throw new UnsupportedOperationException();
 	}
 
 	public static void alignBottomAt(int atY, @Nonnull JComponent... components) {
