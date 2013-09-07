@@ -29,7 +29,8 @@ public class DataGeneratorServiceTest {
 		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature1, _feature2);
 	}
 
-	public void testRemoveFeatureDefinition(int index) {
+	@Test
+	public void testRemoveFeatureDefinition() {
 		_service.getFeatureDefinitions().add(_feature1);
 		_service.getFeatureDefinitions().add(_feature2);
 
