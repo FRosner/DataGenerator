@@ -8,7 +8,7 @@ import net.sf.qualitycheck.Check;
 public final class VerticalRuler {
 
 	private VerticalRuler() {
-
+		throw new UnsupportedOperationException();
 	}
 
 	public static void alignRightAt(int atX, @Nonnull JComponent... components) {
