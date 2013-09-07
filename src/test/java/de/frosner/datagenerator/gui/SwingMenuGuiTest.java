@@ -2,6 +2,10 @@ package de.frosner.datagenerator.gui;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
@@ -107,6 +111,44 @@ public class SwingMenuGuiTest {
 			}
 		});
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().size()).isEqualTo(0);
+	}
+
+	@Test
+	public void testSelectExportFile() throws InterruptedException {
+		assertThat(_frame.testUtils().getExportFileField().isEditable()).isFalse();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.delay(500);
+					int delay = 50;
+					robot.keyPress(KeyEvent.VK_TAB);
+					robot.delay(delay);
+					robot.keyPress(KeyEvent.VK_TAB);
+					robot.delay(delay);
+					robot.keyPress(KeyEvent.VK_TAB);
+					robot.delay(delay);
+					robot.keyPress(KeyEvent.VK_TAB);
+					robot.delay(delay);
+					robot.keyPress(KeyEvent.VK_TAB);
+					robot.delay(delay);
+					robot.keyPress(KeyEvent.VK_T);
+					robot.delay(delay);
+					robot.keyPress(KeyEvent.VK_ENTER);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_frame.testUtils().clickExportFileDialogButton();
+			}
+		});
+		assertThat(_frame.testUtils().getExportFileField().getText()).isEqualTo("t");
 	}
 
 	@Test

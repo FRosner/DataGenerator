@@ -168,13 +168,16 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_exportFileButton.setBounds(-1, -1, TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_exportFileButton.addActionListener(this);
+		_exportFileButton.setName(TestUtils.EXPORT_FILE_BUTTON_NAME);
 		_exportFileField.setBounds(-1, -1, TEXT_FIELD_WIDTH - TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_exportFileField.setEditable(false);
+		_exportFileDialog.setName(TestUtils.EXPORT_FILE_CHOOSER_NAME);
 		_panel.add(_numberOfInstancesLabel);
 		_panel.add(_numberOfInstancesField);
 		_panel.add(_exportFileLabel);
 		_panel.add(_exportFileButton);
 		_panel.add(_exportFileField);
+		_panel.add(_exportFileDialog);
 	}
 
 	private void initGenerateDataButton() {
@@ -251,6 +254,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		static final String FEATURE_MEAN_FIELD_NAME = "Mean";
 		static final String FEATURE_SIGMA_FIELD_NAME = "Sigma";
 		static final String FEATURE_LIST_NAME = "Features";
+		static final String EXPORT_FILE_CHOOSER_NAME = "ExportChooser";
+		static final String EXPORT_FILE_BUTTON_NAME = "ExportButton";
 
 		JTextField getGaussianNameField() {
 			return _gaussianNameField;
@@ -264,12 +269,24 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			return _gaussianSigmaField;
 		}
 
+		JTextField getExportFileField() {
+			return _exportFileField;
+		}
+
+		JFileChooser getExportFileChooser() {
+			return _exportFileDialog;
+		}
+
 		void clickAddFeatureButton() {
 			actionPerformed(new ActionEvent(_addFeatureButton, 1, ""));
 		}
 
 		void clickRemoveFeatureButton() {
 			actionPerformed(new ActionEvent(_removeFeatureButton, 1, ""));
+		}
+
+		void clickExportFileDialogButton() {
+			actionPerformed(new ActionEvent(_exportFileButton, 1, ""));
 		}
 
 		void selectFeature(int i) {
@@ -282,6 +299,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		String getLog() {
 			return _logAreaTextArea.getText();
+		}
+
+		void selectFile(File file) {
 		}
 
 	}
