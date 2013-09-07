@@ -24,6 +24,10 @@ public final class ConsoleLauncher {
 
 	private static List<FeatureDefinition> _featureDefinitions = Lists.newArrayList();
 
+	private ConsoleLauncher() {
+		throw new UnsupportedOperationException();
+	}
+
 	public static void main(String[] args) {
 
 		_menu.addInfo("Welcome to DataGenerator (" + ApplicationMetaData.VERSION + ")");
