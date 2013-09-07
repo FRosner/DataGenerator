@@ -1,6 +1,7 @@
 package de.frosner.datagenerator.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -189,6 +190,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private void initLogArea() {
 		_logArea.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
 		_logArea.setBorder(new LineBorder(Color.gray, 1));
+		_logArea.setEditable(false);
+		_logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		TextAreaLogger.setLogArea(_logArea);
 		_panel.add(_logArea);
 	}
 
