@@ -109,4 +109,11 @@ public class SwingMenuGuiTest {
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().size()).isEqualTo(0);
 	}
 
+	@Test
+	public void testLogging() throws InterruptedException {
+		TextAreaLogger.log("Test");
+		Thread.sleep(250);
+		assertThat(_frame.testUtils().getLog()).contains("Test");
+	}
+
 }

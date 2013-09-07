@@ -92,8 +92,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		VerticalRuler.alignRightAt(_exportFileButton.getX(), _exportFileField);
 		VerticalRuler.alignRightAt(75, _gaussianNameLabel, _gaussianMeanLabel, _gaussianSigmaLabel,
 				_numberOfInstancesLabel, _exportFileLabel);
-		VerticalRuler
-				.alignRightAt(PANEL_WIDTH - 40, _removeFeatureButton, _featureList, _progressBar, _logArea);
+		VerticalRuler.alignRightAt(PANEL_WIDTH - 40, _removeFeatureButton, _featureList, _progressBar, _logArea);
 	}
 
 	private void initUi() {
@@ -278,6 +277,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		DefaultListModel getFeatureDefinitionListModel() {
 			return _featureListModel;
+		}
+
+		public String getLog() {
+			return _logAreaTextArea.getText();
 		}
 
 	}
