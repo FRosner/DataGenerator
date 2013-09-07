@@ -5,6 +5,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
 public final class ExceptionUtil {
 
 	private ExceptionUtil() {
+		throw new UnsupportedOperationException();
 	}
 
 	public static RuntimeException uncheckException(Exception e) {
