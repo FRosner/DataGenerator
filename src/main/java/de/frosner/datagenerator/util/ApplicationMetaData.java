@@ -7,6 +7,7 @@ public final class ApplicationMetaData {
 	public static final int SERIAL_VERSION_UID = VERSION.hashCode();
 
 	private ApplicationMetaData() {
+		throw new UnsupportedOperationException();
 	}
 
 }
