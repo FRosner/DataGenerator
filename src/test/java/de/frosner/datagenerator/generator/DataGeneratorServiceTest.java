@@ -2,6 +2,8 @@ package de.frosner.datagenerator.generator;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,4 +43,19 @@ public class DataGeneratorServiceTest {
 		assertThat(_service.getFeatureDefinitions()).isEmpty();
 	}
 
+	@Test
+	public void testGenerateData() {
+		_service.getFeatureDefinitions().add(_feature1);
+		_service.getFeatureDefinitions().add(_feature2);
+
+		File exportFile = new File("src/test/resources/" + DataGeneratorServiceTest.class.getSimpleName() + ".tmp");
+		if (exportFile.exists()) {
+			exportFile.delete();
+		}
+		assertThat(exportFile).doesNotExist();
+		_service.generateData(1000, exportFile);
+		assertThat(exportFile).exists();
+
+		exportFile.delete();
+	}
 }
