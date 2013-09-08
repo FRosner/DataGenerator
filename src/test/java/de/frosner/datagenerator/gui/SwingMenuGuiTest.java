@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
-import org.fest.swing.edt.GuiTask;
 import org.fest.swing.fixture.FrameFixture;
 import org.junit.After;
 import org.junit.Before;
@@ -93,12 +92,7 @@ public class SwingMenuGuiTest {
 		_frame.testUtils().clickAddFeatureButton();
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().get(0)).isEqualTo("Feature 1");
 
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() {
-				_frame.testUtils().selectFeature(0);
-			}
-		});
+		_frame.testUtils().selectFeature(0);
 		_frame.testUtils().clickRemoveFeatureButton();
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().size()).isEqualTo(0);
 	}

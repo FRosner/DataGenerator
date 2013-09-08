@@ -301,8 +301,13 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			clickButton(_exportFileButton);
 		}
 
-		void selectFeature(int i) {
-			_featureList.setSelectedIndex(i);
+		void selectFeature(final int i) {
+			GuiActionRunner.execute(new GuiTask() {
+				@Override
+				protected void executeInEDT() {
+					_featureList.setSelectedIndex(i);
+				}
+			});
 
 		}
 
