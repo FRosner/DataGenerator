@@ -227,18 +227,21 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(_addFeatureButton)) {
-			String name = _gaussianNameField.getText();
-			double mean = Double.parseDouble(_gaussianMeanField.getText());
-			double sigma = Double.parseDouble(_gaussianSigmaField.getText());
-			final FeatureDefinition featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean,
-					sigma));
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
-				}
-			}).start();
-			_featureListModel.addElement(featureDefinition.getName());
+			if (NameVerifier.verify(_gaussianNameField) & DoubleVerifier.verify(_gaussianMeanField)
+					& DoubleVerifier.verify(_gaussianSigmaField)) {
+				String name = _gaussianNameField.getText();
+				double mean = Double.parseDouble(_gaussianMeanField.getText());
+				double sigma = Double.parseDouble(_gaussianSigmaField.getText());
+				final FeatureDefinition featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean,
+						sigma));
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
+					}
+				}).start();
+				_featureListModel.addElement(featureDefinition.getName());
+			}
 		} else if (e.getSource().equals(_removeFeatureButton)) {
 			final int selected = _featureList.getSelectedIndex();
 			if (selected > -1) {
@@ -345,4 +348,5 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final TestUtils testUtils() {
 		return _testUtils;
 	}
+
 }
