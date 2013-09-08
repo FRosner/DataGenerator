@@ -230,8 +230,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			String name = _gaussianNameField.getText();
 			double mean = Double.parseDouble(_gaussianMeanField.getText());
 			double sigma = Double.parseDouble(_gaussianSigmaField.getText());
-			FeatureDefinition featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean, sigma));
-			DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
+			final FeatureDefinition featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean,
+					sigma));
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
+				}
+			}).start();
 			_featureListModel.addElement(featureDefinition.getName());
 		} else if (e.getSource().equals(_removeFeatureButton)) {
 			int selected = _featureList.getSelectedIndex();
