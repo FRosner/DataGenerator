@@ -90,12 +90,7 @@ public class SwingMenuGuiTest {
 		_testFrame.textBox(SwingMenu.TestUtils.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
 		_testFrame.textBox(SwingMenu.TestUtils.FEATURE_MEAN_FIELD_NAME).enterText("0");
 		_testFrame.textBox(SwingMenu.TestUtils.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() {
-				_frame.testUtils().clickAddFeatureButton();
-			}
-		});
+		_frame.testUtils().clickAddFeatureButton();
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().get(0)).isEqualTo("Feature 1");
 
 		GuiActionRunner.execute(new GuiTask() {
@@ -104,12 +99,7 @@ public class SwingMenuGuiTest {
 				_frame.testUtils().selectFeature(0);
 			}
 		});
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() {
-				_frame.testUtils().clickRemoveFeatureButton();
-			}
-		});
+		_frame.testUtils().clickRemoveFeatureButton();
 		assertThat(_frame.testUtils().getFeatureDefinitionListModel().size()).isEqualTo(0);
 	}
 
@@ -142,12 +132,7 @@ public class SwingMenuGuiTest {
 				}
 			}
 		}).start();
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() {
-				_frame.testUtils().clickExportFileDialogButton();
-			}
-		});
+		_frame.testUtils().clickExportFileDialogButton();
 		assertThat(_frame.testUtils().getExportFileField().getText()).isEqualTo("t");
 	}
 

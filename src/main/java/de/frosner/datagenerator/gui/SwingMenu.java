@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
+import org.fest.swing.edt.GuiActionRunner;
+import org.fest.swing.edt.GuiTask;
+
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
@@ -277,20 +280,30 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			return _exportFileDialog;
 		}
 
+		private void clickButton(final JButton button) {
+			GuiActionRunner.execute(new GuiTask() {
+				@Override
+				protected void executeInEDT() {
+					actionPerformed(new ActionEvent(button, 1, ""));
+				}
+			});
+		}
+
 		void clickAddFeatureButton() {
-			actionPerformed(new ActionEvent(_addFeatureButton, 1, ""));
+			clickButton(_addFeatureButton);
 		}
 
 		void clickRemoveFeatureButton() {
-			actionPerformed(new ActionEvent(_removeFeatureButton, 1, ""));
+			clickButton(_removeFeatureButton);
 		}
 
 		void clickExportFileDialogButton() {
-			actionPerformed(new ActionEvent(_exportFileButton, 1, ""));
+			clickButton(_exportFileButton);
 		}
 
 		void selectFeature(int i) {
 			_featureList.setSelectedIndex(i);
+
 		}
 
 		DefaultListModel getFeatureDefinitionListModel() {
