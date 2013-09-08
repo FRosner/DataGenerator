@@ -240,9 +240,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			}).start();
 			_featureListModel.addElement(featureDefinition.getName());
 		} else if (e.getSource().equals(_removeFeatureButton)) {
-			int selected = _featureList.getSelectedIndex();
+			final int selected = _featureList.getSelectedIndex();
 			if (selected > -1) {
-				DataGeneratorService.INSTANCE.removeFeatureDefinition(selected);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						DataGeneratorService.INSTANCE.removeFeatureDefinition(selected);
+					}
+				}).start();
 				_featureListModel.remove(selected);
 			}
 		} else if (e.getSource().equals(_exportFileButton)) {
