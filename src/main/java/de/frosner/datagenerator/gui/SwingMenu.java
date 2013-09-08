@@ -255,9 +255,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
 			}
 		} else if (e.getSource().equals(_generateDataButton)) {
-			int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
-			File exportFile = _exportFileDialog.getSelectedFile();
-			DataGeneratorService.INSTANCE.generateData(numberOfInstances, exportFile);
+			final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
+			final File exportFile = _exportFileDialog.getSelectedFile();
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					DataGeneratorService.INSTANCE.generateData(numberOfInstances, exportFile);
+				}
+			}).start();
 		}
 	}
 
