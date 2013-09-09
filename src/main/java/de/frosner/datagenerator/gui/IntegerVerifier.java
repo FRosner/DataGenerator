@@ -26,7 +26,6 @@ public class IntegerVerifier {
 			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
 			return false;
 		}
-
 	}
 
 }
