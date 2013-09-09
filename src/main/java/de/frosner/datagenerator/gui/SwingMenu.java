@@ -243,6 +243,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					}
 				}).start();
 				_featureListModel.addElement(featureDefinition.getName());
+				NonEmptyListVerifier.verify(_featureList);
 			}
 		} else if (e.getSource().equals(_removeFeatureButton)) {
 			final int selected = _featureList.getSelectedIndex();
@@ -260,7 +261,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
 			}
 		} else if (e.getSource().equals(_generateDataButton)) {
-			if (IntegerVerifier.verify(_numberOfInstancesField)) {
+			if (IntegerVerifier.verify(_numberOfInstancesField) & NonEmptyListVerifier.verify(_featureList)) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
 				new Thread(new Runnable() {
