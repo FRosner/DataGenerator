@@ -14,17 +14,22 @@ public class DoubleVerifier {
 	}
 
 	public static boolean verify(JComponent input) {
+		Boolean verify;
 		Check.instanceOf(JTextField.class, input);
 		JTextField textField = (JTextField) input;
 		String text = textField.getText();
-		try {
-			Double.parseDouble(text);
+		String regex = "^\\-?[0-9]+(\\.[0-9]+(E\\-?[0-9]+)?)?$";
+
+		if (text.matches(regex)) {
 			textField.setBackground(Color.white);
-			return true;
-		} catch (NumberFormatException e) {
+			verify = true;
+		} else {
 			textField.setBackground(new Color(255, 200, 200));
-			return false;
+			verify = false;
 		}
+
+		return verify;
+
 	}
 
 }

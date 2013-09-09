@@ -50,6 +50,8 @@ public class DoubleVerifierTest {
 				assertThat(DoubleVerifier.verify(_doubleField)).isTrue();
 				_doubleField.setText("1.02E-10");
 				assertThat(DoubleVerifier.verify(_doubleField)).isTrue();
+				_doubleField.setText("1.02E10");
+				assertThat(DoubleVerifier.verify(_doubleField)).isTrue();
 			}
 		});
 	}
