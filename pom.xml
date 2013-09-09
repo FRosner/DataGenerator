@@ -37,7 +37,6 @@
 		<artifactId>fest-swing</artifactId>
 		<version>1.2</version>
 		<type>jar</type>
-		<scope>test</scope>
 	</dependency>
 	<dependency>
 		<groupId>net.sf.qualitycheck</groupId>
