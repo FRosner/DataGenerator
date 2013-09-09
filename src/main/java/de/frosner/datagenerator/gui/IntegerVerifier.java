@@ -14,7 +14,6 @@ public class IntegerVerifier {
 	}
 
 	public static boolean verify(JComponent input) {
-		Boolean verify;
 		Check.instanceOf(JTextField.class, input);
 		JTextField textField = (JTextField) input;
 		String text = textField.getText();
@@ -22,13 +21,11 @@ public class IntegerVerifier {
 
 		if (text.matches(regex)) {
 			textField.setBackground(Color.white);
-			verify = true;
+			return true;
 		} else {
 			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
-			verify = false;
+			return false;
 		}
-
-		return verify;
 
 	}
 

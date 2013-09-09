@@ -21,10 +21,11 @@ public class NameVerifier {
 		String text = textField.getText();
 		if (StringUtils.isBlank(text)) {
 			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
+			return false;
 		} else {
 			textField.setBackground(Color.white);
+			return true;
 		}
-		return !StringUtils.isBlank(text);
 	}
 
 }
