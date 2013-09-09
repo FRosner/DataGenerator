@@ -99,14 +99,19 @@ public class SwingMenuGuiTest {
 					robot.delay(500);
 					int delay = 50;
 					robot.keyPress(KeyEvent.VK_ALT);
+					robot.delay(delay);
 					robot.keyPress(KeyEvent.VK_N);
+					robot.delay(delay);
 					robot.keyRelease(KeyEvent.VK_ALT);
+					robot.delay(delay);
 					robot.keyRelease(KeyEvent.VK_N);
 					robot.delay(delay);
 					robot.keyPress(KeyEvent.VK_T);
+					robot.delay(delay);
 					robot.keyRelease(KeyEvent.VK_T);
 					robot.delay(delay);
 					robot.keyPress(KeyEvent.VK_ENTER);
+					robot.delay(delay);
 					robot.keyRelease(KeyEvent.VK_ENTER);
 				} catch (AWTException e) {
 					e.printStackTrace();
