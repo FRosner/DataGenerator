@@ -20,7 +20,7 @@ public class NameVerifier {
 		JTextField textField = (JTextField) input;
 		String text = textField.getText();
 		if (StringUtils.isBlank(text)) {
-			textField.setBackground(new Color(255, 200, 200));
+			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
 		} else {
 			textField.setBackground(Color.white);
 		}

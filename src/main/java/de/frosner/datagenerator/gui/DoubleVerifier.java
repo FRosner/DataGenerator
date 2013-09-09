@@ -24,7 +24,7 @@ public class DoubleVerifier {
 			textField.setBackground(Color.white);
 			verify = true;
 		} else {
-			textField.setBackground(new Color(255, 200, 200));
+			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
 			verify = false;
 		}
 

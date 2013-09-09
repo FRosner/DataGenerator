@@ -32,6 +32,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
 
+	public static final Color INVALID_INPUT_RED = new Color(255, 200, 200);
+
 	private static final int BUTTON_HEIGHT = 25;
 	private static final int LABEL_HEIGHT = 25;
 	private static final int LABEL_WIDTH = 100;
