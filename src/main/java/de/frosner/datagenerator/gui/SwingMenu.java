@@ -27,6 +27,7 @@ import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
 import de.frosner.datagenerator.util.ApplicationMetaData;
+import de.frosner.datagenerator.util.VisibleForTesting;
 
 public final class SwingMenu extends JFrame implements ActionListener {
 
@@ -274,7 +275,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		}
 	}
 
-	// visible for testing
+	@VisibleForTesting
 	final class TestUtils {
 
 		static final String FEATURE_NAME_FIELD_NAME = "Name";

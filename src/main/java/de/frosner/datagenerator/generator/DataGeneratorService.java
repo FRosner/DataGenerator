@@ -12,6 +12,7 @@ import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.TextAreaLogger;
+import de.frosner.datagenerator.util.VisibleForTesting;
 
 public final class DataGeneratorService {
 
@@ -19,7 +20,7 @@ public final class DataGeneratorService {
 
 	private final List<FeatureDefinition> _featureDefinitions = Lists.newArrayList();
 
-	// visible for testing
+	@VisibleForTesting
 	DataGeneratorService() {
 	}
 
@@ -47,7 +48,7 @@ public final class DataGeneratorService {
 		}
 	}
 
-	// visible for testing
+	@VisibleForTesting
 	List<FeatureDefinition> getFeatureDefinitions() {
 		return _featureDefinitions;
 	}
