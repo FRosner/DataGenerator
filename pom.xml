@@ -5,7 +5,7 @@
 	<groupId>de.frosner.datagenerator</groupId>
 	<artifactId>DataGenerator</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2.1-SNAPSHOT</version>
 	<name>DataGenerator</name>
 	<url>http://maven.apache.org</url>
 	
