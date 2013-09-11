@@ -1,6 +1,8 @@
 package de.frosner.datagenerator.gui;
 
 import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -8,6 +10,10 @@ import javax.swing.JTextField;
 import net.sf.qualitycheck.Check;
 
 public class IntegerVerifier {
+
+	static String _integerFormat = "^\\-?[0-9]+$";
+	static Pattern _pattern = Pattern.compile(_integerFormat);
+	static Matcher _matcher;
 
 	private IntegerVerifier() {
 		throw new UnsupportedOperationException();
@@ -17,9 +23,9 @@ public class IntegerVerifier {
 		Check.instanceOf(JTextField.class, input);
 		JTextField textField = (JTextField) input;
 		String text = textField.getText();
-		String regex = "^\\-?[0-9]+$";
+		_matcher = _pattern.matcher(text);
 
-		if (text.matches(regex)) {
+		if (_matcher.matches()) {
 			textField.setBackground(Color.white);
 			return true;
 		} else {
