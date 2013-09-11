@@ -17,12 +17,12 @@ public class NonEmptyListVerifier {
 		Check.instanceOf(JList.class, input);
 		JList list = (JList) input;
 
-		if (list.getModel().getSize() == 0) {
-			list.setBackground(SwingMenu.INVALID_INPUT_RED);
-			return false;
-		} else {
+		if (list.getModel().getSize() > 0) {
 			list.setBackground(Color.white);
 			return true;
+		} else {
+			list.setBackground(SwingMenu.INVALID_INPUT_RED);
+			return false;
 		}
 	}
 

@@ -19,12 +19,12 @@ public class NameVerifier {
 		Check.instanceOf(JTextField.class, input);
 		JTextField textField = (JTextField) input;
 		String text = textField.getText();
-		if (StringUtils.isBlank(text)) {
-			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
-			return false;
-		} else {
+		if (StringUtils.isNotBlank(text)) {
 			textField.setBackground(Color.white);
 			return true;
+		} else {
+			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
+			return false;
 		}
 	}
 
