@@ -1,0 +1,51 @@
+package de.frosner.datagenerator.gui;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.swing.edt.GuiActionRunner.execute;
+
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+
+import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
+import org.fest.swing.edt.GuiQuery;
+import org.fest.swing.edt.GuiTask;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+public class InputVerifierTest {
+
+	private JComponent _component;
+
+	@BeforeClass
+	public static void setUpOnce() {
+		FailOnThreadViolationRepaintManager.install();
+	}
+
+	@Before
+	public void initTextField() {
+		_component = execute(new GuiQuery<JComponent>() {
+			@SuppressWarnings("serial")
+			@Override
+			public JComponent executeInEDT() {
+				return new JTextField() {
+				};
+			}
+		});
+	}
+
+	@Test
+	public void testVerifyComponent() {
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				assertThat(_component.getBackground()).isEqualTo(InputVerifier.VALID_INPUT_WHITE);
+				InputVerifier.verifyComponent(_component, false);
+				assertThat(_component.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
+				InputVerifier.verifyComponent(_component, true);
+				assertThat(_component.getBackground()).isEqualTo(InputVerifier.VALID_INPUT_WHITE);
+			}
+		});
+	}
+
+}

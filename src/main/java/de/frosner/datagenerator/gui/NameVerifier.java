@@ -1,31 +1,32 @@
 package de.frosner.datagenerator.gui;
 
-import java.awt.Color;
+public final class NameVerifier extends InputVerifier {
 
-import javax.swing.JComponent;
-import javax.swing.JTextField;
+	private String _name;
 
-import net.sf.qualitycheck.Check;
+	public final static NameVerifier NO_NAME = new NameVerifier(false);
 
-import org.apache.commons.lang.StringUtils;
-
-public class NameVerifier {
-
-	private NameVerifier() {
-		throw new UnsupportedOperationException();
+	private NameVerifier(boolean isVerified) {
+		super(isVerified);
 	}
 
-	public static boolean verify(JComponent input) {
-		Check.instanceOf(JTextField.class, input);
-		JTextField textField = (JTextField) input;
-		String text = textField.getText();
-		if (StringUtils.isNotBlank(text)) {
-			textField.setBackground(Color.white);
-			return true;
-		} else {
-			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
-			return false;
+	public NameVerifier(String string) {
+		super(true);
+		_name = string;
+	}
+
+	public NameVerifier isNotLongerThan(int size) {
+		if (_verified) {
+			_verified = _name.length() <= size;
 		}
+		return this;
+	}
+
+	public NameVerifier isFileName() {
+		if (_verified) {
+			_verified = !_name.startsWith(" ") && !_name.endsWith(" ");
+		}
+		return this;
 	}
 
 }

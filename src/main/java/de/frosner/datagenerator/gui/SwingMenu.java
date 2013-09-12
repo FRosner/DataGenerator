@@ -1,5 +1,7 @@
 package de.frosner.datagenerator.gui;
 
+import static de.frosner.datagenerator.gui.InputVerifier.verifyComponent;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -32,8 +34,6 @@ import de.frosner.datagenerator.util.VisibleForTesting;
 public final class SwingMenu extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
-
-	public static final Color INVALID_INPUT_RED = new Color(255, 200, 200);
 
 	private static final int BUTTON_HEIGHT = 25;
 	private static final int LABEL_HEIGHT = 25;
@@ -230,8 +230,12 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(_addFeatureButton)) {
-			if (NameVerifier.verify(_gaussianNameField) & DoubleVerifier.verify(_gaussianMeanField)
-					& DoubleVerifier.verify(_gaussianSigmaField)) {
+			if (verifyComponent(_gaussianNameField, InputVerifier.isName(_gaussianNameField.getText()).isNotLongerThan(
+					30).isVerified())
+					& verifyComponent(_gaussianMeanField, InputVerifier.isDouble(_gaussianMeanField.getText())
+							.isVerified())
+					& verifyComponent(_gaussianSigmaField, InputVerifier.isDouble(_gaussianSigmaField.getText())
+							.isPositive().isVerified())) {
 				String name = _gaussianNameField.getText();
 				double mean = Double.parseDouble(_gaussianMeanField.getText());
 				double sigma = Double.parseDouble(_gaussianSigmaField.getText());
@@ -244,7 +248,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					}
 				}).start();
 				_featureListModel.addElement(featureDefinition.getName());
-				NonEmptyListVerifier.verify(_featureList);
+				verifyComponent(_featureList, _featureListModel.getSize() > 0);
 			}
 		} else if (e.getSource().equals(_removeFeatureButton)) {
 			final int selected = _featureList.getSelectedIndex();
@@ -260,11 +264,15 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (e.getSource().equals(_exportFileButton)) {
 			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
-				NameVerifier.verify(_exportFileField);
+				verifyComponent(_exportFileField, InputVerifier.isName(_exportFileField.getText()).isFileName()
+						.isVerified());
 			}
 		} else if (e.getSource().equals(_generateDataButton)) {
-			if (IntegerVerifier.verify(_numberOfInstancesField) & NonEmptyListVerifier.verify(_featureList)
-					& NameVerifier.verify(_exportFileField)) {
+			if (verifyComponent(_numberOfInstancesField, InputVerifier.isInteger(_numberOfInstancesField.getText())
+					.isPositive().isVerified())
+					& verifyComponent(_featureList, _featureListModel.getSize() > 0)
+					& verifyComponent(_exportFileField, InputVerifier.isName(_exportFileField.getText()).isFileName()
+							.isVerified())) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
 				new Thread(new Runnable() {

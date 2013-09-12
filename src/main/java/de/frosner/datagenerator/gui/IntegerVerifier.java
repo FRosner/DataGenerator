@@ -1,37 +1,25 @@
 package de.frosner.datagenerator.gui;
 
-import java.awt.Color;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+public final class IntegerVerifier extends InputVerifier {
 
-import javax.swing.JComponent;
-import javax.swing.JTextField;
+	private int _integer;
 
-import net.sf.qualitycheck.Check;
+	public final static IntegerVerifier NO_INTEGER = new IntegerVerifier(false);
 
-public class IntegerVerifier {
-
-	static String _integerFormat = "^\\-?[0-9]+$";
-	static Pattern _pattern = Pattern.compile(_integerFormat);
-	static Matcher _matcher;
-
-	private IntegerVerifier() {
-		throw new UnsupportedOperationException();
+	private IntegerVerifier(boolean isVerified) {
+		super(isVerified);
 	}
 
-	public static boolean verify(JComponent input) {
-		Check.instanceOf(JTextField.class, input);
-		JTextField textField = (JTextField) input;
-		String text = textField.getText();
-		_matcher = _pattern.matcher(text);
+	public IntegerVerifier(int integer) {
+		super(true);
+		_integer = integer;
+	}
 
-		if (_matcher.matches()) {
-			textField.setBackground(Color.white);
-			return true;
-		} else {
-			textField.setBackground(SwingMenu.INVALID_INPUT_RED);
-			return false;
+	public IntegerVerifier isPositive() {
+		if (_verified) {
+			_verified = _integer > 0;
 		}
+		return this;
 	}
 
 }
