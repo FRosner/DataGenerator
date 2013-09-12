@@ -44,7 +44,11 @@ public abstract class InputVerifier {
 
 	public static DoubleVerifier isDouble(String input) {
 		try {
-			return new DoubleVerifier(Double.parseDouble(input));
+			Double doubleInput = Double.parseDouble(input);
+			if (doubleInput.isNaN() || doubleInput.isInfinite()) {
+				return DoubleVerifier.NO_DOUBLE;
+			}
+			return new DoubleVerifier(doubleInput);
 		} catch (NumberFormatException e) {
 			return DoubleVerifier.NO_DOUBLE;
 		}

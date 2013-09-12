@@ -10,11 +10,13 @@ public class DoubleVerifierTest {
 	public void testIsDouble() {
 		assertThat(InputVerifier.isDouble(" ").isVerified()).isFalse();
 		assertThat(InputVerifier.isDouble("x").isVerified()).isFalse();
+		assertThat(InputVerifier.isDouble("1.7976931348623157E309").isVerified()).isFalse();
 		assertThat(InputVerifier.isDouble("1").isVerified()).isTrue();
 		assertThat(InputVerifier.isDouble("1.0").isVerified()).isTrue();
 		assertThat(InputVerifier.isDouble("-1.0").isVerified()).isTrue();
 		assertThat(InputVerifier.isDouble("1.02E-10").isVerified()).isTrue();
 		assertThat(InputVerifier.isDouble("1.02E10").isVerified()).isTrue();
+		assertThat(InputVerifier.isDouble("1.7976931348623157E308").isVerified()).isTrue();
 	}
 
 	@Test

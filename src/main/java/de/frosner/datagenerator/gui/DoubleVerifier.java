@@ -10,9 +10,9 @@ public final class DoubleVerifier extends InputVerifier {
 		super(isVerified);
 	}
 
-	public DoubleVerifier(double integer) {
+	public DoubleVerifier(double doubleValue) {
 		super(true);
-		_double = integer;
+		_double = doubleValue;
 	}
 
 	public DoubleVerifier isPositive() {
