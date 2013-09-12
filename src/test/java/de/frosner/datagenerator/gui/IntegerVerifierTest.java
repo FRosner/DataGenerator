@@ -8,25 +8,25 @@ public class IntegerVerifierTest {
 
 	@Test
 	public void testIsInteger() {
-		assertThat(InputVerifier.isInteger("").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger(" ").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("x").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("-1.0").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("1.02E-10").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("1.02E10").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("2147483648").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("2147483648").isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("1").isVerified()).isTrue();
-		assertThat(InputVerifier.isInteger("-11").isVerified()).isTrue();
-		assertThat(InputVerifier.isInteger("2147483647").isVerified()).isTrue();
-		assertThat(InputVerifier.isInteger("-2147483648").isVerified()).isTrue();
+		assertThat(InputVerifier.isInteger("").verify()).isFalse();
+		assertThat(InputVerifier.isInteger(" ").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("x").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("-1.0").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("1.02E-10").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("1.02E10").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("2147483648").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("2147483648").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("1").verify()).isTrue();
+		assertThat(InputVerifier.isInteger("-11").verify()).isTrue();
+		assertThat(InputVerifier.isInteger("2147483647").verify()).isTrue();
+		assertThat(InputVerifier.isInteger("-2147483648").verify()).isTrue();
 	}
 
 	@Test
 	public void testIsPositive() {
-		assertThat(InputVerifier.isInteger("1").isPositive().isVerified()).isTrue();
-		assertThat(InputVerifier.isInteger("0").isPositive().isVerified()).isFalse();
-		assertThat(InputVerifier.isInteger("-1").isPositive().isVerified()).isFalse();
+		assertThat(InputVerifier.isInteger("1").isPositive().verify()).isTrue();
+		assertThat(InputVerifier.isInteger("0").isPositive().verify()).isFalse();
+		assertThat(InputVerifier.isInteger("-1").isPositive().verify()).isFalse();
 	}
 
 }

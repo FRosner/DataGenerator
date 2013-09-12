@@ -8,22 +8,22 @@ public class DoubleVerifierTest {
 
 	@Test
 	public void testIsDouble() {
-		assertThat(InputVerifier.isDouble(" ").isVerified()).isFalse();
-		assertThat(InputVerifier.isDouble("x").isVerified()).isFalse();
-		assertThat(InputVerifier.isDouble("1.7976931348623157E309").isVerified()).isFalse();
-		assertThat(InputVerifier.isDouble("1").isVerified()).isTrue();
-		assertThat(InputVerifier.isDouble("1.0").isVerified()).isTrue();
-		assertThat(InputVerifier.isDouble("-1.0").isVerified()).isTrue();
-		assertThat(InputVerifier.isDouble("1.02E-10").isVerified()).isTrue();
-		assertThat(InputVerifier.isDouble("1.02E10").isVerified()).isTrue();
-		assertThat(InputVerifier.isDouble("1.7976931348623157E308").isVerified()).isTrue();
+		assertThat(InputVerifier.isDouble(" ").verify()).isFalse();
+		assertThat(InputVerifier.isDouble("x").verify()).isFalse();
+		assertThat(InputVerifier.isDouble("1.7976931348623157E309").verify()).isFalse();
+		assertThat(InputVerifier.isDouble("1").verify()).isTrue();
+		assertThat(InputVerifier.isDouble("1.0").verify()).isTrue();
+		assertThat(InputVerifier.isDouble("-1.0").verify()).isTrue();
+		assertThat(InputVerifier.isDouble("1.02E-10").verify()).isTrue();
+		assertThat(InputVerifier.isDouble("1.02E10").verify()).isTrue();
+		assertThat(InputVerifier.isDouble("1.7976931348623157E308").verify()).isTrue();
 	}
 
 	@Test
 	public void testIsPositive() {
-		assertThat(InputVerifier.isDouble("1.0").isPositive().isVerified()).isTrue();
-		assertThat(InputVerifier.isDouble("0").isPositive().isVerified()).isFalse();
-		assertThat(InputVerifier.isDouble("-1.0").isPositive().isVerified()).isFalse();
+		assertThat(InputVerifier.isDouble("1.0").isPositive().verify()).isTrue();
+		assertThat(InputVerifier.isDouble("0").isPositive().verify()).isFalse();
+		assertThat(InputVerifier.isDouble("-1.0").isPositive().verify()).isFalse();
 	}
 
 }

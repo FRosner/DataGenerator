@@ -21,7 +21,7 @@ public abstract class InputVerifier {
 		_verified = isVerified;
 	}
 
-	public boolean isVerified() {
+	public boolean verify() {
 		return _verified;
 	}
 

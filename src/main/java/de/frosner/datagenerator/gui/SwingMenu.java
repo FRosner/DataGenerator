@@ -231,11 +231,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(_addFeatureButton)) {
 			if (verifyComponent(_gaussianNameField, InputVerifier.isName(_gaussianNameField.getText()).isNotLongerThan(
-					30).isVerified())
+					30).verify())
 					& verifyComponent(_gaussianMeanField, InputVerifier.isDouble(_gaussianMeanField.getText())
-							.isVerified())
+							.verify())
 					& verifyComponent(_gaussianSigmaField, InputVerifier.isDouble(_gaussianSigmaField.getText())
-							.isPositive().isVerified())) {
+							.isPositive().verify())) {
 				String name = _gaussianNameField.getText();
 				double mean = Double.parseDouble(_gaussianMeanField.getText());
 				double sigma = Double.parseDouble(_gaussianSigmaField.getText());
@@ -265,14 +265,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
 				verifyComponent(_exportFileField, InputVerifier.isName(_exportFileField.getText()).isFileName()
-						.isVerified());
+						.verify());
 			}
 		} else if (e.getSource().equals(_generateDataButton)) {
 			if (verifyComponent(_numberOfInstancesField, InputVerifier.isInteger(_numberOfInstancesField.getText())
-					.isPositive().isVerified())
+					.isPositive().verify())
 					& verifyComponent(_featureList, _featureListModel.getSize() > 0)
 					& verifyComponent(_exportFileField, InputVerifier.isName(_exportFileField.getText()).isFileName()
-							.isVerified())) {
+							.verify())) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
 				new Thread(new Runnable() {
