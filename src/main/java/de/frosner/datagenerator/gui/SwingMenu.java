@@ -22,14 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
-import org.fest.swing.edt.GuiActionRunner;
-import org.fest.swing.edt.GuiTask;
-
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
 import de.frosner.datagenerator.util.ApplicationMetaData;
-import de.frosner.datagenerator.util.VisibleForTesting;
 
 public final class SwingMenu extends JFrame implements ActionListener {
 
@@ -47,30 +43,30 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	private final JPanel _panel = new JPanel();
 
-	private final JButton _addFeatureButton = new JButton("Add Feature");
-	private final JButton _removeFeatureButton = new JButton("Remove Feature");
+	final JButton _addFeatureButton = new JButton("Add Feature");
+	final JButton _removeFeatureButton = new JButton("Remove Feature");
 	private final JButton _generateDataButton = new JButton("Generate Data");
 
 	private final JLabel _gaussianNameLabel = new JLabel("Name", JLabel.RIGHT);
-	private final JTextField _gaussianNameField = new JTextField();
+	final JTextField _gaussianNameField = new JTextField();
 	private final JLabel _gaussianMeanLabel = new JLabel("Mean", JLabel.RIGHT);
-	private final JTextField _gaussianMeanField = new JTextField();
+	final JTextField _gaussianMeanField = new JTextField();
 	private final JLabel _gaussianSigmaLabel = new JLabel("Sigma", JLabel.RIGHT);
-	private final JTextField _gaussianSigmaField = new JTextField();
+	final JTextField _gaussianSigmaField = new JTextField();
 
 	private final JLabel _numberOfInstancesLabel = new JLabel("#Instances", JLabel.RIGHT);
 	private final JTextField _numberOfInstancesField = new JTextField();
 	private final JLabel _exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
-	private final JFileChooser _exportFileDialog = new JFileChooser();
-	private final JButton _exportFileButton = new JButton(".");
-	private final JTextField _exportFileField = new JTextField();
+	final JFileChooser _exportFileDialog = new JFileChooser();
+	final JButton _exportFileButton = new JButton(".");
+	final JTextField _exportFileField = new JTextField();
 
-	private final DefaultListModel _featureListModel = new DefaultListModel();
-	private final JList _featureList = new JList(_featureListModel);
+	final DefaultListModel _featureListModel = new DefaultListModel();
+	final JList _featureList = new JList(_featureListModel);
 
 	private final JProgressBar _progressBar = new JProgressBar(0, 100);
 
-	private final JTextArea _logAreaTextArea = new JTextArea();
+	final JTextArea _logAreaTextArea = new JTextArea();
 	private final JScrollPane _logArea = new JScrollPane(_logAreaTextArea);
 
 	public SwingMenu() {
@@ -130,17 +126,17 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private void initGaussianFeatureMask() {
 		_gaussianNameLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianNameField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		_gaussianNameField.setName(TestUtils.FEATURE_NAME_FIELD_NAME);
+		_gaussianNameField.setName(SwingMenuTestUtil.FEATURE_NAME_FIELD_NAME);
 		_panel.add(_gaussianNameLabel);
 		_panel.add(_gaussianNameField);
 		_gaussianMeanLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianMeanField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		_gaussianMeanField.setName(TestUtils.FEATURE_MEAN_FIELD_NAME);
+		_gaussianMeanField.setName(SwingMenuTestUtil.FEATURE_MEAN_FIELD_NAME);
 		_panel.add(_gaussianMeanLabel);
 		_panel.add(_gaussianMeanField);
 		_gaussianSigmaLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianSigmaField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		_gaussianSigmaField.setName(TestUtils.FEATURE_SIGMA_FIELD_NAME);
+		_gaussianSigmaField.setName(SwingMenuTestUtil.FEATURE_SIGMA_FIELD_NAME);
 		_panel.add(_gaussianSigmaLabel);
 		_panel.add(_gaussianSigmaField);
 	}
@@ -148,7 +144,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private void initFeatureList() {
 		_featureList.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT * 3 + ROW_MARGIN * 2);
 		_featureList.setBorder(new LineBorder(Color.gray, 1));
-		_featureList.setName(TestUtils.FEATURE_LIST_NAME);
+		_featureList.setName(SwingMenuTestUtil.FEATURE_LIST_NAME);
 		_panel.add(_featureList);
 	}
 
@@ -174,10 +170,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_exportFileButton.setBounds(-1, -1, TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_exportFileButton.addActionListener(this);
-		_exportFileButton.setName(TestUtils.EXPORT_FILE_BUTTON_NAME);
+		_exportFileButton.setName(SwingMenuTestUtil.EXPORT_FILE_BUTTON_NAME);
 		_exportFileField.setBounds(-1, -1, TEXT_FIELD_WIDTH - TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_exportFileField.setEditable(false);
-		_exportFileDialog.setName(TestUtils.EXPORT_FILE_CHOOSER_NAME);
+		_exportFileDialog.setName(SwingMenuTestUtil.EXPORT_FILE_CHOOSER_NAME);
 		_panel.add(_numberOfInstancesLabel);
 		_panel.add(_numberOfInstancesField);
 		_panel.add(_exportFileLabel);
@@ -232,8 +228,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		if (e.getSource().equals(_addFeatureButton)) {
 			if (verifyComponent(_gaussianNameField, InputVerifier.isName(_gaussianNameField.getText()).isNotLongerThan(
 					30).verify())
-					& verifyComponent(_gaussianMeanField, InputVerifier.isDouble(_gaussianMeanField.getText())
-							.verify())
+					& verifyComponent(_gaussianMeanField, InputVerifier.isDouble(_gaussianMeanField.getText()).verify())
 					& verifyComponent(_gaussianSigmaField, InputVerifier.isDouble(_gaussianSigmaField.getText())
 							.isPositive().verify())) {
 				String name = _gaussianNameField.getText();
@@ -283,90 +278,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				}).start();
 			}
 		}
-	}
-
-	@VisibleForTesting
-	final class TestUtils {
-
-		static final String FEATURE_NAME_FIELD_NAME = "Name";
-		static final String FEATURE_MEAN_FIELD_NAME = "Mean";
-		static final String FEATURE_SIGMA_FIELD_NAME = "Sigma";
-		static final String FEATURE_LIST_NAME = "Features";
-		static final String EXPORT_FILE_CHOOSER_NAME = "ExportChooser";
-		static final String EXPORT_FILE_BUTTON_NAME = "ExportButton";
-
-		JTextField getGaussianNameField() {
-			return _gaussianNameField;
-		}
-
-		JTextField getGaussianMeanField() {
-			return _gaussianMeanField;
-		}
-
-		JTextField getGaussianSigmaField() {
-			return _gaussianSigmaField;
-		}
-
-		JTextField getExportFileField() {
-			return _exportFileField;
-		}
-
-		JFileChooser getExportFileChooser() {
-			return _exportFileDialog;
-		}
-
-		private void clickButton(final JButton button) {
-			GuiActionRunner.execute(new GuiTask() {
-				@Override
-				protected void executeInEDT() {
-					actionPerformed(new ActionEvent(button, 1, ""));
-				}
-			});
-		}
-
-		void clickAddFeatureButton() {
-			clickButton(_addFeatureButton);
-		}
-
-		void clickRemoveFeatureButton() {
-			clickButton(_removeFeatureButton);
-		}
-
-		void clickExportFileDialogButton() {
-			clickButton(_exportFileButton);
-		}
-
-		void selectFeature(final int i) {
-			GuiActionRunner.execute(new GuiTask() {
-				@Override
-				protected void executeInEDT() {
-					_featureList.setSelectedIndex(i);
-				}
-			});
-
-		}
-
-		DefaultListModel getFeatureDefinitionListModel() {
-			return _featureListModel;
-		}
-
-		JList getFeatureDefinitionList() {
-			return _featureList;
-		}
-
-		String getLog() {
-			return _logAreaTextArea.getText();
-		}
-
-		void selectFile(File file) {
-		}
-
-	}
-
-	private final TestUtils _testUtils = new TestUtils();
-
-	final TestUtils testUtils() {
-		return _testUtils;
 	}
 
 }
