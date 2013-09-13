@@ -1,6 +1,7 @@
 package de.frosner.datagenerator.gui.main;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -40,7 +41,15 @@ public final class SwingMenuTestUtil {
 				_menu._featureList.setSelectedIndex(i);
 			}
 		});
+	}
 
+	void selectFile(final File file) {
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu._exportFileDialog.setSelectedFile(file);
+			}
+		});
 	}
 
 	void enterText(final JTextField textField, final String text) {

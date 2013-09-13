@@ -5,6 +5,7 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
@@ -64,6 +65,18 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat(_frame._gaussianSigmaField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
+	}
+
+	@Test
+	public void testVerifyFeatureList() {
+		File selectedFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
+		assertThat(selectedFile).doesNotExist();
+		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
+		_frameTestUtil.selectFile(selectedFile);
+
+		_frameTestUtil.clickButton(_frame._generateDataButton);
+		assertThat(selectedFile).doesNotExist();
+		assertThat(_frame._featureList.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
 	@Test

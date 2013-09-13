@@ -29,6 +29,7 @@ import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
 import de.frosner.datagenerator.util.ApplicationMetaData;
+import de.frosner.datagenerator.util.VisibleForTesting;
 
 public final class SwingMenu extends JFrame implements ActionListener {
 
@@ -53,29 +54,43 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	private final JPanel _panel = new JPanel();
 
+	@VisibleForTesting
 	final JButton _addFeatureButton = new JButton("Add Feature");
+	@VisibleForTesting
 	final JButton _removeFeatureButton = new JButton("Remove Feature");
-	private final JButton _generateDataButton = new JButton("Generate Data");
+	@VisibleForTesting
+	final JButton _generateDataButton = new JButton("Generate Data");
 
 	private final JLabel _gaussianNameLabel = new JLabel("Name", JLabel.RIGHT);
+	@VisibleForTesting
 	final JTextField _gaussianNameField = new JTextField();
 	private final JLabel _gaussianMeanLabel = new JLabel("Mean", JLabel.RIGHT);
+	@VisibleForTesting
 	final JTextField _gaussianMeanField = new JTextField();
 	private final JLabel _gaussianSigmaLabel = new JLabel("Sigma", JLabel.RIGHT);
+	@VisibleForTesting
 	final JTextField _gaussianSigmaField = new JTextField();
 
 	private final JLabel _numberOfInstancesLabel = new JLabel("#Instances", JLabel.RIGHT);
-	private final JTextField _numberOfInstancesField = new JTextField();
+	@VisibleForTesting
+	final JTextField _numberOfInstancesField = new JTextField();
 	private final JLabel _exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
+	@VisibleForTesting
 	final JFileChooser _exportFileDialog = new JFileChooser();
+	@VisibleForTesting
 	final JButton _exportFileButton = new JButton(".");
+	@VisibleForTesting
 	final JTextField _exportFileField = new JTextField();
 
+	@VisibleForTesting
 	final DefaultListModel _featureListModel = new DefaultListModel();
+	@VisibleForTesting
 	final JList _featureList = new JList(_featureListModel);
 
-	private final JProgressBar _progressBar = new JProgressBar(0, 100);
+	@VisibleForTesting
+	final JProgressBar _progressBar = new JProgressBar(0, 100);
 
+	@VisibleForTesting
 	final JTextArea _logAreaTextArea = new JTextArea();
 	private final JScrollPane _logArea = new JScrollPane(_logAreaTextArea);
 
