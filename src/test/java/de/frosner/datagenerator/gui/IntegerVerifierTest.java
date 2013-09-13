@@ -15,7 +15,7 @@ public class IntegerVerifierTest {
 		assertThat(InputVerifier.isInteger("1.02E-10").verify()).isFalse();
 		assertThat(InputVerifier.isInteger("1.02E10").verify()).isFalse();
 		assertThat(InputVerifier.isInteger("2147483648").verify()).isFalse();
-		assertThat(InputVerifier.isInteger("2147483648").verify()).isFalse();
+		assertThat(InputVerifier.isInteger("-2147483649").verify()).isFalse();
 		assertThat(InputVerifier.isInteger("1").verify()).isTrue();
 		assertThat(InputVerifier.isInteger("-11").verify()).isTrue();
 		assertThat(InputVerifier.isInteger("2147483647").verify()).isTrue();
