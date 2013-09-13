@@ -80,6 +80,21 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
+	public void testVerifyNumberOfInstancesList() {
+		File selectedFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
+		assertThat(selectedFile).doesNotExist();
+		_frameTestUtil.selectFile(selectedFile);
+		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.clickButton(_frame._addFeatureButton);
+
+		_frameTestUtil.clickButton(_frame._generateDataButton);
+		assertThat(selectedFile).doesNotExist();
+		assertThat(_frame._numberOfInstancesField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
+	}
+
+	@Test
 	public void testAddAndRemoveFeature() throws InterruptedException {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
