@@ -9,15 +9,12 @@ import java.awt.event.KeyEvent;
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
-import org.fest.swing.fixture.FrameFixture;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class SwingMenuGuiTest {
 
-	private FrameFixture _testFrame;
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
 
@@ -35,10 +32,6 @@ public class SwingMenuGuiTest {
 			}
 		});
 		_frameTestUtil = new SwingMenuTestUtil(_frame);
-	}
-
-	@After
-	public void tearDown() {
 	}
 
 	@Test
