@@ -95,6 +95,18 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
+	public void testVerifyExportFile() {
+		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
+
+		_frameTestUtil.clickButton(_frame._generateDataButton);
+		assertThat(_frame._exportFileField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
+	}
+
+	@Test
 	public void testAddAndRemoveFeature() throws InterruptedException {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
