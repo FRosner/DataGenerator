@@ -15,9 +15,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.frosner.datagenerator.gui.main.SwingMenu;
-import de.frosner.datagenerator.gui.main.TextAreaLogger;
-
 public class SwingMenuGuiTest {
 
 	private FrameFixture _testFrame;
@@ -50,30 +47,30 @@ public class SwingMenuGuiTest {
 
 	@Test
 	public void testVerifyFeatureName() {
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_MEAN_FIELD_NAME).enterText("0");
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("0");
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
 
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_NAME_FIELD_NAME).enterText("");
+		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("");
 		_testUtils.clickAddFeatureButton();
 		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
 	}
 
 	@Test
 	public void testVerifyFeatureMean() {
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
+		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
 
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_MEAN_FIELD_NAME).enterText("");
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("");
 		_testUtils.clickAddFeatureButton();
 		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
 	}
 
 	@Test
 	public void testVerifyFeatureSigma() {
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_MEAN_FIELD_NAME).enterText("1");
+		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("1");
 
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_SIGMA_FIELD_NAME).enterText("");
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("");
 		_testUtils.clickAddFeatureButton();
 		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
 	}
@@ -81,9 +78,9 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testAddAndRemoveFeature() throws InterruptedException {
 		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_MEAN_FIELD_NAME).enterText("0");
-		_testFrame.textBox(SwingMenuTestUtil.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
+		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
+		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("0");
+		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
 		_testUtils.clickAddFeatureButton();
 		assertThat(_testUtils.getFeatureDefinitionListModel().get(0)).isEqualTo("Feature 1");
 

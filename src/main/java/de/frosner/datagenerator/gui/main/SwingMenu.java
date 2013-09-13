@@ -44,6 +44,13 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private static final int PANEL_HEIGHT = 500;
 	private static final int PANEL_WIDTH = 500;
 
+	public static final String FEATURE_NAME_FIELD_NAME = "Name";
+	public static final String FEATURE_MEAN_FIELD_NAME = "Mean";
+	public static final String FEATURE_SIGMA_FIELD_NAME = "Sigma";
+	public static final String FEATURE_LIST_NAME = "Features";
+	public static final String EXPORT_FILE_CHOOSER_NAME = "ExportChooser";
+	public static final String EXPORT_FILE_BUTTON_NAME = "ExportButton";
+
 	private final JPanel _panel = new JPanel();
 
 	final JButton _addFeatureButton = new JButton("Add Feature");
@@ -129,17 +136,17 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private void initGaussianFeatureMask() {
 		_gaussianNameLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianNameField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		_gaussianNameField.setName(SwingMenuTestUtil.FEATURE_NAME_FIELD_NAME);
+		_gaussianNameField.setName(FEATURE_NAME_FIELD_NAME);
 		_panel.add(_gaussianNameLabel);
 		_panel.add(_gaussianNameField);
 		_gaussianMeanLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianMeanField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		_gaussianMeanField.setName(SwingMenuTestUtil.FEATURE_MEAN_FIELD_NAME);
+		_gaussianMeanField.setName(FEATURE_MEAN_FIELD_NAME);
 		_panel.add(_gaussianMeanLabel);
 		_panel.add(_gaussianMeanField);
 		_gaussianSigmaLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_gaussianSigmaField.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		_gaussianSigmaField.setName(SwingMenuTestUtil.FEATURE_SIGMA_FIELD_NAME);
+		_gaussianSigmaField.setName(FEATURE_SIGMA_FIELD_NAME);
 		_panel.add(_gaussianSigmaLabel);
 		_panel.add(_gaussianSigmaField);
 	}
@@ -147,7 +154,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private void initFeatureList() {
 		_featureList.setBounds(-1, -1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT * 3 + ROW_MARGIN * 2);
 		_featureList.setBorder(new LineBorder(Color.gray, 1));
-		_featureList.setName(SwingMenuTestUtil.FEATURE_LIST_NAME);
+		_featureList.setName(FEATURE_LIST_NAME);
 		_panel.add(_featureList);
 	}
 
@@ -173,10 +180,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileLabel.setBounds(-1, -1, LABEL_WIDTH, LABEL_HEIGHT);
 		_exportFileButton.setBounds(-1, -1, TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_exportFileButton.addActionListener(this);
-		_exportFileButton.setName(SwingMenuTestUtil.EXPORT_FILE_BUTTON_NAME);
+		_exportFileButton.setName(EXPORT_FILE_BUTTON_NAME);
 		_exportFileField.setBounds(-1, -1, TEXT_FIELD_WIDTH - TEXT_FIELD_HEIGHT, TEXT_FIELD_HEIGHT);
 		_exportFileField.setEditable(false);
-		_exportFileDialog.setName(SwingMenuTestUtil.EXPORT_FILE_CHOOSER_NAME);
+		_exportFileDialog.setName(EXPORT_FILE_CHOOSER_NAME);
 		_panel.add(_numberOfInstancesLabel);
 		_panel.add(_numberOfInstancesField);
 		_panel.add(_exportFileLabel);

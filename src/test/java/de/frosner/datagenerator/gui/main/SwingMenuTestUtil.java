@@ -11,18 +11,9 @@ import javax.swing.JTextField;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 
-import de.frosner.datagenerator.gui.main.SwingMenu;
-
 public final class SwingMenuTestUtil {
 
 	private SwingMenu _menu;
-
-	public static final String FEATURE_NAME_FIELD_NAME = "Name";
-	public static final String FEATURE_MEAN_FIELD_NAME = "Mean";
-	public static final String FEATURE_SIGMA_FIELD_NAME = "Sigma";
-	public static final String FEATURE_LIST_NAME = "Features";
-	public static final String EXPORT_FILE_CHOOSER_NAME = "ExportChooser";
-	public static final String EXPORT_FILE_BUTTON_NAME = "ExportButton";
 
 	public SwingMenuTestUtil(SwingMenu swingMenu) {
 		_menu = swingMenu;
