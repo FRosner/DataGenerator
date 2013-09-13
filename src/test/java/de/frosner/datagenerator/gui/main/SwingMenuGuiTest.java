@@ -19,7 +19,7 @@ public class SwingMenuGuiTest {
 
 	private FrameFixture _testFrame;
 	private SwingMenu _frame;
-	private SwingMenuTestUtil _testUtils;
+	private SwingMenuTestUtil _frameTestUtil;
 
 	@BeforeClass
 	public static void setUpOnce() {
@@ -34,64 +34,57 @@ public class SwingMenuGuiTest {
 				return new SwingMenu();
 			}
 		});
-		_testUtils = new SwingMenuTestUtil(_frame);
-		_testFrame = new FrameFixture(_frame);
-		_testFrame.show();
-		_testFrame.target.toFront();
+		_frameTestUtil = new SwingMenuTestUtil(_frame);
 	}
 
 	@After
 	public void tearDown() {
-		_testFrame.cleanUp();
 	}
 
 	@Test
 	public void testVerifyFeatureName() {
-		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("0");
-		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
+		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 
-		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("");
-		_testUtils.clickAddFeatureButton();
-		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
+		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 	}
 
 	@Test
 	public void testVerifyFeatureMean() {
-		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
-		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
+		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 
-		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("");
-		_testUtils.clickAddFeatureButton();
-		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
+		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 	}
 
 	@Test
 	public void testVerifyFeatureSigma() {
-		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
-		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("1");
+		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 
-		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("");
-		_testUtils.clickAddFeatureButton();
-		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
+		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 	}
 
 	@Test
 	public void testAddAndRemoveFeature() throws InterruptedException {
-		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
-		_testFrame.textBox(SwingMenu.FEATURE_NAME_FIELD_NAME).enterText("Feature 1");
-		_testFrame.textBox(SwingMenu.FEATURE_MEAN_FIELD_NAME).enterText("0");
-		_testFrame.textBox(SwingMenu.FEATURE_SIGMA_FIELD_NAME).enterText("1.0");
-		_testUtils.clickAddFeatureButton();
-		assertThat(_testUtils.getFeatureDefinitionListModel().get(0)).isEqualTo("Feature 1");
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature");
 
-		_testUtils.selectFeature(0);
-		_testUtils.clickRemoveFeatureButton();
-		assertThat(_testUtils.getFeatureDefinitionListModel().size()).isEqualTo(0);
+		_frameTestUtil.selectFeature(0);
+		_frameTestUtil.clickButton(_frame._removeFeatureButton);
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 	}
 
 	@Test
 	public void testSelectExportFile() throws InterruptedException {
-		assertThat(_testUtils.getExportFileField().isEditable()).isFalse();
+		assertThat(_frame._exportFileField.isEditable()).isFalse();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -120,15 +113,15 @@ public class SwingMenuGuiTest {
 				}
 			}
 		}).start();
-		_testUtils.clickExportFileDialogButton();
-		assertThat(_testUtils.getExportFileField().getText()).isEqualTo("t");
+		_frameTestUtil.clickButton(_frame._exportFileButton);
+		assertThat(_frame._exportFileField.getText()).isEqualTo("t");
 	}
 
 	@Test
 	public void testLogging() throws InterruptedException {
 		TextAreaLogger.log("Test");
 		Thread.sleep(250);
-		assertThat(_testUtils.getLog()).contains("Test");
+		assertThat(_frame._logAreaTextArea.getText()).contains("Test");
 	}
 
 }

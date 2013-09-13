@@ -2,7 +2,6 @@ package de.frosner.datagenerator.gui.main;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -13,33 +12,25 @@ public final class SwingMenuTestUtil {
 
 	private SwingMenu _menu;
 
-	public SwingMenuTestUtil(SwingMenu swingMenu) {
+	SwingMenuTestUtil(SwingMenu swingMenu) {
 		_menu = swingMenu;
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.setVisible(true);
+				_menu.toFront();
+			}
+		});
+
 	}
 
-	JTextField getExportFileField() {
-		return _menu._exportFileField;
-	}
-
-	private void clickButton(final JButton button) {
+	void clickButton(final JButton button) {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
 				_menu.actionPerformed(new ActionEvent(button, 1, ""));
 			}
 		});
-	}
-
-	void clickAddFeatureButton() {
-		clickButton(_menu._addFeatureButton);
-	}
-
-	void clickRemoveFeatureButton() {
-		clickButton(_menu._removeFeatureButton);
-	}
-
-	void clickExportFileDialogButton() {
-		clickButton(_menu._exportFileButton);
 	}
 
 	void selectFeature(final int i) {
@@ -52,12 +43,14 @@ public final class SwingMenuTestUtil {
 
 	}
 
-	DefaultListModel getFeatureDefinitionListModel() {
-		return _menu._featureListModel;
-	}
+	void enterText(final JTextField textField, final String text) {
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				textField.setText(text);
+			}
+		});
 
-	String getLog() {
-		return _menu._logAreaTextArea.getText();
 	}
 
 }
