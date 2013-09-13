@@ -1,8 +1,9 @@
-package de.frosner.datagenerator.gui;
+package de.frosner.datagenerator.gui.verifiers;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
+
 
 public class NameVerifierTest {
 

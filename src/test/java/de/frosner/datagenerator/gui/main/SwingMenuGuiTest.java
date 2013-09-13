@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.gui;
+package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -14,6 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import de.frosner.datagenerator.gui.main.SwingMenu;
+import de.frosner.datagenerator.gui.main.TextAreaLogger;
 
 public class SwingMenuGuiTest {
 

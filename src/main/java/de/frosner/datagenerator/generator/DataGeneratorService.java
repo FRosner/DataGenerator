@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.gui.TextAreaLogger;
+import de.frosner.datagenerator.gui.main.TextAreaLogger;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 public final class DataGeneratorService {

@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.gui;
+package de.frosner.datagenerator.gui.main;
 
 import java.awt.event.ActionEvent;
 
@@ -10,6 +10,8 @@ import javax.swing.JTextField;
 
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
+
+import de.frosner.datagenerator.gui.main.SwingMenu;
 
 public final class SwingMenuTestUtil {
 

@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.gui;
+package de.frosner.datagenerator.gui.verifiers;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.swing.edt.GuiActionRunner.execute;
@@ -12,6 +12,7 @@ import org.fest.swing.edt.GuiTask;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 public class InputVerifierTest {
 

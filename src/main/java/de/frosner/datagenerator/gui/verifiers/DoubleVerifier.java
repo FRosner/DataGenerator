@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.gui;
+package de.frosner.datagenerator.gui.verifiers;
 
 public final class DoubleVerifier extends InputVerifier {
 

@@ -1,6 +1,6 @@
-package de.frosner.datagenerator.gui;
+package de.frosner.datagenerator.gui.main;
 
-import static de.frosner.datagenerator.gui.InputVerifier.verifyComponent;
+import static de.frosner.datagenerator.gui.verifiers.InputVerifier.verifyComponent;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -25,6 +25,8 @@ import javax.swing.border.LineBorder;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
+import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
+import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 public final class SwingMenu extends JFrame implements ActionListener {

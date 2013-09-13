@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.gui;
+package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.swing.edt.GuiActionRunner.execute;
@@ -11,6 +11,9 @@ import org.fest.swing.edt.GuiTask;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import de.frosner.datagenerator.gui.main.HorizontalRuler;
+import de.frosner.datagenerator.gui.main.RulerOutOfBoundsException;
 
 public class HorizontalRulerTest {
 
