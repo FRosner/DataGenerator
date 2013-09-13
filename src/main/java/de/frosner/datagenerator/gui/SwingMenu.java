@@ -207,20 +207,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_panel.add(_logArea);
 	}
 
-	public String getAddFeatureName() {
-		return _gaussianNameField.getText();
-	}
-
-	public String getAddFeatureMean() {
-		return _gaussianMeanField.getText();
-	}
-
-	public String getAddFeatureSigma() {
-		return _gaussianSigmaField.getText();
-	}
-
-	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
-		_featureListModel.addElement(featureDefinition.getName());
+	public void enableGenerateDataButton(boolean enabled) {
+		_generateDataButton.setEnabled(enabled);
 	}
 
 	@Override
@@ -270,12 +258,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 							.verify())) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						DataGeneratorService.INSTANCE.generateData(numberOfInstances, exportFile);
-					}
-				}).start();
+				new GenerateDataButtonWorker(numberOfInstances, exportFile).execute();
 			}
 		}
 	}
