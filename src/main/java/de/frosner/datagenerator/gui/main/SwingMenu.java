@@ -1,5 +1,8 @@
 package de.frosner.datagenerator.gui.main;
 
+import static de.frosner.datagenerator.gui.verifiers.InputVerifier.isDouble;
+import static de.frosner.datagenerator.gui.verifiers.InputVerifier.isInteger;
+import static de.frosner.datagenerator.gui.verifiers.InputVerifier.isName;
 import static de.frosner.datagenerator.gui.verifiers.InputVerifier.verifyComponent;
 
 import java.awt.Color;
@@ -25,8 +28,6 @@ import javax.swing.border.LineBorder;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
-import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
-import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 public final class SwingMenu extends JFrame implements ActionListener {
@@ -216,11 +217,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(_addFeatureButton)) {
-			if (verifyComponent(_gaussianNameField, InputVerifier.isName(_gaussianNameField.getText()).isNotLongerThan(
-					30).verify())
-					& verifyComponent(_gaussianMeanField, InputVerifier.isDouble(_gaussianMeanField.getText()).verify())
-					& verifyComponent(_gaussianSigmaField, InputVerifier.isDouble(_gaussianSigmaField.getText())
-							.isPositive().verify())) {
+			if (verifyComponent(_gaussianNameField, isName(_gaussianNameField.getText()).isNotLongerThan(30).verify())
+					& verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
+					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive()
+							.verify())) {
 				String name = _gaussianNameField.getText();
 				double mean = Double.parseDouble(_gaussianMeanField.getText());
 				double sigma = Double.parseDouble(_gaussianSigmaField.getText());
@@ -249,15 +249,13 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (e.getSource().equals(_exportFileButton)) {
 			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
-				verifyComponent(_exportFileField, InputVerifier.isName(_exportFileField.getText()).isFileName()
-						.verify());
+				verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify());
 			}
 		} else if (e.getSource().equals(_generateDataButton)) {
-			if (verifyComponent(_numberOfInstancesField, InputVerifier.isInteger(_numberOfInstancesField.getText())
-					.isPositive().verify())
+			if (verifyComponent(_numberOfInstancesField, isInteger(_numberOfInstancesField.getText()).isPositive()
+					.verify())
 					& verifyComponent(_featureList, _featureListModel.getSize() > 0)
-					& verifyComponent(_exportFileField, InputVerifier.isName(_exportFileField.getText()).isFileName()
-							.verify())) {
+					& verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify())) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
 				new GenerateDataButtonWorker(numberOfInstances, exportFile).execute();
