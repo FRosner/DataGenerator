@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JTextField;
 
 import org.fest.swing.edt.GuiActionRunner;
@@ -55,10 +54,6 @@ public final class SwingMenuTestUtil {
 
 	DefaultListModel getFeatureDefinitionListModel() {
 		return _menu._featureListModel;
-	}
-
-	JList getFeatureDefinitionList() {
-		return _menu._featureList;
 	}
 
 	String getLog() {
