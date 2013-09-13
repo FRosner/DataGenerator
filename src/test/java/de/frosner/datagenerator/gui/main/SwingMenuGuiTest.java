@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.frosner.datagenerator.gui.verifiers.InputVerifier;
+
 public class SwingMenuGuiTest {
 
 	private SwingMenu _frame;
@@ -41,6 +43,7 @@ public class SwingMenuGuiTest {
 
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		assertThat(_frame._gaussianNameField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
 	@Test
@@ -50,6 +53,7 @@ public class SwingMenuGuiTest {
 
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		assertThat(_frame._gaussianMeanField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
 	@Test
@@ -59,6 +63,7 @@ public class SwingMenuGuiTest {
 
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		assertThat(_frame._gaussianSigmaField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
 	@Test

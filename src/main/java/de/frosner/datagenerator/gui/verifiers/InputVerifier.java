@@ -17,9 +17,9 @@ import de.frosner.datagenerator.util.VisibleForTesting;
 public abstract class InputVerifier {
 
 	@VisibleForTesting
-	static final Color INVALID_INPUT_RED = new Color(255, 200, 200);
+	public static final Color INVALID_INPUT_RED = new Color(255, 200, 200);
 	@VisibleForTesting
-	static final Color VALID_INPUT_WHITE = Color.WHITE;
+	public static final Color VALID_INPUT_WHITE = Color.WHITE;
 
 	protected boolean _verified;
 
