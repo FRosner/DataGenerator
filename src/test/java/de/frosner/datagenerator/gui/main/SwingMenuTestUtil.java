@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JTextField;
 
@@ -19,24 +18,8 @@ public final class SwingMenuTestUtil {
 		_menu = swingMenu;
 	}
 
-	JTextField getGaussianNameField() {
-		return _menu._gaussianNameField;
-	}
-
-	JTextField getGaussianMeanField() {
-		return _menu._gaussianMeanField;
-	}
-
-	JTextField getGaussianSigmaField() {
-		return _menu._gaussianSigmaField;
-	}
-
 	JTextField getExportFileField() {
 		return _menu._exportFileField;
-	}
-
-	JFileChooser getExportFileChooser() {
-		return _menu._exportFileDialog;
 	}
 
 	private void clickButton(final JButton button) {
