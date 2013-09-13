@@ -19,6 +19,7 @@ public final class DataGeneratorService {
 	public static final DataGeneratorService INSTANCE = new DataGeneratorService();
 
 	private final List<FeatureDefinition> _featureDefinitions = Lists.newArrayList();
+	private boolean _generating = false;
 
 	@VisibleForTesting
 	DataGeneratorService() {
@@ -34,17 +35,24 @@ public final class DataGeneratorService {
 	}
 
 	public void generateData(int numberOfInstances, File exportFile) {
-		try {
-			ExportConnection exportConnection;
-			exportConnection = new CsvExportConnection(new FileOutputStream(exportFile));
-			DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
-			TextAreaLogger.log("Generating " + numberOfInstances + " instances");
-			generator.generate();
-			TextAreaLogger.log("Exported instances to " + exportFile);
-		} catch (FileNotFoundException e) {
-			TextAreaLogger.log("File not found: " + exportFile);
-		} catch (IOException e) {
-			TextAreaLogger.log("Writing to file failed: " + e.getMessage());
+		if (!_generating) {
+			try {
+				_generating = true;
+				ExportConnection exportConnection;
+				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile));
+				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
+				TextAreaLogger.log("Generating " + numberOfInstances + " instances");
+				generator.generate();
+				TextAreaLogger.log("Exported instances to " + exportFile);
+			} catch (FileNotFoundException e) {
+				TextAreaLogger.log("File not found: " + exportFile);
+			} catch (IOException e) {
+				TextAreaLogger.log("Writing to file failed: " + e.getMessage());
+			} finally {
+				_generating = false;
+			}
+		} else {
+			TextAreaLogger.log("Generation already in progress");
 		}
 	}
 
