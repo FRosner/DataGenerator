@@ -20,7 +20,6 @@ public final class SwingLauncher {
 			public void run() {
 				setSwingLookAndFeel();
 				GUI = new SwingMenu();
-				GUI.setVisible(true);
 			}
 
 			private void setSwingLookAndFeel() {
