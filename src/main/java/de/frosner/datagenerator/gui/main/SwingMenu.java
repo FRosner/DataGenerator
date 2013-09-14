@@ -58,6 +58,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JButton _removeFeatureButton;
 	@VisibleForTesting
 	final JButton _generateDataButton;
+	@VisibleForTesting
+	final JButton _abortDataGenerationButton;
 
 	private final JLabel _gaussianNameLabel;
 	@VisibleForTesting
@@ -91,6 +93,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@VisibleForTesting
 	final JTextArea _logAreaTextArea;
 	private final JScrollPane _logArea;
+
+	private GenerateDataButtonWorker _generateDataButtonWorker;
 
 	public SwingMenu() {
 		setTitle(ApplicationMetaData.APPLICATION_NAME);
@@ -140,10 +144,15 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_progressBar = new JProgressBar(0, 100);
 		_progressBar.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_progressBar.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
-		_generateDataButton = new JButton("Generate Data");
-		_generateDataButton.setMaximumSize(new Dimension(LINE_WIDTH, BUTTON_HEIGHT));
-		_generateDataButton.setPreferredSize(new Dimension(LINE_WIDTH, BUTTON_HEIGHT));
+		_generateDataButton = new JButton("Generate");
+		_generateDataButton.setMaximumSize(new Dimension(LINE_WIDTH / 2 - 2, BUTTON_HEIGHT));
+		_generateDataButton.setPreferredSize(new Dimension(LINE_WIDTH / 2 - 2, BUTTON_HEIGHT));
 		_generateDataButton.addActionListener(this);
+		_abortDataGenerationButton = new JButton("Abort");
+		_abortDataGenerationButton.setMaximumSize(new Dimension(LINE_WIDTH / 2 - 2, BUTTON_HEIGHT));
+		_abortDataGenerationButton.setPreferredSize(new Dimension(LINE_WIDTH / 2 - 2, BUTTON_HEIGHT));
+		_abortDataGenerationButton.addActionListener(this);
+		_abortDataGenerationButton.setEnabled(false);
 		_logAreaTextArea = new JTextArea(5, 25);
 		_logArea = new JScrollPane(_logAreaTextArea);
 		TextAreaLogger.setLogArea(_logAreaTextArea);
@@ -210,7 +219,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		generateDataPanel.add(new JLabel());
 		generateDataPanel.add(_progressBar);
 		generateDataPanel.add(new JLabel());
-		generateDataPanel.add(_generateDataButton);
+		JPanel generateDataSubPanel = new JPanel();
+		generateDataPanel.add(generateDataSubPanel);
+		generateDataSubPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		generateDataSubPanel.add(_abortDataGenerationButton);
+		generateDataSubPanel.add(_generateDataButton);
 		SpringUtilities.makeCompactGrid(generateDataPanel, 2, 2, 0, 0, PADDING, PADDING);
 
 		SpringUtilities.makeCompactGrid(exportSection, 1, 2, 0, 0, PADDING, PADDING);
@@ -231,6 +244,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	public void enableGenerateDataButton(boolean enabled) {
 		_generateDataButton.setEnabled(enabled);
+	}
+
+	public void enableAbortDataGenerationButton(boolean enabled) {
+		_abortDataGenerationButton.setEnabled(enabled);
+	}
+
+	public void detachGenerateDataButtonWorker() {
+		_generateDataButtonWorker = null;
 	}
 
 	@Override
@@ -277,8 +298,15 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					& verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify())) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
-				new GenerateDataButtonWorker(numberOfInstances, exportFile).execute();
+				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, exportFile);
+				_generateDataButtonWorker.execute();
 			}
+		} else if (e.getSource().equals(_abortDataGenerationButton)) {
+			if (_generateDataButtonWorker != null) {
+				_generateDataButtonWorker.cancel(true);
+			}
+		} else {
+			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
 		}
 	}
 

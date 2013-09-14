@@ -19,6 +19,7 @@ public class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
 	@Override
 	protected Void doInBackground() throws Exception {
 		SwingLauncher.GUI.enableGenerateDataButton(false);
+		SwingLauncher.GUI.enableAbortDataGenerationButton(true);
 		DataGeneratorService.INSTANCE.generateData(_numberOfInstances, _exportFile);
 		return null;
 	}
@@ -26,6 +27,8 @@ public class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
 	@Override
 	protected void done() {
 		SwingLauncher.GUI.enableGenerateDataButton(true);
+		SwingLauncher.GUI.enableAbortDataGenerationButton(false);
+		SwingLauncher.GUI.detachGenerateDataButtonWorker();
 	}
 
 }

@@ -42,8 +42,11 @@ public final class DataGeneratorService {
 				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile));
 				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
 				TextAreaLogger.info("Generating " + numberOfInstances + " instances");
-				generator.generate();
-				TextAreaLogger.info("Exported instances to " + exportFile);
+				if (generator.generate()) {
+					TextAreaLogger.info("Exported instances to " + exportFile);
+				} else {
+					TextAreaLogger.warn("Generation aborted. Partial results written to " + exportFile);
+				}
 			} catch (FileNotFoundException e) {
 				TextAreaLogger.error("File not found: " + exportFile);
 			} catch (IOException e) {

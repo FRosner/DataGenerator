@@ -96,8 +96,13 @@ public final class DataGenerator {
 	 * 
 	 * @throws IOException
 	 */
-	public void generate() throws IOException {
+	public boolean generate() throws IOException {
+		boolean success = true;
 		for (int i = 0; i < _numberOfInstances; i++) {
+			if (Thread.interrupted()) {
+				success = false;
+				break;
+			}
 			InstanceBuilder instanceBuilder = Instance.builder(i);
 			for (FeatureDefinition featureDefinition : _featureDefinitions) {
 				instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
@@ -105,5 +110,6 @@ public final class DataGenerator {
 			_out.export(instanceBuilder.build());
 		}
 		_out.close();
+		return success;
 	}
 }
