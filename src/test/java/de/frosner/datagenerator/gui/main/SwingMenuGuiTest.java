@@ -157,7 +157,7 @@ public class SwingMenuGuiTest {
 
 	@Test
 	public void testLogging() throws InterruptedException {
-		TextAreaLogger.log("Test");
+		TextAreaLogger.info("Test");
 		Thread.sleep(250);
 		assertThat(_frame._logAreaTextArea.getText()).contains("Test");
 	}

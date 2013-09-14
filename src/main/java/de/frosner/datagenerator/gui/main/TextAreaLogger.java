@@ -19,7 +19,39 @@ public final class TextAreaLogger {
 		_logArea = logArea;
 	}
 
-	public static void log(final String message) {
+	public static void info(final String message) {
+		if (_logArea != null) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					String newLine = "\n";
+					if (_logArea.getText().equals("")) {
+						newLine = "";
+					}
+					_logArea
+							.setText(_logArea.getText() + newLine + "[" + formatter.format(new Date()) + "] " + message);
+				}
+			});
+		}
+	}
+
+	public static void warn(final String message) {
+		if (_logArea != null) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					String newLine = "\n";
+					if (_logArea.getText().equals("")) {
+						newLine = "";
+					}
+					_logArea
+							.setText(_logArea.getText() + newLine + "[" + formatter.format(new Date()) + "] " + message);
+				}
+			});
+		}
+	}
+
+	public static void error(final String message) {
 		if (_logArea != null) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override

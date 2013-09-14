@@ -27,11 +27,11 @@ public final class DataGeneratorService {
 
 	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
 		_featureDefinitions.add(featureDefinition);
-		TextAreaLogger.log("Added Feature: " + featureDefinition.getName());
+		TextAreaLogger.info("Added Feature: " + featureDefinition.getName());
 	}
 
 	public void removeFeatureDefinition(int index) {
-		TextAreaLogger.log("Removed Feature: " + _featureDefinitions.remove(index).getName());
+		TextAreaLogger.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
 	}
 
 	public void generateData(int numberOfInstances, File exportFile) {
@@ -41,18 +41,18 @@ public final class DataGeneratorService {
 				ExportConnection exportConnection;
 				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile));
 				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
-				TextAreaLogger.log("Generating " + numberOfInstances + " instances");
+				TextAreaLogger.info("Generating " + numberOfInstances + " instances");
 				generator.generate();
-				TextAreaLogger.log("Exported instances to " + exportFile);
+				TextAreaLogger.info("Exported instances to " + exportFile);
 			} catch (FileNotFoundException e) {
-				TextAreaLogger.log("File not found: " + exportFile);
+				TextAreaLogger.error("File not found: " + exportFile);
 			} catch (IOException e) {
-				TextAreaLogger.log("Writing to file failed: " + e.getMessage());
+				TextAreaLogger.error("Writing to file failed: " + e.getMessage());
 			} finally {
 				_generating = false;
 			}
 		} else {
-			TextAreaLogger.log("Generation already in progress");
+			TextAreaLogger.error("Generation already in progress");
 		}
 	}
 
