@@ -152,7 +152,7 @@ public class SwingMenuGuiTest {
 			}
 		}).start();
 		_frameTestUtil.clickButton(_frame._exportFileButton);
-		assertThat(_frame._exportFileField.getText()).isEqualTo("t");
+		assertThat(_frame._exportFileField.getText()).endsWith("t");
 	}
 
 	@Test

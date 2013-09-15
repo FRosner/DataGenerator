@@ -290,7 +290,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			}
 		} else if (e.getSource().equals(_exportFileButton)) {
 			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				_exportFileField.setText(_exportFileDialog.getSelectedFile().getName());
+				_exportFileField.setText(_exportFileDialog.getSelectedFile().getPath());
 				verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify());
 			}
 		} else if (e.getSource().equals(_generateDataButton)) {
