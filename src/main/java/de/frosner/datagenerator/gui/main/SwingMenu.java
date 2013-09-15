@@ -104,7 +104,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private GenerateDataButtonWorker _generateDataButtonWorker;
 
 	public SwingMenu() {
-		setTitle(ApplicationMetaData.APPLICATION_NAME);
+		setTitle(ApplicationMetaData.getName());
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
