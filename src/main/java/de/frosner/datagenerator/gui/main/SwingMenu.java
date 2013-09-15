@@ -96,7 +96,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JTextField _exportFileField;
 
 	@VisibleForTesting
-	static final FileFilter CSV_FILE_FILTER = new ExtensionFileFilter(".csv", "csv");
+	static final FileFilter CSV_FILE_FILTER = new ExtensionFileFilter("Comma Separated Values (.csv)", "csv");
 	@VisibleForTesting
 	static final FileFilter ALL_FILE_FILTER = new AllFileFilter();
 

@@ -13,7 +13,7 @@ public class AllFileFilter extends FileFilter {
 
 	@Override
 	public String getDescription() {
-		return "*";
+		return "Any File (*)";
 	}
 
 }
