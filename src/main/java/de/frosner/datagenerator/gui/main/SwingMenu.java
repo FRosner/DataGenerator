@@ -347,9 +347,13 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_generateDataButtonWorker.cancel(true);
 			}
 		} else if (e.getSource().equals(_aboutMenuItem)) {
-			JOptionPane.showMessageDialog(this, ApplicationMetaData.getName() + "\nVersion: "
+			JTextArea applicationMetaData = new JTextArea(ApplicationMetaData.getName() + "\nVersion: "
 					+ ApplicationMetaData.getVersion() + "\nRevision: " + ApplicationMetaData.getRevision()
-					+ "\nBuilt on: " + ApplicationMetaData.getTimestamp(), "About", JOptionPane.INFORMATION_MESSAGE);
+					+ "\nBuilt on: " + ApplicationMetaData.getTimestamp());
+			applicationMetaData.setEditable(false);
+			JOptionPane dialog = new JOptionPane(applicationMetaData, JOptionPane.INFORMATION_MESSAGE,
+					JOptionPane.DEFAULT_OPTION);
+			dialog.createDialog("About").setVisible(true);
 		} else {
 			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
 		}
