@@ -40,6 +40,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 
+import org.jfree.ui.ExtensionFileFilter;
 import org.uncommons.swing.SpringUtilities;
 
 import com.google.common.collect.Lists;
@@ -165,6 +166,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_numberOfInstancesField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
 		_exportFileDialog = new JFileChooser();
+		_exportFileDialog.setFileFilter(new ExtensionFileFilter(".csv", "csv"));
 		_exportFileButton = new JButton("...");
 		_exportFileButton.addActionListener(this);
 		_exportFileField = new JTextField();
@@ -297,7 +299,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(_addFeatureButton)) {
+		Object source = e.getSource();
+		if (source.equals(_addFeatureButton)) {
 			if (verifyComponent(_gaussianNameField, isName(_gaussianNameField.getText()).isNotLongerThan(30).verify())
 					& verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
 					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive()
@@ -316,7 +319,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_featureListModel.addElement(featureDefinition.getName());
 				verifyComponent(_featureList, _featureListModel.getSize() > 0);
 			}
-		} else if (e.getSource().equals(_removeFeatureButton)) {
+		} else if (source.equals(_removeFeatureButton)) {
 			final int selected = _featureList.getSelectedIndex();
 			if (selected > -1) {
 				new Thread(new Runnable() {
@@ -327,7 +330,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				}).start();
 				_featureListModel.remove(selected);
 			}
-		} else if (e.getSource().equals(_exportFileButton)) {
+		} else if (source.equals(_exportFileButton)) {
 			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getPath());
 				verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify());
@@ -342,11 +345,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, exportFile);
 				_generateDataButtonWorker.execute();
 			}
-		} else if (e.getSource().equals(_abortDataGenerationButton)) {
+		} else if (source.equals(_abortDataGenerationButton)) {
 			if (_generateDataButtonWorker != null) {
 				_generateDataButtonWorker.cancel(true);
 			}
-		} else if (e.getSource().equals(_aboutMenuItem)) {
+		} else if (source.equals(_aboutMenuItem)) {
 			JTextArea applicationMetaData = new JTextArea(ApplicationMetaData.getName() + "\nVersion: "
 					+ ApplicationMetaData.getVersion() + "\nRevision: " + ApplicationMetaData.getRevision()
 					+ "\nBuilt on: " + ApplicationMetaData.getTimestamp());
