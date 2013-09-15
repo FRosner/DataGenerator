@@ -5,6 +5,7 @@ import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
 
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
@@ -59,7 +60,15 @@ public final class SwingMenuTestUtil {
 				textField.setText(text);
 			}
 		});
+	}
 
+	void setExportFileFilter(final FileFilter filter) {
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu._exportFileDialog.setFileFilter(filter);
+			}
+		});
 	}
 
 }

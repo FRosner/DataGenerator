@@ -18,6 +18,9 @@ import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 
 public class SwingMenuGuiTest {
 
+	private static final int INITIAL_ROBOT_DELAY = 500;
+	private static final int ROBOT_DELAY = 50;
+
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
 
@@ -121,30 +124,30 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testSelectExportFile() throws InterruptedException {
+	public void testSelectExportFile() {
 		assertThat(_frame._exportFileField.isEditable()).isFalse();
+		_frameTestUtil.setExportFileFilter(SwingMenu.ALL_FILE_FILTER);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				Robot robot;
 				try {
 					robot = new Robot();
-					robot.delay(500);
-					int delay = 50;
+					robot.delay(INITIAL_ROBOT_DELAY);
 					robot.keyPress(KeyEvent.VK_ALT);
-					robot.delay(delay);
+					robot.delay(ROBOT_DELAY);
 					robot.keyPress(KeyEvent.VK_N);
-					robot.delay(delay);
+					robot.delay(ROBOT_DELAY);
 					robot.keyRelease(KeyEvent.VK_ALT);
-					robot.delay(delay);
+					robot.delay(ROBOT_DELAY);
 					robot.keyRelease(KeyEvent.VK_N);
-					robot.delay(delay);
+					robot.delay(ROBOT_DELAY);
 					robot.keyPress(KeyEvent.VK_T);
-					robot.delay(delay);
+					robot.delay(ROBOT_DELAY);
 					robot.keyRelease(KeyEvent.VK_T);
-					robot.delay(delay);
+					robot.delay(ROBOT_DELAY);
 					robot.keyPress(KeyEvent.VK_ENTER);
-					robot.delay(delay);
+					robot.delay(ROBOT_DELAY);
 					robot.keyRelease(KeyEvent.VK_ENTER);
 				} catch (AWTException e) {
 					e.printStackTrace();
@@ -153,6 +156,90 @@ public class SwingMenuGuiTest {
 		}).start();
 		_frameTestUtil.clickButton(_frame._exportFileButton);
 		assertThat(_frame._exportFileField.getText()).endsWith("t");
+	}
+
+	@Test
+	public void testSelectExportFile_fileExtensionCsv() {
+		_frameTestUtil.setExportFileFilter(SwingMenu.CSV_FILE_FILTER);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.delay(INITIAL_ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_ALT);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_N);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_ALT);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_N);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_T);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_T);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_ENTER);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_ENTER);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		_frameTestUtil.clickButton(_frame._exportFileButton);
+		assertThat(_frame._exportFileField.getText()).endsWith("t.csv");
+	}
+
+	@Test
+	public void testSelectExportFile_fileExtensionNotAddedTwice() throws InterruptedException {
+		_frameTestUtil.setExportFileFilter(SwingMenu.CSV_FILE_FILTER);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.delay(INITIAL_ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_ALT);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_N);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_ALT);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_N);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_T);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_T);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_PERIOD);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_PERIOD);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_C);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_C);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_S);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_S);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_V);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_V);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_ENTER);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_ENTER);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		_frameTestUtil.clickButton(_frame._exportFileButton);
+		assertThat(_frame._exportFileField.getText()).endsWith("t.csv");
 	}
 
 	@Test

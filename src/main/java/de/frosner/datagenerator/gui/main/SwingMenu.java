@@ -39,6 +39,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileFilter;
 
 import org.jfree.ui.ExtensionFileFilter;
 import org.uncommons.swing.SpringUtilities;
@@ -93,6 +94,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JButton _exportFileButton;
 	@VisibleForTesting
 	final JTextField _exportFileField;
+
+	@VisibleForTesting
+	static final FileFilter CSV_FILE_FILTER = new ExtensionFileFilter(".csv", "csv");
+	@VisibleForTesting
+	static final FileFilter ALL_FILE_FILTER = new AllFileFilter();
 
 	@VisibleForTesting
 	final DefaultListModel _featureListModel;
@@ -166,7 +172,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_numberOfInstancesField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
 		_exportFileDialog = new JFileChooser();
-		_exportFileDialog.setFileFilter(new ExtensionFileFilter(".csv", "csv"));
+		_exportFileDialog.setAcceptAllFileFilterUsed(false);
+		_exportFileDialog.addChoosableFileFilter(ALL_FILE_FILTER);
+		_exportFileDialog.addChoosableFileFilter(CSV_FILE_FILTER);
 		_exportFileButton = new JButton("...");
 		_exportFileButton.addActionListener(this);
 		_exportFileField = new JTextField();
@@ -300,6 +308,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+
 		if (source.equals(_addFeatureButton)) {
 			if (verifyComponent(_gaussianNameField, isName(_gaussianNameField.getText()).isNotLongerThan(30).verify())
 					& verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
@@ -319,6 +328,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_featureListModel.addElement(featureDefinition.getName());
 				verifyComponent(_featureList, _featureListModel.getSize() > 0);
 			}
+
 		} else if (source.equals(_removeFeatureButton)) {
 			final int selected = _featureList.getSelectedIndex();
 			if (selected > -1) {
@@ -330,11 +340,19 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				}).start();
 				_featureListModel.remove(selected);
 			}
+
 		} else if (source.equals(_exportFileButton)) {
 			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				if (_exportFileDialog.getFileFilter().equals(CSV_FILE_FILTER)) {
+					File selectedFile = _exportFileDialog.getSelectedFile();
+					if (!selectedFile.getName().endsWith(".csv")) {
+						_exportFileDialog.setSelectedFile(new File(selectedFile.getPath() + ".csv"));
+					}
+				}
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getPath());
 				verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify());
 			}
+
 		} else if (e.getSource().equals(_generateDataButton)) {
 			if (verifyComponent(_numberOfInstancesField, isInteger(_numberOfInstancesField.getText()).isPositive()
 					.verify())
@@ -345,10 +363,12 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, exportFile);
 				_generateDataButtonWorker.execute();
 			}
+
 		} else if (source.equals(_abortDataGenerationButton)) {
 			if (_generateDataButtonWorker != null) {
 				_generateDataButtonWorker.cancel(true);
 			}
+
 		} else if (source.equals(_aboutMenuItem)) {
 			JTextArea applicationMetaData = new JTextArea(ApplicationMetaData.getName() + "\nVersion: "
 					+ ApplicationMetaData.getVersion() + "\nRevision: " + ApplicationMetaData.getRevision()
@@ -357,6 +377,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			JOptionPane dialog = new JOptionPane(applicationMetaData, JOptionPane.INFORMATION_MESSAGE,
 					JOptionPane.DEFAULT_OPTION);
 			dialog.createDialog("About").setVisible(true);
+
 		} else {
 			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
 		}
