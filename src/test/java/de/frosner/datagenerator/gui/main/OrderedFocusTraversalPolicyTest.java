@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import de.frosner.datagenerator.gui.main.SwingMenu.OrderedFocusTraversalPolicy.NoEnabledComponentInFocusOrderException;
+import de.frosner.datagenerator.gui.main.OrderedFocusTraversalPolicy.NoEnabledComponentInFocusOrderException;
 
 public class OrderedFocusTraversalPolicyTest {
 
@@ -89,7 +89,7 @@ public class OrderedFocusTraversalPolicyTest {
 		execute(new GuiTask() {
 			@Override
 			public void executeInEDT() {
-				_frame.setFocusTraversalPolicy(new SwingMenu.OrderedFocusTraversalPolicy(tabOrder));
+				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
 			}
 		});
 		int delay = 20;
@@ -112,7 +112,7 @@ public class OrderedFocusTraversalPolicyTest {
 			@Override
 			public void executeInEDT() {
 				_textField.setEnabled(false);
-				_frame.setFocusTraversalPolicy(new SwingMenu.OrderedFocusTraversalPolicy(tabOrder));
+				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
 			}
 		});
 		int delay = 20;
@@ -136,7 +136,7 @@ public class OrderedFocusTraversalPolicyTest {
 			public void executeInEDT() {
 				_button.setEnabled(false);
 				_textField.setEnabled(false);
-				_frame.setFocusTraversalPolicy(new SwingMenu.OrderedFocusTraversalPolicy(tabOrder));
+				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
 			}
 		});
 	}

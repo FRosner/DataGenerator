@@ -11,7 +11,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.FocusTraversalPolicy;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +48,6 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
-import de.frosner.datagenerator.gui.main.SwingMenu.OrderedFocusTraversalPolicy.NoEnabledComponentInFocusOrderException;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
@@ -380,95 +378,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		} else {
 			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
-		}
-	}
-
-	/**
-	 * Class providing an ordered focus traversal policy. Add components to traverse in an ordered list. The policy will
-	 * traverse the list. Components that are disabled are skipped. At least one component must be enabled.
-	 * 
-	 * @throws NoEnabledComponentInFocusOrderException
-	 *             if not at least one component in the provided order is enabled
-	 */
-	public static class OrderedFocusTraversalPolicy extends FocusTraversalPolicy {
-
-		public static class NoEnabledComponentInFocusOrderException extends RuntimeException {
-
-			private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
-
-			public NoEnabledComponentInFocusOrderException(List<Component> order) {
-				super("At least one component must be enabled: " + order.toString());
-			}
-
-		}
-
-		List<Component> _order;
-
-		public OrderedFocusTraversalPolicy(List<Component> order) {
-			_order = Lists.newArrayList(order);
-			checkThatAtLeastOneComponentIsEnabled();
-		}
-
-		@Override
-		public Component getComponentAfter(Container focusCycleRoot, Component aComponent) {
-			checkThatAtLeastOneComponentIsEnabled();
-			Component nextComponent = _order.get((_order.indexOf(aComponent) + 1) % _order.size());
-			if (nextComponent.isEnabled()) {
-				return nextComponent;
-			}
-			return getComponentAfter(focusCycleRoot, nextComponent);
-		}
-
-		@Override
-		public Component getComponentBefore(Container focusCycleRoot, Component aComponent) {
-			checkThatAtLeastOneComponentIsEnabled();
-			int tabIndex = _order.indexOf(aComponent) - 1;
-			if (tabIndex < 0) {
-				tabIndex = _order.size() - 1;
-			}
-			Component nextComponent = _order.get(tabIndex);
-			if (nextComponent.isEnabled()) {
-				return nextComponent;
-			}
-			return getComponentBefore(focusCycleRoot, nextComponent);
-		}
-
-		@Override
-		public Component getDefaultComponent(Container focusCycleRoot) {
-			checkThatAtLeastOneComponentIsEnabled();
-			return getFirstComponent(focusCycleRoot);
-		}
-
-		@Override
-		public Component getLastComponent(Container focusCycleRoot) {
-			checkThatAtLeastOneComponentIsEnabled();
-			Component lastComponent = _order.get(_order.size() - 1);
-			if (lastComponent.isEnabled()) {
-				return lastComponent;
-			}
-			return getComponentBefore(focusCycleRoot, lastComponent);
-		}
-
-		@Override
-		public Component getFirstComponent(Container focusCycleRoot) {
-			checkThatAtLeastOneComponentIsEnabled();
-			Component firstComponent = _order.get(0);
-			if (firstComponent.isEnabled()) {
-				return firstComponent;
-			}
-			return getComponentAfter(focusCycleRoot, firstComponent);
-		}
-
-		private void checkThatAtLeastOneComponentIsEnabled() {
-			boolean atLeastOneComponentIsEnabled = false;
-			for (Component component : _order) {
-				if (component.isEnabled()) {
-					atLeastOneComponentIsEnabled = true;
-				}
-			}
-			if (!atLeastOneComponentIsEnabled) {
-				throw new NoEnabledComponentInFocusOrderException(_order);
-			}
 		}
 	}
 
