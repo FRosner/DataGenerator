@@ -6,7 +6,7 @@
 	<artifactId>DataGenerator</artifactId>
 	<packaging>jar</packaging>
 	<version>0.2.1-SNAPSHOT</version>
-	<name>DataGenerator</name>
+	<name>Data Generator</name>
 	<url>http://maven.apache.org</url>
 	
 	<properties>
