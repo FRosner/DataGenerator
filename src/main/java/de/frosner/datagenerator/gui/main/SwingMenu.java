@@ -15,6 +15,7 @@ import java.awt.FocusTraversalPolicy;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 
@@ -24,6 +25,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -101,6 +106,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JTextArea _logArea;
 	private final JScrollPane _logAreaScroller;
 
+	private final JMenuBar _menuBar;
+	private final JMenu _helpMenu;
+	private final JMenuItem _aboutMenuItem;
+
 	private GenerateDataButtonWorker _generateDataButtonWorker;
 
 	public SwingMenu() {
@@ -111,6 +120,15 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new SpringLayout());
+
+		_menuBar = new JMenuBar();
+		setJMenuBar(_menuBar);
+		_helpMenu = new JMenu("Help");
+		_helpMenu.setMnemonic(KeyEvent.VK_O);
+		_aboutMenuItem = new JMenuItem("About");
+		_aboutMenuItem.addActionListener(this);
+		_helpMenu.add(_aboutMenuItem);
+		_menuBar.add(_helpMenu);
 
 		_gaussianNameLabel = new JLabel("Name", JLabel.RIGHT);
 		_gaussianNameField = new JTextField();
@@ -328,6 +346,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			if (_generateDataButtonWorker != null) {
 				_generateDataButtonWorker.cancel(true);
 			}
+		} else if (e.getSource().equals(_aboutMenuItem)) {
+			JOptionPane.showMessageDialog(this, ApplicationMetaData.getName() + "\nVersion: "
+					+ ApplicationMetaData.getVersion() + "\nRevision: " + ApplicationMetaData.getRevision()
+					+ "\nBuilt on: " + ApplicationMetaData.getTimestamp());
 		} else {
 			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
 		}

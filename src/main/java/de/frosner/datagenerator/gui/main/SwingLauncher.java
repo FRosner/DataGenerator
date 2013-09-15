@@ -21,13 +21,8 @@ public final class SwingLauncher {
 		throw new UnsupportedOperationException();
 	}
 
-	public static void main(String[] args) throws MalformedURLException, IOException {
+	public static void main(String[] args) {
 		loadManifestMetaData();
-
-		System.out.println(ApplicationMetaData.getName());
-		System.out.println(ApplicationMetaData.getVersion());
-		System.out.println(ApplicationMetaData.getRevision());
-		System.out.println(ApplicationMetaData.getTimestamp());
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
