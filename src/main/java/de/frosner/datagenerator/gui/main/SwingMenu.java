@@ -349,7 +349,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (e.getSource().equals(_aboutMenuItem)) {
 			JOptionPane.showMessageDialog(this, ApplicationMetaData.getName() + "\nVersion: "
 					+ ApplicationMetaData.getVersion() + "\nRevision: " + ApplicationMetaData.getRevision()
-					+ "\nBuilt on: " + ApplicationMetaData.getTimestamp());
+					+ "\nBuilt on: " + ApplicationMetaData.getTimestamp(), "About", JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
 		}
