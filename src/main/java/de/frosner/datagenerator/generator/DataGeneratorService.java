@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
@@ -18,7 +18,8 @@ public final class DataGeneratorService {
 
 	public static final DataGeneratorService INSTANCE = new DataGeneratorService();
 
-	private final List<FeatureDefinition> _featureDefinitions = Lists.newArrayList();
+	private final List<FeatureDefinition> _featureDefinitions = Collections
+			.synchronizedList(new ArrayList<FeatureDefinition>());
 	private boolean _generating = false;
 
 	@VisibleForTesting
