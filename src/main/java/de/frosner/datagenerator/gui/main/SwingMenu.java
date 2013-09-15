@@ -169,7 +169,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_numberOfInstancesField.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_numberOfInstancesField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
-		_exportFileDialog = new JFileChooser();
+		_exportFileDialog = new ExportFileChooser();
 		_exportFileDialog.setAcceptAllFileFilterUsed(false);
 		_exportFileDialog.addChoosableFileFilter(ALL_FILE_FILTER);
 		_exportFileDialog.addChoosableFileFilter(CSV_FILE_FILTER);
@@ -341,12 +341,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		} else if (source.equals(_exportFileButton)) {
 			if (_exportFileDialog.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				if (_exportFileDialog.getFileFilter().equals(CSV_FILE_FILTER)) {
-					File selectedFile = _exportFileDialog.getSelectedFile();
-					if (!selectedFile.getName().endsWith(".csv")) {
-						_exportFileDialog.setSelectedFile(new File(selectedFile.getPath() + ".csv"));
-					}
-				}
 				_exportFileField.setText(_exportFileDialog.getSelectedFile().getPath());
 				verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify());
 			}
