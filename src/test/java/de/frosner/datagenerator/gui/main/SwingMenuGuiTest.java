@@ -18,8 +18,8 @@ import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 
 public class SwingMenuGuiTest {
 
-	private static final int INITIAL_ROBOT_DELAY = 500;
-	private static final int ROBOT_DELAY = 50;
+	private static final int INITIAL_ROBOT_DELAY = 250;
+	private static final int ROBOT_DELAY = 25;
 
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
