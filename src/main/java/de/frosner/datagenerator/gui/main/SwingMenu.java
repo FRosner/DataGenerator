@@ -86,6 +86,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final DefaultListModel _featureListModel;
 	@VisibleForTesting
 	final JList _featureList;
+	private final JScrollPane _featureListScroller;
 
 	@VisibleForTesting
 	final JProgressBar _progressBar;
@@ -98,7 +99,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	public SwingMenu() {
 		setTitle(ApplicationMetaData.APPLICATION_NAME);
-		// setSize(PANEL_WIDTH, PANEL_HEIGHT);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
@@ -125,14 +125,18 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_featureListModel = new DefaultListModel();
 		_featureList = new JList(_featureListModel);
 		_featureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		_featureList.setBorder(new LineBorder(Color.gray, 1));
-		// _featureList.setSize(LINE_WIDTH - 2, LINE_HEIGHT * 3 + 2 * PADDING - 2);
+		_featureList.setVisibleRowCount(4);
+		_featureList.setFixedCellWidth(10);
+		_featureListScroller = new JScrollPane(_featureList);
+		_featureListScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		_removeFeatureButton = new JButton("Remove Feature");
 		_removeFeatureButton.addActionListener(this);
 		_removeFeatureButton.setMaximumSize(new Dimension(LINE_WIDTH, BUTTON_HEIGHT));
 		_removeFeatureButton.setPreferredSize(new Dimension(LINE_WIDTH, BUTTON_HEIGHT));
 		_numberOfInstancesLabel = new JLabel("#Instances", JLabel.RIGHT);
 		_numberOfInstancesField = new JTextField();
+		_numberOfInstancesField.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
+		_numberOfInstancesField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
 		_exportFileDialog = new JFileChooser();
 		_exportFileButton = new JButton("...");
@@ -186,7 +190,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		JPanel featureListPanel = new JPanel();
 		featureListPanelWrapper.add(featureListPanel);
 		featureListPanel.setLayout(new BorderLayout());
-		featureListPanel.add(_featureList, BorderLayout.CENTER);
+		featureListPanel.add(_featureListScroller, BorderLayout.CENTER);
 		featureListPanelWrapper.add(_removeFeatureButton, BorderLayout.EAST);
 		SpringUtilities.makeCompactGrid(featureListPanelWrapper, 2, 1, 0, 0, PADDING, PADDING);
 
@@ -203,8 +207,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		exportDefinitionPanel.setLayout(new SpringLayout());
 		exportDefinitionPanel.add(_numberOfInstancesLabel);
 		exportDefinitionPanel.add(_numberOfInstancesField);
-		_numberOfInstancesField.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
-		_numberOfInstancesField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		exportDefinitionPanel.add(_exportFileLabel);
 		JPanel exportFileSubPanel = new JPanel();
 		exportDefinitionPanel.add(exportFileSubPanel);
