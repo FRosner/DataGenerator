@@ -91,18 +91,6 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>${main.class}</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
 				<configuration>
@@ -116,7 +104,12 @@
 					<archive>
 						<manifest>
 							<mainClass>${main.class}</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
+						<manifestEntries>
+							<Revision>${buildNumber}</Revision>
+							<Timestamp>${timestamp}</Timestamp>
+						</manifestEntries>
 					</archive>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
@@ -132,7 +125,33 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+					<timestampFormat>
+						{0,date,yyyy-MM-dd HH:mm:ss}
+					</timestampFormat>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+	
+	<scm>
+		<connection>scm:git:https://github.com/FRosner/DataGenerator.git</connection>
+		<tag>HEAD</tag>
+		<url>https://github.com/FRosner/DataGenerator</url>
+	</scm>
 	
 </project>
