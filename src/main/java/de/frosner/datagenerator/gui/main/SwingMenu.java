@@ -59,9 +59,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private static final int BUTTON_HEIGHT = LINE_HEIGHT - 3;
 	private static final int LINE_WIDTH = 180;
 	private static final int PADDING = 5;
-	private static final int SECTION_MARGIN = 25;
-	private static final int PANEL_HEIGHT = 500;
-	private static final int PANEL_WIDTH = 500;
 
 	@VisibleForTesting
 	final JButton _addFeatureButton;
@@ -199,7 +196,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 		_logArea.setAutoscrolls(true);
 		_logAreaScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		_logAreaScroller.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
 
 		JPanel featureSection = new JPanel();
 		featureSection.setLayout(new SpringLayout());
