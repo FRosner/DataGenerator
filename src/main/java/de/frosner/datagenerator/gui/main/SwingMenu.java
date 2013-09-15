@@ -92,8 +92,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JProgressBar _progressBar;
 
 	@VisibleForTesting
-	final JTextArea _logAreaTextArea;
-	private final JScrollPane _logArea;
+	final JTextArea _logArea;
+	private final JScrollPane _logAreaScroller;
 
 	private GenerateDataButtonWorker _generateDataButtonWorker;
 
@@ -157,15 +157,15 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_abortDataGenerationButton.setPreferredSize(new Dimension(LINE_WIDTH / 2 - 2, BUTTON_HEIGHT));
 		_abortDataGenerationButton.addActionListener(this);
 		_abortDataGenerationButton.setEnabled(false);
-		_logAreaTextArea = new JTextArea(5, 25);
-		_logArea = new JScrollPane(_logAreaTextArea);
-		TextAreaLogger.setLogArea(_logAreaTextArea);
-		_logAreaTextArea.setBorder(new LineBorder(Color.gray, 1));
-		_logAreaTextArea.setEditable(false);
-		_logAreaTextArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-		_logAreaTextArea.setAutoscrolls(true);
-		_logArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		_logArea.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
+		_logArea = new JTextArea(5, 25);
+		_logAreaScroller = new JScrollPane(_logArea);
+		TextAreaLogger.setLogArea(_logArea);
+		_logArea.setBorder(new LineBorder(Color.gray, 1));
+		_logArea.setEditable(false);
+		_logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		_logArea.setAutoscrolls(true);
+		_logAreaScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		_logAreaScroller.setBounds(-1, -1, PANEL_WIDTH - 75, 125);
 
 		JPanel featureSection = new JPanel();
 		featureSection.setLayout(new SpringLayout());
@@ -235,7 +235,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		JPanel logPanel = new JPanel();
 		contentPane.add(logPanel);
 		logPanel.setLayout(new SpringLayout());
-		logPanel.add(_logArea);
+		logPanel.add(_logAreaScroller);
 		SpringUtilities.makeCompactGrid(logPanel, 1, 1, PADDING, PADDING, PADDING, PADDING);
 
 		SpringUtilities.makeCompactGrid(contentPane, 5, 1, 15, 15, 15, 15);

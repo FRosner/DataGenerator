@@ -159,7 +159,7 @@ public class SwingMenuGuiTest {
 	public void testLogging() throws InterruptedException {
 		TextAreaLogger.info("Test");
 		Thread.sleep(250);
-		assertThat(_frame._logAreaTextArea.getText()).contains("Test");
+		assertThat(_frame._logArea.getText()).contains("Test");
 	}
 
 }
