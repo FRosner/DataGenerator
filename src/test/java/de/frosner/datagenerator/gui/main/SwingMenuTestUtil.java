@@ -74,7 +74,7 @@ public final class SwingMenuTestUtil {
 		});
 	}
 
-	public void selectFileUsingFileChooserDialog(final File file) {
+	void selectFileUsingFileChooserDialog(final File file) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -95,6 +95,13 @@ public final class SwingMenuTestUtil {
 			}
 		}).start();
 		clickButton(_menu._exportFileButton);
+	}
+
+	void addGaussianFeature(String name, String mean, String sigma) {
+		enterText(_menu._gaussianNameField, name);
+		enterText(_menu._gaussianMeanField, mean);
+		enterText(_menu._gaussianSigmaField, sigma);
+		clickButton(_menu._addFeatureButton);
 	}
 
 }
