@@ -157,6 +157,27 @@ public class SwingMenuGuiTest {
 		exportFile.delete();
 	}
 
+	@Test(timeout = 5000)
+	public void testAbortGeneration() throws InterruptedException {
+		File exportFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
+		assertThat(exportFile).doesNotExist();
+		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
+		_frameTestUtil.selectFileUsingFileChooserDialog(exportFile);
+		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10000000");
+		_frameTestUtil.clickButton(_frame._generateDataButton);
+		while (!exportFile.exists()) {
+			Thread.sleep(50);
+		}
+		assertThat(_frame._generateDataButton.isEnabled()).isFalse();
+		assertThat(_frame._abortDataGenerationButton.isEnabled()).isTrue();
+		_frameTestUtil.clickButton(_frame._abortDataGenerationButton);
+		long fileSize = exportFile.length();
+		Thread.sleep(50);
+		assertThat(exportFile).hasSize(fileSize);
+		assertThat(_frame._logArea.getText()).contains("Generation aborted.");
+		exportFile.delete();
+	}
+
 	@Test
 	public void testLogging() throws InterruptedException {
 		TextAreaLogger.info("Test");
