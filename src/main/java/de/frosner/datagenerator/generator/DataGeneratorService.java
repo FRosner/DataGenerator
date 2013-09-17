@@ -65,4 +65,10 @@ public final class DataGeneratorService {
 		return _featureDefinitions;
 	}
 
+	@VisibleForTesting
+	public void reset() {
+		_featureDefinitions.clear();
+		_generating = false;
+	}
+
 }

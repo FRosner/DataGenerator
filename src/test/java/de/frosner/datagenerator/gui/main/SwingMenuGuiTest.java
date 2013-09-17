@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.frosner.datagenerator.generator.DataGeneratorService;
 import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 
 public class SwingMenuGuiTest {
@@ -24,7 +25,8 @@ public class SwingMenuGuiTest {
 	}
 
 	@Before
-	public void setUp() {
+	public void createGui() {
+		DataGeneratorService.INSTANCE.reset();
 		_frame = GuiActionRunner.execute(new GuiQuery<SwingMenu>() {
 			@Override
 			protected SwingMenu executeInEDT() {
