@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
@@ -287,12 +288,24 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
-	public void enableGenerateDataButton(boolean enabled) {
-		_generateDataButton.setEnabled(enabled);
+	public void enableGenerateDataButton(final boolean enabled) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				_generateDataButton.setEnabled(enabled);
+
+			}
+		});
 	}
 
-	public void enableAbortDataGenerationButton(boolean enabled) {
-		_abortDataGenerationButton.setEnabled(enabled);
+	public void enableAbortDataGenerationButton(final boolean enabled) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				_abortDataGenerationButton.setEnabled(enabled);
+
+			}
+		});
 	}
 
 	public void detachGenerateDataButtonWorker() {
@@ -302,7 +315,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-
 		if (source.equals(_addFeatureButton)) {
 			if (verifyComponent(_gaussianNameField, isName(_gaussianNameField.getText()).isNotLongerThan(30).verify())
 					& verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
