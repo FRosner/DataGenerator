@@ -18,6 +18,7 @@ public class SwingMenuGuiTest {
 
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
+	private File _testFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
 
 	@BeforeClass
 	public static void setUpOnce() {
@@ -25,7 +26,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Before
-	public void createGui() {
+	public void setUp() {
 		DataGeneratorService.INSTANCE.reset();
 		_frame = GuiActionRunner.execute(new GuiQuery<SwingMenu>() {
 			@Override
@@ -36,6 +37,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil = new SwingMenuTestUtil(_frame);
 		SwingLauncher.GUI = _frame;
 		_frameTestUtil.setExportFileFilter(SwingMenu.ALL_FILE_FILTER);
+		if (_testFile.exists()) {
+			_testFile.delete();
+		}
 	}
 
 	@Test
@@ -70,28 +74,26 @@ public class SwingMenuGuiTest {
 
 	@Test
 	public void testVerifyFeatureList() {
-		File selectedFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
-		assertThat(selectedFile).doesNotExist();
+		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
-		_frameTestUtil.selectFileUsingFileChooserDialog(selectedFile);
+		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 
 		_frameTestUtil.clickButton(_frame._generateDataButton);
-		assertThat(selectedFile).doesNotExist();
+		assertThat(_testFile).doesNotExist();
 		assertThat(_frame._featureList.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
 	@Test
 	public void testVerifyNumberOfInstancesList() {
-		File selectedFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
-		assertThat(selectedFile).doesNotExist();
-		_frameTestUtil.selectFileUsingFileChooserDialog(selectedFile);
+		assertThat(_testFile).doesNotExist();
+		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
 
 		_frameTestUtil.clickButton(_frame._generateDataButton);
-		assertThat(selectedFile).doesNotExist();
+		assertThat(_testFile).doesNotExist();
 		assertThat(_frame._numberOfInstancesField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
@@ -145,37 +147,34 @@ public class SwingMenuGuiTest {
 
 	@Test(timeout = 5000)
 	public void testGenerateData() throws InterruptedException {
-		File exportFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
-		assertThat(exportFile).doesNotExist();
+		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
-		_frameTestUtil.selectFileUsingFileChooserDialog(exportFile);
+		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButton(_frame._generateDataButton);
-		while (!exportFile.exists()) {
+		while (!_testFile.exists()) {
 			Thread.sleep(50);
 		}
-		exportFile.delete();
 	}
 
 	@Test(timeout = 5000)
 	public void testAbortGeneration() throws InterruptedException {
-		File exportFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
-		assertThat(exportFile).doesNotExist();
+		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
-		_frameTestUtil.selectFileUsingFileChooserDialog(exportFile);
+		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10000000");
 		_frameTestUtil.clickButton(_frame._generateDataButton);
-		while (!exportFile.exists()) {
+		while (!_testFile.exists()) {
 			Thread.sleep(50);
 		}
 		assertThat(_frame._generateDataButton.isEnabled()).isFalse();
 		assertThat(_frame._abortDataGenerationButton.isEnabled()).isTrue();
 		_frameTestUtil.clickButton(_frame._abortDataGenerationButton);
-		long fileSize = exportFile.length();
-		Thread.sleep(50);
-		assertThat(exportFile).hasSize(fileSize);
+		Thread.sleep(100);
+		long fileSize = _testFile.length();
+		Thread.sleep(100);
+		assertThat(_testFile).hasSize(fileSize);
 		assertThat(_frame._logArea.getText()).contains("Generation aborted.");
-		exportFile.delete();
 	}
 
 	@Test
