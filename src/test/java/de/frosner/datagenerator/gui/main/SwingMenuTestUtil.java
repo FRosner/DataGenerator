@@ -1,5 +1,7 @@
 package de.frosner.datagenerator.gui.main;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -12,6 +14,7 @@ import org.fest.swing.edt.GuiTask;
 
 public final class SwingMenuTestUtil {
 
+	protected static final int FILE_CHOOSER_OPEN_DELAY = 500;
 	private SwingMenu _menu;
 
 	SwingMenuTestUtil(SwingMenu swingMenu) {
@@ -69,6 +72,29 @@ public final class SwingMenuTestUtil {
 				_menu._exportFileDialog.setFileFilter(filter);
 			}
 		});
+	}
+
+	public void selectFileUsingFileChooserDialog(final File file) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.delay(FILE_CHOOSER_OPEN_DELAY);
+					GuiActionRunner.execute(new GuiTask() {
+						@Override
+						protected void executeInEDT() {
+							_menu._exportFileDialog.setSelectedFile(file);
+							_menu._exportFileDialog.approveSelection();
+						}
+					});
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		clickButton(_menu._exportFileButton);
 	}
 
 }
