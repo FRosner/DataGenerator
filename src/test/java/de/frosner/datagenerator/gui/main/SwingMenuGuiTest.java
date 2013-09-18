@@ -166,6 +166,7 @@ public class SwingMenuGuiTest {
 		while (!_testFile.exists()) {
 			Thread.sleep(50);
 		}
+		Thread.sleep(100);
 		assertThat(_frame._generateDataButton.isEnabled()).isFalse();
 		assertThat(_frame._abortDataGenerationButton.isEnabled()).isTrue();
 		_frameTestUtil.clickButton(_frame._abortDataGenerationButton);
