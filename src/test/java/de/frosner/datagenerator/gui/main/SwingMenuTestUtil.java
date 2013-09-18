@@ -14,7 +14,8 @@ import org.fest.swing.edt.GuiTask;
 
 public final class SwingMenuTestUtil {
 
-	protected static final int FILE_CHOOSER_OPEN_DELAY = 500;
+	private static final int FILE_CHOOSER_OPEN_DELAY = 500;
+	public static final int ROBOT_DELAY = 40;
 	private SwingMenu _menu;
 
 	SwingMenuTestUtil(SwingMenu swingMenu) {

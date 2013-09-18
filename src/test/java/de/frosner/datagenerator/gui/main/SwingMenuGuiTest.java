@@ -126,7 +126,6 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testSelectExportFile() {
 		assertThat(_frame._exportFileField.isEditable()).isFalse();
-		_frameTestUtil.setExportFileFilter(SwingMenu.ALL_FILE_FILTER);
 		_frameTestUtil.selectFileUsingFileChooserDialog(new File("t"));
 		assertThat(_frame._exportFileField.getText()).endsWith("t");
 	}

@@ -92,14 +92,12 @@ public class OrderedFocusTraversalPolicyTest {
 				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
 			}
 		});
-		int delay = 20;
 		Robot robot = new Robot();
-		robot.delay(delay);
 		assertThat(_button.isFocusOwner()).isTrue();
 		robot.keyPress(KeyEvent.VK_TAB);
-		robot.delay(delay);
+		robot.delay(SwingMenuTestUtil.ROBOT_DELAY);
 		robot.keyRelease(KeyEvent.VK_TAB);
-		robot.delay(delay);
+		robot.delay(SwingMenuTestUtil.ROBOT_DELAY);
 		assertThat(_textField.isFocusOwner()).isTrue();
 	}
 
@@ -115,14 +113,12 @@ public class OrderedFocusTraversalPolicyTest {
 				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
 			}
 		});
-		int delay = 20;
 		Robot robot = new Robot();
-		robot.delay(delay);
 		assertThat(_button.isFocusOwner()).isTrue();
 		robot.keyPress(KeyEvent.VK_TAB);
-		robot.delay(delay);
+		robot.delay(SwingMenuTestUtil.ROBOT_DELAY);
 		robot.keyRelease(KeyEvent.VK_TAB);
-		robot.delay(delay);
+		robot.delay(SwingMenuTestUtil.ROBOT_DELAY);
 		assertThat(_button.isFocusOwner()).isTrue();
 	}
 
