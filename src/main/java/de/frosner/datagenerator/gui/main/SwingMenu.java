@@ -180,6 +180,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_progressBar = new JProgressBar(0, 100);
 		_progressBar.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_progressBar.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
+		ProgressBarManager.setProgressBar(_progressBar);
 		_generateDataButton = new JButton("Generate");
 		_generateDataButton.setMaximumSize(new Dimension(LINE_WIDTH / 2 - 2, BUTTON_HEIGHT));
 		_generateDataButton.setPreferredSize(new Dimension(LINE_WIDTH / 2 - 2, BUTTON_HEIGHT));

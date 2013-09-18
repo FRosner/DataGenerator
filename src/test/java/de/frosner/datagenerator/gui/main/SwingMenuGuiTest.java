@@ -147,6 +147,7 @@ public class SwingMenuGuiTest {
 
 	@Test(timeout = 5000)
 	public void testGenerateData() throws InterruptedException {
+		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
@@ -155,10 +156,13 @@ public class SwingMenuGuiTest {
 		while (!_testFile.exists()) {
 			Thread.sleep(50);
 		}
+		assertThat(_testFile).exists();
+		assertThat(_frame._progressBar.getValue()).isEqualTo(100);
 	}
 
 	@Test(timeout = 5000)
 	public void testAbortGeneration() throws InterruptedException {
+		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
@@ -176,6 +180,7 @@ public class SwingMenuGuiTest {
 		Thread.sleep(100);
 		assertThat(_testFile).hasSize(fileSize);
 		assertThat(_frame._logArea.getText()).contains("Generation aborted.");
+		assertThat(_frame._progressBar.getValue()).isGreaterThan(0).isLessThan(100);
 	}
 
 	@Test

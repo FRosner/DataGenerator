@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.Instance.InstanceBuilder;
+import de.frosner.datagenerator.gui.main.ProgressBarManager;
 
 /**
  * Class for sampling a sequence of {@link Instance}s having the specified {@link FeatureDefinition}s. Sampled instances
@@ -98,11 +99,23 @@ public final class DataGenerator {
 	 */
 	public boolean generate() throws IOException {
 		boolean success = true;
+
+		ProgressBarManager.resetProgress();
+		int progressNotificationBreak = _numberOfInstances / 100;
+		if (progressNotificationBreak == 0) {
+			ProgressBarManager.setProgressToMaximum();
+		}
+
 		for (int i = 0; i < _numberOfInstances; i++) {
 			if (Thread.interrupted()) {
 				success = false;
 				break;
 			}
+
+			if (progressNotificationBreak > 0 && i % progressNotificationBreak == 0) {
+				ProgressBarManager.increaseProgress();
+			}
+
 			InstanceBuilder instanceBuilder = Instance.builder(i);
 			for (FeatureDefinition featureDefinition : _featureDefinitions) {
 				instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
