@@ -3,6 +3,7 @@ package de.frosner.datagenerator.gui.main;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
@@ -175,6 +176,12 @@ public class SwingMenuGuiTest {
 		Thread.sleep(100);
 		assertThat(_testFile).hasSize(fileSize);
 		assertThat(_frame._logArea.getText()).contains("Generation aborted.");
+	}
+
+	@Test
+	public void testSelectedDirectoryEqualsCurrentDirectoryAtStartUp() throws IOException {
+		assertThat(_frame._exportFileDialog.getCurrentDirectory().getCanonicalPath()).isEqualTo(
+				new File("").getCanonicalPath());
 	}
 
 	@Test

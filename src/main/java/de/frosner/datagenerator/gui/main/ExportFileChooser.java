@@ -11,6 +11,10 @@ public class ExportFileChooser extends JFileChooser {
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
 
+	public ExportFileChooser() {
+		super(new File(System.getProperty("user.dir")));
+	}
+
 	@Override
 	public void approveSelection() {
 		if (getDialogType() == OPEN_DIALOG) {
