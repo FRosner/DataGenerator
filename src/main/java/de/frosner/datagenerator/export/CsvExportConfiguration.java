@@ -3,11 +3,12 @@ package de.frosner.datagenerator.export;
 import java.io.File;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
 
-@Immutable
+/**
+ * Configuration parameters a CSV export connection needs.
+ */
 public class CsvExportConfiguration {
 
 	private final File _file;
