@@ -157,6 +157,7 @@ public class SwingMenuGuiTest {
 			Thread.sleep(50);
 		}
 		assertThat(_testFile).exists();
+		Thread.sleep(200);
 		assertThat(_frame._progressBar.getValue()).isEqualTo(100);
 	}
 

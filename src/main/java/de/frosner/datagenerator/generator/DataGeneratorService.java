@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
@@ -35,7 +36,8 @@ public final class DataGeneratorService {
 		TextAreaLogger.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
 	}
 
-	public void generateData(int numberOfInstances, File exportFile) {
+	public void generateData(int numberOfInstances, CsvExportConfiguration exportConfig) {
+		File exportFile = exportConfig.getFile();
 		if (!_generating) {
 			try {
 				_generating = true;

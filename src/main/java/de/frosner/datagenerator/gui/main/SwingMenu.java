@@ -48,6 +48,7 @@ import org.uncommons.swing.SpringUtilities;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.GaussianDistribution;
+import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGeneratorService;
 import de.frosner.datagenerator.util.ApplicationMetaData;
@@ -92,9 +93,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@VisibleForTesting
 	final JTextField _exportFileField;
 	@VisibleForTesting
-	final JCheckBox _exportRowNumbersBox;
+	final JCheckBox _exportInstanceIdsBox;
 	@VisibleForTesting
-	final JCheckBox _exportColumnNamesBox;
+	final JCheckBox _exportFeatureNamesBox;
 
 	@VisibleForTesting
 	static final FileFilter CSV_FILE_FILTER = new ExtensionFileFilter("Comma Separated Values (.csv)", "csv");
@@ -182,8 +183,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileField.setEditable(false);
 		_exportFileField.setMaximumSize(new Dimension(LINE_WIDTH - 25, LINE_HEIGHT));
 		_exportFileField.setPreferredSize(new Dimension(LINE_WIDTH - 25, LINE_HEIGHT));
-		_exportRowNumbersBox = new JCheckBox("Instance IDs");
-		_exportColumnNamesBox = new JCheckBox("Column Names");
+		_exportInstanceIdsBox = new JCheckBox("Instance IDs");
+		_exportFeatureNamesBox = new JCheckBox("Feature Names");
 		_progressBar = new JProgressBar(0, 100);
 		_progressBar.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_progressBar.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
@@ -271,8 +272,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		exportSection.add(exportCheckBoxPanel);
 		exportSection.add(new JLabel());
 		exportCheckBoxPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		exportCheckBoxPanel.add(_exportRowNumbersBox);
-		exportCheckBoxPanel.add(_exportColumnNamesBox);
+		exportCheckBoxPanel.add(_exportInstanceIdsBox);
+		exportCheckBoxPanel.add(_exportFeatureNamesBox);
 
 		SpringUtilities.makeCompactGrid(exportSection, 2, 2, 0, 0, PADDING, PADDING);
 
@@ -375,7 +376,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					& verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify())) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
-				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, exportFile);
+				final boolean exportInstanceIds = _exportInstanceIdsBox.isSelected();
+				final boolean exportFeatureNames = _exportFeatureNamesBox.isSelected();
+				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, new CsvExportConfiguration(
+						exportFile, exportInstanceIds, exportFeatureNames));
 				_generateDataButtonWorker.execute();
 			}
 

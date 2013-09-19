@@ -1,26 +1,25 @@
 package de.frosner.datagenerator.gui.main;
 
-import java.io.File;
-
 import javax.swing.SwingWorker;
 
+import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.generator.DataGeneratorService;
 
 public class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
 
 	private final int _numberOfInstances;
-	private final File _exportFile;
+	private final CsvExportConfiguration _config;
 
-	public GenerateDataButtonWorker(int numberOfInstances, File exportFile) {
+	public GenerateDataButtonWorker(int numberOfInstances, CsvExportConfiguration config) {
 		_numberOfInstances = numberOfInstances;
-		_exportFile = exportFile;
+		_config = config;
 	}
 
 	@Override
 	protected Void doInBackground() {
 		SwingLauncher.GUI.enableGenerateDataButton(false);
 		SwingLauncher.GUI.enableAbortDataGenerationButton(true);
-		DataGeneratorService.INSTANCE.generateData(_numberOfInstances, _exportFile);
+		DataGeneratorService.INSTANCE.generateData(_numberOfInstances, _config);
 		return null;
 	}
 

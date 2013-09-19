@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.frosner.datagenerator.distributions.DummyDistribution;
+import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
 public class DataGeneratorServiceTest {
@@ -53,7 +54,7 @@ public class DataGeneratorServiceTest {
 			exportFile.delete();
 		}
 		assertThat(exportFile).doesNotExist();
-		_service.generateData(1000, exportFile);
+		_service.generateData(1000, new CsvExportConfiguration(exportFile, false, false));
 		assertThat(exportFile).exists();
 
 		exportFile.delete();
