@@ -9,6 +9,9 @@ import java.util.Iterator;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.Instance;
 
+/**
+ * Connection for exporting instances to a CSV file.
+ */
 public class CsvExportConnection implements ExportConnection {
 
 	BufferedWriter _out;
