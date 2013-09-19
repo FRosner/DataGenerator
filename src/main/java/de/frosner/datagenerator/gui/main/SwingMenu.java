@@ -301,6 +301,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(focusOrder));
 
 		pack();
+		setMinimumSize(getSize());
 		setVisible(true);
 	}
 
