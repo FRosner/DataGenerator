@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -90,6 +91,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JButton _exportFileButton;
 	@VisibleForTesting
 	final JTextField _exportFileField;
+	@VisibleForTesting
+	final JCheckBox _exportRowNumbersBox;
+	@VisibleForTesting
+	final JCheckBox _exportColumnNamesBox;
 
 	@VisibleForTesting
 	static final FileFilter CSV_FILE_FILTER = new ExtensionFileFilter("Comma Separated Values (.csv)", "csv");
@@ -177,6 +182,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileField.setEditable(false);
 		_exportFileField.setMaximumSize(new Dimension(LINE_WIDTH - 25, LINE_HEIGHT));
 		_exportFileField.setPreferredSize(new Dimension(LINE_WIDTH - 25, LINE_HEIGHT));
+		_exportRowNumbersBox = new JCheckBox("Instance IDs");
+		_exportColumnNamesBox = new JCheckBox("Column Names");
 		_progressBar = new JProgressBar(0, 100);
 		_progressBar.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_progressBar.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
@@ -260,7 +267,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		generateDataSubPanel.add(_generateDataButton);
 		SpringUtilities.makeCompactGrid(generateDataPanel, 2, 2, 0, 0, PADDING, PADDING);
 
-		SpringUtilities.makeCompactGrid(exportSection, 1, 2, 0, 0, PADDING, PADDING);
+		JPanel exportCheckBoxPanel = new JPanel();
+		exportSection.add(exportCheckBoxPanel);
+		exportSection.add(new JLabel());
+		exportCheckBoxPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		exportCheckBoxPanel.add(_exportRowNumbersBox);
+		exportCheckBoxPanel.add(_exportColumnNamesBox);
+
+		SpringUtilities.makeCompactGrid(exportSection, 2, 2, 0, 0, PADDING, PADDING);
 
 		contentPane.add(new JSeparator(JSeparator.HORIZONTAL));
 
