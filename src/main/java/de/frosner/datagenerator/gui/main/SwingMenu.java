@@ -141,19 +141,15 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		_gaussianNameLabel = new JLabel("Name", JLabel.RIGHT);
 		_gaussianNameField = new JTextField();
-		_gaussianNameField.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianNameField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianMeanLabel = new JLabel("Mean", JLabel.RIGHT);
 		_gaussianMeanField = new JTextField();
-		_gaussianMeanField.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianMeanField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianSigmaLabel = new JLabel("Sigma", JLabel.RIGHT);
 		_gaussianSigmaField = new JTextField();
-		_gaussianSigmaField.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianSigmaField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_addFeatureButton = new JButton("Add Feature");
 		_addFeatureButton.addActionListener(this);
-		_addFeatureButton.setMaximumSize(new Dimension(LINE_WIDTH, BUTTON_HEIGHT));
 		_addFeatureButton.setPreferredSize(new Dimension(LINE_WIDTH, BUTTON_HEIGHT));
 		_featureListModel = new DefaultListModel();
 		_featureList = new JList(_featureListModel);
