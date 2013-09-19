@@ -166,7 +166,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_removeFeatureButton.setPreferredSize(new Dimension(LINE_WIDTH, BUTTON_HEIGHT));
 		_numberOfInstancesLabel = new JLabel("#Instances", JLabel.RIGHT);
 		_numberOfInstancesField = new JTextField();
-		_numberOfInstancesField.setMaximumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_numberOfInstancesField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
 		_exportFileDialog = new ExportFileChooser();
@@ -177,7 +176,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileButton.addActionListener(this);
 		_exportFileField = new JTextField();
 		_exportFileField.setEditable(false);
-		_exportFileField.setMaximumSize(new Dimension(LINE_WIDTH - 25, LINE_HEIGHT));
 		_exportFileField.setPreferredSize(new Dimension(LINE_WIDTH - 25, LINE_HEIGHT));
 		_exportInstanceIdsBox = new JCheckBox("Instance IDs");
 		_exportFeatureNamesBox = new JCheckBox("Feature Names");
@@ -246,9 +244,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		exportDefinitionPanel.add(_exportFileLabel);
 		JPanel exportFileSubPanel = new JPanel();
 		exportDefinitionPanel.add(exportFileSubPanel);
-		exportFileSubPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		exportFileSubPanel.setLayout(new SpringLayout());
 		exportFileSubPanel.add(_exportFileField);
 		exportFileSubPanel.add(_exportFileButton);
+		SpringUtilities.makeCompactGrid(exportFileSubPanel, 1, 2, 0, 0, 0, 0);
 		SpringUtilities.makeCompactGrid(exportDefinitionPanel, 2, 2, 0, 0, PADDING, PADDING);
 
 		JPanel generateDataPanel = new JPanel();
