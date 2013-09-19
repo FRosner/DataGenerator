@@ -67,9 +67,8 @@ public final class DataGenerator {
 			@Nonnull List<FeatureDefinition> featureDefinitions) {
 		Check.stateIsTrue(numberOfInstances > 0, "Number of instances to generate must be > 0.");
 		Check.notNull(exportConnection);
-		Check.notNull(featureDefinitions);
-		Check.stateIsTrue(featureDefinitions.size() > 0, "There must at least be one feature to generate data from.");
 		Check.noNullElements(featureDefinitions);
+		Check.stateIsTrue(featureDefinitions.size() > 0, "There must at least be one feature to generate data from.");
 
 		_numberOfInstances = numberOfInstances;
 		_out = exportConnection;
