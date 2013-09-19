@@ -125,7 +125,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		setTitle(ApplicationMetaData.getName());
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
 
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new SpringLayout());
@@ -263,7 +263,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		generateDataPanel.add(new JLabel());
 		JPanel generateDataSubPanel = new JPanel();
 		generateDataPanel.add(generateDataSubPanel);
-		generateDataSubPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		generateDataSubPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		generateDataSubPanel.add(_abortDataGenerationButton);
 		generateDataSubPanel.add(_generateDataButton);
 		SpringUtilities.makeCompactGrid(generateDataPanel, 2, 2, 0, 0, PADDING, PADDING);
