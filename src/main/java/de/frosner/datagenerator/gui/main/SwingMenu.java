@@ -62,7 +62,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
 
 	private static final int LINE_HEIGHT = 30;
-	private static final int BUTTON_HEIGHT = LINE_HEIGHT - 3;
 	private static final int LINE_WIDTH = 180;
 	private static final int PADDING = 5;
 
