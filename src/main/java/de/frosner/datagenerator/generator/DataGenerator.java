@@ -92,17 +92,24 @@ public final class DataGenerator {
 	}
 
 	/**
-	 * Sample and export instances to the corresponding {@link ExportConnection}.
+	 * Sample and export instances to the corresponding {@link ExportConnection}. If a progress bar is registered at the
+	 * {@link ProgressBarManager}, it will be notified if specified.
 	 * 
+	 * @param showProgress
+	 *            boolean to trigger progress notification.
+	 * @return whether generation was successful or interrupted
 	 * @throws IOException
 	 */
-	public boolean generate() throws IOException {
+	public boolean generate(boolean showProgress) throws IOException {
 		boolean success = true;
 
-		ProgressBarManager.resetProgress();
-		int progressNotificationBreak = _numberOfInstances / 100;
-		if (progressNotificationBreak == 0) {
-			ProgressBarManager.setProgressToMaximum();
+		int progressNotificationBreak = 0;
+		if (showProgress) {
+			ProgressBarManager.resetProgress();
+			progressNotificationBreak = _numberOfInstances / 100;
+			if (progressNotificationBreak == 0) {
+				ProgressBarManager.setProgressToMaximum();
+			}
 		}
 
 		for (int i = 0; i < _numberOfInstances; i++) {
@@ -111,8 +118,10 @@ public final class DataGenerator {
 				break;
 			}
 
-			if (progressNotificationBreak > 0 && i % progressNotificationBreak == 0) {
-				ProgressBarManager.increaseProgress();
+			if (showProgress) {
+				if (progressNotificationBreak > 0 && i % progressNotificationBreak == 0) {
+					ProgressBarManager.increaseProgress();
+				}
 			}
 
 			InstanceBuilder instanceBuilder = Instance.builder(i);
@@ -123,5 +132,16 @@ public final class DataGenerator {
 		}
 		_out.close();
 		return success;
+	}
+
+	/**
+	 * Sample and export instances to the corresponding {@link ExportConnection}. If a progress bar is registered at the
+	 * {@link ProgressBarManager}, it will be notified.
+	 * 
+	 * @return whether generation was successful or interrupted
+	 * @throws IOException
+	 */
+	public boolean generate() throws IOException {
+		return generate(true);
 	}
 }

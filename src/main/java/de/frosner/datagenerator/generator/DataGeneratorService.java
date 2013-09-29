@@ -12,6 +12,7 @@ import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.gui.main.PreviewTableManager;
 import de.frosner.datagenerator.gui.main.TextAreaLogger;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
@@ -30,10 +31,12 @@ public final class DataGeneratorService {
 	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
 		_featureDefinitions.add(featureDefinition);
 		TextAreaLogger.info("Added Feature: " + featureDefinition.getName());
+		PreviewTableManager.generatePreview(_featureDefinitions);
 	}
 
 	public void removeFeatureDefinition(int index) {
 		TextAreaLogger.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
+		PreviewTableManager.generatePreview(_featureDefinitions);
 	}
 
 	public void generateData(int numberOfInstances, CsvExportConfiguration exportConfig) {

@@ -117,11 +117,14 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		Thread.sleep(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature");
-
+		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeature(0);
 		_frameTestUtil.clickButton(_frame._removeFeatureButton);
+		Thread.sleep(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
 	}
 
 	@Test
