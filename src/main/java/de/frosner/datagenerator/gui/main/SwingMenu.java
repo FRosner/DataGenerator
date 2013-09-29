@@ -12,6 +12,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -131,7 +133,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	public SwingMenu() {
 		// BEGIN frame initialization
 		setTitle(ApplicationMetaData.getName());
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(true);
 		// END frame initialization
@@ -308,6 +309,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		// BEGIN finalize
 		pack();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+		Point newLocation = new Point(middle.x - (getWidth() / 2), middle.y - (getHeight() / 2));
+		setLocation(newLocation);
 		setMinimumSize(getSize());
 		setVisible(true);
 		// END finalize
