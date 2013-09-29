@@ -2,6 +2,8 @@ package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.File;
 import java.io.IOException;
 
@@ -111,18 +113,18 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testAddAndRemoveFeature() throws InterruptedException {
+	public void testAddAndRemoveFeature() throws InterruptedException, AWTException {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
-		Thread.sleep(500);
+		new Robot().delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeature(0);
 		_frameTestUtil.clickButton(_frame._removeFeatureButton);
-		Thread.sleep(500);
+		new Robot().delay(1000);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
 	}
