@@ -3,7 +3,6 @@ package de.frosner.datagenerator.generator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.List;
 import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
+import de.frosner.datagenerator.export.UncheckedIOException;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.main.PreviewTableManager;
 import de.frosner.datagenerator.gui.main.ProgressBarManager;
@@ -69,7 +69,7 @@ public final class DataGeneratorService {
 				exportConnection.close();
 			} catch (FileNotFoundException e) {
 				TextAreaLogger.error("File not found: " + exportFile);
-			} catch (IOException e) {
+			} catch (UncheckedIOException e) {
 				TextAreaLogger.error("Writing to file failed: " + e.getMessage());
 			} finally {
 				_generating = false;

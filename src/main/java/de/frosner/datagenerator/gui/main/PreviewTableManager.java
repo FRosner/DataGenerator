@@ -1,6 +1,5 @@
 package de.frosner.datagenerator.gui.main;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
@@ -26,7 +25,7 @@ public class PreviewTableManager {
 		}
 
 		@Override
-		public void export(Instance instance) throws IOException {
+		public void export(Instance instance) {
 			int columnIndex = 0;
 			for (FeatureValue value : instance) {
 				if (columnIndex < _table.getColumnCount()) {
@@ -37,7 +36,7 @@ public class PreviewTableManager {
 		}
 
 		@Override
-		public void close() throws IOException {
+		public void close() {
 		}
 
 	}
@@ -56,12 +55,8 @@ public class PreviewTableManager {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					try {
-						new DataGenerator(_table.getRowCount() - 1, new PreviewTableExportConnection(_table), features)
-								.generate();
-					} catch (IOException e) {
-						// PreviewTableExportConnection does not throw IOException
-					}
+					new DataGenerator(_table.getRowCount() - 1, new PreviewTableExportConnection(_table), features)
+							.generate();
 				}
 			});
 		}

@@ -11,7 +11,6 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import de.frosner.datagenerator.util.ApplicationMetaData;
-import de.frosner.datagenerator.util.ExceptionUtil;
 
 public final class SwingLauncher {
 
@@ -42,8 +41,9 @@ public final class SwingLauncher {
 				} catch (Exception e) {
 					try {
 						UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-					} catch (Exception e2) {
-						ExceptionUtil.uncheckException(e);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						System.exit(1);
 					}
 				}
 			}

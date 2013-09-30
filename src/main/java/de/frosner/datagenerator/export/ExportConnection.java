@@ -1,6 +1,5 @@
 package de.frosner.datagenerator.export;
 
-import java.io.Closeable;
 import java.io.IOException;
 
 import de.frosner.datagenerator.generator.DataGenerator;
@@ -13,7 +12,7 @@ import de.frosner.datagenerator.generator.Instance;
  * <p>
  * Export connections should save the feature values in some way and handle buffering on their own.
  */
-public interface ExportConnection extends Closeable {
+public interface ExportConnection {
 
 	/**
 	 * Calling this method will export the supplied {@link Instance} to the {@link ExportConnection}. Export connections
@@ -23,6 +22,15 @@ public interface ExportConnection extends Closeable {
 	 *            to export
 	 * @throws IOException
 	 */
-	public void export(Instance instance) throws IOException;
+	public void export(Instance instance);
+
+	/**
+	 * Closes this stream and releases any system resources associated with it. If the stream is already closed then
+	 * invoking this method has no effect.
+	 * 
+	 * @throws IOException
+	 *             if an I/O error occurs
+	 */
+	public void close();
 
 }

@@ -1,6 +1,5 @@
 package de.frosner.datagenerator.generator;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -90,11 +89,11 @@ public final class DataGenerator {
 		this(numberOfInstances, exportConnection, Lists.newArrayList(featureDefinitions));
 	}
 
-	public void generate() throws IOException {
+	public void generate() {
 		generate(0, _numberOfInstances);
 	}
 
-	public void generate(int offset, int range) throws IOException {
+	public void generate(int offset, int range) {
 		for (int i = offset; i < Math.min(offset + range, _numberOfInstances); i++) {
 			InstanceBuilder instanceBuilder = Instance.builder(i);
 			for (FeatureDefinition featureDefinition : _featureDefinitions) {

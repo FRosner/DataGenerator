@@ -21,19 +21,27 @@ public class CsvExportConnection implements ExportConnection {
 	}
 
 	@Override
-	public void close() throws IOException {
-		_out.close();
+	public void close() {
+		try {
+			_out.close();
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
+		}
 	}
 
 	@Override
-	public void export(Instance instance) throws IOException {
-		Iterator<FeatureValue> values = instance.iterator();
-		while (values.hasNext()) {
-			_out.write(values.next().getValueAsString());
-			if (values.hasNext()) {
-				_out.write(",");
+	public void export(Instance instance) {
+		try {
+			Iterator<FeatureValue> values = instance.iterator();
+			while (values.hasNext()) {
+				_out.write(values.next().getValueAsString());
+				if (values.hasNext()) {
+					_out.write(",");
+				}
 			}
+			_out.write("\n");
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
 		}
-		_out.write("\n");
 	}
 }

@@ -3,7 +3,6 @@ package de.frosner.datagenerator.export;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 import org.junit.Before;
@@ -25,7 +24,7 @@ public class CsvExportConnectionTest {
 	}
 
 	@Test
-	public void testExport_oneInstance_oneFeature() throws IOException {
+	public void testExport_oneInstance_oneFeature() {
 		_csvExportConnection.export(_dummyInstanceWithOneFeature);
 		_csvExportConnection.close();
 		assertThat(_out.toString())
@@ -33,7 +32,7 @@ public class CsvExportConnectionTest {
 	}
 
 	@Test
-	public void testExport_twoInstances_oneFeature() throws IOException {
+	public void testExport_twoInstances_oneFeature() {
 		_csvExportConnection.export(_dummyInstanceWithOneFeature);
 		_csvExportConnection.export(_dummyInstanceWithOneFeature);
 		_csvExportConnection.close();
@@ -43,7 +42,7 @@ public class CsvExportConnectionTest {
 	}
 
 	@Test
-	public void testExport_oneInstance_twoFeatures() throws IOException {
+	public void testExport_oneInstance_twoFeatures() {
 		_csvExportConnection.export(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
 		assertThat(_out.toString()).isEqualTo(
@@ -52,7 +51,7 @@ public class CsvExportConnectionTest {
 	}
 
 	@Test
-	public void testExport_twoInstances_twoFeatures() throws IOException {
+	public void testExport_twoInstances_twoFeatures() {
 		_csvExportConnection.export(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.export(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
@@ -63,8 +62,8 @@ public class CsvExportConnectionTest {
 						+ _dummyInstanceWithTwoFeatures.getFeatureValue(1).getValueAsString() + "\n");
 	}
 
-	@Test(expected = IOException.class)
-	public void testExportAfterClose() throws IOException {
+	@Test(expected = UncheckedIOException.class)
+	public void testExportAfterClose() {
 		_csvExportConnection.close();
 		_csvExportConnection.export(_dummyInstanceWithOneFeature);
 	}

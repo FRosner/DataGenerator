@@ -3,7 +3,6 @@ package de.frosner.datagenerator.generator;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class DataGeneratorIntegrationTest {
 	}
 
 	@Test
-	public void testDataGenerator_csvExport_continuousFeatures() throws IOException {
+	public void testDataGenerator_csvExport_continuousFeatures() {
 		_numberOfInstances = 100;
 		_exportConnection = new CsvExportConnection(_out);
 		_fd1 = new FeatureDefinition("fd1_hightUsMen", new GaussianDistribution(177.8, 7.62));

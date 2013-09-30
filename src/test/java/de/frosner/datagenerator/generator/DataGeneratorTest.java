@@ -1,10 +1,8 @@
 package de.frosner.datagenerator.generator;
 
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import net.sf.qualitycheck.exception.IllegalNullElementsException;
@@ -67,14 +65,14 @@ public class DataGeneratorTest {
 	}
 
 	@Test
-	public void testGenerateInstance() throws IOException {
+	public void testGenerateInstance() {
 		_generator = new DataGenerator(1, _mockedOut, _x, _y);
 		_generator.generate();
 		verify(_mockedOut).export(new Instance(0, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE));
 	}
 
 	@Test
-	public void testGenerateInstances() throws IOException {
+	public void testGenerateInstances() {
 		int numberOfInstances = 5;
 		_generator = new DataGenerator(numberOfInstances, _mockedOut, _x, _y, _z);
 		_generator.generate();
@@ -83,13 +81,6 @@ public class DataGeneratorTest {
 					new Instance(i, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE,
 							DummyDistribution.ANY_SAMPLE));
 		}
-	}
-
-	@Test(expected = IOException.class)
-	public void testCrashingConnectionWhenExporting() throws IOException {
-		doThrow(new IOException()).when(_mockedOut).export(new Instance(0, DummyDistribution.ANY_SAMPLE));
-		_generator = new DataGenerator(1, _mockedOut, _x);
-		_generator.generate();
 	}
 
 }
