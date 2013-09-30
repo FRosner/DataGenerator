@@ -19,8 +19,6 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.generator.DataGenerator;
-import de.frosner.datagenerator.generator.Instance;
 
 public class DataGeneratorTest {
 
@@ -73,7 +71,6 @@ public class DataGeneratorTest {
 		_generator = new DataGenerator(1, _mockedOut, _x, _y);
 		_generator.generate();
 		verify(_mockedOut).export(new Instance(0, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE));
-		verify(_mockedOut).close();
 	}
 
 	@Test
@@ -86,7 +83,6 @@ public class DataGeneratorTest {
 					new Instance(i, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE,
 							DummyDistribution.ANY_SAMPLE));
 		}
-		verify(_mockedOut).close();
 	}
 
 	@Test(expected = IOException.class)
@@ -96,10 +92,4 @@ public class DataGeneratorTest {
 		_generator.generate();
 	}
 
-	@Test(expected = IOException.class)
-	public void testCrashingConnectionWhenClosing() throws IOException {
-		doThrow(new IOException()).when(_mockedOut).close();
-		_generator = new DataGenerator(1, _mockedOut, _x);
-		_generator.generate();
-	}
 }

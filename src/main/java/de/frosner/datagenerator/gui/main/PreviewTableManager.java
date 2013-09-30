@@ -58,7 +58,7 @@ public class PreviewTableManager {
 				public void run() {
 					try {
 						new DataGenerator(_table.getRowCount() - 1, new PreviewTableExportConnection(_table), features)
-								.generate(false);
+								.generate();
 					} catch (IOException e) {
 						// PreviewTableExportConnection does not throw IOException
 					}

@@ -13,6 +13,7 @@ import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.main.PreviewTableManager;
+import de.frosner.datagenerator.gui.main.ProgressBarManager;
 import de.frosner.datagenerator.gui.main.TextAreaLogger;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
@@ -44,15 +45,28 @@ public final class DataGeneratorService {
 		if (!_generating) {
 			try {
 				_generating = true;
+				boolean aborted = false;
 				ExportConnection exportConnection;
 				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile));
 				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
 				TextAreaLogger.info("Generating " + numberOfInstances + " instances");
-				if (generator.generate()) {
+				int range = 1000;
+				ProgressBarManager.resetProgress();
+				ProgressBarManager.setProgressBarMaximumValue(Math.max(numberOfInstances / range, 1));
+				for (int offset = 0; offset < numberOfInstances; offset += range) {
+					generator.generate(offset, range);
+					ProgressBarManager.increaseProgress();
+					if (Thread.interrupted()) {
+						aborted = true;
+						break;
+					}
+				}
+				if (!aborted) {
 					TextAreaLogger.info("Exported instances to " + exportFile);
 				} else {
 					TextAreaLogger.warn("Generation aborted. Partial results written to " + exportFile);
 				}
+				exportConnection.close();
 			} catch (FileNotFoundException e) {
 				TextAreaLogger.error("File not found: " + exportFile);
 			} catch (IOException e) {

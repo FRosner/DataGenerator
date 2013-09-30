@@ -163,7 +163,7 @@ public class SwingMenuGuiTest {
 		}
 		assertThat(_testFile).exists();
 		Thread.sleep(200);
-		assertThat(_frame._progressBar.getValue()).isEqualTo(100);
+		assertThat(_frame._progressBar.getValue()).isEqualTo(_frame._progressBar.getMaximum());
 	}
 
 	@Test(timeout = 5000)

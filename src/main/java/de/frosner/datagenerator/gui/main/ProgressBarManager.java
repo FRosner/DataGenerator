@@ -15,24 +15,24 @@ public class ProgressBarManager {
 		_progressBar = progressBar;
 	}
 
-	public static void increaseProgress() {
+	public static void setProgressBarMaximumValue(final int maxValue) {
 		if (_progressBar != null) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					_progressBar.setValue(_progressBar.getValue() + 1);
+					_progressBar.setMaximum(maxValue);
 
 				}
 			});
 		}
 	}
 
-	public static void setProgressToMaximum() {
+	public static void increaseProgress() {
 		if (_progressBar != null) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					_progressBar.setValue(100);
+					_progressBar.setValue(_progressBar.getValue() + 1);
 
 				}
 			});

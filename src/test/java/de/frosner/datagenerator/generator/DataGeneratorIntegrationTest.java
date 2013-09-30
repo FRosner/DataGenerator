@@ -45,6 +45,7 @@ public class DataGeneratorIntegrationTest {
 		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _fd1, _fd2, _fd3, _fd4, _fd5);
 
 		_dataGenerator.generate();
+		_exportConnection.close();
 
 		String regex = "^\\-?[0-9]+\\.[0-9]+(E\\-?[0-9]+)?$";
 		String[] lines = _out.toString().split("\\n");
