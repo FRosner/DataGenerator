@@ -302,6 +302,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		focusOrder.add(_removeFeatureButton);
 		focusOrder.add(_numberOfInstancesField);
 		focusOrder.add(_exportFileButton);
+		focusOrder.add(_exportInstanceIdsBox);
+		focusOrder.add(_exportFeatureNamesBox);
 		focusOrder.add(_generateDataButton);
 		focusOrder.add(_abortDataGenerationButton);
 		setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(focusOrder));
