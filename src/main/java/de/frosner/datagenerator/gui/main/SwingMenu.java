@@ -34,7 +34,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -274,11 +273,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		SpringUtilities.makeCompactGrid(topPanel, 2, 3, 0, 0, 0, 0);
 
-		contentPane.add(new JSeparator(JSeparator.HORIZONTAL));
-
 		contentPane.add(_previewTable);
-
-		contentPane.add(new JSeparator(JSeparator.HORIZONTAL));
 
 		JPanel progressPanel = new JPanel();
 		contentPane.add(progressPanel);
@@ -289,7 +284,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		contentPane.add(_logAreaScroller);
 
-		SpringUtilities.makeCompactGrid(contentPane, 6, 1, 15, 15, 15, 15);
+		SpringUtilities.makeCompactGrid(contentPane, 4, 1, 15, 15, 15, 15);
 		// END layout
 
 		// BEGIN define custom focus traversal
