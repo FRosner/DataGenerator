@@ -212,6 +212,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new SpringLayout());
+		topPanel.setMaximumSize(new Dimension(0, 0)); // avoid resizing
 		contentPane.add(topPanel);
 
 		JPanel addFeaturePanel = new JPanel();
