@@ -10,7 +10,7 @@ import net.sf.qualitycheck.Check;
 /**
  * {@link FileFilter} that filters files depending on the specified extension.
  */
-public class ExtensionFileFilter extends FileFilter {
+public final class ExtensionFileFilter extends FileFilter {
 
 	private final String _description;
 	private final String _extension;
