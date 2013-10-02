@@ -12,7 +12,7 @@ import de.frosner.datagenerator.util.ApplicationMetaData;
  * {@link JFileChooser} for selecting an export file. As the default all file filter is disabled, you must specify at
  * least one custom file filter.
  */
-public class ExportFileChooser extends JFileChooser {
+public final class ExportFileChooser extends JFileChooser {
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
 
