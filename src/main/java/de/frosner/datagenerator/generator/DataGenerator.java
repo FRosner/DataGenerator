@@ -22,6 +22,7 @@ public final class DataGenerator {
 	private final int _numberOfInstances;
 	private final ExportConnection _out;
 	private final List<FeatureDefinition> _featureDefinitions;
+	private boolean _metaDataExported = false;
 
 	public static final class DataGeneratorBuilder {
 
@@ -94,6 +95,11 @@ public final class DataGenerator {
 	}
 
 	public void generate(int offset, int range) {
+		if (!_metaDataExported) {
+			_metaDataExported = true;
+			_out.exportMetaData(_featureDefinitions);
+		}
+
 		for (int i = offset; i < Math.min(offset + range, _numberOfInstances); i++) {
 			InstanceBuilder instanceBuilder = Instance.builder(i);
 			for (FeatureDefinition featureDefinition : _featureDefinitions) {

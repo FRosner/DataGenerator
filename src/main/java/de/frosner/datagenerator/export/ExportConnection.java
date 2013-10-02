@@ -1,6 +1,5 @@
 package de.frosner.datagenerator.export;
 
-import java.io.IOException;
 import java.util.List;
 
 import de.frosner.datagenerator.features.FeatureDefinition;
@@ -16,6 +15,15 @@ import de.frosner.datagenerator.generator.Instance;
  */
 public interface ExportConnection {
 
+	/**
+	 * Calling this method will send the supplied feature definitions to the {@link ExportConnection}. Depending on the
+	 * concrete connection and its configuration, meta data may be exported. This can include something like printing
+	 * column names or creating schema definitions.
+	 * <p>
+	 * Call this method before calling {@link ExportConnection#exportInstance(Instance)}. Only call it once.
+	 * 
+	 * @param featureDefinitions
+	 */
 	public void exportMetaData(List<FeatureDefinition> featureDefinitions);
 
 	/**
@@ -24,16 +32,12 @@ public interface ExportConnection {
 	 * 
 	 * @param instance
 	 *            to export
-	 * @throws IOException
 	 */
 	public void exportInstance(Instance instance);
 
 	/**
 	 * Closes this stream and releases any system resources associated with it. If the stream is already closed then
 	 * invoking this method has no effect.
-	 * 
-	 * @throws IOException
-	 *             if an I/O error occurs
 	 */
 	public void close();
 
