@@ -31,7 +31,7 @@ public class DataGeneratorIntegrationTest {
 	@Test
 	public void testDataGenerator_csvExport_continuousFeatures() throws IOException {
 		_numberOfInstances = 100;
-		_exportConnection = new CsvExportConnection(_out, false);
+		_exportConnection = new CsvExportConnection(_out, true);
 		FeatureDefinition featureA = new FeatureDefinition("A", new GaussianDistribution(177.8, 7.62));
 		FeatureDefinition featureB = new FeatureDefinition("B", new GaussianDistribution(394, 147.32));
 		FeatureDefinition featureC = new FeatureDefinition("C", new GaussianDistribution(5.4234324235235345E-14,
@@ -48,12 +48,21 @@ public class DataGeneratorIntegrationTest {
 		String doubleRegex = "^\\-?[0-9]+\\.[0-9]+(E\\-?[0-9]+)?$";
 		String[] exportedLines = _out.toString().split("\\n");
 
-		assertThat(exportedLines).hasSize(_numberOfInstances);
+		assertThat(exportedLines).hasSize(_numberOfInstances + 1);
+		int lineNumber = 0;
 		for (String linesString : exportedLines) {
 			String[] cells = linesString.split(",");
 			assertThat(cells).hasSize(featureDefinitions.size());
-			for (String cellsString : cells) {
-				assertThat(cellsString).matches(doubleRegex);
+			if (lineNumber++ == 0) {
+				cells[0].equals("A");
+				cells[1].equals("B");
+				cells[2].equals("C");
+				cells[3].equals("D");
+				cells[4].equals("E");
+			} else {
+				for (String cellsString : cells) {
+					assertThat(cellsString).matches(doubleRegex);
+				}
 			}
 		}
 	}
