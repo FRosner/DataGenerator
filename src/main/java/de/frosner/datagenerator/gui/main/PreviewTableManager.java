@@ -45,7 +45,12 @@ public class PreviewTableManager {
 
 		@Override
 		public void exportMetaData(List<FeatureDefinition> featureDefinitions) {
-			// TODO Auto-generated method stub
+			int columnIndex = 0;
+			for (FeatureDefinition featureDefinition : featureDefinitions) {
+				if (columnIndex < _table.getColumnCount()) {
+					_table.setValueAt(featureDefinition.getName(), 0, columnIndex++);
+				}
+			}
 		}
 
 	}
