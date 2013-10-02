@@ -29,7 +29,7 @@ public class PreviewTableManager {
 		}
 
 		@Override
-		public void export(Instance instance) {
+		public void exportInstance(Instance instance) {
 			int columnIndex = 0;
 			for (FeatureValue value : instance) {
 				if (columnIndex < _table.getColumnCount()) {
@@ -41,6 +41,11 @@ public class PreviewTableManager {
 
 		@Override
 		public void close() {
+		}
+
+		@Override
+		public void exportMetaData(List<FeatureDefinition> featureDefinitions) {
+			// TODO Auto-generated method stub
 		}
 
 	}
