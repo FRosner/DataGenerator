@@ -27,6 +27,16 @@ public interface ExportConnection extends Closeable {
 	 */
 	public void exportInstance(Instance instance) throws IOException;
 
+	/**
+	 * Calling this method will send the supplied feature definitions to the {@link ExportConnection}. Depending on the
+	 * concrete connection and its configuration, meta data may be exported. This can include something like printing
+	 * column names or creating schema definitions.
+	 * <p>
+	 * Call this method before calling {@link ExportConnection#exportInstance(Instance)}. Only call it once.
+	 * 
+	 * @param featureDefinitions
+	 * @throws IOException
+	 */
 	public void exportMetaData(List<FeatureDefinition> featureDefinitions) throws IOException;
 
 }
