@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.Instance;
@@ -18,7 +19,7 @@ public class CsvExportConnection implements ExportConnection {
 
 	private final BufferedWriter _out;
 	private boolean _metaDataAlreadyExported = false;
-	private boolean _instancesAlreadyExported = false;
+	private boolean _alreadyInstancesExported = false;
 	private final boolean _exportFeatureNames;
 
 	public CsvExportConnection(OutputStream out) {
@@ -37,9 +38,9 @@ public class CsvExportConnection implements ExportConnection {
 
 	@Override
 	public void exportInstance(Instance instance) throws IOException {
+		_alreadyInstancesExported = true;
 
 		Iterator<FeatureValue> values = instance.iterator();
-
 		while (values.hasNext()) {
 			_out.write(values.next().getValueAsString());
 			if (values.hasNext()) {
@@ -47,24 +48,16 @@ public class CsvExportConnection implements ExportConnection {
 			}
 		}
 		_out.write("\n");
-
-		_instancesAlreadyExported = true;
 	}
 
 	@Override
 	public void exportMetaData(List<FeatureDefinition> featureDefinitions) throws IOException {
-
-		if (_instancesAlreadyExported) {
-			throw new IllegalMethodCallSequenceException();
-		}
-
-		if (_metaDataAlreadyExported) {
-			throw new MethodNotCallableTwiceException();
-		}
+		Check.stateIsTrue(!_alreadyInstancesExported, IllegalMethodCallSequenceException.class);
+		Check.stateIsTrue(!_metaDataAlreadyExported, MethodNotCallableTwiceException.class);
+		_metaDataAlreadyExported = true;
 
 		if (_exportFeatureNames) {
 			Iterator<FeatureDefinition> featureDefinitionsIterator = featureDefinitions.iterator();
-
 			while (featureDefinitionsIterator.hasNext()) {
 				_out.write(featureDefinitionsIterator.next().getName());
 				if (featureDefinitionsIterator.hasNext()) {
@@ -72,8 +65,6 @@ public class CsvExportConnection implements ExportConnection {
 				}
 			}
 			_out.write("\n");
-			_metaDataAlreadyExported = true;
 		}
-
 	}
 }
