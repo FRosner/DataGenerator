@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
+import java.util.List;
 
+import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.Instance;
 
@@ -14,10 +16,18 @@ import de.frosner.datagenerator.generator.Instance;
  */
 public class CsvExportConnection implements ExportConnection {
 
-	BufferedWriter _out;
+	private final BufferedWriter _out;
+	private boolean _metaDataAlreadyExported = false;
+	private boolean _instancesAlreadyExported = false;
+	private final boolean _exportFeatureNames;
 
 	public CsvExportConnection(OutputStream out) {
+		this(out, false);
+	}
+
+	public CsvExportConnection(OutputStream out, Boolean exportFeatureNames) {
 		_out = new BufferedWriter(new OutputStreamWriter(out));
+		_exportFeatureNames = exportFeatureNames;
 	}
 
 	@Override
@@ -30,7 +40,7 @@ public class CsvExportConnection implements ExportConnection {
 	}
 
 	@Override
-	public void export(Instance instance) {
+	public void exportInstance(Instance instance) {
 		try {
 			Iterator<FeatureValue> values = instance.iterator();
 			while (values.hasNext()) {
@@ -43,5 +53,39 @@ public class CsvExportConnection implements ExportConnection {
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}
+
+		_instancesAlreadyExported = true;
+	}
+
+	@Override
+	public void exportMetaData(List<FeatureDefinition> featureDefinitions) {
+
+		if (_instancesAlreadyExported) {
+			throw new IllegalMethodCallSequenceException();
+		}
+
+		if (_metaDataAlreadyExported) {
+			throw new MethodNotCallableTwiceException();
+		}
+
+		if (_exportFeatureNames) {
+
+			try {
+				Iterator<FeatureDefinition> featureDefinitionsIterator = featureDefinitions.iterator();
+
+				while (featureDefinitionsIterator.hasNext()) {
+					_out.write(featureDefinitionsIterator.next().getName());
+					if (featureDefinitionsIterator.hasNext()) {
+						_out.write(",");
+					}
+				}
+				_out.write("\n");
+			} catch (IOException e) {
+				throw new UncheckedIOException(e);
+			}
+
+			_metaDataAlreadyExported = true;
+		}
+
 	}
 }
