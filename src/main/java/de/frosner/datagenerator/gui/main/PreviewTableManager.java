@@ -11,6 +11,10 @@ import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.generator.Instance;
 
+/**
+ * Service managing the data generation preview {@link TableModel}. It can be used to populate the table with preview
+ * data generated from a list of {@link FeatureDefinition} instances.
+ */
 public class PreviewTableManager {
 
 	private static TableModel _table;
@@ -45,10 +49,22 @@ public class PreviewTableManager {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Set the preview table to be managed.
+	 * 
+	 * @param table
+	 *            to be managed
+	 */
 	public static void setPreviewTable(TableModel table) {
 		_table = table;
 	}
 
+	/**
+	 * Populate the managed table with generated feature values.
+	 * 
+	 * @param features
+	 *            to generate values from
+	 */
 	public static void generatePreview(final List<FeatureDefinition> features) {
 		clearPreviewTable();
 		if (_table != null && !features.isEmpty()) {
