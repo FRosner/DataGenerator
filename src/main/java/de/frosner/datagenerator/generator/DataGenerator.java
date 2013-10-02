@@ -119,7 +119,7 @@ public final class DataGenerator {
 			for (FeatureDefinition featureDefinition : _featureDefinitions) {
 				instanceBuilder.addFeatureValue(featureDefinition.getDistribution().sample());
 			}
-			_out.export(instanceBuilder.build());
+			_out.exportInstance(instanceBuilder.build());
 		}
 		_out.close();
 		return success;
