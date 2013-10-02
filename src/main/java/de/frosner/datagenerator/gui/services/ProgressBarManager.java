@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 /**
  * Service managing a {@link JProgressBar}. It can be used to increase or reset progress.
  */
-public class ProgressBarManager {
+public final class ProgressBarManager {
 
 	private static JProgressBar _progressBar;
 
