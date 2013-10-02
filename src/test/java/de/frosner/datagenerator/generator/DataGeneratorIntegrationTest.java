@@ -30,7 +30,7 @@ public class DataGeneratorIntegrationTest {
 	@Test
 	public void testDataGenerator_csvExport_continuousFeatures() {
 		_numberOfInstances = 100;
-		_exportConnection = new CsvExportConnection(_out, true);
+		_exportConnection = new CsvExportConnection(_out, true, false);
 		FeatureDefinition featureA = new FeatureDefinition("A", new GaussianDistribution(177.8, 7.62));
 		FeatureDefinition featureB = new FeatureDefinition("B", new GaussianDistribution(394, 147.32));
 		FeatureDefinition featureC = new FeatureDefinition("C", new GaussianDistribution(5.4234324235235345E-14,

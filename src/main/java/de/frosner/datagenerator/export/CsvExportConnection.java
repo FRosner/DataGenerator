@@ -21,10 +21,12 @@ public class CsvExportConnection implements ExportConnection {
 	private boolean _metaDataAlreadyExported = false;
 	private boolean _alreadyInstancesExported = false;
 	private final boolean _exportFeatureNames;
+	private final boolean _exportInstanceIds;
 
-	public CsvExportConnection(OutputStream out, Boolean exportFeatureNames) {
+	public CsvExportConnection(OutputStream out, boolean exportFeatureNames, boolean exportInstanceIds) {
 		_out = new BufferedWriter(new OutputStreamWriter(out));
 		_exportFeatureNames = exportFeatureNames;
+		_exportInstanceIds = exportInstanceIds;
 	}
 
 	@Override
@@ -41,6 +43,9 @@ public class CsvExportConnection implements ExportConnection {
 		_alreadyInstancesExported = true;
 
 		try {
+			if (_exportInstanceIds) {
+				_out.write(instance.getId() + ",");
+			}
 			Iterator<FeatureValue> values = instance.iterator();
 			while (values.hasNext()) {
 				_out.write(values.next().getValueAsString());
@@ -62,6 +67,9 @@ public class CsvExportConnection implements ExportConnection {
 
 		if (_exportFeatureNames) {
 			try {
+				if (_exportInstanceIds) {
+					_out.write("ID,");
+				}
 				Iterator<FeatureDefinition> featureDefinitionsIterator = featureDefinitions.iterator();
 
 				while (featureDefinitionsIterator.hasNext()) {

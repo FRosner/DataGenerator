@@ -74,7 +74,7 @@ public final class DataGeneratorService {
 				boolean aborted = false;
 				ExportConnection exportConnection;
 				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile), exportConfig
-						.exportFeatureNames());
+						.exportFeatureNames(), exportConfig.exportInstanceIds());
 				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
 				TextAreaLogger.info("Generating " + numberOfInstances + " instances");
 				int range = 1000;
