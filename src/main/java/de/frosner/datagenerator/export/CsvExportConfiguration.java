@@ -9,7 +9,7 @@ import net.sf.qualitycheck.Check;
 /**
  * Configuration parameters a CSV export connection needs.
  */
-public class CsvExportConfiguration {
+public final class CsvExportConfiguration {
 
 	private final File _file;
 	private final boolean _exportInstanceIds;
