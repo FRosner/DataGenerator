@@ -4,7 +4,7 @@ import javax.swing.filechooser.FileFilter;
 
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
-public class UnsupportedFileFilterException extends RuntimeException {
+public final class UnsupportedFileFilterException extends RuntimeException {
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
 
