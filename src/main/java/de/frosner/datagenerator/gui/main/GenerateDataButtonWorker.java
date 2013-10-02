@@ -9,7 +9,7 @@ import de.frosner.datagenerator.gui.services.DataGeneratorService;
  * {@link SwingWorker} accessing the {@link DataGeneratorService} in a separate thread. It also toggles the generate and
  * abort buttons.
  */
-public class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
+public final class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
 
 	private final int _numberOfInstances;
 	private final CsvExportConfiguration _config;
