@@ -46,7 +46,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.jfree.ui.ExtensionFileFilter;
 import org.uncommons.swing.SpringUtilities;
 
 import com.google.common.collect.Lists;
@@ -174,9 +173,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_numberOfInstancesField = new JTextField();
 		_numberOfInstancesField.setPreferredSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
-		_exportFileDialog = new ExportFileChooser();
-		_exportFileDialog.setAcceptAllFileFilterUsed(false);
-		_exportFileDialog.addChoosableFileFilter(ALL_FILE_FILTER);
+		_exportFileDialog = new ExportFileChooser(ALL_FILE_FILTER);
 		_exportFileDialog.addChoosableFileFilter(CSV_FILE_FILTER);
 		_exportFileButton = new JButton("...");
 		_exportFileButton.addActionListener(this);
