@@ -105,6 +105,8 @@ public final class DataGenerator {
 			ProgressBarManager.setProgressToMaximum();
 		}
 
+		_out.exportMetaData(_featureDefinitions);
+
 		for (int i = 0; i < _numberOfInstances; i++) {
 			if (Thread.interrupted()) {
 				success = false;
