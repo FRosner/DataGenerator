@@ -15,7 +15,7 @@ import de.frosner.datagenerator.generator.Instance;
 /**
  * Connection for exporting instances to a CSV file.
  */
-public class CsvExportConnection implements ExportConnection {
+public final class CsvExportConnection implements ExportConnection {
 
 	private final BufferedWriter _out;
 	private boolean _metaDataAlreadyExported = false;
