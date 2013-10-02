@@ -69,7 +69,7 @@ public final class DataGeneratorService {
 				_generating = true;
 				ExportConnection exportConnection;
 				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile), exportConfig
-						.exportFeatureNames(), false);
+						.exportFeatureNames(), exportConfig.exportInstanceIds());
 				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
 				TextAreaLogger.info("Generating " + numberOfInstances + " instances");
 				if (generator.generate()) {
