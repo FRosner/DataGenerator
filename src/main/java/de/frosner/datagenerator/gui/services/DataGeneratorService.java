@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.generator;
+package de.frosner.datagenerator.gui.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,9 +12,7 @@ import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.export.UncheckedIOException;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.gui.main.PreviewTableManager;
-import de.frosner.datagenerator.gui.main.ProgressBarManager;
-import de.frosner.datagenerator.gui.main.TextAreaLogger;
+import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 /**

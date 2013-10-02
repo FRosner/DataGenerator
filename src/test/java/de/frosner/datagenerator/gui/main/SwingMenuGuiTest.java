@@ -17,7 +17,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.frosner.datagenerator.generator.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.TextAreaLogger;
 import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 
 public class SwingMenuGuiTest {

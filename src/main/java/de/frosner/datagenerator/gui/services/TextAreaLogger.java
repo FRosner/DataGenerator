@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.gui.main;
+package de.frosner.datagenerator.gui.services;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

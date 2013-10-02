@@ -3,7 +3,7 @@ package de.frosner.datagenerator.gui.main;
 import javax.swing.SwingWorker;
 
 import de.frosner.datagenerator.export.CsvExportConfiguration;
-import de.frosner.datagenerator.generator.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.DataGeneratorService;
 
 /**
  * {@link SwingWorker} accessing the {@link DataGeneratorService} in a separate thread. It also toggles the generate and

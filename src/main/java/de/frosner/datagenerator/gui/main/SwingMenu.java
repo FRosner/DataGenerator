@@ -53,7 +53,10 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.generator.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.PreviewTableManager;
+import de.frosner.datagenerator.gui.services.ProgressBarManager;
+import de.frosner.datagenerator.gui.services.TextAreaLogger;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 import de.frosner.datagenerator.util.VisibleForTesting;
 

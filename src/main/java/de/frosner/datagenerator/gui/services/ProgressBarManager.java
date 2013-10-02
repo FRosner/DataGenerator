@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.gui.main;
+package de.frosner.datagenerator.gui.services;
 
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;

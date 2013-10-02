@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.generator;
+package de.frosner.datagenerator.gui.services;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -10,6 +10,7 @@ import org.junit.Test;
 import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.export.CsvExportConfiguration;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.gui.services.DataGeneratorService;
 
 public class DataGeneratorServiceTest {
 
