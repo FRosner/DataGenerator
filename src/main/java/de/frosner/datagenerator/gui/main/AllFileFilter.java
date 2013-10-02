@@ -4,6 +4,9 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * {@link FileFilter} accepting any file.
+ */
 public class AllFileFilter extends FileFilter {
 
 	@Override
