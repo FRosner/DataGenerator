@@ -26,7 +26,7 @@ public class CsvExportConnectionTest {
 	@Before
 	public void createCsvExportConnection() {
 		_out = new ByteArrayOutputStream();
-		_csvExportConnection = new CsvExportConnection(_out);
+		_csvExportConnection = new CsvExportConnection(_out, false);
 		_dummyInstanceWithOneFeature = new Instance(0, new DummyFeatureValue(0));
 		_dummyInstanceWithTwoFeatures = new Instance(0, new DummyFeatureValue(0), new DummyFeatureValue(1));
 	}
