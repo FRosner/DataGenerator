@@ -22,7 +22,7 @@ public class CsvExportConnection implements ExportConnection {
 	private boolean _alreadyInstancesExported = false;
 	private final boolean _exportFeatureNames;
 
-	public CsvExportConnection(OutputStream out, Boolean exportFeatureNames) {
+	public CsvExportConnection(OutputStream out, boolean exportFeatureNames) {
 		_out = new BufferedWriter(new OutputStreamWriter(out));
 		_exportFeatureNames = exportFeatureNames;
 	}

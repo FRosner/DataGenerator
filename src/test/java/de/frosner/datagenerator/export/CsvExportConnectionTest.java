@@ -77,7 +77,7 @@ public class CsvExportConnectionTest {
 	}
 
 	@Test
-	public void testExportFeatureNames_oneFeature() throws IOException {
+	public void testExportMetaData_oneFeatureName() throws IOException {
 		_csvExportConnection = new CsvExportConnection(_out, true);
 		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
 				new DummyDistribution())));
@@ -86,7 +86,7 @@ public class CsvExportConnectionTest {
 	}
 
 	@Test
-	public void testExportFeatureNames_twoFeatures() throws IOException {
+	public void testExportMetaData_twoFeatureNames() throws IOException {
 		_csvExportConnection = new CsvExportConnection(_out, true);
 		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
 				new DummyDistribution()), new FeatureDefinition("uswidth", new DummyDistribution())));
@@ -95,7 +95,7 @@ public class CsvExportConnectionTest {
 	}
 
 	@Test
-	public void testExportFeatureNames_doNotExportFeatureNames() throws IOException {
+	public void testExportMetaData_doNotExportFeatureNames() throws IOException {
 		_csvExportConnection = new CsvExportConnection(_out, false);
 		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
 				new DummyDistribution())));
