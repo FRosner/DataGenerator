@@ -56,7 +56,7 @@ import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
-import de.frosner.datagenerator.gui.services.TextAreaLogger;
+import de.frosner.datagenerator.gui.services.TextAreaLogManager;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
@@ -198,7 +198,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		PreviewTableManager.setPreviewTable(_previewTableModel);
 		_logArea = new JTextArea(5, 25);
 		_logAreaScroller = new JScrollPane(_logArea);
-		TextAreaLogger.setLogArea(_logArea);
+		TextAreaLogManager.setLogArea(_logArea);
 		_logArea.setBorder(new LineBorder(Color.gray, 1));
 		_logArea.setEditable(false);
 		_logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));

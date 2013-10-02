@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
-import de.frosner.datagenerator.gui.services.TextAreaLogger;
+import de.frosner.datagenerator.gui.services.TextAreaLogManager;
 import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 
 public class SwingMenuGuiTest {
@@ -213,7 +213,7 @@ public class SwingMenuGuiTest {
 
 	@Test
 	public void testLogging() throws InterruptedException {
-		TextAreaLogger.info("Test");
+		TextAreaLogManager.info("Test");
 		Thread.sleep(250);
 		assertThat(_frame._logArea.getText()).contains("Test");
 	}

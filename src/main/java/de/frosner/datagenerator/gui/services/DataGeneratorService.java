@@ -41,7 +41,7 @@ public final class DataGeneratorService {
 	 */
 	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
 		_featureDefinitions.add(featureDefinition);
-		TextAreaLogger.info("Added Feature: " + featureDefinition.getName());
+		TextAreaLogManager.info("Added Feature: " + featureDefinition.getName());
 		PreviewTableManager.generatePreview(_featureDefinitions);
 	}
 
@@ -52,7 +52,7 @@ public final class DataGeneratorService {
 	 * @param index
 	 */
 	public void removeFeatureDefinition(int index) {
-		TextAreaLogger.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
+		TextAreaLogManager.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
 		PreviewTableManager.generatePreview(_featureDefinitions);
 	}
 
@@ -74,7 +74,7 @@ public final class DataGeneratorService {
 				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile), exportConfig
 						.exportFeatureNames(), exportConfig.exportInstanceIds());
 				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
-				TextAreaLogger.info("Generating " + numberOfInstances + " instances");
+				TextAreaLogManager.info("Generating " + numberOfInstances + " instances");
 				int range = 1000;
 				ProgressBarManager.resetProgress();
 				ProgressBarManager.setProgressBarMaximumValue(Math.max(numberOfInstances / range, 1));
@@ -87,20 +87,20 @@ public final class DataGeneratorService {
 					}
 				}
 				if (!aborted) {
-					TextAreaLogger.info("Exported instances to " + exportFile);
+					TextAreaLogManager.info("Exported instances to " + exportFile);
 				} else {
-					TextAreaLogger.warn("Generation aborted. Partial results written to " + exportFile);
+					TextAreaLogManager.warn("Generation aborted. Partial results written to " + exportFile);
 				}
 				exportConnection.close();
 			} catch (FileNotFoundException e) {
-				TextAreaLogger.error("File not found: " + exportFile);
+				TextAreaLogManager.error("File not found: " + exportFile);
 			} catch (UncheckedIOException e) {
-				TextAreaLogger.error("Writing to file failed: " + e.getMessage());
+				TextAreaLogManager.error("Writing to file failed: " + e.getMessage());
 			} finally {
 				_generating = false;
 			}
 		} else {
-			TextAreaLogger.error("Generation already in progress");
+			TextAreaLogManager.error("Generation already in progress");
 		}
 	}
 

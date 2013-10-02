@@ -9,12 +9,12 @@ import javax.swing.SwingUtilities;
 /**
  * Service managing a text area to log messages to.
  */
-public final class TextAreaLogger {
+public final class TextAreaLogManager {
 
 	private static JTextArea _logArea;
 	private static final SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 
-	private TextAreaLogger() {
+	private TextAreaLogManager() {
 		throw new UnsupportedOperationException();
 	}
 
