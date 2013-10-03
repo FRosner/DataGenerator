@@ -58,6 +58,7 @@ public class DataGeneratorTest {
 	public void testGenerateInstance() {
 		_generator = new DataGenerator(1, _mockedOut, _x, _y);
 		_generator.generate();
+		verify(_mockedOut).exportMetaData(Lists.newArrayList(_x, _y));
 		verify(_mockedOut).exportInstance(new Instance(0, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE));
 	}
 
@@ -66,6 +67,7 @@ public class DataGeneratorTest {
 		int numberOfInstances = 5;
 		_generator = new DataGenerator(numberOfInstances, _mockedOut, _x, _y, _z);
 		_generator.generate();
+		verify(_mockedOut).exportMetaData(Lists.newArrayList(_x, _y, _z));
 		for (int i = 0; i < numberOfInstances; i++) {
 			verify(_mockedOut).exportInstance(
 					new Instance(i, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE,
