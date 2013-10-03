@@ -26,6 +26,7 @@ public class SwingMenuGuiTest {
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
 	private File _testFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
+	private Robot _robot;
 
 	@BeforeClass
 	public static void setUpOnce() {
@@ -33,7 +34,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Before
-	public void setUp() {
+	public void setUp() throws AWTException {
 		DataGeneratorService.INSTANCE.reset();
 		_frame = GuiActionRunner.execute(new GuiQuery<SwingMenu>() {
 			@Override
@@ -47,6 +48,7 @@ public class SwingMenuGuiTest {
 		if (_testFile.exists()) {
 			_testFile.delete();
 		}
+		_robot = new Robot();
 	}
 
 	@After
@@ -127,19 +129,19 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testAddAndRemoveFeature() throws InterruptedException, AWTException {
+	public void testAddAndRemoveFeature() {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.clickButton(_frame._addFeatureButton);
-		new Robot().delay(500);
+		_robot.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeature(0);
 		_frameTestUtil.clickButton(_frame._removeFeatureButton);
-		new Robot().delay(1000);
+		_robot.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
@@ -178,12 +180,12 @@ public class SwingMenuGuiTest {
 			Thread.sleep(50);
 		}
 		assertThat(_testFile).exists();
-		Thread.sleep(200);
+		_robot.delay(200);
 		assertThat(_frame._progressBar.getValue()).isEqualTo(_frame._progressBar.getMaximum());
 	}
 
 	@Test(timeout = 5000)
-	public void testAbortGeneration() throws InterruptedException {
+	public void testAbortGeneration() throws InterruptedException, AWTException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
@@ -193,13 +195,13 @@ public class SwingMenuGuiTest {
 		while (!_testFile.exists()) {
 			Thread.sleep(50);
 		}
-		Thread.sleep(100);
+		_robot.delay(100);
 		assertThat(_frame._generateDataButton.isEnabled()).isFalse();
 		assertThat(_frame._abortDataGenerationButton.isEnabled()).isTrue();
 		_frameTestUtil.clickButton(_frame._abortDataGenerationButton);
-		Thread.sleep(100);
+		_robot.delay(100);
 		long fileSize = _testFile.length();
-		Thread.sleep(100);
+		_robot.delay(100);
 		assertThat(_testFile).hasSize(fileSize);
 		assertThat(_frame._logArea.getText()).contains("Generation aborted.");
 		assertThat(_frame._progressBar.getValue()).isGreaterThan(0).isLessThan(100);
@@ -214,7 +216,7 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testLogging() throws InterruptedException {
 		TextAreaLogManager.info("Test");
-		Thread.sleep(250);
+		_robot.delay(250);
 		assertThat(_frame._logArea.getText()).contains("Test");
 	}
 
