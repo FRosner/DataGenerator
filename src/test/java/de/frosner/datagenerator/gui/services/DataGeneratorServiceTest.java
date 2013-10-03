@@ -1,19 +1,26 @@
 package de.frosner.datagenerator.gui.services;
 
 import static org.fest.assertions.Assertions.assertThat;
-
-import java.io.File;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import de.frosner.datagenerator.distributions.DummyDistribution;
-import de.frosner.datagenerator.export.CsvExportConfiguration;
+import de.frosner.datagenerator.export.ExportConfiguration;
+import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.gui.services.DataGeneratorService;
+import de.frosner.datagenerator.generator.Instance;
 
 public class DataGeneratorServiceTest {
 
+	@Mock
+	private ExportConnection _mockedExportConnection;
+	@Mock
+	private ExportConfiguration _mockedExportConfiguration;
 	private DataGeneratorService _service;
 
 	private FeatureDefinition _feature1 = new FeatureDefinition("1", new DummyDistribution());
@@ -22,6 +29,12 @@ public class DataGeneratorServiceTest {
 	@Before
 	public void createDataGeneratorService() {
 		_service = new DataGeneratorService();
+	}
+
+	@Before
+	public void initializeMocks() {
+		initMocks(this);
+		when(_mockedExportConfiguration.createExportConnection()).thenReturn(_mockedExportConnection);
 	}
 
 	@Test
@@ -50,14 +63,8 @@ public class DataGeneratorServiceTest {
 		_service.getFeatureDefinitions().add(_feature1);
 		_service.getFeatureDefinitions().add(_feature2);
 
-		File exportFile = new File("src/test/resources/" + DataGeneratorServiceTest.class.getSimpleName() + ".tmp");
-		if (exportFile.exists()) {
-			exportFile.delete();
-		}
-		assertThat(exportFile).doesNotExist();
-		_service.generateData(1000, new CsvExportConfiguration(exportFile, false, false));
-		assertThat(exportFile).exists();
-
-		exportFile.delete();
+		_service.generateData(5, _mockedExportConfiguration);
+		verify(_mockedExportConnection).exportInstance(
+				new Instance(0, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE));
 	}
 }

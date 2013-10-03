@@ -1,6 +1,8 @@
 package de.frosner.datagenerator.export;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import javax.annotation.Nonnull;
 
@@ -9,7 +11,7 @@ import net.sf.qualitycheck.Check;
 /**
  * Configuration parameters a CSV export connection needs.
  */
-public final class CsvExportConfiguration {
+public final class CsvExportConfiguration implements ExportConfiguration {
 
 	private final File _file;
 	private final boolean _exportInstanceIds;
@@ -31,6 +33,16 @@ public final class CsvExportConfiguration {
 
 	public boolean exportFeatureNames() {
 		return _exportFeatureNames;
+	}
+
+	@Override
+	public ExportConnection createExportConnection() {
+		try {
+			return new CsvExportConnection(new FileOutputStream(_file), _exportFeatureNames, _exportInstanceIds,
+					_file.getAbsolutePath());
+		} catch (FileNotFoundException e) {
+			throw new UncheckedFileNotFoundException(e);
+		}
 	}
 
 }

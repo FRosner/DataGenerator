@@ -41,4 +41,6 @@ public interface ExportConnection {
 	 */
 	public void close();
 
+	public String getExportLocation();
+
 }

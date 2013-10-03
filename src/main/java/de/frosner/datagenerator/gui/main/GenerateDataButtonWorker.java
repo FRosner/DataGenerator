@@ -2,7 +2,7 @@ package de.frosner.datagenerator.gui.main;
 
 import javax.swing.SwingWorker;
 
-import de.frosner.datagenerator.export.CsvExportConfiguration;
+import de.frosner.datagenerator.export.ExportConfiguration;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 
 /**
@@ -12,9 +12,9 @@ import de.frosner.datagenerator.gui.services.DataGeneratorService;
 public final class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
 
 	private final int _numberOfInstances;
-	private final CsvExportConfiguration _config;
+	private final ExportConfiguration _config;
 
-	public GenerateDataButtonWorker(int numberOfInstances, CsvExportConfiguration config) {
+	public GenerateDataButtonWorker(int numberOfInstances, ExportConfiguration config) {
 		_numberOfInstances = numberOfInstances;
 		_config = config;
 	}

@@ -53,6 +53,11 @@ public final class PreviewTableManager {
 			}
 		}
 
+		@Override
+		public String getExportLocation() {
+			return "Preview Table";
+		}
+
 	}
 
 	private PreviewTableManager() {

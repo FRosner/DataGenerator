@@ -22,11 +22,17 @@ public final class CsvExportConnection implements ExportConnection {
 	private boolean _alreadyInstancesExported = false;
 	private final boolean _exportFeatureNames;
 	private final boolean _exportInstanceIds;
+	private final String _exportLocation;
 
-	public CsvExportConnection(OutputStream out, boolean exportFeatureNames, boolean exportInstanceIds) {
+	public CsvExportConnection(OutputStream out, boolean exportFeatureNames, boolean exportInstanceIds, String location) {
 		_out = new BufferedWriter(new OutputStreamWriter(out));
 		_exportFeatureNames = exportFeatureNames;
 		_exportInstanceIds = exportInstanceIds;
+		_exportLocation = location;
+	}
+
+	public CsvExportConnection(OutputStream out, boolean exportFeatureNames, boolean exportInstanceIds) {
+		this(out, exportFeatureNames, exportInstanceIds, out.toString());
 	}
 
 	@Override
@@ -83,5 +89,10 @@ public final class CsvExportConnection implements ExportConnection {
 				throw new UncheckedIOException(e);
 			}
 		}
+	}
+
+	@Override
+	public String getExportLocation() {
+		return _exportLocation;
 	}
 }

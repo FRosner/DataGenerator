@@ -1,15 +1,12 @@
 package de.frosner.datagenerator.gui.services;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.frosner.datagenerator.export.CsvExportConfiguration;
-import de.frosner.datagenerator.export.CsvExportConnection;
+import de.frosner.datagenerator.export.ExportConfiguration;
 import de.frosner.datagenerator.export.ExportConnection;
+import de.frosner.datagenerator.export.UncheckedFileNotFoundException;
 import de.frosner.datagenerator.export.UncheckedIOException;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
@@ -64,15 +61,12 @@ public final class DataGeneratorService {
 	 * @param exportConfig
 	 *            containing file and options
 	 */
-	public void generateData(int numberOfInstances, CsvExportConfiguration exportConfig) {
-		File exportFile = exportConfig.getFile();
+	public void generateData(int numberOfInstances, ExportConfiguration exportConfig) {
 		if (!_generating) {
 			try {
 				_generating = true;
 				boolean aborted = false;
-				ExportConnection exportConnection;
-				exportConnection = new CsvExportConnection(new FileOutputStream(exportFile), exportConfig
-						.exportFeatureNames(), exportConfig.exportInstanceIds());
+				ExportConnection exportConnection = exportConfig.createExportConnection();
 				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
 				TextAreaLogManager.info("Generating " + numberOfInstances + " instances");
 				int range = 1000;
@@ -87,13 +81,14 @@ public final class DataGeneratorService {
 					}
 				}
 				if (!aborted) {
-					TextAreaLogManager.info("Exported instances to " + exportFile);
+					TextAreaLogManager.info("Exported instances to " + exportConnection.getExportLocation());
 				} else {
-					TextAreaLogManager.warn("Generation aborted. Partial results written to " + exportFile);
+					TextAreaLogManager.warn("Generation aborted. Partial results written to "
+							+ exportConnection.getExportLocation());
 				}
 				exportConnection.close();
-			} catch (FileNotFoundException e) {
-				TextAreaLogManager.error("File not found: " + exportFile);
+			} catch (UncheckedFileNotFoundException e) {
+				TextAreaLogManager.error("File not found: " + e.getMessage());
 			} catch (UncheckedIOException e) {
 				TextAreaLogManager.error("Writing to file failed: " + e.getMessage());
 			} finally {
