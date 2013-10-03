@@ -185,7 +185,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test(timeout = 5000)
-	public void testAbortGeneration() throws InterruptedException, AWTException {
+	public void testAbortGeneration() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
@@ -214,7 +214,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testLogging() throws InterruptedException {
+	public void testLogging() {
 		TextAreaLogManager.info("Test");
 		_robot.delay(250);
 		assertThat(_frame._logArea.getText()).contains("Test");
