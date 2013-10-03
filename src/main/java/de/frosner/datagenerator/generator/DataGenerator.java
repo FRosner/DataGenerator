@@ -24,33 +24,6 @@ public final class DataGenerator {
 	private final List<FeatureDefinition> _featureDefinitions;
 	private boolean _metaDataExported = false;
 
-	public static final class DataGeneratorBuilder {
-
-		private final int _numberOfInstances;
-		private final ExportConnection _exportConnection;
-		private final List<FeatureDefinition> _featureDefinitions;
-
-		public DataGeneratorBuilder(int numberOfInstances, ExportConnection exportConnection) {
-			_numberOfInstances = numberOfInstances;
-			_exportConnection = exportConnection;
-			_featureDefinitions = Lists.newArrayList();
-		}
-
-		public DataGeneratorBuilder addFeatureDefinition(FeatureDefinition featureDefinition) {
-			_featureDefinitions.add(featureDefinition);
-			return this;
-		}
-
-		public DataGenerator build() {
-			return new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
-		}
-
-	}
-
-	public static DataGeneratorBuilder builder(int numberOfInstances, ExportConnection out) {
-		return new DataGeneratorBuilder(numberOfInstances, out);
-	}
-
 	/**
 	 * Constructs a new {@link DataGenerator} object. When {@link DataGenerator#generate()} is invoked it will sample
 	 * the specified number of instances with the specified feature definitions to the specified export connection.

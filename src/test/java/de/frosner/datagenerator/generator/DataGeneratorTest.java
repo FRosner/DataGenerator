@@ -49,16 +49,6 @@ public class DataGeneratorTest {
 		new DataGenerator(0, _mockedOut, _x);
 	}
 
-	@Test(expected = IllegalStateOfArgumentException.class)
-	public void testCreateWithBuilder_noFeatures() {
-		DataGenerator.builder(1, _mockedOut).build();
-	}
-
-	@Test(expected = IllegalStateOfArgumentException.class)
-	public void testCreateWithBuilder_nonPositiveNumberOfInstances() {
-		DataGenerator.builder(0, _mockedOut).addFeatureDefinition(_x).build();
-	}
-
 	@Test(expected = IllegalNullElementsException.class)
 	public void testCreateWithBuilder_nullElementsInFeatureDefinition() {
 		new DataGenerator(1, _mockedOut, Lists.newArrayList(_x, _y, null, _z));
