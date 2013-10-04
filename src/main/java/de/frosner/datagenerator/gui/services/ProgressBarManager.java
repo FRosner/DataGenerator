@@ -46,12 +46,11 @@ public final class ProgressBarManager {
 	 * Increase the value of the progress bar by one.
 	 */
 	public static void increaseProgress() {
-		if (_progressBar != null) {
+		if (_progressBar != null && (_progressBar.getValue() < _progressBar.getMaximum())) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
 					_progressBar.setValue(_progressBar.getValue() + 1);
-
 				}
 			});
 		}
