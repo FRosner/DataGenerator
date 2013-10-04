@@ -11,13 +11,13 @@ import net.sf.qualitycheck.Check;
 /**
  * Configuration parameters a CSV export connection needs.
  */
-public final class CsvExportConfiguration implements ExportConfiguration {
+public final class CsvFileExportConfiguration implements ExportConfiguration {
 
 	private final File _file;
 	private final boolean _exportInstanceIds;
 	private final boolean _exportFeatureNames;
 
-	public CsvExportConfiguration(@Nonnull File exportFile, boolean exportInstanceIds, boolean exportFeatureNames) {
+	public CsvFileExportConfiguration(@Nonnull File exportFile, boolean exportInstanceIds, boolean exportFeatureNames) {
 		_file = Check.notNull(exportFile);
 		_exportInstanceIds = exportInstanceIds;
 		_exportFeatureNames = exportFeatureNames;

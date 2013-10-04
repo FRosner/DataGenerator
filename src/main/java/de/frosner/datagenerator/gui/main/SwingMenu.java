@@ -51,7 +51,7 @@ import org.uncommons.swing.SpringUtilities;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.GaussianDistribution;
-import de.frosner.datagenerator.export.CsvExportConfiguration;
+import de.frosner.datagenerator.export.CsvFileExportConfiguration;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
@@ -390,7 +390,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				final File exportFile = _exportFileDialog.getSelectedFile();
 				final boolean exportInstanceIds = _exportInstanceIdsBox.isSelected();
 				final boolean exportFeatureNames = _exportFeatureNamesBox.isSelected();
-				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, new CsvExportConfiguration(
+				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, new CsvFileExportConfiguration(
 						exportFile, exportInstanceIds, exportFeatureNames));
 				_generateDataButtonWorker.execute();
 			}
