@@ -2,7 +2,10 @@ package de.frosner.datagenerator.export;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.sf.qualitycheck.Check;
+import net.sf.qualitycheck.exception.IllegalEmptyArgumentException;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.generator.Instance;
@@ -29,10 +32,13 @@ public abstract class ExportConnection {
 	 * 
 	 * @param featureDefinitions
 	 */
-	public void exportMetaData(List<FeatureDefinition> featureDefinitions) {
+	public void exportMetaData(@Nonnull List<FeatureDefinition> featureDefinitions) {
 		Check.stateIsTrue(!_alreadyInstancesExported, IllegalMethodCallSequenceException.class);
 		Check.stateIsTrue(!_metaDataAlreadyExported, MethodNotCallableTwiceException.class);
 		_metaDataAlreadyExported = true;
+
+		Check.notEmpty(featureDefinitions);
+		Check.noNullElements(featureDefinitions);
 		exportMetaDataStrategy(featureDefinitions);
 	}
 
@@ -45,8 +51,10 @@ public abstract class ExportConnection {
 	 * @param instance
 	 *            to export
 	 */
-	public void exportInstance(Instance instance) {
+	public void exportInstance(@Nonnull Instance instance) {
 		_alreadyInstancesExported = true;
+
+		Check.stateIsTrue(instance.iterator().hasNext(), IllegalEmptyArgumentException.class);
 		exportInstanceStrategy(instance);
 	}
 
