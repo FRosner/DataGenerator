@@ -32,7 +32,7 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExport_oneInstance_oneFeature() {
-		_csvExportConnection.exportInstance(_dummyInstanceWithOneFeature);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithOneFeature);
 		_csvExportConnection.close();
 
 		assertThat(_out.toString())
@@ -41,8 +41,8 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExport_twoInstances_oneFeature() {
-		_csvExportConnection.exportInstance(_dummyInstanceWithOneFeature);
-		_csvExportConnection.exportInstance(_dummyInstanceWithOneFeature);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithOneFeature);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithOneFeature);
 		_csvExportConnection.close();
 
 		assertThat(_out.toString()).isEqualTo(
@@ -52,7 +52,7 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExport_oneInstance_twoFeatures() {
-		_csvExportConnection.exportInstance(_dummyInstanceWithTwoFeatures);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
 
 		assertThat(_out.toString()).isEqualTo(
@@ -62,8 +62,8 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExport_twoInstances_twoFeatures() {
-		_csvExportConnection.exportInstance(_dummyInstanceWithTwoFeatures);
-		_csvExportConnection.exportInstance(_dummyInstanceWithTwoFeatures);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
 
 		assertThat(_out.toString()).isEqualTo(
@@ -76,13 +76,13 @@ public class CsvExportConnectionTest {
 	@Test(expected = UncheckedIOException.class)
 	public void testExportAfterClose() {
 		_csvExportConnection.close();
-		_csvExportConnection.exportInstance(_dummyInstanceWithOneFeature);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithOneFeature);
 	}
 
 	@Test
 	public void testExportFeatureNames_oneFeature() {
 		_csvExportConnection = new CsvExportConnection(_out, true, false);
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
+		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("usheight",
 				new DummyDistribution())));
 		_csvExportConnection.close();
 
@@ -92,7 +92,7 @@ public class CsvExportConnectionTest {
 	@Test
 	public void testExportFeatureNames_twoFeatures() {
 		_csvExportConnection = new CsvExportConnection(_out, true, false);
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
+		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("usheight",
 				new DummyDistribution()), new FeatureDefinition("uswidth", new DummyDistribution())));
 		_csvExportConnection.close();
 
@@ -102,7 +102,7 @@ public class CsvExportConnectionTest {
 	@Test
 	public void testExportFeatureNames_doNotExportFeatureNames() {
 		_csvExportConnection = new CsvExportConnection(_out, false, false);
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
+		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("usheight",
 				new DummyDistribution())));
 		_csvExportConnection.close();
 
@@ -112,9 +112,10 @@ public class CsvExportConnectionTest {
 	@Test
 	public void testExportMetaData_exportInstanceIds() {
 		_csvExportConnection = new CsvExportConnection(_out, false, true);
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("test", new DummyDistribution())));
-		_csvExportConnection.exportInstance(_dummyInstanceWithTwoFeatures);
-		_csvExportConnection.exportInstance(_dummyInstanceWithTwoFeatures);
+		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("test",
+				new DummyDistribution())));
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
 
 		String[] lines = _out.toString().split("\n");
@@ -125,9 +126,10 @@ public class CsvExportConnectionTest {
 	@Test
 	public void testExportMetaData_exportInstanceIds_exportFeatureNames() {
 		_csvExportConnection = new CsvExportConnection(_out, true, true);
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("test", new DummyDistribution())));
-		_csvExportConnection.exportInstance(_dummyInstanceWithTwoFeatures);
-		_csvExportConnection.exportInstance(_dummyInstanceWithTwoFeatures);
+		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("test",
+				new DummyDistribution())));
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
+		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
 
 		String[] lines = _out.toString().split("\n");

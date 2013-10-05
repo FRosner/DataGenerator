@@ -19,7 +19,7 @@ public final class PreviewTableManager {
 
 	private static TableModel _table;
 
-	private static class PreviewTableExportConnection implements ExportConnection {
+	private static class PreviewTableExportConnection extends ExportConnection {
 
 		private final TableModel _table;
 		private int rowIndex = 1;
@@ -29,7 +29,7 @@ public final class PreviewTableManager {
 		}
 
 		@Override
-		public void exportInstance(Instance instance) {
+		public void exportInstanceStrategy(Instance instance) {
 			int columnIndex = 0;
 			for (FeatureValue value : instance) {
 				if (columnIndex < _table.getColumnCount()) {
@@ -44,7 +44,7 @@ public final class PreviewTableManager {
 		}
 
 		@Override
-		public void exportMetaData(List<FeatureDefinition> featureDefinitions) {
+		public void exportMetaDataStrategy(List<FeatureDefinition> featureDefinitions) {
 			int columnIndex = 0;
 			for (FeatureDefinition featureDefinition : featureDefinitions) {
 				if (columnIndex < _table.getColumnCount()) {

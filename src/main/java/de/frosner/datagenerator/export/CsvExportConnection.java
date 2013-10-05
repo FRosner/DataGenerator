@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.Instance;
@@ -15,11 +14,9 @@ import de.frosner.datagenerator.generator.Instance;
 /**
  * Connection for exporting instances to a CSV file.
  */
-public final class CsvExportConnection implements ExportConnection {
+public final class CsvExportConnection extends ExportConnection {
 
 	private final BufferedWriter _out;
-	private boolean _metaDataAlreadyExported = false;
-	private boolean _alreadyInstancesExported = false;
 	private final boolean _exportFeatureNames;
 	private final boolean _exportInstanceIds;
 	private final String _exportLocation;
@@ -45,9 +42,7 @@ public final class CsvExportConnection implements ExportConnection {
 	}
 
 	@Override
-	public void exportInstance(Instance instance) {
-		_alreadyInstancesExported = true;
-
+	protected void exportInstanceStrategy(Instance instance) {
 		try {
 			if (_exportInstanceIds) {
 				_out.write(instance.getId() + ",");
@@ -66,11 +61,7 @@ public final class CsvExportConnection implements ExportConnection {
 	}
 
 	@Override
-	public void exportMetaData(List<FeatureDefinition> featureDefinitions) {
-		Check.stateIsTrue(!_alreadyInstancesExported, IllegalMethodCallSequenceException.class);
-		Check.stateIsTrue(!_metaDataAlreadyExported, MethodNotCallableTwiceException.class);
-		_metaDataAlreadyExported = true;
-
+	protected void exportMetaDataStrategy(List<FeatureDefinition> featureDefinitions) {
 		if (_exportFeatureNames) {
 			try {
 				if (_exportInstanceIds) {
