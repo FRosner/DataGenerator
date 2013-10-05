@@ -41,6 +41,12 @@ public interface ExportConnection {
 	 */
 	public void close();
 
+	/**
+	 * Returns the textual representation of the export location. If the connection exports to a file, this could be the
+	 * file name.
+	 * 
+	 * @return textual representation of the export location
+	 */
 	public String getExportLocation();
 
 }
