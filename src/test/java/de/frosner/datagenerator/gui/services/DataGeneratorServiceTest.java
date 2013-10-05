@@ -14,6 +14,7 @@ import de.frosner.datagenerator.export.ExportConfiguration;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.Instance;
+import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
 
 public class DataGeneratorServiceTest {
 
@@ -61,7 +62,9 @@ public class DataGeneratorServiceTest {
 	@Test
 	public void testGenerateData() {
 		_service.getFeatureDefinitions().add(_feature1);
+		SwingMenuTestUtil.delay();
 		_service.getFeatureDefinitions().add(_feature2);
+		SwingMenuTestUtil.delay();
 
 		_service.generateData(5, _mockedExportConfiguration);
 		verify(_mockedExportConnection).exportInstance(
