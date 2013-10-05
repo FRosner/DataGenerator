@@ -138,21 +138,4 @@ public class CsvExportConnectionTest {
 		assertThat(lines[2]).startsWith("0,");
 	}
 
-	@Test(expected = MethodNotCallableTwiceException.class)
-	public void testExportMetaData_mustNotBeCallableTwice() {
-		_csvExportConnection = new CsvExportConnection(_out, true, false);
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
-				new DummyDistribution())));
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
-				new DummyDistribution())));
-	}
-
-	@Test(expected = IllegalMethodCallSequenceException.class)
-	public void testExportMetaData_mustNotBeCallableAfterExportInstance() {
-		_csvExportConnection = new CsvExportConnection(_out, true, false);
-		_csvExportConnection.exportInstance(_dummyInstanceWithOneFeature);
-		_csvExportConnection.exportMetaData(Lists.newArrayList(new FeatureDefinition("usheight",
-				new DummyDistribution())));
-	}
-
 }
