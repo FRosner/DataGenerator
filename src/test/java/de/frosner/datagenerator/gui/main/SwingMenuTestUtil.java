@@ -1,5 +1,7 @@
 package de.frosner.datagenerator.gui.main;
 
+import static org.fest.assertions.Fail.fail;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
@@ -15,7 +17,7 @@ import org.fest.swing.edt.GuiTask;
 public final class SwingMenuTestUtil {
 
 	private static final int FILE_CHOOSER_OPEN_DELAY = 500;
-	public static final int ROBOT_DELAY = 50;
+	private static final int ROBOT_DELAY = 50;
 	private SwingMenu _menu;
 
 	SwingMenuTestUtil(SwingMenu swingMenu) {
@@ -105,4 +107,16 @@ public final class SwingMenuTestUtil {
 		clickButton(_menu._addFeatureButton);
 	}
 
+	public static void delay(int ms) {
+		try {
+			new Robot().delay(ms);
+		} catch (AWTException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
+	public static void delay() {
+		delay(ROBOT_DELAY);
+	}
 }
