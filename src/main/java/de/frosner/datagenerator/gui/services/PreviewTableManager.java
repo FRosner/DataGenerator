@@ -100,7 +100,7 @@ public final class PreviewTableManager {
 				public void run() {
 					for (int i = 0; i < _table.getColumnCount(); i++) {
 						for (int j = 0; j < _table.getRowCount(); j++) {
-							_table.setValueAt("", j, i);
+							_table.setValueAt(null, j, i);
 						}
 					}
 				}
