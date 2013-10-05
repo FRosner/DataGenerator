@@ -41,7 +41,7 @@ public class TextAreaLogManagerTest {
 		assertThat(_textArea.getText()).endsWith("Test");
 		TextAreaLogManager.info("Test2");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).contains("\n").endsWith("Test");
+		assertThat(_textArea.getText()).contains("\n").contains("Test").endsWith("Test2");
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class TextAreaLogManagerTest {
 		assertThat(_textArea.getText()).endsWith("Test");
 		TextAreaLogManager.warn("Test2");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).contains("\n").endsWith("Test");
+		assertThat(_textArea.getText()).contains("\n").contains("Test").endsWith("Test2");
 	}
 
 	@Test
@@ -61,7 +61,6 @@ public class TextAreaLogManagerTest {
 		assertThat(_textArea.getText()).endsWith("Test");
 		TextAreaLogManager.error("Test2");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).contains("\n").endsWith("Test");
+		assertThat(_textArea.getText()).contains("\n").contains("Test").endsWith("Test2");
 	}
-
 }
