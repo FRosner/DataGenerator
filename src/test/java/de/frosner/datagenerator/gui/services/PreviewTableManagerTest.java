@@ -34,7 +34,7 @@ public class PreviewTableManagerTest {
 		_table = execute(new GuiQuery<TableModel>() {
 			@Override
 			public TableModel executeInEDT() {
-				return new DefaultTableModel();
+				return new DefaultTableModel(5, 1);
 			}
 		});
 		PreviewTableManager.setPreviewTable(_table);
