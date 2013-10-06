@@ -57,6 +57,10 @@ public final class CsvExportConnection extends ExportConnection {
 		this(outputStream, exportFeatureNames, exportInstanceIds, outputStream.toString());
 	}
 
+	/**
+	 * @throws UncheckedIOException
+	 *             if the underlying export {@linkplain OutputStream} throws an {@linkplain IOException}.
+	 */
 	@Override
 	public void close() {
 		try {
@@ -66,6 +70,10 @@ public final class CsvExportConnection extends ExportConnection {
 		}
 	}
 
+	/**
+	 * @throws UncheckedIOException
+	 *             if the underlying export {@linkplain OutputStream} throws an {@linkplain IOException}.
+	 */
 	@Override
 	protected void exportInstanceStrategy(Instance instance) {
 		try {
@@ -85,6 +93,10 @@ public final class CsvExportConnection extends ExportConnection {
 		}
 	}
 
+	/**
+	 * @throws UncheckedIOException
+	 *             if the underlying export {@linkplain OutputStream} throws an {@linkplain IOException}.
+	 */
 	@Override
 	protected void exportMetaDataStrategy(List<FeatureDefinition> featureDefinitions) {
 		if (_exportFeatureNames) {
