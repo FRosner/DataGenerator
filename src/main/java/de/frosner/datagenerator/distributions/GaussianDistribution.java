@@ -11,6 +11,7 @@ import org.apache.commons.math3.analysis.function.Gaussian;
 
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
+import de.frosner.datagenerator.util.VisibleForTesting;
 
 /**
  * Representation of a Gaussian distribution. It samples {@link ContinuousFeatureValue}s around the given mean with the
@@ -38,6 +39,7 @@ public final class GaussianDistribution implements Distribution {
 		_sigma = sigma;
 	}
 
+	@VisibleForTesting
 	void setSeed(long seed) {
 		_generator.setSeed(seed);
 	}
