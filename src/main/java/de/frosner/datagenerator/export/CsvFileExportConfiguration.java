@@ -14,31 +14,31 @@ import net.sf.qualitycheck.Check;
 public final class CsvFileExportConfiguration implements ExportConfiguration {
 
 	private final File _file;
-	private final boolean _exportInstanceIds;
-	private final boolean _exportFeatureNames;
+	private final boolean _isExportingInstanceIds;
+	private final boolean _isExportingFeatureNames;
 
-	public CsvFileExportConfiguration(@Nonnull File exportFile, boolean exportInstanceIds, boolean exportFeatureNames) {
+	public CsvFileExportConfiguration(@Nonnull File exportFile, boolean isExportingInstanceIds, boolean isExportingFeatureNames) {
 		_file = Check.notNull(exportFile);
-		_exportInstanceIds = exportInstanceIds;
-		_exportFeatureNames = exportFeatureNames;
+		_isExportingInstanceIds = isExportingInstanceIds;
+		_isExportingFeatureNames = isExportingFeatureNames;
 	}
 
 	public File getFile() {
 		return _file;
 	}
 
-	public boolean exportInstanceIds() {
-		return _exportInstanceIds;
+	public boolean isExportingInstanceIds() {
+		return _isExportingInstanceIds;
 	}
 
-	public boolean exportFeatureNames() {
-		return _exportFeatureNames;
+	public boolean isExportingFeatureNames() {
+		return _isExportingFeatureNames;
 	}
 
 	@Override
 	public ExportConnection createExportConnection() {
 		try {
-			return new CsvExportConnection(new FileOutputStream(_file), _exportFeatureNames, _exportInstanceIds,
+			return new CsvExportConnection(new FileOutputStream(_file), _isExportingFeatureNames, _isExportingInstanceIds,
 					_file.getAbsolutePath());
 		} catch (FileNotFoundException e) {
 			throw new UncheckedFileNotFoundException(e);
