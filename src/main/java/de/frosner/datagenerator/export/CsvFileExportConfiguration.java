@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import net.sf.qualitycheck.Check;
 
 /**
- * Configuration parameters a CSV export connection needs.
+ * {@link ExportConfiguration} for a {@link CsvExportConnection}.
  */
 public final class CsvFileExportConfiguration implements ExportConfiguration {
 
@@ -17,20 +17,45 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	private final boolean _isExportingInstanceIds;
 	private final boolean _isExportingFeatureNames;
 
-	public CsvFileExportConfiguration(@Nonnull File exportFile, boolean isExportingInstanceIds, boolean isExportingFeatureNames) {
+	/**
+	 * Creates a {@link CsvFileExportConfiguration} with the specified file. You may also decide whether to include
+	 * instance IDs and feature names into the CSV or not.
+	 * 
+	 * @param exportFile
+	 *            to open the connection on
+	 * @param isExportingInstanceIds
+	 * @param isExportingFeatureNames
+	 */
+	public CsvFileExportConfiguration(@Nonnull File exportFile, boolean isExportingInstanceIds,
+			boolean isExportingFeatureNames) {
 		_file = Check.notNull(exportFile);
 		_isExportingInstanceIds = isExportingInstanceIds;
 		_isExportingFeatureNames = isExportingFeatureNames;
 	}
 
+	/**
+	 * Returns the {@link File} the {@link CsvExportConnection} will write to.
+	 * 
+	 * @return {@link File} to export to
+	 */
 	public File getFile() {
 		return _file;
 	}
 
+	/**
+	 * Returns whether the {@link CsvExportConnection} will include the instance IDs.
+	 * 
+	 * @return whether to include the instance IDs
+	 */
 	public boolean isExportingInstanceIds() {
 		return _isExportingInstanceIds;
 	}
 
+	/**
+	 * Returns whether the {@link CsvExportConnection} will include feature names as column names.
+	 * 
+	 * @return whether to include the feature names
+	 */
 	public boolean isExportingFeatureNames() {
 		return _isExportingFeatureNames;
 	}
@@ -38,8 +63,8 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	@Override
 	public ExportConnection createExportConnection() {
 		try {
-			return new CsvExportConnection(new FileOutputStream(_file), _isExportingFeatureNames, _isExportingInstanceIds,
-					_file.getAbsolutePath());
+			return new CsvExportConnection(new FileOutputStream(_file), _isExportingFeatureNames,
+					_isExportingInstanceIds, _file.getAbsolutePath());
 		} catch (FileNotFoundException e) {
 			throw new UncheckedFileNotFoundException(e);
 		}
