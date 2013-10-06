@@ -60,6 +60,10 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 		return _isExportingFeatureNames;
 	}
 
+	/**
+	 * @throws UncheckedFileNotFoundException
+	 *             if the underlying {@linkplain FileOutputStream} throws a {@linkplain FileNotFoundException}.
+	 **/
 	@Override
 	public ExportConnection createExportConnection() {
 		try {
