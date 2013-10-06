@@ -35,6 +35,9 @@ public abstract class ExportConnection {
 	 * @throws MethodNotCallableTwiceException
 	 *             Will be thrown if this method is called twice on this connection. Calling this method more than one
 	 *             time is forbidden as it may destroy the export format.
+	 * @throws IllegalMethodCallSequenceException
+	 *             Will be thrown if this method is called after instances have already been exported. This is not
+	 *             permitted as it could destroy the output format.
 	 */
 	public void exportMetaData(@Nonnull List<FeatureDefinition> featureDefinitions) {
 		Check.stateIsTrue(!_alreadyInstancesExported, IllegalMethodCallSequenceException.class);
