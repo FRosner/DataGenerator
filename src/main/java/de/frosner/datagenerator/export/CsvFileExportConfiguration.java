@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import net.sf.qualitycheck.Check;
 
 /**
- * {@link ExportConfiguration} for a {@link CsvExportConnection}.
+ * {@linkplain ExportConfiguration} for a {@linkplain CsvExportConnection}.
  */
 public final class CsvFileExportConfiguration implements ExportConfiguration {
 
@@ -18,7 +18,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	private final boolean _isExportingFeatureNames;
 
 	/**
-	 * Creates a {@link CsvFileExportConfiguration} with the specified file. You may also decide whether to include
+	 * Creates a {@linkplain CsvFileExportConfiguration} with the specified file. You may also decide whether to include
 	 * instance IDs and feature names into the CSV or not.
 	 * 
 	 * @param exportFile
@@ -34,7 +34,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	}
 
 	/**
-	 * Returns the {@link File} the {@link CsvExportConnection} will write to.
+	 * Returns the {@linkplain File} the {@linkplain CsvExportConnection} will write to.
 	 * 
 	 * @return {@link File} to export to
 	 */
@@ -43,7 +43,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	}
 
 	/**
-	 * Returns whether the {@link CsvExportConnection} will include the instance IDs.
+	 * Returns whether the {@linkplain CsvExportConnection} will include the instance IDs.
 	 * 
 	 * @return whether to include the instance IDs
 	 */
@@ -52,7 +52,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	}
 
 	/**
-	 * Returns whether the {@link CsvExportConnection} will include feature names as column names.
+	 * Returns whether the {@linkplain CsvExportConnection} will include feature names as column names.
 	 * 
 	 * @return whether to include the feature names
 	 */
