@@ -12,7 +12,8 @@ import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.Instance;
 
 /**
- * Connection for exporting instances to a CSV file.
+ * Connection for exporting generated data in comma separated value (CSV) format to a given {@link OutputStream}.
+ * Optionally a textual representation of the export location can be specified to make error messages readable.
  */
 public final class CsvExportConnection extends ExportConnection {
 
@@ -21,15 +22,39 @@ public final class CsvExportConnection extends ExportConnection {
 	private final boolean _exportInstanceIds;
 	private final String _exportLocation;
 
-	public CsvExportConnection(OutputStream out, boolean exportFeatureNames, boolean exportInstanceIds, String location) {
-		_out = new BufferedWriter(new OutputStreamWriter(out));
+	/**
+	 * Creates a new {@link CsvExportConnection} exporting to the specified {@link OutputStream}. The specified location
+	 * is used to display log and error messages.
+	 * 
+	 * @param outputStream
+	 *            to export to
+	 * @param exportFeatureNames
+	 *            should feature names also be exported?
+	 * @param exportInstanceIds
+	 *            should instances have their ID exported as well?
+	 * @param location
+	 *            textual representation of the export location
+	 */
+	public CsvExportConnection(OutputStream outputStream, boolean exportFeatureNames, boolean exportInstanceIds,
+			String location) {
+		_out = new BufferedWriter(new OutputStreamWriter(outputStream));
 		_exportFeatureNames = exportFeatureNames;
 		_exportInstanceIds = exportInstanceIds;
 		_exportLocation = location;
 	}
 
-	public CsvExportConnection(OutputStream out, boolean exportFeatureNames, boolean exportInstanceIds) {
-		this(out, exportFeatureNames, exportInstanceIds, out.toString());
+	/**
+	 * Creates a new {@link CsvExportConnection} exporting to the specified {@link OutputStream}.
+	 * 
+	 * @param outputStream
+	 *            to export to
+	 * @param exportFeatureNames
+	 *            should feature names also be exported?
+	 * @param exportInstanceIds
+	 *            should instances have their ID exported as well?
+	 **/
+	public CsvExportConnection(OutputStream outputStream, boolean exportFeatureNames, boolean exportInstanceIds) {
+		this(outputStream, exportFeatureNames, exportInstanceIds, outputStream.toString());
 	}
 
 	@Override
