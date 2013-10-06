@@ -5,6 +5,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.ArrayList;
 
+import net.sf.qualitycheck.exception.IllegalEmptyArgumentException;
 import net.sf.qualitycheck.exception.IllegalNullElementsException;
 import net.sf.qualitycheck.exception.IllegalStateOfArgumentException;
 
@@ -39,7 +40,7 @@ public class DataGeneratorTest {
 		_z = new FeatureDefinition("z", new DummyDistribution());
 	}
 
-	@Test(expected = IllegalStateOfArgumentException.class)
+	@Test(expected = IllegalEmptyArgumentException.class)
 	public void testCreate_noFeatures() {
 		new DataGenerator(1, _mockedOut, new ArrayList<FeatureDefinition>(0));
 	}
