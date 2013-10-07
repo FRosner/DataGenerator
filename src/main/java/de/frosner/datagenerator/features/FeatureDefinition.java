@@ -9,8 +9,8 @@ import de.frosner.datagenerator.generator.DataGenerator;
 
 /**
  * This class contains all information about a feature, including the feature name and the underlying probability
- * distribution. The {@link DataGenerator} uses feature definitions to sample individual {@link FeatureValue}s for each
- * {@link Instance} generated.
+ * distribution. The {@linkplain DataGenerator} uses feature definitions to sample individual {@linkplain FeatureValue}s
+ * for each {@linkplain Instance} generated.
  */
 @Immutable
 public final class FeatureDefinition {
@@ -19,7 +19,7 @@ public final class FeatureDefinition {
 	private final Distribution _distribution;
 
 	/**
-	 * Creates a new {@link FeatureDefinition} with the specified name and distribution.
+	 * Creates a new {@linkplain FeatureDefinition} with the specified name and distribution.
 	 * 
 	 * @param name
 	 *            of the feature

@@ -12,8 +12,8 @@ import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.generator.Instance;
 
 /**
- * Service managing the data generation preview {@link TableModel}. It can be used to populate the table with preview
- * data generated from a list of {@link FeatureDefinition} instances.
+ * Service managing the data generation preview {@linkplain TableModel}. It can be used to populate the table with
+ * preview data generated from a list of {@linkplain FeatureDefinition} instances.
  */
 public final class PreviewTableManager {
 

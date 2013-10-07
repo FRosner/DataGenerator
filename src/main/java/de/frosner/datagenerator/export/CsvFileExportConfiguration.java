@@ -36,7 +36,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	/**
 	 * Returns the {@linkplain File} the {@linkplain CsvExportConnection} will write to.
 	 * 
-	 * @return {@link File} to export to
+	 * @return {@linkplain File} to export to
 	 */
 	public File getFile() {
 		return _file;

@@ -48,8 +48,8 @@ public final class DataGenerator {
 	}
 
 	/**
-	 * Constructs a new {@linkplain DataGenerator}. When {@link DataGenerator#generate()} is invoked it will sample the
-	 * specified number of instances with the specified feature definitions to the specified export connection.
+	 * Constructs a new {@linkplain DataGenerator}. When {@linkplain DataGenerator#generate()} is invoked it will sample
+	 * the specified number of instances with the specified feature definitions to the specified export connection.
 	 * 
 	 * @param numberOfInstances
 	 *            to be generated

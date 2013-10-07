@@ -101,7 +101,7 @@ public final class Instance implements Iterable<FeatureValue> {
 
 	/**
 	 * Returns the {@linkplain FeatureValue} at the specified index. It should have been generated using the
-	 * {@link Distribution} defined by the {@linkplain FeatureDefinition} at the same position.
+	 * {@linkplain Distribution} defined by the {@linkplain FeatureDefinition} at the same position.
 	 * 
 	 * @param index
 	 *            of the feature value to return

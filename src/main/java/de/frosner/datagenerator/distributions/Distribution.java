@@ -5,14 +5,15 @@ import javax.annotation.concurrent.Immutable;
 import de.frosner.datagenerator.features.FeatureValue;
 
 /**
- * Immutable representation of a probability distribution. Distributions can sample {@link FeatureValue}s and return the
- * probability / mass function value of a given {@link FeatureValue}.
+ * Immutable representation of a probability distribution. Distributions can sample {@linkplain FeatureValue}s or return
+ * the probability / mass function value of a given {@linkplain FeatureValue}.
  */
 @Immutable
 public interface Distribution {
 
 	/**
-	 * Returns the probability (or mass function value) of the specified discrete (or continuous) {@link FeatureValue}.
+	 * Returns the probability (or mass function value) of the specified discrete (or continuous)
+	 * {@linkplain FeatureValue}.
 	 * 
 	 * @param value
 	 *            the probability should be returned of
@@ -28,7 +29,7 @@ public interface Distribution {
 	public FeatureValue sample();
 
 	/**
-	 * Returns a {@link String} representation of the distribution type.
+	 * Returns a string representation of the distribution type.
 	 * 
 	 * @return distribution type
 	 */

@@ -12,7 +12,7 @@ import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.Instance;
 
 /**
- * Connection for exporting generated data in comma separated value (CSV) format to a given {@link OutputStream}.
+ * Connection for exporting generated data in comma separated value (CSV) format to a given {@linkplain OutputStream}.
  * Optionally a textual representation of the export location can be specified to make error messages readable.
  */
 public final class CsvExportConnection extends ExportConnection {
@@ -23,8 +23,8 @@ public final class CsvExportConnection extends ExportConnection {
 	private final String _exportLocation;
 
 	/**
-	 * Creates a new {@link CsvExportConnection} exporting to the specified {@link OutputStream}. The specified location
-	 * is used to display log and error messages.
+	 * Creates a new {@linkplain CsvExportConnection} exporting to the specified {@linkplain OutputStream}. The
+	 * specified location is used to display log and error messages.
 	 * 
 	 * @param outputStream
 	 *            to export to
@@ -44,7 +44,7 @@ public final class CsvExportConnection extends ExportConnection {
 	}
 
 	/**
-	 * Creates a new {@link CsvExportConnection} exporting to the specified {@link OutputStream}.
+	 * Creates a new {@linkplain CsvExportConnection} exporting to the specified {@linkplain OutputStream}.
 	 * 
 	 * @param outputStream
 	 *            to export to

@@ -14,8 +14,8 @@ import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 /**
- * Representation of a Gaussian distribution. It samples {@link ContinuousFeatureValue}s around the given mean with the
- * specified standard deviation.
+ * Representation of a Gaussian distribution. It samples {@linkplain ContinuousFeatureValue}s around the given mean with
+ * the specified standard deviation.
  */
 @Immutable
 public final class GaussianDistribution implements Distribution {
@@ -27,7 +27,7 @@ public final class GaussianDistribution implements Distribution {
 	private final double _sigma;
 
 	/**
-	 * Construct a {@link GaussianDistribution} with the given mean and standard deviation.
+	 * Construct a {@linkplain GaussianDistribution} with the given mean and standard deviation.
 	 * 
 	 * @param mean
 	 * @param sigma

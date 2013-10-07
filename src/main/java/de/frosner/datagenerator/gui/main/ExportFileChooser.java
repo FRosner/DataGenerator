@@ -9,8 +9,8 @@ import javax.swing.filechooser.FileFilter;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 /**
- * {@link JFileChooser} for selecting an export file. As the default all file filter is disabled, you must specify at
- * least one custom file filter.
+ * {@linkplain JFileChooser} for selecting an export file. As the default all file filter is disabled, you must specify
+ * at least one custom file filter.
  * <p>
  * Supported filters:
  * <ul>
@@ -24,7 +24,7 @@ public final class ExportFileChooser extends JFileChooser {
 
 	/**
 	 * Creates an ExportFileChooser with the current directory as default selection and the specified file filter.
-	 * Additional file filters can be added by using {@link ExportFileChooser#addChoosableFileFilter(FileFilter)}.
+	 * Additional file filters can be added by using {@linkplain ExportFileChooser#addChoosableFileFilter(FileFilter)}.
 	 */
 	public ExportFileChooser(FileFilter fileFilter) {
 		super(new File(System.getProperty("user.dir")));

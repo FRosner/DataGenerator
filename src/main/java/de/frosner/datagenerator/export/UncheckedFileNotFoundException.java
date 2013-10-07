@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 /**
- * This is a {@link FileNotFoundException} wrapped into a {@link RuntimeException}.
+ * This is a {@linkplain FileNotFoundException} wrapped into a {@linkplain RuntimeException}.
  */
 public class UncheckedFileNotFoundException extends RuntimeException {
 

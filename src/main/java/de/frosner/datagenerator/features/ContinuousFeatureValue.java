@@ -11,7 +11,7 @@ public final class ContinuousFeatureValue implements FeatureValue {
 	private final double _value;
 
 	/**
-	 * Constructs a {@link ContinuousFeatureValue} containing the specified floating point number.
+	 * Constructs a {@linkplain ContinuousFeatureValue} containing the specified floating point number.
 	 * 
 	 * @param value
 	 *            of the continuous feature

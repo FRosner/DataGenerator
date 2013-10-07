@@ -8,7 +8,7 @@ import javax.swing.filechooser.FileFilter;
 import net.sf.qualitycheck.Check;
 
 /**
- * {@link FileFilter} that filters files depending on the specified extension.
+ * {@linkplain FileFilter} that filters files depending on the specified extension.
  */
 public final class ExtensionFileFilter extends FileFilter {
 
@@ -16,7 +16,7 @@ public final class ExtensionFileFilter extends FileFilter {
 	private final String _extension;
 
 	/**
-	 * Creates an {@link ExtensionFileFilter} with the specified description filtering files with the specified
+	 * Creates an {@linkplain ExtensionFileFilter} with the specified description filtering files with the specified
 	 * extension. Extensions have to be without. That is "csv" instead of ".csv".
 	 * 
 	 * @param description
