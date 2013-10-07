@@ -14,9 +14,19 @@ public final class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
 	private final int _numberOfInstances;
 	private final ExportConfiguration _config;
 
-	public GenerateDataButtonWorker(int numberOfInstances, ExportConfiguration config) {
+	/**
+	 * Creates a new {@linkplain GenerateDataButtonWorker} that will call
+	 * {@linkplain DataGeneratorService#generateData(int, ExportConfiguration)} to generate and export data with the
+	 * specified {@linkplain ExportConfiguration}.
+	 * 
+	 * @param numberOfInstances
+	 *            to generate and export
+	 * @param configuration
+	 *            of the export connection
+	 */
+	public GenerateDataButtonWorker(int numberOfInstances, ExportConfiguration configuration) {
 		_numberOfInstances = numberOfInstances;
-		_config = config;
+		_config = configuration;
 	}
 
 	@Override
