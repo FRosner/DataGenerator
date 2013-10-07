@@ -7,8 +7,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import de.frosner.datagenerator.util.ApplicationMetaData;
-
 /**
  * Class providing an ordered focus traversal policy. Add components to traverse in an ordered list. The policy will
  * traverse the list. Components that are disabled are skipped. At least one component must be enabled.
@@ -18,18 +16,17 @@ import de.frosner.datagenerator.util.ApplicationMetaData;
  */
 public final class OrderedFocusTraversalPolicy extends FocusTraversalPolicy {
 
-	public static class NoEnabledComponentInFocusOrderException extends RuntimeException {
+	private List<Component> _order;
 
-		private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
-
-		public NoEnabledComponentInFocusOrderException(List<Component> order) {
-			super("At least one component must be enabled: " + order.toString());
-		}
-
-	}
-
-	List<Component> _order;
-
+	/**
+	 * Creates a new {@linkplain OrderedFocusTraversalPolicy} with the specified component ordering.
+	 * 
+	 * @param order
+	 *            of the components to focus
+	 * 
+	 * @throws NoEnabledComponentInFocusOrderException
+	 *             if not at least one component in the provided order is enabled
+	 */
 	public OrderedFocusTraversalPolicy(List<Component> order) {
 		_order = Lists.newArrayList(order);
 		checkThatAtLeastOneComponentIsEnabled();
