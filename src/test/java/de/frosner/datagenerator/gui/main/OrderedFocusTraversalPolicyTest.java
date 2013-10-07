@@ -24,8 +24,6 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import de.frosner.datagenerator.gui.main.OrderedFocusTraversalPolicy.NoEnabledComponentInFocusOrderException;
-
 public class OrderedFocusTraversalPolicyTest {
 
 	private JButton _button;
