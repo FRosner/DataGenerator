@@ -48,8 +48,8 @@ public class VariableColumnCountTableModel extends AbstractTableModel {
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Check.stateIsTrue(rowIndex < getRowCount());
 		Check.stateIsTrue(columnIndex < getColumnCount());
-		fireTableDataChanged();
 		_elements.get(columnIndex).set(rowIndex, aValue.toString());
+		fireTableDataChanged();
 	}
 
 	public void addColumn() {
@@ -58,10 +58,12 @@ public class VariableColumnCountTableModel extends AbstractTableModel {
 			newColumn.add("");
 		}
 		_elements.add(newColumn);
+		fireTableStructureChanged();
 	}
 
 	public void removeColumn() {
 		_elements.remove(_elements.size() - 1);
+		fireTableStructureChanged();
 	}
 
 }

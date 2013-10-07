@@ -48,4 +48,21 @@ public class PreviewTableManagerTest {
 		}
 	}
 
+	@Test
+	public void testGeneratePreview_increaseAndDecreaseColumnsOfTableModel() {
+		assertThat(_table.getColumnCount()).isEqualTo(1);
+		PreviewTableManager.generatePreview(Lists.newArrayList(new FeatureDefinition("Test", new DummyDistribution()),
+				new FeatureDefinition("Foo", new DummyDistribution())));
+		SwingMenuTestUtil.delay();
+		assertThat(_table.getValueAt(0, 0)).isEqualTo("Test");
+		assertThat(_table.getValueAt(0, 1)).isEqualTo("Foo");
+		for (int row = 1; row < _table.getRowCount(); row++) {
+			assertThat(_table.getValueAt(row, 0)).isEqualTo(DummyDistribution.ANY_SAMPLE.toString());
+			assertThat(_table.getValueAt(row, 1)).isEqualTo(DummyDistribution.ANY_SAMPLE.toString());
+		}
+		PreviewTableManager.generatePreview(Lists.newArrayList(new FeatureDefinition("Test", new DummyDistribution())));
+		SwingMenuTestUtil.delay();
+		assertThat(_table.getColumnCount()).isEqualTo(1);
+	}
+
 }

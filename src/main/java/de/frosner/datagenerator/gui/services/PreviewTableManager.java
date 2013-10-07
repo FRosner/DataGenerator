@@ -28,7 +28,6 @@ public final class PreviewTableManager {
 
 		public PreviewTableExportConnection(VariableColumnCountTableModel table) {
 			_table = table;
-			_originalColumnCount = _table.getColumnCount();
 		}
 
 		@Override
@@ -75,6 +74,7 @@ public final class PreviewTableManager {
 	 */
 	public static void setPreviewTable(VariableColumnCountTableModel table) {
 		_table = table;
+		_originalColumnCount = _table.getColumnCount();
 	}
 
 	/**
@@ -86,10 +86,17 @@ public final class PreviewTableManager {
 	public static void generatePreview(final List<FeatureDefinition> features) {
 		clearPreviewTable();
 		if (_table != null && !features.isEmpty()) {
-			if (features.size() > _table.getColumnCount()) {
-
-			} else if (_table.getColumnCount() > Math.max(features.size(), _originalColumnCount)) {
-
+			int columnDifference = features.size() - _table.getColumnCount();
+			if (columnDifference > 0) {
+				for (int i = 0; i < columnDifference; i++) {
+					_table.addColumn();
+				}
+			} else if (columnDifference < 0) {
+				for (int i = 0; i > columnDifference; i--) {
+					if (_table.getColumnCount() > _originalColumnCount) {
+						_table.removeColumn();
+					}
+				}
 			}
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
