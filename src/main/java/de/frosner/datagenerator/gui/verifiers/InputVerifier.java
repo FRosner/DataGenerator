@@ -42,7 +42,7 @@ public abstract class InputVerifier {
 	 * as well.
 	 * <p>
 	 * Example: {@code InputVerifier.verifyComponent(myTextArea, InputVerifier.isDouble(myTextArea.getText()).verify())}
-	 * will change the color of the text area if the entered text cannot be parsed to a {@code Double}.
+	 * will change the color of the text area if the entered text cannot be parsed to a {@linkplain Double}.
 	 * 
 	 * @param component
 	 *            to change the color of in case of unsuccessful verification
@@ -60,7 +60,7 @@ public abstract class InputVerifier {
 	}
 
 	/**
-	 * Verifies whether the specified input text can be parsed to an {@code Integer}.
+	 * Verifies whether the specified input text can be parsed to an {@linkplain Integer}.
 	 * 
 	 * @param input
 	 *            to verify
@@ -74,7 +74,7 @@ public abstract class InputVerifier {
 	}
 
 	/**
-	 * Verifies whether the specified input text can be parsed to a {@code Double} that is not infinite or NaN.
+	 * Verifies whether the specified input text can be parsed to a {@linkplain Double} that is not infinite or NaN.
 	 * 
 	 * @param input
 	 *            to verify
