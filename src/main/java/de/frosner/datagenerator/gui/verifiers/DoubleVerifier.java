@@ -1,5 +1,8 @@
 package de.frosner.datagenerator.gui.verifiers;
 
+/**
+ * {@linkplain InputVerifier} to verify that a given double satisfies certain conditions.
+ */
 public final class DoubleVerifier extends InputVerifier {
 
 	private double _double;
@@ -15,6 +18,9 @@ public final class DoubleVerifier extends InputVerifier {
 		_double = doubleValue;
 	}
 
+	/**
+	 * Verify that the given double is positive.
+	 */
 	public DoubleVerifier isPositive() {
 		if (_verified) {
 			_verified = _double > 0;
