@@ -13,8 +13,8 @@ import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 /**
- * Service maintaining a list of {@link FeatureDefinition} instances. It can be used to generate data to a specified
- * export connection.
+ * Service maintaining a list of {@linkplain FeatureDefinition}s. It can be used to generate data to an
+ * {@linkplain ExportConnection}.
  * <p>
  * The feature definition list should be kept synchronized with the list in the UI.
  */
@@ -31,7 +31,7 @@ public final class DataGeneratorService {
 	}
 
 	/**
-	 * Adds a feature definition to the list. Make sure that it is added to the list in the UI as well.
+	 * Adds a {@linkplain FeatureDefinition} to the list. Make sure that it is added to the list in the UI as well.
 	 * 
 	 * @param featureDefinition
 	 *            to add
@@ -43,8 +43,8 @@ public final class DataGeneratorService {
 	}
 
 	/**
-	 * Removes a feature definition from the list at the specified index. Make sure that it is removed from the list in
-	 * the UI as well.
+	 * Removes a {@linkplain FeatureDefinition} from the list at the specified index. Make sure that it is removed from
+	 * the list in the UI as well.
 	 * 
 	 * @param index
 	 */
@@ -54,12 +54,13 @@ public final class DataGeneratorService {
 	}
 
 	/**
-	 * Generate and export a number of instances to a CSV file.
+	 * Generate and export a number of instances to an {@linkplain ExportConnection} as configured by the specified
+	 * {@linkplain ExportConfiguration}.
 	 * 
 	 * @param numberOfInstances
 	 *            to be generated
 	 * @param exportConfig
-	 *            containing file and options
+	 *            containing everything needed to create an {@linkplain ExportConnection}.
 	 */
 	public void generateData(int numberOfInstances, ExportConfiguration exportConfig) {
 		if (!_generating) {
