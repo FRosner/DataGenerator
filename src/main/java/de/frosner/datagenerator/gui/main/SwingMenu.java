@@ -43,8 +43,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import org.uncommons.swing.SpringUtilities;
 
@@ -114,7 +112,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private final JScrollPane _featureListScroller;
 
 	@VisibleForTesting
-	final TableModel _previewTableModel;
+	final VariableColumnCountTableModel _previewTableModel;
 	@VisibleForTesting
 	final JTable _previewTable;
 
@@ -192,7 +190,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_abortDataGenerationButton = new JButton("Abort Generation");
 		_abortDataGenerationButton.addActionListener(this);
 		_abortDataGenerationButton.setEnabled(false);
-		_previewTableModel = new DefaultTableModel(8, 4);
+		_previewTableModel = new VariableColumnCountTableModel(8, 4);
 		_previewTable = new JTable(_previewTableModel);
 		_previewTable.setEnabled(false);
 		PreviewTableManager.setPreviewTable(_previewTableModel);
@@ -390,8 +388,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				final File exportFile = _exportFileDialog.getSelectedFile();
 				final boolean exportInstanceIds = _exportInstanceIdsBox.isSelected();
 				final boolean exportFeatureNames = _exportFeatureNamesBox.isSelected();
-				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances, new CsvFileExportConfiguration(
-						exportFile, exportInstanceIds, exportFeatureNames));
+				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances,
+						new CsvFileExportConfiguration(exportFile, exportInstanceIds, exportFeatureNames));
 				_generateDataButtonWorker.execute();
 			}
 

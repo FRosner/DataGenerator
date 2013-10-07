@@ -140,8 +140,8 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.clickButton(_frame._removeFeatureButton);
 		SwingMenuTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
-		assertThat(_frame._previewTableModel.getValueAt(0, 0)).isNull();
-		assertThat(_frame._previewTableModel.getValueAt(1, 0)).isNull();
+		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEmpty();
+		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
 	}
 
 	@Test
