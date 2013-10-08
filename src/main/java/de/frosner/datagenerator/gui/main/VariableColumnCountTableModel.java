@@ -10,6 +10,7 @@ import net.sf.qualitycheck.Check;
 
 import com.google.common.collect.Lists;
 
+import de.frosner.datagenerator.exceptions.IllegalNonPositiveNumberArgumentException;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 /**
@@ -32,8 +33,12 @@ public class VariableColumnCountTableModel extends AbstractTableModel {
 	 *            of the model to create
 	 */
 	public VariableColumnCountTableModel(int rowCount, int columnCount) {
-		Check.stateIsTrue(rowCount > 0, "Row count must be positive but was: " + rowCount);
-		Check.stateIsTrue(columnCount > 0, "Column count must be positive but was: " + columnCount);
+		if (rowCount <= 0) {
+			throw new IllegalNonPositiveNumberArgumentException(rowCount);
+		}
+		if (columnCount <= 0) {
+			throw new IllegalNonPositiveNumberArgumentException(columnCount);
+		}
 		_elements = Lists.newArrayList();
 		for (int i = 0; i < columnCount; i++) {
 			List<String> column = Lists.newArrayList();
