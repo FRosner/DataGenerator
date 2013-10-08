@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.export;
+package de.frosner.datagenerator.exceptions;
 
 import java.io.IOException;
 

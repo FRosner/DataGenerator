@@ -6,6 +6,8 @@ import javax.annotation.Nonnull;
 
 import net.sf.qualitycheck.Check;
 import net.sf.qualitycheck.exception.IllegalEmptyArgumentException;
+import de.frosner.datagenerator.exceptions.IllegalMethodCallSequenceException;
+import de.frosner.datagenerator.exceptions.MethodNotCallableTwiceException;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.generator.Instance;

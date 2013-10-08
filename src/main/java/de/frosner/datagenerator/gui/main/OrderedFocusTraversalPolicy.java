@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import de.frosner.datagenerator.exceptions.NoEnabledComponentInFocusOrderException;
+
 /**
  * Class providing an ordered focus traversal policy. Add components to traverse in an ordered list. The policy will
  * traverse the list. Components that are disabled are skipped. At least one component must be enabled.

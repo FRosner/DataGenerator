@@ -1,8 +1,9 @@
-package de.frosner.datagenerator.gui.main;
+package de.frosner.datagenerator.exceptions;
 
 import java.awt.Component;
 import java.util.List;
 
+import de.frosner.datagenerator.gui.main.OrderedFocusTraversalPolicy;
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
 /**

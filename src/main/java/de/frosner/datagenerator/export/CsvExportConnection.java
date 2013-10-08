@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.List;
 
+import de.frosner.datagenerator.exceptions.UncheckedIOException;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.Instance;

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.frosner.datagenerator.exceptions.UncheckedFileNotFoundException;
+import de.frosner.datagenerator.exceptions.UncheckedIOException;
 import de.frosner.datagenerator.export.ExportConfiguration;
 import de.frosner.datagenerator.export.ExportConnection;
-import de.frosner.datagenerator.export.UncheckedFileNotFoundException;
-import de.frosner.datagenerator.export.UncheckedIOException;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.util.VisibleForTesting;

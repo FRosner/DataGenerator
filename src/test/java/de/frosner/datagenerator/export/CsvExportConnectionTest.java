@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.DummyDistribution;
+import de.frosner.datagenerator.exceptions.UncheckedIOException;
 import de.frosner.datagenerator.features.DummyFeatureValue;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.Instance;

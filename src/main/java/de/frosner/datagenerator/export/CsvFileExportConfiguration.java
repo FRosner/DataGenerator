@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 
 import javax.annotation.Nonnull;
 
+import de.frosner.datagenerator.exceptions.UncheckedFileNotFoundException;
+
 import net.sf.qualitycheck.Check;
 
 /**
