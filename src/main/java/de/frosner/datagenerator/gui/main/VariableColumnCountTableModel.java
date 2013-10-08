@@ -66,8 +66,8 @@ public class VariableColumnCountTableModel extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		Check.stateIsTrue(rowIndex < getRowCount());
-		Check.stateIsTrue(columnIndex < getColumnCount());
+		Check.stateIsTrue(rowIndex < getRowCount(), IndexOutOfBoundsException.class);
+		Check.stateIsTrue(columnIndex < getColumnCount(), IndexOutOfBoundsException.class);
 		_elements.get(columnIndex).set(rowIndex, aValue.toString());
 		fireTableDataChanged();
 	}
