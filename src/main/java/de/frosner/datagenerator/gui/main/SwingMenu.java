@@ -176,6 +176,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportFileLabel = new JLabel("Export File", JLabel.RIGHT);
 		_exportFileDialog = new ExportFileChooser(ALL_FILE_FILTER);
 		_exportFileDialog.addChoosableFileFilter(CSV_FILE_FILTER);
+		_exportFileDialog.setFileFilter(CSV_FILE_FILTER);
 		_exportFileButton = new JButton("...");
 		_exportFileButton.addActionListener(this);
 		_exportFileField = new JTextField();
