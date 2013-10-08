@@ -88,6 +88,7 @@ public class VariableColumnCountTableModel extends AbstractTableModel {
 	 * Removes a column from the model.
 	 */
 	public void removeColumn() {
+		Check.notEmpty(_elements, "No columns to remove.");
 		_elements.remove(_elements.size() - 1);
 		fireTableStructureChanged();
 	}
