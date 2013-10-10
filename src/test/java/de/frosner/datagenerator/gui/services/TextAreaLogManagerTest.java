@@ -5,7 +5,7 @@ import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import java.awt.AWTException;
 
-import javax.swing.JTextArea;
+import javax.swing.JEditorPane;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiQuery;
@@ -16,7 +16,7 @@ import org.junit.Test;
 import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
 
 public class TextAreaLogManagerTest {
-	private JTextArea _textArea;
+	private JEditorPane _editorPane;
 
 	@BeforeClass
 	public static void setUpOnce() {
@@ -25,42 +25,42 @@ public class TextAreaLogManagerTest {
 
 	@Before
 	public void initGUI() throws AWTException {
-		_textArea = execute(new GuiQuery<JTextArea>() {
+		_editorPane = execute(new GuiQuery<JEditorPane>() {
 			@Override
-			public JTextArea executeInEDT() {
-				return new JTextArea();
+			public JEditorPane executeInEDT() {
+				return new JEditorPane();
 			}
 		});
-		TextAreaLogManager.setLogArea(_textArea);
+		TextAreaLogManager.setLogArea(_editorPane);
 	}
 
 	@Test
-	public void testLogInfo() {
+	public void testLogInfoText() {
 		TextAreaLogManager.info("Test");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).endsWith("Test");
+		assertThat(_editorPane.getText()).endsWith("Test");
 		TextAreaLogManager.info("Test2");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).contains("\n").contains("Test").endsWith("Test2");
+		assertThat(_editorPane.getText()).contains("\n").contains("Test").endsWith("Test2");
 	}
 
 	@Test
-	public void testLogWarn() {
+	public void testLogWarnText() {
 		TextAreaLogManager.warn("Test");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).endsWith("Test");
+		assertThat(_editorPane.getText()).endsWith("Test");
 		TextAreaLogManager.warn("Test2");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).contains("\n").contains("Test").endsWith("Test2");
+		assertThat(_editorPane.getText()).contains("\n").contains("Test").endsWith("Test2");
 	}
 
 	@Test
-	public void testLogError() {
+	public void testLogErrorText() {
 		TextAreaLogManager.error("Test");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).endsWith("Test");
+		assertThat(_editorPane.getText()).endsWith("Test");
 		TextAreaLogManager.error("Test2");
 		SwingMenuTestUtil.delay();
-		assertThat(_textArea.getText()).contains("\n").contains("Test").endsWith("Test2");
+		assertThat(_editorPane.getText()).contains("\n").contains("Test").endsWith("Test2");
 	}
 }

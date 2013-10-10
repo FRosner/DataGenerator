@@ -23,6 +23,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -120,7 +121,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JProgressBar _progressBar;
 
 	@VisibleForTesting
-	final JTextArea _logArea;
+	final JEditorPane _logArea;
 	private final JScrollPane _logAreaScroller;
 
 	private final JMenuBar _menuBar;
@@ -195,7 +196,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_previewTable = new JTable(_previewTableModel);
 		_previewTable.setEnabled(false);
 		PreviewTableManager.setPreviewTable(_previewTableModel);
-		_logArea = new JTextArea(5, 25);
+		_logArea = new JEditorPane();
 		_logAreaScroller = new JScrollPane(_logArea);
 		TextAreaLogManager.setLogArea(_logArea);
 		_logArea.setBorder(new LineBorder(Color.gray, 1));
