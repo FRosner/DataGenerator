@@ -196,7 +196,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_previewTable = new JTable(_previewTableModel);
 		_previewTable.setEnabled(false);
 		PreviewTableManager.setPreviewTable(_previewTableModel);
-		_logArea = new JEditorPane();
+		_logArea = new JEditorPane("text/html", null);
 		_logAreaScroller = new JScrollPane(_logArea);
 		TextAreaLogManager.setLogArea(_logArea);
 		_logArea.setBorder(new LineBorder(Color.gray, 1));
