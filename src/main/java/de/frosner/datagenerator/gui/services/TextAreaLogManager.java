@@ -10,6 +10,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import de.frosner.datagenerator.exceptions.UncheckedBadLocationException;
+import de.frosner.datagenerator.exceptions.UncheckedIOException;
+
 /**
  * Service managing a text area to log messages to.
  */
@@ -47,13 +50,7 @@ public final class TextAreaLogManager {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					try {
-						InsertMessageAtEndOfHtmlDocument(message, HtmlColor.BLACK);
-					} catch (BadLocationException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					insertMessageAtEndOfHtmlDocument(message, HtmlColor.BLACK);
 				}
 			});
 		}
@@ -70,13 +67,7 @@ public final class TextAreaLogManager {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					try {
-						InsertMessageAtEndOfHtmlDocument(message, HtmlColor.ORANGE);
-					} catch (BadLocationException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					insertMessageAtEndOfHtmlDocument(message, HtmlColor.ORANGE);
 				}
 			});
 		}
@@ -93,36 +84,35 @@ public final class TextAreaLogManager {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					try {
-						InsertMessageAtEndOfHtmlDocument(message, HtmlColor.RED);
-					} catch (BadLocationException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					insertMessageAtEndOfHtmlDocument(message, HtmlColor.RED);
 				}
 			});
 		}
 	}
 
-	private static void InsertMessageAtEndOfHtmlDocument(final String message, HtmlColor color)
-			throws BadLocationException, IOException {
-		_editorKit.insertHTML(_doc, _doc.getLength(), "<font color=\"" + color + "\">[" + formatter.format(new Date())
-				+ "] " + message + "</font>", 0, 0, null);
+	private static void insertMessageAtEndOfHtmlDocument(final String message, HtmlColor color) {
+		try {
+			_editorKit.insertHTML(_doc, _doc.getLength(), "<font color=\"" + color.getHexRepresentation() + "\">["
+					+ formatter.format(new Date()) + "] " + message + "</font>", 0, 0, null);
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
+		} catch (BadLocationException e) {
+			throw new UncheckedBadLocationException(e);
+		}
 	}
 
 	private enum HtmlColor {
 		RED("#FF0000"), ORANGE("#FFA500"), BLACK("#000000"), GRAY("#808080"), DEFAULT("");
-		private final String _stringRepresantation;
+		private final String _hexRepresentation;
 
-		HtmlColor(String stringRepresentation) {
-			_stringRepresantation = stringRepresentation;
+		HtmlColor(String hexRepresentation) {
+			_hexRepresentation = hexRepresentation;
 		}
 
-		@Override
-		public String toString() {
-			return _stringRepresantation;
+		public String getHexRepresentation() {
+			return _hexRepresentation;
 		}
+
 	}
 
 }
