@@ -71,11 +71,6 @@
 			<version>1.8.4</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.uncommons.watchmaker</groupId>
-			<artifactId>watchmaker-swing</artifactId>
-			<version>0.6.2</version>
-		</dependency>
 	</dependencies>
   
   	<build>

@@ -45,8 +45,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
-import org.uncommons.swing.SpringUtilities;
-
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.GaussianDistribution;
