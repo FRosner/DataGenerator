@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.BernoulliDistribution;
+import de.frosner.datagenerator.distributions.CategorialDistribution;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
@@ -64,20 +65,26 @@ public class DataGeneratorIntegrationTest {
 		_numberOfInstances = 100;
 		_exportConnection = new CsvExportConnection(_out, true, false);
 		FeatureDefinition featureA = new FeatureDefinition("A", new BernoulliDistribution(0.4));
-		List<FeatureDefinition> featureDefinitions = Lists.newArrayList(featureA);
+		FeatureDefinition featureB = new FeatureDefinition("B", new CategorialDistribution(Lists.newArrayList(0.10,
+				0.4, 0.45, 0.05)));
+		List<FeatureDefinition> featureDefinitions = Lists.newArrayList(featureA, featureB);
 
 		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, featureDefinitions);
 		_dataGenerator.generate();
 		_exportConnection.close();
 
 		Map<String, List<String>> csv = ExportFormatReaderUtil.readCsvWithHeader(_out.toString(), ",");
-		assertThat(csv.keySet()).containsOnly("A");
+		assertThat(csv.keySet()).containsOnly("A", "B");
 		String bernoulliFormat = "^(0|1)$";
+		String categorialFormat = "^(0|1|2|3)$";
 		for (List<String> column : csv.values()) {
 			assertThat(column).hasSize(_numberOfInstances);
 		}
 		for (String bernoulliEntry : csv.get("A")) {
 			assertThat(bernoulliEntry).matches(bernoulliFormat);
+		}
+		for (String bernoulliEntry : csv.get("B")) {
+			assertThat(bernoulliEntry).matches(categorialFormat);
 		}
 	}
 
