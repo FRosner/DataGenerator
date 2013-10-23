@@ -4,6 +4,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.util.ExportFormatReaderUtil;
 
 public class DataGeneratorIntegrationTest {
 
@@ -45,24 +47,13 @@ public class DataGeneratorIntegrationTest {
 		_dataGenerator.generate();
 		_exportConnection.close();
 
-		String doubleRegex = "^\\-?[0-9]+\\.[0-9]+(E\\-?[0-9]+)?$";
-		String[] exportedLines = _out.toString().split("\\n");
-
-		assertThat(exportedLines).hasSize(_numberOfInstances + 1);
-		int lineNumber = 0;
-		for (String linesString : exportedLines) {
-			String[] cells = linesString.split(",");
-			assertThat(cells).hasSize(featureDefinitions.size());
-			if (lineNumber++ == 0) {
-				cells[0].equals("A");
-				cells[1].equals("B");
-				cells[2].equals("C");
-				cells[3].equals("D");
-				cells[4].equals("E");
-			} else {
-				for (String cellsString : cells) {
-					assertThat(cellsString).matches(doubleRegex);
-				}
+		Map<String, List<String>> csv = ExportFormatReaderUtil.readCsvWithHeader(_out.toString(), ",");
+		assertThat(csv.keySet()).containsOnly("A", "B", "C", "D", "E");
+		String doubleFormat = "^\\-?[0-9]+\\.[0-9]+(E\\-?[0-9]+)?$";
+		for (List<String> column : csv.values()) {
+			assertThat(column).hasSize(_numberOfInstances);
+			for (String entry : column) {
+				assertThat(entry.matches(doubleFormat));
 			}
 		}
 	}
