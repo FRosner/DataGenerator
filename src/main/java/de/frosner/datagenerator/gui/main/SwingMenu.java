@@ -358,7 +358,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 						DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
 					}
 				}).start();
-				_featureListModel.addElement(featureDefinition.getName());
+				_featureListModel.addElement(featureDefinition.getName() + " ("
+						+ featureDefinition.getDistribution().getType() + ", "
+						+ featureDefinition.getDistribution().getParameterDescription() + ")");
 				verifyComponent(_featureList, _featureListModel.getSize() > 0);
 			}
 
@@ -412,5 +414,4 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
 		}
 	}
-
 }
