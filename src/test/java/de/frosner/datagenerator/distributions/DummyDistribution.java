@@ -38,4 +38,9 @@ public class DummyDistribution implements Distribution {
 		return _type;
 	}
 
+	@Override
+	public String getParameterDescription() {
+		return "";
+	}
+
 }

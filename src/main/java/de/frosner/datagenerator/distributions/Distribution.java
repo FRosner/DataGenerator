@@ -35,4 +35,14 @@ public interface Distribution {
 	 */
 	public String getType();
 
+	/**
+	 * Returns the parameters neccessary for the construction of the given {@linkplain Distribution}.
+	 * <p>
+	 * The parameters are only for displaying and must not be parsed. They do not reveal the implementation of the given
+	 * {@linkplain Distribution}.
+	 * 
+	 * @return parameters
+	 */
+	public String getParameterDescription();
+
 }

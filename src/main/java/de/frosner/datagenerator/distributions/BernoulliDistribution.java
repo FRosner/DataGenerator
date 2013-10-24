@@ -17,7 +17,7 @@ import de.frosner.datagenerator.util.VisibleForTesting;
 @Immutable
 public class BernoulliDistribution implements Distribution {
 
-	private static final String TYPE = BernoulliDistribution.class.getSimpleName();
+	private static final String TYPE = "Bernoulli";
 
 	private final double _p;
 	private final Random _random;
@@ -59,13 +59,17 @@ public class BernoulliDistribution implements Distribution {
 	}
 
 	@Override
+	public String getParameterDescription() {
+		return "p = " + _p;
+	}
+
+	@Override
 	public String toString() {
-		return TYPE + " (p = " + _p + ")";
+		return BernoulliDistribution.class.getSimpleName() + " (" + getParameterDescription() + ")";
 	}
 
 	@VisibleForTesting
 	void setSeed(long seed) {
 		_random.setSeed(seed);
 	}
-
 }

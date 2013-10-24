@@ -21,7 +21,7 @@ import de.frosner.datagenerator.util.VisibleForTesting;
 @Immutable
 public final class CategorialDistribution implements Distribution {
 
-	private static final String TYPE = CategorialDistribution.class.getSimpleName();
+	private static final String TYPE = "Categorial";
 
 	private final List<Double> _probabilities;
 	private final List<Double> _cumulativeProbabilities;
@@ -73,8 +73,26 @@ public final class CategorialDistribution implements Distribution {
 	}
 
 	@Override
+	public String getParameterDescription() {
+		String returnString = "[";
+		int index = 1;
+
+		java.util.Iterator<Double> probabilityIterator = _probabilities.iterator();
+
+		while (probabilityIterator.hasNext()) {
+			returnString += "p(" + index++ + ") = " + probabilityIterator.next();
+			if (probabilityIterator.hasNext()) {
+				returnString += ", ";
+			}
+		}
+		returnString += "]";
+
+		return returnString;
+	}
+
+	@Override
 	public String toString() {
-		return TYPE + " (" + _probabilities.toString() + ")";
+		return CategorialDistribution.class.getSimpleName() + " (" + getParameterDescription() + ")";
 	}
 
 	@VisibleForTesting

@@ -20,7 +20,7 @@ import de.frosner.datagenerator.util.VisibleForTesting;
 @Immutable
 public final class GaussianDistribution implements Distribution {
 
-	private static final String TYPE = GaussianDistribution.class.getSimpleName();
+	private static final String TYPE = "Gaussian";
 
 	private final Random _generator;
 	private final Gaussian _function;
@@ -63,8 +63,13 @@ public final class GaussianDistribution implements Distribution {
 	}
 
 	@Override
+	public String getParameterDescription() {
+		return "Mean = " + _mean + ", Sigma = " + _sigma;
+	}
+
+	@Override
 	public String toString() {
-		return TYPE + " (mean = " + _mean + ", sigma = " + _sigma + ")";
+		return GaussianDistribution.class.getSimpleName() + " (" + getParameterDescription() + ")";
 	}
 
 	@Override
