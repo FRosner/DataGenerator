@@ -63,7 +63,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 
-		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat(_frame._gaussianNameField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
@@ -73,7 +73,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 
-		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat(_frame._gaussianMeanField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
@@ -83,7 +83,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 
-		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat(_frame._gaussianSigmaField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
@@ -106,7 +106,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		_frameTestUtil.addEnteredFeature();
 
 		_frameTestUtil.clickButton(_frame._generateDataButton);
 		assertThat(_testFile).doesNotExist();
@@ -118,7 +118,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 
 		_frameTestUtil.clickButton(_frame._generateDataButton);
@@ -131,7 +131,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.clickButton(_frame._addFeatureButton);
+		_frameTestUtil.addEnteredFeature();
 		SwingMenuTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature (Gaussian, Mean = 0.0, Sigma = 1.0)");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");

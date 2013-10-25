@@ -5,9 +5,12 @@ import static org.fest.assertions.Fail.fail;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
@@ -16,7 +19,7 @@ import org.fest.swing.edt.GuiTask;
 
 public final class SwingMenuTestUtil {
 
-	private static final int FILE_CHOOSER_OPEN_DELAY = 500;
+	private static final int DIALOG_OPEN_DELAY = 500;
 	private static final int ROBOT_DELAY = 75;
 	private SwingMenu _menu;
 
@@ -37,6 +40,56 @@ public final class SwingMenuTestUtil {
 			@Override
 			protected void executeInEDT() {
 				_menu.actionPerformed(new ActionEvent(button, 1, ""));
+			}
+		});
+	}
+
+	void tryToAddEnteredFeatureAndGiveUp() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.delay(DIALOG_OPEN_DELAY);
+					robot.keyPress(KeyEvent.VK_ENTER);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_ENTER);
+					robot.delay(ROBOT_DELAY);
+					robot.keyPress(KeyEvent.VK_ESCAPE);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_ESCAPE);
+				} catch (AWTException e) {
+				}
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
+			}
+		});
+	}
+
+	void addEnteredFeature() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.delay(DIALOG_OPEN_DELAY);
+					robot.keyPress(KeyEvent.VK_ENTER);
+					robot.delay(ROBOT_DELAY);
+					robot.keyRelease(KeyEvent.VK_ENTER);
+				} catch (AWTException e) {
+				}
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
 			}
 		});
 	}
@@ -84,7 +137,7 @@ public final class SwingMenuTestUtil {
 				Robot robot;
 				try {
 					robot = new Robot();
-					robot.delay(FILE_CHOOSER_OPEN_DELAY);
+					robot.delay(DIALOG_OPEN_DELAY);
 					GuiActionRunner.execute(new GuiTask() {
 						@Override
 						protected void executeInEDT() {
@@ -100,11 +153,44 @@ public final class SwingMenuTestUtil {
 		clickButton(_menu._exportFileButton);
 	}
 
+	public void setOptionDialogValueAfterDelay(final JOptionPane optionPane, final int value, final int delay) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() throws InterruptedException {
+						System.err.println("Executing in EDT");
+						Thread.sleep(delay);
+						System.err.println("Executed in EDT");
+						optionPane.setValue(value);
+					}
+				});
+			}
+		}).start();
+	}
+
+	public void closeDialogAfterDelay(final JDialog dialog, final int delay) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() throws InterruptedException {
+						Thread.sleep(delay);
+						dialog.setVisible(false);
+					}
+				});
+			}
+		}).start();
+
+	}
+
 	void addGaussianFeature(String name, String mean, String sigma) {
 		enterText(_menu._gaussianNameField, name);
 		enterText(_menu._gaussianMeanField, mean);
 		enterText(_menu._gaussianSigmaField, sigma);
-		clickButton(_menu._addFeatureButton);
+		addEnteredFeature();
 	}
 
 	public static void delay(int ms) {
@@ -119,4 +205,5 @@ public final class SwingMenuTestUtil {
 	public static void delay() {
 		delay(ROBOT_DELAY);
 	}
+
 }

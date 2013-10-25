@@ -17,12 +17,15 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -114,6 +117,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final VariableColumnCountTableModel _previewTableModel;
 	@VisibleForTesting
 	final JTable _previewTable;
+	private final JPanel _addFeaturePanel;
+	@VisibleForTesting
+	final JOptionPane _featureDefinitionPane;
+	@VisibleForTesting
+	final JDialog _featureDefinitionDialog;
 
 	@VisibleForTesting
 	final JProgressBar _progressBar;
@@ -161,8 +169,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_featureListModel = new DefaultListModel();
 		_featureList = new JList(_featureListModel);
 		_featureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		_featureList.setVisibleRowCount(4);
-		_featureList.setFixedCellWidth(10);
 		_featureList.setFocusable(true);
 		_featureListScroller = new JScrollPane(_featureList);
 		_featureListScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -214,18 +220,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		topPanel.setMaximumSize(new Dimension(0, 0)); // avoid resizing
 		contentPane.add(topPanel);
 
-		JPanel addFeaturePanel = new JPanel();
-		topPanel.add(addFeaturePanel);
-		addFeaturePanel.setLayout(new SpringLayout());
-		addFeaturePanel.add(_gaussianNameLabel);
-		addFeaturePanel.add(_gaussianNameField);
-		addFeaturePanel.add(_gaussianMeanLabel);
-		addFeaturePanel.add(_gaussianMeanField);
-		addFeaturePanel.add(_gaussianSigmaLabel);
-		addFeaturePanel.add(_gaussianSigmaField);
-		addFeaturePanel.add(new JLabel());
-		SpringUtilities.makeCompactGrid(addFeaturePanel, 3, 2, 0, 0, PADDING, PADDING);
-
 		JPanel removeFeaturePanel = new JPanel();
 		removeFeaturePanel.setLayout(new SpringLayout());
 		topPanel.add(removeFeaturePanel);
@@ -256,22 +250,18 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		SpringUtilities.makeCompactGrid(exportFileSubPanel, 1, 2, 0, 0, 0, 0);
 		SpringUtilities.makeCompactGrid(generateDataPanel, 3, 2, 0, 0, PADDING, PADDING);
 
-		JPanel addFeatureButtonPanel = new JPanel();
-		addFeatureButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		topPanel.add(addFeatureButtonPanel);
-		addFeatureButtonPanel.add(_addFeatureButton, BorderLayout.EAST);
-
-		JPanel removeFeatureButtonPanel = new JPanel();
-		removeFeatureButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		topPanel.add(removeFeatureButtonPanel);
-		removeFeatureButtonPanel.add(_removeFeatureButton, BorderLayout.EAST);
+		JPanel featureButtonPanel = new JPanel();
+		featureButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		topPanel.add(featureButtonPanel);
+		featureButtonPanel.add(_removeFeatureButton, BorderLayout.EAST);
+		featureButtonPanel.add(_addFeatureButton, BorderLayout.EAST);
 
 		JPanel generateDataButtonPanel = new JPanel();
 		generateDataButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		topPanel.add(generateDataButtonPanel);
 		generateDataButtonPanel.add(_generateDataButton, BorderLayout.EAST);
 
-		SpringUtilities.makeCompactGrid(topPanel, 2, 3, 0, 0, 0, 0);
+		SpringUtilities.makeCompactGrid(topPanel, 2, 2, 0, 0, 0, 0);
 
 		contentPane.add(_previewTable);
 
@@ -286,6 +276,52 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		SpringUtilities.makeCompactGrid(contentPane, 4, 1, 15, 15, 15, 15);
 		// END layout
+
+		// BEGIN dialogs
+		_addFeaturePanel = new JPanel();
+		_addFeaturePanel.setLayout(new SpringLayout());
+		_addFeaturePanel.add(_gaussianNameLabel);
+		_addFeaturePanel.add(_gaussianNameField);
+		_addFeaturePanel.add(_gaussianMeanLabel);
+		_addFeaturePanel.add(_gaussianMeanField);
+		_addFeaturePanel.add(_gaussianSigmaLabel);
+		_addFeaturePanel.add(_gaussianSigmaField);
+		_addFeaturePanel.add(new JLabel());
+		SpringUtilities.makeCompactGrid(_addFeaturePanel, 3, 2, 0, 0, PADDING, PADDING);
+
+		_featureDefinitionPane = new JOptionPane(_addFeaturePanel, JOptionPane.PLAIN_MESSAGE,
+				JOptionPane.OK_CANCEL_OPTION);
+		_featureDefinitionDialog = new JDialog(this, "Add Feature", true);
+		_featureDefinitionDialog.setContentPane(_featureDefinitionPane);
+		_featureDefinitionDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		_featureDefinitionPane.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent e) {
+				String prop = e.getPropertyName();
+
+				if (_featureDefinitionDialog.isVisible() && (e.getSource() == _featureDefinitionPane)
+						&& (prop.equals(JOptionPane.VALUE_PROPERTY))) {
+					if (_featureDefinitionPane.getValue().equals(JOptionPane.OK_OPTION)) {
+						if (verifyComponent(_gaussianNameField, isName(_gaussianNameField.getText())
+								.isNotLongerThan(30).verify())
+								& verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
+								& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText())
+										.isPositive().verify())) {
+							_featureDefinitionDialog.setVisible(false);
+						} else {
+							_featureDefinitionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
+						}
+					} else if (_featureDefinitionPane.getValue().equals(JOptionPane.UNINITIALIZED_VALUE)) {
+						// Do nothing as this happens when OK was clicked but inputs could not be verified
+					} else {
+						_featureDefinitionDialog.setVisible(false);
+					}
+				}
+			}
+		});
+		_featureDefinitionDialog.pack();
+		_featureDefinitionDialog.setLocation(getCenteredLocationOf(_featureDefinitionDialog));
+		// END dialogs
 
 		// BEGIN define custom focus traversal
 		List<Component> focusOrder = Lists.newArrayList();
@@ -306,10 +342,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		// BEGIN finalize
 		pack();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
-		Point newLocation = new Point(middle.x - (getWidth() / 2), middle.y - (getHeight() / 2));
-		setLocation(newLocation);
+		setLocation(getCenteredLocationOf(this));
 		setMinimumSize(getSize());
 		setVisible(true);
 		// END finalize
@@ -343,27 +376,28 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source.equals(_addFeatureButton)) {
-			if (verifyComponent(_gaussianNameField, isName(_gaussianNameField.getText()).isNotLongerThan(30).verify())
-					& verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
-					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive()
-							.verify())) {
-				String name = _gaussianNameField.getText();
-				double mean = Double.parseDouble(_gaussianMeanField.getText());
-				double sigma = Double.parseDouble(_gaussianSigmaField.getText());
-				final FeatureDefinition featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean,
-						sigma));
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
-					}
-				}).start();
-				_featureListModel.addElement(featureDefinition.getName() + " ("
-						+ featureDefinition.getDistribution().getType() + ", "
-						+ featureDefinition.getDistribution().getParameterDescription() + ")");
-				verifyComponent(_featureList, _featureListModel.getSize() > 0);
+			_featureDefinitionDialog.setVisible(true);
+			Object result = _featureDefinitionPane.getValue();
+			if (result instanceof Integer) {
+				int value = ((Integer) _featureDefinitionPane.getValue());
+				if (value == JOptionPane.OK_OPTION) {
+					String name = _gaussianNameField.getText();
+					double mean = Double.parseDouble(_gaussianMeanField.getText());
+					double sigma = Double.parseDouble(_gaussianSigmaField.getText());
+					final FeatureDefinition featureDefinition = new FeatureDefinition(name, new GaussianDistribution(
+							mean, sigma));
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
+						}
+					}).start();
+					_featureListModel.addElement(featureDefinition.getName() + " ("
+							+ featureDefinition.getDistribution().getType() + ", "
+							+ featureDefinition.getDistribution().getParameterDescription() + ")");
+					verifyComponent(_featureList, _featureListModel.getSize() > 0);
+				}
 			}
-
 		} else if (source.equals(_removeFeatureButton)) {
 			final int selected = _featureList.getSelectedIndex();
 			if (selected > -1) {
@@ -413,5 +447,12 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else {
 			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
 		}
+	}
+
+	private static Point getCenteredLocationOf(Component component) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+		Point newLocation = new Point(middle.x - (component.getWidth() / 2), middle.y - (component.getHeight() / 2));
+		return newLocation;
 	}
 }
