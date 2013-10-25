@@ -102,7 +102,7 @@ public final class TextAreaLogManager {
 	}
 
 	private enum HtmlColor {
-		RED("#FF0000"), ORANGE("#FFA500"), BLACK("#000000"), GRAY("#808080"), DEFAULT("");
+		RED("#FF0000"), ORANGE("#FF6600"), BLACK("#000000"), GRAY("#808080"), DEFAULT("");
 		private final String _hexRepresentation;
 
 		HtmlColor(String hexRepresentation) {

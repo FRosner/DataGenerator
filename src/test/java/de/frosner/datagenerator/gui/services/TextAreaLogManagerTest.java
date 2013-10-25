@@ -66,7 +66,7 @@ public class TextAreaLogManagerTest {
 	public void testLogWarnColor() {
 		TextAreaLogManager.warn("Warning");
 		SwingMenuTestUtil.delay();
-		assertThat(_editorPane.getText()).contains("<font color=\"#FFA500\">").contains("</font>");
+		assertThat(_editorPane.getText()).contains("<font color=\"#FF6600\">").contains("</font>");
 	}
 
 	@Test
