@@ -66,10 +66,4 @@ public class CategorialDistributionTest {
 		};
 		_distribution.getProbabilityOf(wrongFeatureValueType);
 	}
-
-	@Test
-	public void testGetParameterDescription() {
-		assertThat(_distribution.getParameterDescription()).isEqualTo("[p(1) = 0.6, p(2) = 0.3, p(3) = 0.1]");
-	}
-
 }

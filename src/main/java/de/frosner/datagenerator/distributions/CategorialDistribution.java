@@ -74,20 +74,7 @@ public final class CategorialDistribution implements Distribution {
 
 	@Override
 	public String getParameterDescription() {
-		String returnString = "[";
-		int index = 1;
-
-		java.util.Iterator<Double> probabilityIterator = _probabilities.iterator();
-
-		while (probabilityIterator.hasNext()) {
-			returnString += "p(" + index++ + ") = " + probabilityIterator.next();
-			if (probabilityIterator.hasNext()) {
-				returnString += ", ";
-			}
-		}
-		returnString += "]";
-
-		return returnString;
+		return "p = " + _probabilities;
 	}
 
 	@Override
