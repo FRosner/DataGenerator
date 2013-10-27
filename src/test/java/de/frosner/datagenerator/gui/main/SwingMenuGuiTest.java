@@ -65,12 +65,12 @@ public class SwingMenuGuiTest {
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
-		assertThat(_frame._gaussianNameField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
+		assertThat(_frame._featureNameField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
 	@Test
 	public void testVerifyFeatureMean() {
-		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
@@ -80,7 +80,7 @@ public class SwingMenuGuiTest {
 
 	@Test
 	public void testVerifyFeatureSigma() {
-		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
@@ -103,7 +103,7 @@ public class SwingMenuGuiTest {
 	public void testVerifyNumberOfInstancesList() {
 		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
-		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.addEnteredFeature();
@@ -115,7 +115,7 @@ public class SwingMenuGuiTest {
 
 	@Test
 	public void testVerifyExportFile() {
-		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.addEnteredFeature();
@@ -128,7 +128,7 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testAddAndRemoveFeature() {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
-		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.addEnteredFeature();
@@ -169,7 +169,7 @@ public class SwingMenuGuiTest {
 	public void testGenerateData() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
-		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.addEnteredFeature();
@@ -188,7 +188,7 @@ public class SwingMenuGuiTest {
 	public void testAbortGeneration() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
-		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.addEnteredFeature();

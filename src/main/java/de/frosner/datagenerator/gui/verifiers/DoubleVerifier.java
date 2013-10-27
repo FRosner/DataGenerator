@@ -28,4 +28,11 @@ public final class DoubleVerifier extends InputVerifier {
 		return this;
 	}
 
+	public InputVerifier isProbability() {
+		if (_verified) {
+			_verified = _double >= 0 && _double <= 1;
+		}
+		return this;
+	}
+
 }
