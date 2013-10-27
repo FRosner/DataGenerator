@@ -211,7 +211,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_logAreaScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		// END component definition
 
-		// BEGIN layout
+		// BEGIN main layout
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new SpringLayout());
 
@@ -253,6 +253,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		JPanel featureButtonPanel = new JPanel();
 		featureButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		topPanel.add(featureButtonPanel);
+		featureButtonPanel.add(new JLabel("                                      "));
 		featureButtonPanel.add(_removeFeatureButton, BorderLayout.EAST);
 		featureButtonPanel.add(_addFeatureButton, BorderLayout.EAST);
 
@@ -275,9 +276,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		contentPane.add(_logAreaScroller);
 
 		SpringUtilities.makeCompactGrid(contentPane, 4, 1, 15, 15, 15, 15);
-		// END layout
+		// END main layout
 
-		// BEGIN dialogs
+		// BEGIN dialogs layout
 		_addFeaturePanel = new JPanel();
 		_addFeaturePanel.setLayout(new SpringLayout());
 		_addFeaturePanel.add(_gaussianNameLabel);
@@ -321,7 +322,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		});
 		_featureDefinitionDialog.pack();
 		_featureDefinitionDialog.setLocation(getCenteredLocationOf(_featureDefinitionDialog));
-		// END dialogs
+		// END dialog layouts
 
 		// BEGIN define custom focus traversal
 		List<Component> focusOrder = Lists.newArrayList();
