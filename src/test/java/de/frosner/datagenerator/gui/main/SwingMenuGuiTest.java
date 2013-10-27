@@ -169,7 +169,10 @@ public class SwingMenuGuiTest {
 	public void testGenerateData() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
-		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
+		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
+		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButton(_frame._generateDataButton);
@@ -185,7 +188,10 @@ public class SwingMenuGuiTest {
 	public void testAbortGeneration() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
-		_frameTestUtil.addGaussianFeature("Feature", "0", "1");
+		_frameTestUtil.enterText(_frame._gaussianNameField, "Feature");
+		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
+		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10000000");
 		_frameTestUtil.clickButton(_frame._generateDataButton);

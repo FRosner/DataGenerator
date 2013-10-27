@@ -186,13 +186,6 @@ public final class SwingMenuTestUtil {
 
 	}
 
-	void addGaussianFeature(String name, String mean, String sigma) {
-		enterText(_menu._gaussianNameField, name);
-		enterText(_menu._gaussianMeanField, mean);
-		enterText(_menu._gaussianSigmaField, sigma);
-		addEnteredFeature();
-	}
-
 	public static void delay(int ms) {
 		try {
 			new Robot().delay(ms);
