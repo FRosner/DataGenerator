@@ -135,7 +135,7 @@ public final class SwingMenuTestUtil {
 		clickButton(_menu._exportFileButton);
 	}
 
-	public void pressAndReleaseKey(int key) {
+	void pressAndReleaseKey(int key) {
 		try {
 			_robot = new Robot();
 			_robot.delay(ROBOT_DELAY);
@@ -149,11 +149,11 @@ public final class SwingMenuTestUtil {
 		}
 	}
 
-	public void delay(int ms) {
+	void delay(int ms) {
 		_robot.delay(ms);
 	}
 
-	public void delay() {
+	void delay() {
 		delay(ROBOT_DELAY);
 	}
 
