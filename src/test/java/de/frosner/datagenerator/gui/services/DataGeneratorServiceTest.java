@@ -62,9 +62,9 @@ public class DataGeneratorServiceTest {
 	@Test
 	public void testGenerateData() {
 		_service.getFeatureDefinitions().add(_feature1);
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		_service.getFeatureDefinitions().add(_feature2);
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 
 		_service.generateData(5, _mockedExportConfiguration);
 		verify(_mockedExportConnection).exportInstance(

@@ -9,8 +9,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
@@ -22,6 +20,7 @@ public final class SwingMenuTestUtil {
 	private static final int DIALOG_OPEN_DELAY = 500;
 	private static final int ROBOT_DELAY = 75;
 	private SwingMenu _menu;
+	private Robot _robot;
 
 	SwingMenuTestUtil(SwingMenu swingMenu) {
 		_menu = swingMenu;
@@ -32,6 +31,11 @@ public final class SwingMenuTestUtil {
 				_menu.toFront();
 			}
 		});
+		try {
+			_robot = new Robot();
+		} catch (AWTException e) {
+			fail(e.getMessage());
+		}
 
 	}
 
@@ -48,19 +52,10 @@ public final class SwingMenuTestUtil {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Robot robot;
-				try {
-					robot = new Robot();
-					robot.delay(DIALOG_OPEN_DELAY);
-					robot.keyPress(KeyEvent.VK_ENTER);
-					robot.delay(ROBOT_DELAY);
-					robot.keyRelease(KeyEvent.VK_ENTER);
-					robot.delay(ROBOT_DELAY);
-					robot.keyPress(KeyEvent.VK_ESCAPE);
-					robot.delay(ROBOT_DELAY);
-					robot.keyRelease(KeyEvent.VK_ESCAPE);
-				} catch (AWTException e) {
-				}
+				delay(DIALOG_OPEN_DELAY);
+				pressAndReleaseKey(KeyEvent.VK_ENTER);
+				delay(ROBOT_DELAY);
+				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
 			}
 		}).start();
 		GuiActionRunner.execute(new GuiTask() {
@@ -75,15 +70,8 @@ public final class SwingMenuTestUtil {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Robot robot;
-				try {
-					robot = new Robot();
-					robot.delay(DIALOG_OPEN_DELAY);
-					robot.keyPress(KeyEvent.VK_ENTER);
-					robot.delay(ROBOT_DELAY);
-					robot.keyRelease(KeyEvent.VK_ENTER);
-				} catch (AWTException e) {
-				}
+				delay(DIALOG_OPEN_DELAY);
+				pressAndReleaseKey(KeyEvent.VK_ENTER);
 			}
 		}).start();
 		GuiActionRunner.execute(new GuiTask() {
@@ -134,69 +122,51 @@ public final class SwingMenuTestUtil {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Robot robot;
-				try {
-					robot = new Robot();
-					robot.delay(DIALOG_OPEN_DELAY);
-					GuiActionRunner.execute(new GuiTask() {
-						@Override
-						protected void executeInEDT() {
-							_menu._exportFileDialog.setSelectedFile(file);
-							_menu._exportFileDialog.approveSelection();
-						}
-					});
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
+				_robot.delay(DIALOG_OPEN_DELAY);
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() {
+						_menu._exportFileDialog.setSelectedFile(file);
+						_menu._exportFileDialog.approveSelection();
+					}
+				});
 			}
 		}).start();
 		clickButton(_menu._exportFileButton);
 	}
 
-	public void setOptionDialogValueAfterDelay(final JOptionPane optionPane, final int value, final int delay) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				GuiActionRunner.execute(new GuiTask() {
-					@Override
-					protected void executeInEDT() throws InterruptedException {
-						System.err.println("Executing in EDT");
-						Thread.sleep(delay);
-						System.err.println("Executed in EDT");
-						optionPane.setValue(value);
-					}
-				});
-			}
-		}).start();
-	}
-
-	public void closeDialogAfterDelay(final JDialog dialog, final int delay) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				GuiActionRunner.execute(new GuiTask() {
-					@Override
-					protected void executeInEDT() throws InterruptedException {
-						Thread.sleep(delay);
-						dialog.setVisible(false);
-					}
-				});
-			}
-		}).start();
-
-	}
-
-	public static void delay(int ms) {
+	public void pressAndReleaseKey(int key) {
 		try {
-			new Robot().delay(ms);
+			_robot = new Robot();
+			_robot.delay(ROBOT_DELAY);
+			_robot.keyPress(key);
+			_robot.delay(ROBOT_DELAY);
+			_robot.keyRelease(key);
+			_robot.delay(ROBOT_DELAY);
 		} catch (AWTException e) {
 			fail();
 			e.printStackTrace();
 		}
 	}
 
-	public static void delay() {
+	public void delay(int ms) {
+		_robot.delay(ms);
+	}
+
+	public void delay() {
 		delay(ROBOT_DELAY);
+	}
+
+	public static void delayOnce(int ms) {
+		try {
+			new Robot().delay(ms);
+		} catch (AWTException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	public static void delayOnce() {
+		delayOnce(ROBOT_DELAY);
 	}
 
 }

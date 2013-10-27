@@ -132,13 +132,13 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.addEnteredFeature();
-		SwingMenuTestUtil.delay(500);
+		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature (Gaussian, Mean = 0.0, Sigma = 1.0)");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeature(0);
 		_frameTestUtil.clickButton(_frame._removeFeatureButton);
-		SwingMenuTestUtil.delay(500);
+		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
@@ -180,7 +180,7 @@ public class SwingMenuGuiTest {
 			Thread.sleep(50);
 		}
 		assertThat(_testFile).exists();
-		SwingMenuTestUtil.delay(200);
+		_frameTestUtil.delay(200);
 		assertThat(_frame._progressBar.getValue()).isEqualTo(_frame._progressBar.getMaximum());
 	}
 
@@ -198,13 +198,13 @@ public class SwingMenuGuiTest {
 		while (!_testFile.exists()) {
 			Thread.sleep(50);
 		}
-		SwingMenuTestUtil.delay(100);
+		_frameTestUtil.delay(100);
 		assertThat(_frame._generateDataButton.isEnabled()).isFalse();
 		assertThat(_frame._abortDataGenerationButton.isEnabled()).isTrue();
 		_frameTestUtil.clickButton(_frame._abortDataGenerationButton);
-		SwingMenuTestUtil.delay(100);
+		_frameTestUtil.delay(100);
 		long fileSize = _testFile.length();
-		SwingMenuTestUtil.delay(100);
+		_frameTestUtil.delay(100);
 		assertThat(_testFile).hasSize(fileSize);
 		assertThat(_frame._logArea.getText()).contains("Generation aborted.");
 		assertThat(_frame._progressBar.getValue()).isGreaterThan(0).isLessThan(100);
@@ -219,7 +219,7 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testLogging() {
 		TextAreaLogManager.info("Test");
-		SwingMenuTestUtil.delay(250);
+		_frameTestUtil.delay(250);
 		assertThat(_frame._logArea.getText()).contains("Test");
 	}
 

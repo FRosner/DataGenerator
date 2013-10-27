@@ -38,51 +38,51 @@ public class TextAreaLogManagerTest {
 	@Test
 	public void testLogInfoText() {
 		TextAreaLogManager.info("Test");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("Test" + END_OF_HTML_DOCUMENT);
 		TextAreaLogManager.info("Test2");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("Test").contains("Test2" + END_OF_HTML_DOCUMENT);
 	}
 
 	@Test
 	public void testLogInfoColor() {
 		TextAreaLogManager.info("Info");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("<font color=\"#000000\">").contains("</font>");
 	}
 
 	@Test
 	public void testLogWarnText() {
 		TextAreaLogManager.warn("Test");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("Test" + END_OF_HTML_DOCUMENT);
 		TextAreaLogManager.warn("Test2");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("Test").contains("Test2" + END_OF_HTML_DOCUMENT);
 	}
 
 	@Test
 	public void testLogWarnColor() {
 		TextAreaLogManager.warn("Warning");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("<font color=\"#FF6600\">").contains("</font>");
 	}
 
 	@Test
 	public void testLogErrorText() {
 		TextAreaLogManager.error("Test");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("Test" + END_OF_HTML_DOCUMENT);
 		TextAreaLogManager.error("Test2");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("Test").contains("Test2" + END_OF_HTML_DOCUMENT);
 	}
 
 	@Test
 	public void testLogErrorColor() {
 		TextAreaLogManager.error("Error");
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_editorPane.getText()).contains("<font color=\"#FF0000\">").contains("</font>");
 	}
 

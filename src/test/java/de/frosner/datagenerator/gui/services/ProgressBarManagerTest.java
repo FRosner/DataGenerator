@@ -38,29 +38,29 @@ public class ProgressBarManagerTest {
 	@Test
 	public void testIncreaseAndResetProgress() {
 		ProgressBarManager.setProgressBarMaximumValue(100);
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_progressBar.getMaximum()).isEqualTo(100);
 		assertThat(_progressBar.getValue()).isEqualTo(0);
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_progressBar.getValue()).isEqualTo(1);
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_progressBar.getValue()).isEqualTo(2);
 		ProgressBarManager.resetProgress();
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_progressBar.getValue()).isEqualTo(0);
 	}
 
 	@Test
 	public void testIncreaseProgress_moreThanMaximum() {
 		ProgressBarManager.setProgressBarMaximumValue(1);
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_progressBar.getValue()).isEqualTo(1);
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delay();
+		SwingMenuTestUtil.delayOnce();
 		assertThat(_progressBar.getValue()).isEqualTo(1);
 	}
 
