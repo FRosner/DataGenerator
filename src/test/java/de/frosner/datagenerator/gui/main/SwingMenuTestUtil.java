@@ -18,7 +18,7 @@ import org.fest.swing.edt.GuiTask;
 
 public final class SwingMenuTestUtil {
 
-	private static final int DIALOG_OPEN_DELAY = 600;
+	private static final int DIALOG_OPEN_DELAY = 750;
 	private static final int ROBOT_DELAY = 75;
 	private SwingMenu _menu;
 	private Robot _robot;
