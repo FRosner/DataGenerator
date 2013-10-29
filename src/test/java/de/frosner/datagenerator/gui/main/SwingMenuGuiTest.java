@@ -72,6 +72,7 @@ public class SwingMenuGuiTest {
 	public void testVerifyFeatureMean() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, "Gaussian");
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -82,6 +83,7 @@ public class SwingMenuGuiTest {
 	public void testVerifyFeatureSigma() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, "Gaussian");
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -106,6 +108,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, "Gaussian");
 		_frameTestUtil.addEnteredFeature();
 
 		_frameTestUtil.clickButton(_frame._generateDataButton);
@@ -118,6 +121,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, "Gaussian");
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 
@@ -131,6 +135,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, "Gaussian");
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature (Gaussian, Mean = 0.0, Sigma = 1.0)");
@@ -172,6 +177,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, "Gaussian");
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
@@ -191,6 +197,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, "Gaussian");
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10000000");

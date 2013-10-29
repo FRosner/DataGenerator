@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
@@ -17,7 +18,7 @@ import org.fest.swing.edt.GuiTask;
 
 public final class SwingMenuTestUtil {
 
-	private static final int DIALOG_OPEN_DELAY = 500;
+	private static final int DIALOG_OPEN_DELAY = 600;
 	private static final int ROBOT_DELAY = 75;
 	private SwingMenu _menu;
 	private Robot _robot;
@@ -78,6 +79,15 @@ public final class SwingMenuTestUtil {
 			@Override
 			protected void executeInEDT() {
 				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
+			}
+		});
+	}
+
+	public void selectOption(final JComboBox comboBox, final Object option) {
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				comboBox.setSelectedItem(option);
 			}
 		});
 	}
