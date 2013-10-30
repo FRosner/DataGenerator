@@ -83,7 +83,7 @@ public final class SwingMenuTestUtil {
 		});
 	}
 
-	public void selectOption(final JComboBox comboBox, final Object option) {
+	void selectOption(final JComboBox comboBox, final Object option) {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {

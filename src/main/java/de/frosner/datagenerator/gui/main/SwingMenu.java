@@ -171,7 +171,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		// BEGIN component definition
 		_addFeatureDistributionLabel = new JLabel("Distribution", JLabel.RIGHT);
-		_addFeatureDistributionSelection = new JComboBox(new Object[] { "Bernoulli", "Uniform Categorial", "Gaussian" });
+		_addFeatureDistributionSelection = new JComboBox(new Object[] { SelectableDistribution.BERNOULLI,
+				SelectableDistribution.UNIFORM_CATEGORIAL, SelectableDistribution.GAUSSIAN });
 		_addFeatureDistributionSelection.addActionListener(this);
 		_featureNameLabel = new JLabel("Name", JLabel.RIGHT);
 		_featureNameField = new JTextField();
@@ -308,21 +309,21 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_cards.setLayout(new CardLayout());
 
 		JPanel bernoulliPanel = new JPanel();
-		_cards.add(bernoulliPanel, "Bernoulli");
+		_cards.add(bernoulliPanel, SelectableDistribution.BERNOULLI);
 		bernoulliPanel.setLayout(new SpringLayout());
 		bernoulliPanel.add(_bernoulliProbabilityLabel);
 		bernoulliPanel.add(_bernoulliProbabilityField);
 		SpringUtilities.makeCompactGrid(bernoulliPanel, 1, 2, 0, 0, PADDING, PADDING);
 
 		JPanel uniformCategorialPanel = new JPanel();
-		_cards.add(uniformCategorialPanel, "Uniform Categorial");
+		_cards.add(uniformCategorialPanel, SelectableDistribution.UNIFORM_CATEGORIAL);
 		uniformCategorialPanel.setLayout(new SpringLayout());
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesLabel);
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesField);
 		SpringUtilities.makeCompactGrid(uniformCategorialPanel, 1, 2, 0, 0, PADDING, PADDING);
 
 		JPanel gaussianPanel = new JPanel();
-		_cards.add(gaussianPanel, "Gaussian");
+		_cards.add(gaussianPanel, SelectableDistribution.GAUSSIAN);
 		gaussianPanel.setLayout(new SpringLayout());
 		gaussianPanel.add(_gaussianMeanLabel);
 		gaussianPanel.add(_gaussianMeanField);
@@ -496,7 +497,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		}
 		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
 		final FeatureDefinition featureDefinition;
-		if (selectedItem.equals("Bernoulli")) {
+		if (selectedItem.equals(SelectableDistribution.BERNOULLI)) {
 			if (verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
 					.isProbability().verify())) {
 				double p = Double.parseDouble(_bernoulliProbabilityField.getText());
@@ -504,7 +505,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			} else {
 				return false;
 			}
-		} else if (selectedItem.equals("Uniform Categorial")) {
+		} else if (selectedItem.equals(SelectableDistribution.UNIFORM_CATEGORIAL)) {
 			if (verifyComponent(_uniformCategorialNumberOfStatesField,
 					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().verify())) {
 				int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
@@ -516,7 +517,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			} else {
 				return false;
 			}
-		} else if (selectedItem.equals("Gaussian")) {
+		} else if (selectedItem.equals(SelectableDistribution.GAUSSIAN)) {
 			if (verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
 					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive()
 							.verify())) {
