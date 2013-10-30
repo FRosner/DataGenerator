@@ -17,9 +17,7 @@ public final class StatisticsTestUtil {
 	}
 
 	public static double sampleSigma(List<Double> samples, double sampleMean) {
-
 		double sumOfSquares = sumOfSquares(samples);
-
 		return Math.sqrt((sumOfSquares - samples.size() * sampleMean * sampleMean) / (samples.size() - 1));
 	}
 
