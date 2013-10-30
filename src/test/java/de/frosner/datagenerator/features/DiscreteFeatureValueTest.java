@@ -16,15 +16,11 @@ public class DiscreteFeatureValueTest {
 
 	@Test
 	public void testEquals() {
+		assertThat(_value).isEqualTo(_value);
 		assertThat(_value).isEqualTo(new DiscreteFeatureValue(0));
 		assertThat(_value).isNotEqualTo(new DiscreteFeatureValue(1));
-		assertThat(_value).isNotEqualTo(new ContinuousFeatureValue(0.0));
-
-		Object nullObject = null;
-		assertThat(_value).isNotEqualTo(nullObject);
-
-		DiscreteFeatureValue nullFeatureValue = null;
-		assertThat(nullFeatureValue).isEqualTo(nullObject);
+		assertThat(_value).isNotEqualTo(new DummyFeatureValue(0.0));
+		assertThat(_value).isNotEqualTo(null);
 	}
 
 	@Test
