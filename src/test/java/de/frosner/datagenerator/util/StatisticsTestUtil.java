@@ -5,6 +5,7 @@ import java.util.List;
 public final class StatisticsTestUtil {
 
 	private StatisticsTestUtil() {
+		throw new UnsupportedOperationException();
 	}
 
 	public static double sampleMean(List<Double> samples) {
