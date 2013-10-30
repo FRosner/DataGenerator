@@ -308,19 +308,30 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_cards = new JPanel();
 		_cards.setLayout(new CardLayout());
 
+		JPanel trashPanel = new JPanel(); // container for trash components
+		JLabel trashLabel = new JLabel(""); // used as placeholder
+		JTextField trashField = new JTextField("XXXXXXXXXXXXXXXXXXXXX"); // used as placeholder
+		trashField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
+
 		JPanel bernoulliPanel = new JPanel();
 		_cards.add(bernoulliPanel, SelectableDistribution.BERNOULLI);
 		bernoulliPanel.setLayout(new SpringLayout());
 		bernoulliPanel.add(_bernoulliProbabilityLabel);
 		bernoulliPanel.add(_bernoulliProbabilityField);
-		SpringUtilities.makeCompactGrid(bernoulliPanel, 1, 2, 0, 0, PADDING, PADDING);
+		bernoulliPanel.add(trashLabel);
+		bernoulliPanel.add(trashField);
+		SpringUtilities.makeCompactGrid(bernoulliPanel, 2, 2, 0, 0, PADDING, PADDING);
 
 		JPanel uniformCategorialPanel = new JPanel();
 		_cards.add(uniformCategorialPanel, SelectableDistribution.UNIFORM_CATEGORIAL);
 		uniformCategorialPanel.setLayout(new SpringLayout());
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesLabel);
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesField);
-		SpringUtilities.makeCompactGrid(uniformCategorialPanel, 1, 2, 0, 0, PADDING, PADDING);
+		JLabel filler = new JLabel("");
+		filler.setSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
+		uniformCategorialPanel.add(trashLabel);
+		uniformCategorialPanel.add(trashField);
+		SpringUtilities.makeCompactGrid(uniformCategorialPanel, 2, 2, 0, 0, PADDING, PADDING);
 
 		JPanel gaussianPanel = new JPanel();
 		_cards.add(gaussianPanel, SelectableDistribution.GAUSSIAN);
@@ -350,6 +361,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		featureDefinitionDialogPanel.add(_cards);
 
 		SpringUtilities.makeCompactGrid(featureDefinitionDialogPanel, 7, 1, 5, 0, 0, 0);
+
+		trashPanel.add(trashLabel); // dispose label
+		trashPanel.add(trashField); // dispose field
 
 		_featureDefinitionPane = new JOptionPane(featureDefinitionDialogPanel, JOptionPane.PLAIN_MESSAGE,
 				JOptionPane.OK_CANCEL_OPTION);
