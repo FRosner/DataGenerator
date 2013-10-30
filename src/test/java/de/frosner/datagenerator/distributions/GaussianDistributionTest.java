@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
+import de.frosner.datagenerator.util.StatisticsTestUtil;
 
 public class GaussianDistributionTest {
 
@@ -39,18 +40,11 @@ public class GaussianDistributionTest {
 		_distribution.setSeed(43253);
 		assertThat(_distribution.sample()).isInstanceOf(ContinuousFeatureValue.class);
 		List<Double> samples = Lists.newArrayList();
-		int sampleSize = 100000;
-		for (int i = 0; i < sampleSize; i++) {
+		for (int i = 0; i < 100000; i++) {
 			samples.add((Double) _distribution.sample().getValue());
 		}
-		double sum = 0;
-		double sumOfSquares = 0;
-		for (double sample : samples) {
-			sum += sample;
-			sumOfSquares += sample * sample;
-		}
-		double sampleMean = sum / sampleSize;
-		double sampleSigma = Math.sqrt((sumOfSquares - sampleSize * sampleMean * sampleMean) / (sampleSize - 1));
+		double sampleMean = StatisticsTestUtil.sampleMean(samples);
+		double sampleSigma = StatisticsTestUtil.sampleSigma(samples, sampleMean);
 		assertThat(sampleMean).isEqualTo(expectedMean, delta(0.1));
 		assertThat(sampleSigma).isEqualTo(expectedSigma, delta(0.1));
 	}

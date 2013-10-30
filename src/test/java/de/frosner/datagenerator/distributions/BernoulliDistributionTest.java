@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.features.DiscreteFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
+import de.frosner.datagenerator.util.StatisticsTestUtil;
 
 public class BernoulliDistributionTest {
 
@@ -37,16 +38,11 @@ public class BernoulliDistributionTest {
 	public void testSample() {
 		_distribution.setSeed(43253);
 		assertThat(_distribution.sample()).isInstanceOf(DiscreteFeatureValue.class);
-		List<Integer> samples = Lists.newArrayList();
-		int sampleSize = 100000;
-		for (int i = 0; i < sampleSize; i++) {
-			samples.add((Integer) _distribution.sample().getValue());
+		List<Double> samples = Lists.newArrayList();
+		for (int i = 0; i < 100000; i++) {
+			samples.add((double) (Integer) _distribution.sample().getValue());
 		}
-		double sum = 0;
-		for (double sample : samples) {
-			sum += sample;
-		}
-		double sampleMean = sum / sampleSize;
+		double sampleMean = StatisticsTestUtil.sampleMean(samples);
 		assertThat(sampleMean).isEqualTo(0.4, Delta.delta(0.01));
 	}
 
