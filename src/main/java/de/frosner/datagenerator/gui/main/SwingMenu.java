@@ -186,7 +186,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_bernoulliProbabilityLabel = new JLabel("P", JLabel.RIGHT);
 		_bernoulliProbabilityField = new JTextField();
 		_bernoulliProbabilityField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
-		_uniformCategorialNumberOfStatesLabel = new JLabel("#States");
+		_uniformCategorialNumberOfStatesLabel = new JLabel("#States", JLabel.RIGHT);
 		_uniformCategorialNumberOfStatesField = new JTextField();
 		_uniformCategorialNumberOfStatesField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_addFeatureButton = new JButton("Add Feature");
