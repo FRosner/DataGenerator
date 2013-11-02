@@ -14,6 +14,18 @@ public final class ExportFormatReaderUtil {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Converts a CSV file into a {@linkplain Map} containing the column heads as keys.
+	 * 
+	 * @param csv
+	 *            to convert
+	 * @param delim
+	 *            of the CSV
+	 * @return CSV as {@linkplain Map}
+	 * 
+	 * @throws MalformedExportFormatException
+	 *             if the CSV string does not contain a header
+	 */
 	public static Map<String, List<String>> readCsvWithHeader(String csv, String delim) {
 		Check.notNull(csv);
 		if (csv.isEmpty()) {
