@@ -443,6 +443,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_generateDataButtonWorker = null;
 	}
 
+	/**
+	 * @throws UnsupportedOperationException
+	 *             if the performed {@linkplain ActionEvent} cannot be handled by the {@linkplain SwingMenu}
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();

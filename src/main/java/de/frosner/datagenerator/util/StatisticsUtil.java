@@ -57,7 +57,6 @@ public final class StatisticsUtil {
 		} else {
 			throw new UnsupportedNumberTypeException();
 		}
-
 	}
 
 }
