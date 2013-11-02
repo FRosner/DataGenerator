@@ -44,6 +44,11 @@ public final class TextAreaLogManager {
 	 * 
 	 * @param message
 	 *            to log
+	 * 
+	 * @throws UncheckedIOException
+	 *             if the underlying {@linkplain HTMLEditorKit} throws an {@linkplain IOException}
+	 * @throws UncheckedBadLocationException
+	 *             if the underlying {@linkplain HTMLEditorKit} throws a {@linkplain BadLocationException}
 	 */
 	public static void info(final String message) {
 		if (_logArea != null) {
@@ -61,6 +66,11 @@ public final class TextAreaLogManager {
 	 * 
 	 * @param message
 	 *            to log
+	 * 
+	 * @throws UncheckedIOException
+	 *             if the underlying {@linkplain HTMLEditorKit} throws an {@linkplain IOException}
+	 * @throws UncheckedBadLocationException
+	 *             if the underlying {@linkplain HTMLEditorKit} throws a {@linkplain BadLocationException}
 	 */
 	public static void warn(final String message) {
 		if (_logArea != null) {
@@ -78,6 +88,11 @@ public final class TextAreaLogManager {
 	 * 
 	 * @param message
 	 *            to log
+	 * 
+	 * @throws UncheckedIOException
+	 *             if the underlying {@linkplain HTMLEditorKit} throws an {@linkplain IOException}
+	 * @throws UncheckedBadLocationException
+	 *             if the underlying {@linkplain HTMLEditorKit} throws a {@linkplain BadLocationException}
 	 */
 	public static void error(final String message) {
 		if (_logArea != null) {
