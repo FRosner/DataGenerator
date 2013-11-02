@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
+import com.google.common.collect.Lists;
+
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.features.FeatureValue;
@@ -78,12 +80,14 @@ public final class PreviewTableManager {
 	}
 
 	/**
-	 * Populate the managed table with generated feature values.
+	 * Populate the managed table with generated feature values. The given feature list will be copied in order to avoid
+	 * concurrent modification while used in the Swing thread.
 	 * 
 	 * @param features
 	 *            to generate values from
 	 */
-	public static void generatePreview(final List<FeatureDefinition> features) {
+	public static void generatePreview(List<FeatureDefinition> features) {
+		final List<FeatureDefinition> featuresCopy = Lists.newArrayList(features);
 		clearPreviewTable();
 		if (_table != null && !features.isEmpty()) {
 			int columnDifference = features.size() - _table.getColumnCount();
@@ -101,7 +105,7 @@ public final class PreviewTableManager {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					new DataGenerator(_table.getRowCount() - 1, new PreviewTableExportConnection(_table), features)
+					new DataGenerator(_table.getRowCount() - 1, new PreviewTableExportConnection(_table), featuresCopy)
 							.generate();
 				}
 			});
