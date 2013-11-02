@@ -4,7 +4,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
-
 public class DoubleVerifierTest {
 
 	@Test
@@ -25,6 +24,14 @@ public class DoubleVerifierTest {
 		assertThat(InputVerifier.isDouble("1.0").isPositive().verify()).isTrue();
 		assertThat(InputVerifier.isDouble("0").isPositive().verify()).isFalse();
 		assertThat(InputVerifier.isDouble("-1.0").isPositive().verify()).isFalse();
+	}
+
+	@Test
+	public void testIsProbability() {
+		assertThat(InputVerifier.isDouble("0.0").isProbability().verify()).isTrue();
+		assertThat(InputVerifier.isDouble("1.0").isProbability().verify()).isTrue();
+		assertThat(InputVerifier.isDouble("1.1").isProbability().verify()).isFalse();
+		assertThat(InputVerifier.isDouble("-0.1").isProbability().verify()).isFalse();
 	}
 
 }
