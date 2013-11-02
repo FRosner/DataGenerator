@@ -56,6 +56,7 @@ import com.google.common.collect.Lists;
 import de.frosner.datagenerator.distributions.BernoulliDistribution;
 import de.frosner.datagenerator.distributions.CategorialDistribution;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
+import de.frosner.datagenerator.exceptions.UnknownActionEventSourceException;
 import de.frosner.datagenerator.exceptions.UnsupportedSelectionException;
 import de.frosner.datagenerator.export.CsvFileExportConfiguration;
 import de.frosner.datagenerator.features.FeatureDefinition;
@@ -444,7 +445,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * @throws UnsupportedOperationException
+	 * @throws UnknownActionEventSourceException
 	 *             if the performed {@linkplain ActionEvent} cannot be handled by the {@linkplain SwingMenu}
 	 */
 	@Override
@@ -504,7 +505,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			dialog.createDialog("About").setVisible(true);
 
 		} else {
-			throw new UnsupportedOperationException("Unknown action event source: " + e.getSource().toString());
+			throw new UnknownActionEventSourceException(e.getSource());
 		}
 	}
 
