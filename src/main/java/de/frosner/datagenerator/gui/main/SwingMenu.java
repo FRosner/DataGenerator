@@ -511,6 +511,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		}
 		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
 		final FeatureDefinition featureDefinition;
+
 		if (selectedItem.equals(SelectableDistribution.BERNOULLI)) {
 			if (verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
 					.isProbability().verify())) {
@@ -519,6 +520,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			} else {
 				return false;
 			}
+
 		} else if (selectedItem.equals(SelectableDistribution.UNIFORM_CATEGORIAL)) {
 			if (verifyComponent(_uniformCategorialNumberOfStatesField,
 					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().verify())) {
@@ -531,6 +533,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			} else {
 				return false;
 			}
+
 		} else if (selectedItem.equals(SelectableDistribution.GAUSSIAN)) {
 			if (verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
 					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive()
@@ -541,9 +544,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			} else {
 				return false;
 			}
+
 		} else {
 			throw new UnsupportedSelectionException(selectedItem);
 		}
+
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
