@@ -34,6 +34,10 @@ public final class OrderedFocusTraversalPolicy extends FocusTraversalPolicy {
 		checkThatAtLeastOneComponentIsEnabled();
 	}
 
+	/**
+	 * @throws NoEnabledComponentInFocusOrderException
+	 *             if not at least one component in the provided order is enabled
+	 */
 	@Override
 	public Component getComponentAfter(Container focusCycleRoot, Component aComponent) {
 		checkThatAtLeastOneComponentIsEnabled();
@@ -44,6 +48,10 @@ public final class OrderedFocusTraversalPolicy extends FocusTraversalPolicy {
 		return getComponentAfter(focusCycleRoot, nextComponent);
 	}
 
+	/**
+	 * @throws NoEnabledComponentInFocusOrderException
+	 *             if not at least one component in the provided order is enabled
+	 */
 	@Override
 	public Component getComponentBefore(Container focusCycleRoot, Component aComponent) {
 		checkThatAtLeastOneComponentIsEnabled();
@@ -58,12 +66,20 @@ public final class OrderedFocusTraversalPolicy extends FocusTraversalPolicy {
 		return getComponentBefore(focusCycleRoot, nextComponent);
 	}
 
+	/**
+	 * @throws NoEnabledComponentInFocusOrderException
+	 *             if not at least one component in the provided order is enabled
+	 */
 	@Override
 	public Component getDefaultComponent(Container focusCycleRoot) {
 		checkThatAtLeastOneComponentIsEnabled();
 		return getFirstComponent(focusCycleRoot);
 	}
 
+	/**
+	 * @throws NoEnabledComponentInFocusOrderException
+	 *             if not at least one component in the provided order is enabled
+	 */
 	@Override
 	public Component getLastComponent(Container focusCycleRoot) {
 		checkThatAtLeastOneComponentIsEnabled();
@@ -74,6 +90,10 @@ public final class OrderedFocusTraversalPolicy extends FocusTraversalPolicy {
 		return getComponentBefore(focusCycleRoot, lastComponent);
 	}
 
+	/**
+	 * @throws NoEnabledComponentInFocusOrderException
+	 *             if not at least one component in the provided order is enabled
+	 */
 	@Override
 	public Component getFirstComponent(Container focusCycleRoot) {
 		checkThatAtLeastOneComponentIsEnabled();
