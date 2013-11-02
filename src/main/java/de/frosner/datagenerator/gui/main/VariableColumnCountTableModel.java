@@ -31,6 +31,9 @@ public class VariableColumnCountTableModel extends AbstractTableModel {
 	 *            of the model to create
 	 * @param columnCount
 	 *            of the model to create
+	 * 
+	 * @throws IllegalNonPositiveNumberArgumentException
+	 *             if row count or column count is not positive
 	 */
 	public VariableColumnCountTableModel(int rowCount, int columnCount) {
 		if (rowCount <= 0) {
