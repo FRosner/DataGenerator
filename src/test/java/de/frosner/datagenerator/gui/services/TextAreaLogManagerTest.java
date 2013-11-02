@@ -12,9 +12,12 @@ import org.fest.swing.edt.GuiQuery;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
+import de.frosner.datagenerator.util.SwingTests;
 
+@Category(SwingTests.class)
 public class TextAreaLogManagerTest {
 	private JEditorPane _editorPane;
 	private static final String END_OF_HTML_DOCUMENT = "</font>\n  </body>\n</html>\n";

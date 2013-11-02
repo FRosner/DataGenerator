@@ -15,11 +15,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
 import de.frosner.datagenerator.gui.verifiers.InputVerifier;
+import de.frosner.datagenerator.util.LongRunningSwingTests;
 
+@Category(LongRunningSwingTests.class)
 public class SwingMenuGuiTest {
 
 	private SwingMenu _frame;

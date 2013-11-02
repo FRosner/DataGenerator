@@ -10,6 +10,7 @@ import org.fest.swing.edt.GuiQuery;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import com.google.common.collect.Lists;
 
@@ -17,7 +18,9 @@ import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
 import de.frosner.datagenerator.gui.main.VariableColumnCountTableModel;
+import de.frosner.datagenerator.util.SwingTests;
 
+@Category(SwingTests.class)
 public class PreviewTableManagerTest {
 
 	private VariableColumnCountTableModel _table;

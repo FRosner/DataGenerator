@@ -21,11 +21,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.exceptions.NoEnabledComponentInFocusOrderException;
+import de.frosner.datagenerator.util.SwingTests;
 
+@Category(SwingTests.class)
 public class OrderedFocusTraversalPolicyTest {
 
 	private JButton _button;
