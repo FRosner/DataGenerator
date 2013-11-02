@@ -43,7 +43,7 @@ public class GaussianDistributionTest {
 		for (int i = 0; i < 100000; i++) {
 			samples.add((Double) _distribution.sample().getValue());
 		}
-		double sampleMean = StatisticsTestUtil.sampleMean(samples);
+		double sampleMean = StatisticsTestUtil.sampleMeanFromDoubleList(samples);
 		double sampleSigma = StatisticsTestUtil.sampleSigma(samples, sampleMean);
 		assertThat(sampleMean).isEqualTo(expectedMean, delta(0.1));
 		assertThat(sampleSigma).isEqualTo(expectedSigma, delta(0.1));

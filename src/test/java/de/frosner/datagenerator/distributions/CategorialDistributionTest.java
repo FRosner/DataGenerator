@@ -39,11 +39,11 @@ public class CategorialDistributionTest {
 	public void testSample() {
 		_distribution.setSeed(43253);
 		assertThat(_distribution.sample()).isInstanceOf(DiscreteFeatureValue.class);
-		List<Double> samples = Lists.newArrayList();
+		List<Integer> samples = Lists.newArrayList();
 		for (int i = 0; i < 100000; i++) {
-			samples.add((double) (Integer) _distribution.sample().getValue());
+			samples.add((Integer) _distribution.sample().getValue());
 		}
-		double sampleMean = StatisticsTestUtil.sampleMean(samples);
+		double sampleMean = StatisticsTestUtil.sampleMeanFromIntegerList(samples);
 		assertThat(sampleMean).isEqualTo(0.5, Delta.delta(0.01));
 	}
 
