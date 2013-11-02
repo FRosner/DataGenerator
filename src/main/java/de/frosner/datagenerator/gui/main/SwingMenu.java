@@ -523,7 +523,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		} else if (selectedItem.equals(SelectableDistribution.UNIFORM_CATEGORIAL)) {
 			if (verifyComponent(_uniformCategorialNumberOfStatesField,
-					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().verify())) {
+					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000)
+							.verify())) {
 				int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
 				List<Double> probabilities = Lists.newArrayList();
 				for (int i = 0; i < numberOfStates; i++) {

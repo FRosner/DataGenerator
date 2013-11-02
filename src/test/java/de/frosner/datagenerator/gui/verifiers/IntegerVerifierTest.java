@@ -4,7 +4,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
-
 public class IntegerVerifierTest {
 
 	@Test
@@ -28,6 +27,15 @@ public class IntegerVerifierTest {
 		assertThat(InputVerifier.isInteger("1").isPositive().verify()).isTrue();
 		assertThat(InputVerifier.isInteger("0").isPositive().verify()).isFalse();
 		assertThat(InputVerifier.isInteger("-1").isPositive().verify()).isFalse();
+	}
+
+	@Test
+	public void testIsInInterval() {
+		assertThat(InputVerifier.isInteger("1").isInInterval(1, 1).verify()).isTrue();
+		assertThat(InputVerifier.isInteger("1").isInInterval(1, 100).verify()).isTrue();
+		assertThat(InputVerifier.isInteger("1").isInInterval(-100, 1).verify()).isTrue();
+		assertThat(InputVerifier.isInteger("0").isInInterval(1, 100).verify()).isFalse();
+		assertThat(InputVerifier.isInteger("-1").isInInterval(-100, -2).verify()).isFalse();
 	}
 
 }

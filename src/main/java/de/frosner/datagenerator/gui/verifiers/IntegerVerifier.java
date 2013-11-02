@@ -22,4 +22,11 @@ public final class IntegerVerifier extends InputVerifier {
 		return this;
 	}
 
+	public IntegerVerifier isInInterval(int lower, int upper) {
+		if (_verified) {
+			_verified = _integer >= lower && _integer <= upper;
+		}
+		return this;
+	}
+
 }
