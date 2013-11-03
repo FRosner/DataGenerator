@@ -16,6 +16,10 @@ import javax.swing.filechooser.FileFilter;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 
+import de.frosner.datagenerator.gui.services.PreviewTableManager;
+import de.frosner.datagenerator.gui.services.ProgressBarManager;
+import de.frosner.datagenerator.gui.services.TextAreaLogManager;
+
 public final class SwingMenuTestUtil {
 
 	private static final int DIALOG_OPEN_DELAY = 750;
@@ -177,6 +181,12 @@ public final class SwingMenuTestUtil {
 
 	public static void delayOnce() {
 		delayOnce(ROBOT_DELAY);
+	}
+
+	public static void resetComponentManagers() {
+		TextAreaLogManager.unsetLogArea();
+		PreviewTableManager.unsetPreviewTable();
+		ProgressBarManager.unsetProgressBar();
 	}
 
 }

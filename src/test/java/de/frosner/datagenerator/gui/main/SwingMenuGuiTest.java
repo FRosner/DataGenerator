@@ -59,6 +59,7 @@ public class SwingMenuGuiTest {
 				_frame.dispose();
 			}
 		});
+		SwingMenuTestUtil.resetComponentManagers();
 	}
 
 	@Test
