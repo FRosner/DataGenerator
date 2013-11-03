@@ -9,6 +9,7 @@ import javax.swing.JEditorPane;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiQuery;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -36,6 +37,11 @@ public class TextAreaLogManagerTest {
 			}
 		});
 		TextAreaLogManager.setLogArea(_editorPane);
+	}
+
+	@After
+	public void unsetLogArea() {
+		TextAreaLogManager.unsetLogArea();
 	}
 
 	@Test

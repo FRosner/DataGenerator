@@ -10,6 +10,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.exceptions.UncheckedBadLocationException;
 import de.frosner.datagenerator.exceptions.UncheckedIOException;
 
@@ -34,9 +35,18 @@ public final class TextAreaLogManager {
 	 *            to manage
 	 */
 	public static void setLogArea(JEditorPane logArea) {
-		_logArea = logArea;
+		_logArea = Check.notNull(logArea, "logArea");
 		_doc = (HTMLDocument) _logArea.getDocument();
 		_editorKit = (HTMLEditorKit) _logArea.getEditorKit();
+	}
+
+	/**
+	 * Unset the managed log area.
+	 */
+	public static void unsetLogArea() {
+		_logArea = null;
+		_doc = null;
+		_editorKit = null;
 	}
 
 	/**
