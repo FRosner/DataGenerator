@@ -3,6 +3,8 @@ package de.frosner.datagenerator.gui.services;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
+import net.sf.qualitycheck.Check;
+
 /**
  * Service managing a {@linkplain JProgressBar}. It can be used to increase or reset progress.
  */
@@ -21,7 +23,14 @@ public final class ProgressBarManager {
 	 *            to be managed.
 	 */
 	public static void setProgressBar(JProgressBar progressBar) {
-		_progressBar = progressBar;
+		_progressBar = Check.notNull(progressBar, "progressBar");
+	}
+
+	/**
+	 * Unset the managed progress bar.
+	 */
+	public static void unsetProgressBar() {
+		_progressBar = null;
 	}
 
 	/**

@@ -9,6 +9,7 @@ import javax.swing.JProgressBar;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiQuery;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -36,6 +37,11 @@ public class ProgressBarManagerTest {
 			}
 		});
 		ProgressBarManager.setProgressBar(_progressBar);
+	}
+
+	@After
+	public void unsetProgressBar() {
+		ProgressBarManager.unsetProgressBar();
 	}
 
 	@Test
