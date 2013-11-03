@@ -14,6 +14,21 @@
 		<main.class>de.frosner.datagenerator.gui.main.SwingLauncher</main.class>
 	</properties>
 	
+	<profiles>
+		<profile>
+			<id>all-tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>no-gui</id>
+			<properties>
+    	        <exclude.test.groups>de.frosner.datagenerator.util.LongRunningSwingTests</exclude.test.groups>
+	        </properties>
+		</profile>
+	</profiles>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -84,6 +99,21 @@
 					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+    	        <artifactId>maven-surefire-plugin</artifactId>
+	            <version>2.16</version>
+	            <dependencies>
+	                <dependency>
+    	                <groupId>org.apache.maven.surefire</groupId>
+        	            <artifactId>surefire-junit47</artifactId>
+            	        <version>2.16</version>
+                	</dependency>
+	            </dependencies>
+	            <configuration>
+		            <excludedGroups>${exclude.test.groups}</excludedGroups>
+        	    </configuration>
+	        </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
