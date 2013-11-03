@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
+import net.sf.qualitycheck.Check;
+
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.export.ExportConnection;
@@ -75,8 +77,16 @@ public final class PreviewTableManager {
 	 *            to be managed
 	 */
 	public static void setPreviewTable(VariableColumnCountTableModel table) {
-		_table = table;
+		_table = Check.notNull(table, "table");
 		_originalColumnCount = _table.getColumnCount();
+	}
+
+	/**
+	 * Unset the preview table to be managed.
+	 */
+	public static void unsetPreviewTable() {
+		_table = null;
+		_originalColumnCount = 0;
 	}
 
 	/**

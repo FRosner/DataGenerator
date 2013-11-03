@@ -7,6 +7,7 @@ import java.awt.AWTException;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiQuery;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -39,6 +40,11 @@ public class PreviewTableManagerTest {
 			}
 		});
 		PreviewTableManager.setPreviewTable(_table);
+	}
+
+	@After
+	public void unsetPreviewTable() {
+		PreviewTableManager.unsetPreviewTable();
 	}
 
 	@Test
