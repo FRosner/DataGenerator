@@ -511,7 +511,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	private boolean verifyInputsAndAddFeatureDefinition() {
 		String name = _featureNameField.getText();
-		if (!verifyComponent(_featureNameField, isName(_featureNameField.getText()).isNotLongerThan(30).verify())) {
+		if (!verifyComponent(_featureNameField, isName(_featureNameField.getText()).isNotLongerThan(30))) {
 			return false;
 		}
 		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
@@ -519,7 +519,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		if (selectedItem.equals(SelectableDistribution.BERNOULLI)) {
 			if (verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
-					.isProbability().verify())) {
+					.isProbability())) {
 				double p = Double.parseDouble(_bernoulliProbabilityField.getText());
 				featureDefinition = new FeatureDefinition(name, new BernoulliDistribution(p));
 			} else {
@@ -527,9 +527,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			}
 
 		} else if (selectedItem.equals(SelectableDistribution.UNIFORM_CATEGORIAL)) {
-			if (verifyComponent(_uniformCategorialNumberOfStatesField,
-					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000)
-							.verify())) {
+			if (verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
+					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
 				int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
 				List<Double> probabilities = Lists.newArrayList();
 				for (int i = 0; i < numberOfStates; i++) {
@@ -542,8 +541,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		} else if (selectedItem.equals(SelectableDistribution.GAUSSIAN)) {
 			if (verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
-					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive()
-							.verify())) {
+					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive())) {
 				double mean = Double.parseDouble(_gaussianMeanField.getText());
 				double sigma = Double.parseDouble(_gaussianSigmaField.getText());
 				featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean, sigma));
