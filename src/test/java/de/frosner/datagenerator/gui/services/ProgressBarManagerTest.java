@@ -15,12 +15,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
+import de.frosner.datagenerator.util.GuiTestUtil;
 import de.frosner.datagenerator.util.SwingTests;
 
 @Category(SwingTests.class)
 public class ProgressBarManagerTest {
 
+	private GuiTestUtil _testUtil;
 	private JProgressBar _progressBar;
 
 	@BeforeClass
@@ -37,6 +38,7 @@ public class ProgressBarManagerTest {
 			}
 		});
 		ProgressBarManager.setProgressBar(_progressBar);
+		_testUtil = new GuiTestUtil();
 	}
 
 	@After
@@ -47,29 +49,29 @@ public class ProgressBarManagerTest {
 	@Test
 	public void testIncreaseAndResetProgress() {
 		ProgressBarManager.setProgressBarMaximumValue(100);
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_progressBar.getMaximum()).isEqualTo(100);
 		assertThat(_progressBar.getValue()).isEqualTo(0);
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_progressBar.getValue()).isEqualTo(1);
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_progressBar.getValue()).isEqualTo(2);
 		ProgressBarManager.resetProgress();
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_progressBar.getValue()).isEqualTo(0);
 	}
 
 	@Test
 	public void testIncreaseProgress_moreThanMaximum() {
 		ProgressBarManager.setProgressBarMaximumValue(1);
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_progressBar.getValue()).isEqualTo(1);
 		ProgressBarManager.increaseProgress();
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_progressBar.getValue()).isEqualTo(1);
 	}
 

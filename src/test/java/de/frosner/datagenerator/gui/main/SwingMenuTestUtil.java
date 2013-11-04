@@ -1,9 +1,5 @@
 package de.frosner.datagenerator.gui.main;
 
-import static org.fest.assertions.Fail.fail;
-
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -19,15 +15,14 @@ import org.fest.swing.edt.GuiTask;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
+import de.frosner.datagenerator.util.GuiTestUtil;
 
-public final class SwingMenuTestUtil {
+public final class SwingMenuTestUtil extends GuiTestUtil {
 
-	private static final int DIALOG_OPEN_DELAY = 750;
-	private static final int ROBOT_DELAY = 75;
 	private SwingMenu _menu;
-	private Robot _robot;
 
 	SwingMenuTestUtil(SwingMenu swingMenu) {
+		super();
 		_menu = swingMenu;
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
@@ -36,12 +31,6 @@ public final class SwingMenuTestUtil {
 				_menu.toFront();
 			}
 		});
-		try {
-			_robot = new Robot();
-		} catch (AWTException e) {
-			fail(e.getMessage());
-		}
-
 	}
 
 	void clickButton(final JButton button) {
@@ -136,7 +125,7 @@ public final class SwingMenuTestUtil {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				_robot.delay(DIALOG_OPEN_DELAY);
+				delay(DIALOG_OPEN_DELAY);
 				GuiActionRunner.execute(new GuiTask() {
 					@Override
 					protected void executeInEDT() {
@@ -147,40 +136,6 @@ public final class SwingMenuTestUtil {
 			}
 		}).start();
 		clickButton(_menu._exportFileButton);
-	}
-
-	void pressAndReleaseKey(int key) {
-		try {
-			_robot = new Robot();
-			_robot.delay(ROBOT_DELAY);
-			_robot.keyPress(key);
-			_robot.delay(ROBOT_DELAY);
-			_robot.keyRelease(key);
-			_robot.delay(ROBOT_DELAY);
-		} catch (AWTException e) {
-			fail();
-			e.printStackTrace();
-		}
-	}
-
-	void delay(int ms) {
-		_robot.delay(ms);
-	}
-
-	void delay() {
-		delay(ROBOT_DELAY);
-	}
-
-	public static void delayOnce(int ms) {
-		try {
-			new Robot().delay(ms);
-		} catch (AWTException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	public static void delayOnce() {
-		delayOnce(ROBOT_DELAY);
 	}
 
 	public static void resetComponentManagers() {

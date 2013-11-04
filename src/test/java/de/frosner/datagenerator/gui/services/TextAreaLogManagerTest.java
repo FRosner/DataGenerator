@@ -15,11 +15,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import de.frosner.datagenerator.gui.main.SwingMenuTestUtil;
+import de.frosner.datagenerator.util.GuiTestUtil;
 import de.frosner.datagenerator.util.SwingTests;
 
 @Category(SwingTests.class)
 public class TextAreaLogManagerTest {
+
+	private GuiTestUtil _testUtil;
 	private JEditorPane _editorPane;
 	private static final String END_OF_HTML_DOCUMENT = "</font>\n  </body>\n</html>\n";
 
@@ -37,6 +39,7 @@ public class TextAreaLogManagerTest {
 			}
 		});
 		TextAreaLogManager.setLogArea(_editorPane);
+		_testUtil = new GuiTestUtil();
 	}
 
 	@After
@@ -47,51 +50,51 @@ public class TextAreaLogManagerTest {
 	@Test
 	public void testLogInfoText() {
 		TextAreaLogManager.info("Test");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("Test" + END_OF_HTML_DOCUMENT);
 		TextAreaLogManager.info("Test2");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("Test").contains("Test2" + END_OF_HTML_DOCUMENT);
 	}
 
 	@Test
 	public void testLogInfoColor() {
 		TextAreaLogManager.info("Info");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("<font color=\"#000000\">").contains("</font>");
 	}
 
 	@Test
 	public void testLogWarnText() {
 		TextAreaLogManager.warn("Test");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("Test" + END_OF_HTML_DOCUMENT);
 		TextAreaLogManager.warn("Test2");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("Test").contains("Test2" + END_OF_HTML_DOCUMENT);
 	}
 
 	@Test
 	public void testLogWarnColor() {
 		TextAreaLogManager.warn("Warning");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("<font color=\"#FF6600\">").contains("</font>");
 	}
 
 	@Test
 	public void testLogErrorText() {
 		TextAreaLogManager.error("Test");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("Test" + END_OF_HTML_DOCUMENT);
 		TextAreaLogManager.error("Test2");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("Test").contains("Test2" + END_OF_HTML_DOCUMENT);
 	}
 
 	@Test
 	public void testLogErrorColor() {
 		TextAreaLogManager.error("Error");
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_editorPane.getText()).contains("<font color=\"#FF0000\">").contains("</font>");
 	}
 

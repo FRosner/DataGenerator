@@ -26,6 +26,7 @@ import org.junit.experimental.categories.Category;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.exceptions.NoEnabledComponentInFocusOrderException;
+import de.frosner.datagenerator.util.GuiTestUtil;
 import de.frosner.datagenerator.util.SwingTests;
 
 @Category(SwingTests.class)
@@ -34,6 +35,7 @@ public class OrderedFocusTraversalPolicyTest {
 	private JButton _button;
 	private JTextField _textField;
 	private JFrame _frame;
+	private GuiTestUtil _testUtil;
 
 	@BeforeClass
 	public static void setUpOnce() {
@@ -72,6 +74,7 @@ public class OrderedFocusTraversalPolicyTest {
 				_frame.pack();
 			}
 		});
+		_testUtil = new GuiTestUtil();
 	}
 
 	@After
@@ -96,12 +99,12 @@ public class OrderedFocusTraversalPolicyTest {
 			}
 		});
 		Robot robot = new Robot();
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_button.isFocusOwner()).isTrue();
 		robot.keyPress(KeyEvent.VK_TAB);
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		robot.keyRelease(KeyEvent.VK_TAB);
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_textField.isFocusOwner()).isTrue();
 	}
 
@@ -118,12 +121,12 @@ public class OrderedFocusTraversalPolicyTest {
 			}
 		});
 		Robot robot = new Robot();
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_button.isFocusOwner()).isTrue();
 		robot.keyPress(KeyEvent.VK_TAB);
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		robot.keyRelease(KeyEvent.VK_TAB);
-		SwingMenuTestUtil.delayOnce();
+		_testUtil.delay();
 		assertThat(_button.isFocusOwner()).isTrue();
 	}
 
