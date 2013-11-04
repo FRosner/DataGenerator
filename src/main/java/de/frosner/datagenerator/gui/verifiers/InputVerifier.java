@@ -60,6 +60,24 @@ public abstract class InputVerifier {
 	}
 
 	/**
+	 * This method is used to change the color of a component if verification was not successful. This will enable the
+	 * user to see where he did a mistake. Verification is done by invoking the {@linkplain InputVerifier#verify()}
+	 * method of the given {@linkplain InputVerifier}.
+	 * <p>
+	 * Example: {@code InputVerifier.verifyComponent(myTextArea, InputVerifier.isDouble(myTextArea.getText()))} will
+	 * change the color of the text area if the entered text cannot be parsed to a {@linkplain Double}.
+	 * 
+	 * @param component
+	 *            to change the color of in case of unsuccessful verification
+	 * @param verifier
+	 *            to verify the component
+	 * @return whether the verification was successful
+	 */
+	public static boolean verifyComponent(JComponent component, InputVerifier verifier) {
+		return verifyComponent(component, verifier.verify());
+	}
+
+	/**
 	 * Verifies whether the specified input text can be parsed to an {@linkplain Integer}.
 	 * 
 	 * @param input
