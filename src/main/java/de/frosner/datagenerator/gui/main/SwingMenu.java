@@ -389,6 +389,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 						// Do nothing as this happens when OK was clicked but inputs could not be verified
 					} else {
 						_featureDefinitionDialog.setVisible(false);
+						_featureDefinitionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 					}
 				}
 			}
