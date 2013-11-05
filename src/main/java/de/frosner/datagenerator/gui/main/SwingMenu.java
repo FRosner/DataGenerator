@@ -47,7 +47,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
@@ -61,6 +60,7 @@ import de.frosner.datagenerator.exceptions.UnsupportedSelectionException;
 import de.frosner.datagenerator.export.CsvFileExportConfiguration;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
@@ -223,6 +223,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_abortDataGenerationButton = new JButton("Abort Generation");
 		_abortDataGenerationButton.addActionListener(this);
 		_abortDataGenerationButton.setEnabled(false);
+		GenerationButtonsToggleManager.setButtons(_generateDataButton, _abortDataGenerationButton);
 		_previewTableModel = new VariableColumnCountTableModel(8, 4);
 		_previewTable = new JTable(_previewTableModel);
 		_previewTable.setEnabled(false);
@@ -420,24 +421,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		setMinimumSize(getSize());
 		setVisible(true);
 		// END finalize
-	}
-
-	public void enableGenerateDataButton(final boolean enabled) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				_generateDataButton.setEnabled(enabled);
-			}
-		});
-	}
-
-	public void enableAbortDataGenerationButton(final boolean enabled) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				_abortDataGenerationButton.setEnabled(enabled);
-			}
-		});
 	}
 
 	public void detachGenerateDataButtonWorker() {

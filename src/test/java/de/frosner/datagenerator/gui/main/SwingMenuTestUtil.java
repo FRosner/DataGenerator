@@ -12,6 +12,7 @@ import javax.swing.filechooser.FileFilter;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 
+import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
@@ -142,6 +143,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		TextAreaLogManager.unsetLogArea();
 		PreviewTableManager.unsetPreviewTable();
 		ProgressBarManager.unsetProgressBar();
+		GenerationButtonsToggleManager.unsetButtons();
 	}
 
 }

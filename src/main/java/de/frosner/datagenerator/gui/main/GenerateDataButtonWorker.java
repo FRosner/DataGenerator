@@ -4,6 +4,7 @@ import javax.swing.SwingWorker;
 
 import de.frosner.datagenerator.export.ExportConfiguration;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 
 /**
  * {@linkplain SwingWorker} accessing the {@linkplain DataGeneratorService} in a separate thread. It also toggles the
@@ -31,16 +32,14 @@ public final class GenerateDataButtonWorker extends SwingWorker<Void, Void> {
 
 	@Override
 	protected Void doInBackground() {
-		SwingLauncher.GUI.enableGenerateDataButton(false);
-		SwingLauncher.GUI.enableAbortDataGenerationButton(true);
+		GenerationButtonsToggleManager.toggle();
 		DataGeneratorService.INSTANCE.generateData(_numberOfInstances, _config);
 		return null;
 	}
 
 	@Override
 	protected void done() {
-		SwingLauncher.GUI.enableGenerateDataButton(true);
-		SwingLauncher.GUI.enableAbortDataGenerationButton(false);
+		GenerationButtonsToggleManager.toggle();
 		SwingLauncher.GUI.detachGenerateDataButtonWorker();
 	}
 
