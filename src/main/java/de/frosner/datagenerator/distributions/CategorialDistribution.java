@@ -82,6 +82,15 @@ public final class CategorialDistribution implements Distribution {
 		return CategorialDistribution.class.getSimpleName() + " (" + getParameterDescription() + ")";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof CategorialDistribution) {
+			return ((CategorialDistribution) o)._probabilities.equals(_probabilities);
+		} else {
+			return false;
+		}
+	}
+
 	@VisibleForTesting
 	void setSeed(long seed) {
 		_random.setSeed(seed);

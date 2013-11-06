@@ -17,6 +17,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import com.google.common.collect.Lists;
+
+import de.frosner.datagenerator.distributions.BernoulliDistribution;
+import de.frosner.datagenerator.distributions.CategorialDistribution;
+import de.frosner.datagenerator.distributions.GaussianDistribution;
+import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
 import de.frosner.datagenerator.gui.verifiers.InputVerifier;
@@ -66,7 +72,7 @@ public class SwingMenuGuiTest {
 	public void testVerifyFeatureName_gaussian() {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -76,7 +82,7 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testVerifyFeatureName_bernoulli() {
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.BERNOULLI);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -86,7 +92,7 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testVerifyFeatureName_uniformCategorial() {
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.UNIFORM_CATEGORIAL);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -97,7 +103,7 @@ public class SwingMenuGuiTest {
 	public void testVerifyGaussianMean() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -108,7 +114,7 @@ public class SwingMenuGuiTest {
 	public void testVerifyGaussianSigma() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -118,7 +124,7 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testVerifyUniformCategorialNumberOfStates() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.UNIFORM_CATEGORIAL);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -129,7 +135,7 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testVerifyBernoulliProbability() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.BERNOULLI);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
 		_frameTestUtil.tryToAddEnteredFeatureAndGiveUp();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
@@ -154,7 +160,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 
 		_frameTestUtil.clickButton(_frame._generateDataButton);
@@ -167,7 +173,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 
@@ -181,10 +187,11 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature (Gaussian, Mean = 0.0, Sigma = 1.0)");
+		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(0, 1)), "0", "1.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeature(0);
@@ -200,10 +207,11 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.BERNOULLI);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature (Bernoulli, p = 1.0)");
+		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+				new BernoulliFeatureEntry(new FeatureDefinition("Feature", new BernoulliDistribution(1)), "1.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 		_frameTestUtil.selectFeature(0);
@@ -219,10 +227,12 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.UNIFORM_CATEGORIAL);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo("Feature (Categorial, p = [1.0])");
+		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+				new UniformCategorialFeatureEntry(new FeatureDefinition("Feature", new CategorialDistribution(Lists
+						.newArrayList(1D))), "1"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
 		_frameTestUtil.selectFeature(0);
@@ -239,7 +249,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeature(0);
@@ -249,7 +259,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo("NewFeatureName (Gaussian, Mean = -1000.0, Sigma = 2.0)");
+		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+				new GaussianFeatureEntry(new FeatureDefinition("NewFeatureName", new GaussianDistribution(-1000, 2)),
+						"-1000", "2"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-[0-9]+.*$");
 	}
@@ -259,7 +271,7 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.BERNOULLI);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeature(0);
@@ -268,7 +280,10 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo("NewFeatureName (Bernoulli, p = 1.0)");
+		assertThat(_frame._featureListModel.get(0))
+				.isEqualTo(
+						new BernoulliFeatureEntry(
+								new FeatureDefinition("NewFeatureName", new BernoulliDistribution(1)), "1.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 	}
@@ -278,7 +293,7 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.UNIFORM_CATEGORIAL);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeature(0);
@@ -287,7 +302,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo("NewFeatureName (Categorial, p = [0.5, 0.5])");
+		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+				new UniformCategorialFeatureEntry(new FeatureDefinition("NewFeatureName", new CategorialDistribution(
+						Lists.newArrayList(0.5, 0.5))), "2"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^(0|1)$");
 	}
@@ -320,15 +337,15 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.BERNOULLI);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.UNIFORM_CATEGORIAL);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
@@ -348,15 +365,15 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.GAUSSIAN);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.BERNOULLI);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.UNIFORM_CATEGORIAL);
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.addEnteredFeature();
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10000000");

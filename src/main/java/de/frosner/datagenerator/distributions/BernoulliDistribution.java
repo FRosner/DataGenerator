@@ -68,6 +68,16 @@ public class BernoulliDistribution implements Distribution {
 		return BernoulliDistribution.class.getSimpleName() + " (" + getParameterDescription() + ")";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof BernoulliDistribution) {
+			return ((BernoulliDistribution) o)._p == _p;
+		} else {
+			return false;
+		}
+
+	}
+
 	@VisibleForTesting
 	void setSeed(long seed) {
 		_random.setSeed(seed);
