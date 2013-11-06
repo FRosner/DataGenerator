@@ -234,6 +234,25 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
+	public void testEditFeature() {
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
+		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, SelectableDistribution.UNIFORM_CATEGORIAL);
+		_frameTestUtil.addEnteredFeature();
+		_frameTestUtil.delay(500);
+		_frameTestUtil.selectFeature(0);
+		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
+		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "2");
+		_frameTestUtil.updateSelectedFeature();
+		_frameTestUtil.delay(500);
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
+		assertThat(_frame._featureListModel.get(0)).isEqualTo("NewFeatureName (Categorial, p = [0.5, 0.5])");
+		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
+		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^(0|1)$");
+	}
+
+	@Test
 	public void testSelectExportFile() {
 		assertThat(_frame._exportFileField.isEditable()).isFalse();
 		_frameTestUtil.selectFileUsingFileChooserDialog(new File("t"));

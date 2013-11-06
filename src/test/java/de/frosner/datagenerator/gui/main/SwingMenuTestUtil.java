@@ -77,6 +77,22 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
+	void updateSelectedFeature() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				delay(DIALOG_OPEN_DELAY);
+				pressAndReleaseKey(KeyEvent.VK_ENTER);
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+			}
+		});
+	}
+
 	void selectOption(final JComboBox comboBox, final Object option) {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override

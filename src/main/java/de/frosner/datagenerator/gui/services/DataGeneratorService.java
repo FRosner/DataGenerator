@@ -43,10 +43,25 @@ public final class DataGeneratorService {
 	}
 
 	/**
+	 * Replaces a {@linkplain FeatureDefinition} from the list at the specified index by the specified
+	 * {@linkplain FeatureDefinition}. Make sure that it is replaced in the list in the UI as well.
+	 * 
+	 * @param index
+	 *            to replace at
+	 * @param featureDefinition
+	 *            to replace with
+	 */
+	public void replaceFeatureDefinitionAt(int index, FeatureDefinition featureDefinition) {
+		TextAreaLogManager.info("Edited Feature: " + _featureDefinitions.set(index, featureDefinition).getName());
+		PreviewTableManager.generatePreview(_featureDefinitions);
+	}
+
+	/**
 	 * Removes a {@linkplain FeatureDefinition} from the list at the specified index. Make sure that it is removed from
 	 * the list in the UI as well.
 	 * 
 	 * @param index
+	 *            to remove the feature definition at
 	 */
 	public void removeFeatureDefinition(int index) {
 		TextAreaLogManager.info("Removed Feature: " + _featureDefinitions.remove(index).getName());

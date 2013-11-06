@@ -59,6 +59,14 @@ public class DataGeneratorServiceTest {
 	}
 
 	@Test
+	public void testReplaceFeatureDefinitionAt() {
+		_service.getFeatureDefinitions().add(_feature1);
+
+		_service.replaceFeatureDefinitionAt(0, _feature2);
+		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature2);
+	}
+
+	@Test
 	public void testGenerateData() throws InterruptedException {
 		_service.getFeatureDefinitions().add(_feature1);
 		Thread.sleep(100);

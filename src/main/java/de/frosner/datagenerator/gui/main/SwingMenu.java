@@ -78,6 +78,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@VisibleForTesting
 	final JButton _addFeatureButton;
 	@VisibleForTesting
+	final JButton _editFeatureButton;
+	@VisibleForTesting
 	final JButton _removeFeatureButton;
 	@VisibleForTesting
 	final JButton _generateDataButton;
@@ -136,7 +138,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@VisibleForTesting
 	final JOptionPane _featureDefinitionPane;
 	@VisibleForTesting
-	final JDialog _featureDefinitionDialog;
+	final FeatureDefinitionDialog _featureDefinitionDialog;
 	private final JPanel _cards;
 
 	@VisibleForTesting
@@ -192,7 +194,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_uniformCategorialNumberOfStatesField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_addFeatureButton = new JButton("Add Feature");
 		_addFeatureButton.addActionListener(this);
-		_featureDefinitionDialog = new JDialog(this, "Add Feature", true);
+		_editFeatureButton = new JButton("Edit Feature");
+		_editFeatureButton.addActionListener(this);
+		_featureDefinitionDialog = new FeatureDefinitionDialog(this, "Add Feature", true);
 		_featureListModel = new DefaultListModel();
 		_featureList = new JList(_featureListModel);
 		_featureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -281,8 +285,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		JPanel featureButtonPanel = new JPanel();
 		featureButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		topPanel.add(featureButtonPanel);
-		featureButtonPanel.add(new JLabel("                                      "));
-		featureButtonPanel.add(_removeFeatureButton, BorderLayout.EAST);
+		featureButtonPanel.add(_removeFeatureButton, BorderLayout.WEST);
+		featureButtonPanel.add(_editFeatureButton, BorderLayout.CENTER);
 		featureButtonPanel.add(_addFeatureButton, BorderLayout.EAST);
 
 		JPanel generateDataButtonPanel = new JPanel();
@@ -442,6 +446,15 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (source.equals(_addFeatureDistributionSelection)) {
 			((CardLayout) _cards.getLayout()).show(_cards, (String) _addFeatureDistributionSelection.getSelectedItem());
 
+		} else if (source.equals(_editFeatureButton)) {
+			final int selected = _featureList.getSelectedIndex();
+			if (selected > -1) {
+				_featureDefinitionDialog.setFeatureToEdit(selected);
+				// TODO #119 read feature definition from gui list and fill in the fields
+				_featureDefinitionDialog.setVisible(true);
+				_featureDefinitionDialog.leaveEditMode();
+			}
+
 		} else if (source.equals(_removeFeatureButton)) {
 			final int selected = _featureList.getSelectedIndex();
 			if (selected > -1) {
@@ -511,8 +524,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			}
 
 		} else if (selectedItem.equals(SelectableDistribution.UNIFORM_CATEGORIAL)) {
-			if (verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
-					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
+			if (verifyComponent(_uniformCategorialNumberOfStatesField,
+					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
 				int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
 				List<Double> probabilities = Lists.newArrayList();
 				for (int i = 0; i < numberOfStates; i++) {
@@ -537,14 +550,29 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			throw new UnsupportedSelectionException(selectedItem);
 		}
 
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
-			}
-		}).start();
-		_featureListModel.addElement(featureDefinition.getName() + " (" + featureDefinition.getDistribution().getType()
-				+ ", " + featureDefinition.getDistribution().getParameterDescription() + ")");
+		if (_featureDefinitionDialog.isInEditMode()) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(
+							_featureDefinitionDialog.getFeatureToEdit(), featureDefinition);
+				}
+			}).start();
+			_featureListModel.setElementAt(featureDefinition.getName() + " ("
+					+ featureDefinition.getDistribution().getType() + ", "
+					+ featureDefinition.getDistribution().getParameterDescription() + ")",
+					_featureDefinitionDialog.getFeatureToEdit());
+		} else {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
+				}
+			}).start();
+			_featureListModel.addElement(featureDefinition.getName() + " ("
+					+ featureDefinition.getDistribution().getType() + ", "
+					+ featureDefinition.getDistribution().getParameterDescription() + ")");
+		}
 		verifyComponent(_featureList, _featureListModel.getSize() > 0);
 		return true;
 	}
