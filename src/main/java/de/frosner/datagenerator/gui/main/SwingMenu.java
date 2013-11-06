@@ -550,6 +550,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			throw new UnsupportedSelectionException(selectedItem);
 		}
 
+		String featureListEntry = featureDefinition.getName() + " (" + featureDefinition.getDistribution().getType()
+				+ ", " + featureDefinition.getDistribution().getParameterDescription() + ")";
 		if (_featureDefinitionDialog.isInEditMode()) {
 			new Thread(new Runnable() {
 				@Override
@@ -558,10 +560,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 							_featureDefinitionDialog.getFeatureToEdit(), featureDefinition);
 				}
 			}).start();
-			_featureListModel.setElementAt(featureDefinition.getName() + " ("
-					+ featureDefinition.getDistribution().getType() + ", "
-					+ featureDefinition.getDistribution().getParameterDescription() + ")",
-					_featureDefinitionDialog.getFeatureToEdit());
+			_featureListModel.setElementAt(featureListEntry, _featureDefinitionDialog.getFeatureToEdit());
 		} else {
 			new Thread(new Runnable() {
 				@Override
@@ -569,9 +568,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
 				}
 			}).start();
-			_featureListModel.addElement(featureDefinition.getName() + " ("
-					+ featureDefinition.getDistribution().getType() + ", "
-					+ featureDefinition.getDistribution().getParameterDescription() + ")");
+			_featureListModel.addElement(featureListEntry);
 		}
 		verifyComponent(_featureList, _featureListModel.getSize() > 0);
 		return true;
