@@ -486,7 +486,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify());
 			}
 
-		} else if (e.getSource().equals(_generateDataButton)) {
+		} else if (source.equals(_generateDataButton)) {
 			if (verifyComponent(_numberOfInstancesField, isInteger(_numberOfInstancesField.getText()).isPositive()
 					.verify())
 					& verifyComponent(_featureList, _featureListModel.getSize() > 0)
@@ -515,7 +515,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			dialog.createDialog("About").setVisible(true);
 
 		} else {
-			throw new UnknownActionEventSourceException(e.getSource());
+			throw new UnknownActionEventSourceException(source);
 		}
 	}
 
@@ -539,8 +539,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			}
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			if (verifyComponent(_uniformCategorialNumberOfStatesField,
-					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
+			if (verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
+					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
 				int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
 				List<Double> probabilities = Lists.newArrayList();
 				for (int i = 0; i < numberOfStates; i++) {
@@ -573,8 +573,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(
-							_featureDefinitionDialog.getFeatureToEdit(), featureDefinition);
+					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(_featureDefinitionDialog
+							.getFeatureToEdit(), featureDefinition);
 				}
 			}).start();
 			_featureListModel.setElementAt(featureListEntry, _featureDefinitionDialog.getFeatureToEdit());
