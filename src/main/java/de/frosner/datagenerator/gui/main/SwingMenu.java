@@ -18,6 +18,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -149,6 +150,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private final JScrollPane _logAreaScroller;
 
 	private final JMenuBar _menuBar;
+	private final JMenu _fileMenu;
+	private final JMenuItem _generateDataMenuItem;
+	private final JMenuItem _closeMenuItem;
+	private final JMenu _featuresMenu;
+	private final JMenuItem _addFeatureMenuItem;
 	private final JMenu _helpMenu;
 	private final JMenuItem _aboutMenuItem;
 
@@ -164,11 +170,30 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		// BEGIN menu bar initialization
 		_menuBar = new JMenuBar();
 		setJMenuBar(_menuBar);
+
+		_fileMenu = new JMenu("File");
+		_fileMenu.setMnemonic(KeyEvent.VK_F);
+		_generateDataMenuItem = new JMenuItem("Generate Data :-)");
+		_generateDataMenuItem.addActionListener(this);
+		_closeMenuItem = new JMenuItem("Exit - Data Generator");
+		_closeMenuItem.addActionListener(this);
+		_fileMenu.add(_generateDataMenuItem);
+		_fileMenu.add(_closeMenuItem);
+
+		_featuresMenu = new JMenu("Features");
+		_featuresMenu.setMnemonic(KeyEvent.VK_A);
+		_addFeatureMenuItem = new JMenuItem("Add Feature");
+		_addFeatureMenuItem.addActionListener(this);
+		_featuresMenu.add(_addFeatureMenuItem);
+
 		_helpMenu = new JMenu("Help");
 		_helpMenu.setMnemonic(KeyEvent.VK_O);
 		_aboutMenuItem = new JMenuItem("About");
 		_aboutMenuItem.addActionListener(this);
 		_helpMenu.add(_aboutMenuItem);
+
+		_menuBar.add(_fileMenu);
+		_menuBar.add(_featuresMenu);
 		_menuBar.add(_helpMenu);
 		// END menu bar initialization
 
@@ -440,7 +465,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 
-		if (source.equals(_addFeatureButton)) {
+		if (source.equals(_addFeatureButton) || source.equals(_addFeatureMenuItem)) {
 			_featureDefinitionDialog.setVisible(true);
 
 		} else if (source.equals(_addFeatureDistributionSelection)) {
@@ -486,7 +511,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify());
 			}
 
-		} else if (source.equals(_generateDataButton)) {
+		} else if (source.equals(_generateDataButton) || source.equals(_generateDataMenuItem)) {
 			if (verifyComponent(_numberOfInstancesField, isInteger(_numberOfInstancesField.getText()).isPositive()
 					.verify())
 					& verifyComponent(_featureList, _featureListModel.getSize() > 0)
@@ -513,6 +538,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			JOptionPane dialog = new JOptionPane(applicationMetaData, JOptionPane.INFORMATION_MESSAGE,
 					JOptionPane.DEFAULT_OPTION);
 			dialog.createDialog("About").setVisible(true);
+
+		} else if (source.equals(_closeMenuItem)) {
+			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
 		} else {
 			throw new UnknownActionEventSourceException(source);
