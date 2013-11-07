@@ -450,7 +450,20 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			final int selected = _featureList.getSelectedIndex();
 			if (selected > -1) {
 				_featureDefinitionDialog.setFeatureToEdit(selected);
-				// TODO #119 read feature definition from gui list and fill in the fields
+				FeatureListEntry selectedEntry = (FeatureListEntry) _featureListModel.get(selected);
+				_featureNameField.setText(selectedEntry.getFeatureName());
+				if (selectedEntry instanceof BernoulliFeatureEntry) {
+					_addFeatureDistributionSelection.setSelectedItem(BernoulliFeatureEntry.KEY);
+					_bernoulliProbabilityField.setText(((BernoulliFeatureEntry) selectedEntry).getP());
+				} else if (selectedEntry instanceof UniformCategorialFeatureEntry) {
+					_addFeatureDistributionSelection.setSelectedItem(UniformCategorialFeatureEntry.KEY);
+					_uniformCategorialNumberOfStatesField.setText(((UniformCategorialFeatureEntry) selectedEntry)
+							.getNumberOfStates());
+				} else if (selectedEntry instanceof GaussianFeatureEntry) {
+					_addFeatureDistributionSelection.setSelectedItem(GaussianFeatureEntry.KEY);
+					_gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMean());
+					_gaussianSigmaField.setText(((GaussianFeatureEntry) selectedEntry).getSigma());
+				}
 				_featureDefinitionDialog.setVisible(true);
 				_featureDefinitionDialog.leaveEditMode();
 			}

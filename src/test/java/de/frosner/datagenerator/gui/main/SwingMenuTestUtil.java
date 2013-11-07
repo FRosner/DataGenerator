@@ -78,10 +78,26 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 	}
 
 	void updateSelectedFeature() {
+		final String featureName = _menu._featureNameField.getText();
+		final String gaussianMean = _menu._gaussianMeanField.getText();
+		final String gaussianSigma = _menu._gaussianSigmaField.getText();
+		final String bernoulliProbability = _menu._bernoulliProbabilityField.getText();
+		final String categorialNumberOfStates = _menu._uniformCategorialNumberOfStatesField.getText();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				delay(DIALOG_OPEN_DELAY);
+				delay(DIALOG_OPEN_DELAY / 2);
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() {
+						_menu._featureNameField.setText(featureName);
+						_menu._gaussianMeanField.setText(gaussianMean);
+						_menu._gaussianSigmaField.setText(gaussianSigma);
+						_menu._bernoulliProbabilityField.setText(bernoulliProbability);
+						_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+					}
+				});
+				delay(DIALOG_OPEN_DELAY / 2);
 				pressAndReleaseKey(KeyEvent.VK_ENTER);
 			}
 		}).start();
