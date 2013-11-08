@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -61,7 +62,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void addEnteredFeature() {
+	void addEnteredFeature(final AbstractButton buttonPerformedWith) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -72,7 +73,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
+				_menu.actionPerformed(new ActionEvent(buttonPerformedWith, 1, ""));
 			}
 		});
 	}

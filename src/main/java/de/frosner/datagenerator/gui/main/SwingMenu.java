@@ -154,7 +154,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	private final JMenuItem _generateDataMenuItem;
 	private final JMenuItem _closeMenuItem;
 	private final JMenu _featuresMenu;
-	private final JMenuItem _addFeatureMenuItem;
+	@VisibleForTesting
+	final JMenuItem _addFeatureMenuItem;
 	private final JMenu _helpMenu;
 	private final JMenuItem _aboutMenuItem;
 
