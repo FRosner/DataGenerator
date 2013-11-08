@@ -421,4 +421,9 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._logArea.getText()).contains("Test");
 	}
 
+	@Test
+	public void testWhetherExitItemIsInFileMenu() {
+		assertThat(_frame._menuBar.getMenu(0).getItem(1)).isEqualTo(_frame._closeMenuItem);
+	}
+
 }
