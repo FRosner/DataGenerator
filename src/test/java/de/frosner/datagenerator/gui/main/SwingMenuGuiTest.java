@@ -365,8 +365,10 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
-		while (!_testFile.exists()) {
+		int altogetherSleeptime = 0;
+		while (!_testFile.exists() && altogetherSleeptime < 5000) {
 			Thread.sleep(50);
+			altogetherSleeptime += 50;
 		}
 		assertThat(_testFile).exists();
 		_frameTestUtil.delay(200);
