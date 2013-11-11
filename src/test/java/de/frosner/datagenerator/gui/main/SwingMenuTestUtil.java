@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
@@ -35,11 +34,11 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void clickButton(final JButton button) {
+	void clickButtonOrItem(final AbstractButton buttonOrItem) {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(button, 1, ""));
+				_menu.actionPerformed(new ActionEvent(buttonOrItem, 1, ""));
 			}
 		});
 	}
@@ -169,7 +168,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 				});
 			}
 		}).start();
-		clickButton(_menu._exportFileButton);
+		clickButtonOrItem(_menu._exportFileButton);
 	}
 
 	public static void resetComponentManagers() {
