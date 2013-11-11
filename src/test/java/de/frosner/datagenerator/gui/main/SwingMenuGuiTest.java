@@ -422,6 +422,13 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
+	public void testExitMenuItem() {
+		/*
+		 * 2013-11-11 See ticket #172.
+		 */
+	}
+
+	@Test
 	public void testWhetherExitItemIsInFileMenu() {
 		assertThat(_frame._menuBar.getMenu(0).getItem(1)).isEqualTo(_frame._closeMenuItem);
 	}
