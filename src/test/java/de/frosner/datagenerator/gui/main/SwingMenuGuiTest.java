@@ -346,7 +346,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test(timeout = 5000)
-	public void testGenerateData_klickButton() throws InterruptedException {
+	public void testGenerateData_clickButton() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
@@ -374,7 +374,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test(timeout = 5000)
-	public void testGenerateData_klickMenuItem() throws InterruptedException {
+	public void testGenerateData_clickMenuItem() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
@@ -393,10 +393,8 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataMenuItem);
-		int altogetherSleeptime = 0;
-		while (!_testFile.exists() && altogetherSleeptime < 5000) {
+		while (!_testFile.exists()) {
 			Thread.sleep(50);
-			altogetherSleeptime += 50;
 		}
 		assertThat(_testFile).exists();
 		_frameTestUtil.delay(200);
