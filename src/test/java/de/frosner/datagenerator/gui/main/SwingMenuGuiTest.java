@@ -14,6 +14,7 @@ import org.fest.swing.edt.GuiTask;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -449,11 +450,9 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._logArea.getText()).contains("Test");
 	}
 
+	@Ignore("See #172")
 	@Test
 	public void testExitMenuItem() {
-		/*
-		 * 2013-11-11 See ticket #172.
-		 */
 	}
 
 	@Test
