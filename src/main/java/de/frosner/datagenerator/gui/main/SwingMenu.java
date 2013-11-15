@@ -177,9 +177,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		_fileMenu = new JMenu("File");
 		_fileMenu.setMnemonic(KeyEvent.VK_F);
-		_generateDataMenuItem = new JMenuItem("Generate Data :-)");
+		_generateDataMenuItem = new JMenuItem("Generate Data");
 		_generateDataMenuItem.addActionListener(this);
-		_closeMenuItem = new JMenuItem("Exit - Data Generator");
+		_closeMenuItem = new JMenuItem("Exit");
 		_closeMenuItem.addActionListener(this);
 		_fileMenu.add(_generateDataMenuItem);
 		_fileMenu.add(_closeMenuItem);
