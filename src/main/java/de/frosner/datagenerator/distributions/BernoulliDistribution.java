@@ -35,19 +35,6 @@ public class BernoulliDistribution implements Distribution {
 	}
 
 	@Override
-	public double getProbabilityOf(FeatureValue value) {
-		Check.notNull(value);
-		Check.instanceOf(DiscreteFeatureValue.class, value);
-		int intValue = (Integer) value.getValue();
-		if (intValue == 0) {
-			return 1 - _p;
-		} else if (intValue == 1) {
-			return _p;
-		}
-		return 0;
-	}
-
-	@Override
 	public FeatureValue sample() {
 		double randomNumber = _random.nextDouble();
 		return (Double.compare(randomNumber, _p) < 0) ? new DiscreteFeatureValue(1) : new DiscreteFeatureValue(0);

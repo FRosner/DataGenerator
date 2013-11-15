@@ -44,17 +44,6 @@ public final class CategorialDistribution implements Distribution {
 	}
 
 	@Override
-	public double getProbabilityOf(FeatureValue value) {
-		Check.notNull(value);
-		Check.instanceOf(DiscreteFeatureValue.class, value);
-		int integerValue = (Integer) value.getValue();
-		if (integerValue < 0 || integerValue >= _probabilities.size()) {
-			return 0.0D;
-		}
-		return _probabilities.get(integerValue);
-	}
-
-	@Override
 	public FeatureValue sample() {
 		double randomValue = _random.nextDouble();
 		int featureValue = 0;

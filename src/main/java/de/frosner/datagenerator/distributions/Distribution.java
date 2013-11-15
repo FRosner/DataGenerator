@@ -12,16 +12,6 @@ import de.frosner.datagenerator.features.FeatureValue;
 public interface Distribution {
 
 	/**
-	 * Returns the probability (or mass function value) of the specified discrete (or continuous)
-	 * {@linkplain FeatureValue}.
-	 * 
-	 * @param value
-	 *            the probability should be returned of
-	 * @return probability (mass function value) of the value
-	 */
-	public double getProbabilityOf(FeatureValue value);
-
-	/**
 	 * Returns a random sample.
 	 * 
 	 * @return random feature value

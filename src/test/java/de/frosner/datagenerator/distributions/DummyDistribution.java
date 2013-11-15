@@ -10,11 +10,6 @@ public class DummyDistribution implements Distribution {
 	public static final FeatureValue ANY_SAMPLE = new DummyFeatureValue(new Object());
 
 	@Override
-	public double getProbabilityOf(FeatureValue value) {
-		return PROBABILITY_OF_ANY_VALUE;
-	}
-
-	@Override
 	public FeatureValue sample() {
 		return ANY_SAMPLE;
 	}

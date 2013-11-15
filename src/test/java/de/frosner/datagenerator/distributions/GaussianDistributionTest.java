@@ -5,15 +5,12 @@ import static org.fest.assertions.Delta.delta;
 
 import java.util.List;
 
-import net.sf.qualitycheck.exception.IllegalInstanceOfArgumentException;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
-import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.util.StatisticsTestUtil;
 
 public class GaussianDistributionTest {
@@ -23,13 +20,6 @@ public class GaussianDistributionTest {
 	@Before
 	public void createDistribution() {
 		_distribution = new GaussianDistribution(0, 1);
-	}
-
-	@Test
-	public void testGetProbabilityOf() {
-		assertThat(_distribution.getProbabilityOf(new ContinuousFeatureValue(0))).isEqualTo(0.39, delta(0.01));
-		assertThat(_distribution.getProbabilityOf(new ContinuousFeatureValue(1))).isEqualTo(0.24, delta(0.01));
-		assertThat(_distribution.getProbabilityOf(new ContinuousFeatureValue(-1))).isEqualTo(0.24, delta(0.01));
 	}
 
 	@Test
@@ -49,19 +39,4 @@ public class GaussianDistributionTest {
 		assertThat(sampleSigma).isEqualTo(expectedSigma, delta(0.1));
 	}
 
-	@Test(expected = IllegalInstanceOfArgumentException.class)
-	public void testGetProbabilityOf_wrongFeatureValueType() {
-		FeatureValue wrongFeatureValueType = new FeatureValue() {
-			@Override
-			public Object getValue() {
-				return null;
-			}
-
-			@Override
-			public String getValueAsString() {
-				return null;
-			}
-		};
-		_distribution.getProbabilityOf(wrongFeatureValueType);
-	}
 }
