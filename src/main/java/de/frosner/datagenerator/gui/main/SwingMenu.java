@@ -412,7 +412,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				if (_featureDefinitionDialog.isVisible() && (e.getSource() == _featureDefinitionPane)
 						&& (prop.equals(JOptionPane.VALUE_PROPERTY))) {
 					if (_featureDefinitionPane.getValue().equals(JOptionPane.OK_OPTION)) {
-						if (verifyInputsAndAddFeatureDefinition()) {
+						if (verifyInputs()) {
+							addFeatureDefinition();
 							_featureDefinitionDialog.setVisible(false);
 							_featureDefinitionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 						} else {
@@ -421,12 +422,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					} else if (_featureDefinitionPane.getValue().equals(JOptionPane.UNINITIALIZED_VALUE)) {
 						// Do nothing as this happens when OK was clicked but inputs could not be verified
 					} else {
+						verifyInputs();
 						_featureDefinitionDialog.setVisible(false);
 						_featureDefinitionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 					}
 				}
 			}
 		});
+
 		_featureDefinitionDialog.pack();
 		_featureDefinitionDialog.setResizable(false);
 		_featureDefinitionDialog.setLocation(getCenteredLocationOf(_featureDefinitionDialog));
@@ -551,51 +554,33 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		}
 	}
 
-	private boolean verifyInputsAndAddFeatureDefinition() {
+	private void addFeatureDefinition() {
 		String name = _featureNameField.getText();
-		if (!verifyComponent(_featureNameField, isName(_featureNameField.getText()).isNotLongerThan(30))) {
-			return false;
-		}
 		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
 		final FeatureDefinition featureDefinition;
 		final FeatureListEntry featureListEntry;
 
 		if (selectedItem.equals(BernoulliFeatureEntry.KEY)) {
-			if (verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
-					.isProbability())) {
-				double p = Double.parseDouble(_bernoulliProbabilityField.getText());
-				featureDefinition = new FeatureDefinition(name, new BernoulliDistribution(p));
-				featureListEntry = new BernoulliFeatureEntry(featureDefinition, _bernoulliProbabilityField.getText());
-			} else {
-				return false;
-			}
+			double p = Double.parseDouble(_bernoulliProbabilityField.getText());
+			featureDefinition = new FeatureDefinition(name, new BernoulliDistribution(p));
+			featureListEntry = new BernoulliFeatureEntry(featureDefinition, _bernoulliProbabilityField.getText());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			if (verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
-					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
-				int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
-				List<Double> probabilities = Lists.newArrayList();
-				for (int i = 0; i < numberOfStates; i++) {
-					probabilities.add(1D / numberOfStates);
-				}
-				featureDefinition = new FeatureDefinition(name, new CategorialDistribution(probabilities));
-				featureListEntry = new UniformCategorialFeatureEntry(featureDefinition,
-						_uniformCategorialNumberOfStatesField.getText());
-			} else {
-				return false;
+			int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
+			List<Double> probabilities = Lists.newArrayList();
+			for (int i = 0; i < numberOfStates; i++) {
+				probabilities.add(1D / numberOfStates);
 			}
+			featureDefinition = new FeatureDefinition(name, new CategorialDistribution(probabilities));
+			featureListEntry = new UniformCategorialFeatureEntry(featureDefinition,
+					_uniformCategorialNumberOfStatesField.getText());
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
-			if (verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
-					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive())) {
-				double mean = Double.parseDouble(_gaussianMeanField.getText());
-				double sigma = Double.parseDouble(_gaussianSigmaField.getText());
-				featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean, sigma));
-				featureListEntry = new GaussianFeatureEntry(featureDefinition, _gaussianMeanField.getText(),
-						_gaussianSigmaField.getText());
-			} else {
-				return false;
-			}
+			double mean = Double.parseDouble(_gaussianMeanField.getText());
+			double sigma = Double.parseDouble(_gaussianSigmaField.getText());
+			featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean, sigma));
+			featureListEntry = new GaussianFeatureEntry(featureDefinition, _gaussianMeanField.getText(),
+					_gaussianSigmaField.getText());
 
 		} else {
 			throw new UnsupportedSelectionException(selectedItem);
@@ -620,6 +605,37 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			_featureListModel.addElement(featureListEntry);
 		}
 		verifyComponent(_featureList, _featureListModel.getSize() > 0);
+	}
+
+	private boolean verifyInputs() {
+		String name = _featureNameField.getText();
+		if (!verifyComponent(_featureNameField, isName(name).isNotLongerThan(30))) {
+			return false;
+		}
+		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
+
+		if (selectedItem.equals(BernoulliFeatureEntry.KEY)) {
+			if (!verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
+					.isProbability())) {
+				return false;
+			}
+
+		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
+			if (!verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
+					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
+				return false;
+			}
+
+		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
+			if (!verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
+					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive())) {
+				return false;
+			}
+
+		} else {
+			throw new UnsupportedSelectionException(selectedItem);
+		}
+
 		return true;
 	}
 
