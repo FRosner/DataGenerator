@@ -4,6 +4,8 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import java.awt.AWTException;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -470,12 +472,35 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._menuBar.getMenu(0).getItem(1)).isEqualTo(_frame._closeMenuItem);
 	}
 
-	@Test
-	public void testTitleChangingFeatureDefinitionOfDialog() {
-		assertThat(_frame._featureDefinitionDialog.getTitle()).isEqualTo("Add Feature");
-		_frame._featureDefinitionDialog.setFeatureToEdit(0);
-		assertThat(_frame._featureDefinitionDialog.getTitle()).isEqualTo("Edit Feature");
-		_frame._featureDefinitionDialog.leaveEditMode();
-		assertThat(_frame._featureDefinitionDialog.getTitle()).isEqualTo("Add Feature");
+	@Test(timeout = 6000)
+	public void testChangeToEditModeWhenEditButtonWasClicked() throws InterruptedException {
+		// Dummy feature entry as at least one feature is needed for editing
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		_frameTestUtil.enterText(_frame._featureNameField, "FeatureToEdit");
+		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.delay(500);
+		_frameTestUtil.selectFeature(0);
+
+		Thread thread;
+		thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				_frameTestUtil.delay(500);
+				assertThat(_frame._featureDefinitionDialog.isInEditMode()).isTrue();
+				_frameTestUtil.pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+			}
+		});
+		thread.start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_frame.actionPerformed(new ActionEvent(_frame._editFeatureButton, 1, ""));
+			}
+		});
+		while (thread.isAlive()) {
+			Thread.sleep(50);
+		}
 	}
 }
