@@ -460,4 +460,12 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._menuBar.getMenu(0).getItem(1)).isEqualTo(_frame._closeMenuItem);
 	}
 
+	@Test
+	public void testTitleChangingFeatureDefinitionOfDialog() {
+		assertThat(_frame._featureDefinitionDialog.getTitle()).isEqualTo("Add Feature");
+		_frame._featureDefinitionDialog.setFeatureToEdit(0);
+		assertThat(_frame._featureDefinitionDialog.getTitle()).isEqualTo("Edit Feature");
+		_frame._featureDefinitionDialog.leaveEditMode();
+		assertThat(_frame._featureDefinitionDialog.getTitle()).isEqualTo("Add Feature");
+	}
 }

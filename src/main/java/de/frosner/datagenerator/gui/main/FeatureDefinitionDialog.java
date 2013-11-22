@@ -18,6 +18,7 @@ public class FeatureDefinitionDialog extends JDialog {
 
 	public void setFeatureToEdit(int featureIndexToEdit) {
 		_featureIndexToEdit = featureIndexToEdit;
+		setTitle("Edit Feature");
 	}
 
 	public int getFeatureToEdit() {
@@ -30,6 +31,7 @@ public class FeatureDefinitionDialog extends JDialog {
 
 	public void leaveEditMode() {
 		_featureIndexToEdit = -1;
+		setTitle("Add Feature");
 	}
 
 }
