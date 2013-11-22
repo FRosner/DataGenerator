@@ -171,6 +171,22 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		clickButtonOrItem(_menu._exportFileButton);
 	}
 
+	void escapeEnteredFeature() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				delay(DIALOG_OPEN_DELAY);
+				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
+			}
+		});
+	}
+
 	public static void resetComponentManagers() {
 		TextAreaLogManager.unsetLogArea();
 		PreviewTableManager.unsetPreviewTable();
