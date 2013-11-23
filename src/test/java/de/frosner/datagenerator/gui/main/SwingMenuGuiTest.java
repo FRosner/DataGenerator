@@ -474,8 +474,9 @@ public class SwingMenuGuiTest {
 
 	@Test(timeout = 6000)
 	public void testChangeToEditModeWhenEditButtonWasClicked() throws InterruptedException {
-		// Dummy feature entry as at least one feature is needed for editing
-		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();
+
+		// dummy feature entry, as at least one feature is needed for editing
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureToEdit");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
@@ -502,5 +503,7 @@ public class SwingMenuGuiTest {
 		while (thread.isAlive()) {
 			Thread.sleep(50);
 		}
+
+		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();
 	}
 }
