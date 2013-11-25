@@ -63,6 +63,22 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
+	void openAndCancelFeatureDialog() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				delay(DIALOG_OPEN_DELAY);
+				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
+			}
+		});
+	}
+
 	void updateSelectedFeature() {
 		final String featureName = _menu._featureNameField.getText();
 		final String gaussianMean = _menu._gaussianMeanField.getText();
@@ -155,22 +171,6 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 			}
 		}).start();
 		clickButtonOrItem(_menu._exportFileButton);
-	}
-
-	void escapeEnteredFeature() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				delay(DIALOG_OPEN_DELAY);
-				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
-			}
-		}).start();
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
-			}
-		});
 	}
 
 	public static void resetComponentManagers() {

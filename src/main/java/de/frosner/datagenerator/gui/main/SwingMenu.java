@@ -615,28 +615,20 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
 
 		if (selectedItem.equals(BernoulliFeatureEntry.KEY)) {
-			if (!verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
-					.isProbability())) {
-				return false;
-			}
+			return verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
+					.isProbability());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			if (!verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
-					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000))) {
-				return false;
-			}
+			return verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
+					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
-			if (!verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
-					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive())) {
-				return false;
-			}
+			return verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
+					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive());
 
 		} else {
 			throw new UnsupportedSelectionException(selectedItem);
 		}
-
-		return true;
 	}
 
 	private static Point getCenteredLocationOf(Component component) {
