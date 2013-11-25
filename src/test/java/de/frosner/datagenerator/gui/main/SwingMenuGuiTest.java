@@ -162,11 +162,11 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testVerifyAfterEscapingFeatureDefinitionDialog() {
+	public void testVerificationWithCancelButton() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
-		_frameTestUtil.escapeEnteredFeature();
+		_frameTestUtil.openAndCancelFeatureDialog();
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
