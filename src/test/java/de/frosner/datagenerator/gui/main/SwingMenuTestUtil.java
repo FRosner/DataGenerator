@@ -43,14 +43,12 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void tryToAddEnteredFeatureAndGiveUp() {
+	void tryToAddEnteredFeature() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				delay(DIALOG_OPEN_DELAY);
 				pressAndReleaseKey(KeyEvent.VK_ENTER);
-				delay(ROBOT_DELAY);
-				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
 			}
 		}).start();
 		GuiActionRunner.execute(new GuiTask() {
