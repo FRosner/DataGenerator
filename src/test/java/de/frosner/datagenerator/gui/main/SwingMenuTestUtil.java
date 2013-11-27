@@ -34,28 +34,16 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void clickButtonOrItem(final AbstractButton buttonOrItem) {
+	void clickButtonOrItem(final AbstractButton button) {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(buttonOrItem, 1, ""));
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
 			}
 		});
 	}
 
-	void tryToAddEnteredFeatureWithMenuItem() {
-		addEnteredFeature(_menu._addFeatureMenuItem);
-	}
-
-	void tryToAddEnteredFeatureWithButton() {
-		addEnteredFeature(_menu._addFeatureButton);
-	}
-
-	void tryToEditEnteredFeatureWithButton() {
-		addEnteredFeature(_menu._editFeatureButton);
-	}
-
-	void addEnteredFeature(final AbstractButton buttonPerformedWith) {
+	void tryToAddEnteredFeature(final AbstractButton button) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -66,12 +54,28 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(buttonPerformedWith, 1, ""));
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
 			}
 		});
 	}
 
-	void openAndCancelAddFeatureDialog(final AbstractButton buttonOrItem) {
+	void tryToEditEnteredFeature() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				delay(DIALOG_OPEN_DELAY);
+				pressAndReleaseKey(KeyEvent.VK_ENTER);
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+			}
+		});
+	}
+
+	void openAndCancelAddFeatureDialog(final AbstractButton button) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -82,7 +86,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(buttonOrItem, 1, ""));
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
 			}
 		});
 	}

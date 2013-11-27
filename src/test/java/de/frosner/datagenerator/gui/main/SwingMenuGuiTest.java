@@ -90,7 +90,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithButton();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -103,7 +103,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -122,7 +122,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithButton();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -134,7 +134,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -152,7 +152,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithButton();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -164,7 +164,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -183,7 +183,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithButton();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -196,7 +196,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -216,7 +216,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithButton();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -229,7 +229,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -248,7 +248,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithButton();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -260,7 +260,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -278,7 +278,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithButton();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -290,7 +290,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -327,7 +327,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
 		_frameTestUtil.selectFeature(0);
@@ -351,7 +351,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeatureWithMenuItem();
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureMenuItem);
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -374,7 +374,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
 		assertThat(_testFile).doesNotExist();
@@ -387,7 +387,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
@@ -401,7 +401,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(0, 1)), "0", "1.0"));
@@ -421,7 +421,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
 				new BernoulliFeatureEntry(new FeatureDefinition("Feature", new BernoulliDistribution(1)), "1.0"));
@@ -441,7 +441,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
 				new UniformCategorialFeatureEntry(new FeatureDefinition("Feature", new CategorialDistribution(Lists
@@ -463,7 +463,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureMenuItem);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureMenuItem);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(0, 1)), "0", "1.0"));
@@ -478,7 +478,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeature(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
@@ -500,7 +500,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeature(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
@@ -522,7 +522,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeature(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
@@ -566,15 +566,15 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
@@ -594,15 +594,15 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataMenuItem);
@@ -622,15 +622,15 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10000000");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
@@ -680,7 +680,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureToEdit");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
-		_frameTestUtil.addEnteredFeature(_frame._addFeatureButton);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeature(0);
 
