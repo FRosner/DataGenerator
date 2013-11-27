@@ -47,6 +47,10 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		addEnteredFeature(_menu._addFeatureButton);
 	}
 
+	void tryToEditEnteredFeature() {
+		addEnteredFeature(_menu._editFeatureButton);
+	}
+
 	void addEnteredFeature(final AbstractButton buttonPerformedWith) {
 		new Thread(new Runnable() {
 			@Override
@@ -63,7 +67,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void openAndCancelFeatureDialog() {
+	void openAndCancelAddFeatureDialog() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -101,6 +105,38 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 				});
 				delay(DIALOG_OPEN_DELAY / 2);
 				pressAndReleaseKey(KeyEvent.VK_ENTER);
+			}
+		}).start();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+			}
+		});
+	}
+
+	void openAndCancelEditFeatureDialog() {
+		final String featureName = _menu._featureNameField.getText();
+		final String gaussianMean = _menu._gaussianMeanField.getText();
+		final String gaussianSigma = _menu._gaussianSigmaField.getText();
+		final String bernoulliProbability = _menu._bernoulliProbabilityField.getText();
+		final String categorialNumberOfStates = _menu._uniformCategorialNumberOfStatesField.getText();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				delay(DIALOG_OPEN_DELAY / 2);
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() {
+						_menu._featureNameField.setText(featureName);
+						_menu._gaussianMeanField.setText(gaussianMean);
+						_menu._gaussianSigmaField.setText(gaussianSigma);
+						_menu._bernoulliProbabilityField.setText(bernoulliProbability);
+						_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+					}
+				});
+				delay(DIALOG_OPEN_DELAY / 2);
+				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
 			}
 		}).start();
 		GuiActionRunner.execute(new GuiTask() {
