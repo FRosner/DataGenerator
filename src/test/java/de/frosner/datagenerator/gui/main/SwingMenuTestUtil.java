@@ -59,22 +59,6 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void tryToEditEnteredFeature() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				delay(DIALOG_OPEN_DELAY);
-				pressAndReleaseKey(KeyEvent.VK_ENTER);
-			}
-		}).start();
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
-			}
-		});
-	}
-
 	void openAndCancelAddFeatureDialog(final AbstractButton button) {
 		new Thread(new Runnable() {
 			@Override
