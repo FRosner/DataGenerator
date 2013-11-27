@@ -43,11 +43,15 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void tryToAddEnteredFeature() {
+	void tryToAddEnteredFeatureWithMenuItem() {
+		addEnteredFeature(_menu._addFeatureMenuItem);
+	}
+
+	void tryToAddEnteredFeatureWithButton() {
 		addEnteredFeature(_menu._addFeatureButton);
 	}
 
-	void tryToEditEnteredFeature() {
+	void tryToEditEnteredFeatureWithButton() {
 		addEnteredFeature(_menu._editFeatureButton);
 	}
 
@@ -67,7 +71,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void openAndCancelAddFeatureDialog() {
+	void openAndCancelAddFeatureDialog(final AbstractButton buttonOrItem) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -78,7 +82,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
-				_menu.actionPerformed(new ActionEvent(_menu._addFeatureButton, 1, ""));
+				_menu.actionPerformed(new ActionEvent(buttonOrItem, 1, ""));
 			}
 		});
 	}

@@ -90,7 +90,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeature();
+		_frameTestUtil.tryToAddEnteredFeatureWithButton();
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -122,7 +122,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeature();
+		_frameTestUtil.tryToAddEnteredFeatureWithButton();
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -152,7 +152,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeature();
+		_frameTestUtil.tryToAddEnteredFeatureWithButton();
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -183,7 +183,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeature();
+		_frameTestUtil.tryToAddEnteredFeatureWithButton();
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -216,7 +216,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeature();
+		_frameTestUtil.tryToAddEnteredFeatureWithButton();
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -248,7 +248,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeature();
+		_frameTestUtil.tryToAddEnteredFeatureWithButton();
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -278,7 +278,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
-		_frameTestUtil.tryToAddEnteredFeature();
+		_frameTestUtil.tryToAddEnteredFeatureWithButton();
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
@@ -302,11 +302,21 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testVerifyWithCancel_addFeatureDialog() {
+	public void testVerifyWithCancel_addFeatureDialog_button() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
-		_frameTestUtil.openAndCancelAddFeatureDialog();
+		_frameTestUtil.openAndCancelAddFeatureDialog(_frame._addFeatureButton);
+		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
+		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
+	}
+
+	@Test
+	public void testVerifyWithCancel_addFeatureDialog_menuItem() {
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+
+		_frameTestUtil.openAndCancelAddFeatureDialog(_frame._addFeatureMenuItem);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
@@ -332,6 +342,17 @@ public class SwingMenuGuiTest {
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("FeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
 		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
+	}
+
+	@Test(timeout = TIMEOUT)
+	public void testVerifyWithOk_addFeatureDialog_menuItem() {
+		thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
+		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+
+		_frameTestUtil.tryToAddEnteredFeatureWithMenuItem();
+		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
 	@Test
