@@ -62,6 +62,10 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 		}
 	}
 
+	public boolean isEmpty() {
+		return _adjacentNodes.keySet().isEmpty();
+	}
+
 	public boolean isLeaf(@Nonnull FeatureDefinition definition) {
 		Check.notNull(definition);
 		if (!_adjacentNodes.containsKey(definition)) {

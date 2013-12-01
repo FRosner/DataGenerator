@@ -51,6 +51,14 @@ public class FeatureDefinitionGraphTest {
 	}
 
 	@Test
+	public void testIsEmpty() {
+		assertThat(_graph.isEmpty()).isTrue();
+		FeatureDefinition feature = new FeatureDefinition("feature1", new DummyDistribution());
+		_graph.addFeatureDefinition(feature);
+		assertThat(_graph.isEmpty()).isFalse();
+	}
+
+	@Test
 	public void testAddDependency() {
 		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
 		FeatureDefinition feature1_1 = new FeatureDefinition("feature1_1", new DummyDistribution());
