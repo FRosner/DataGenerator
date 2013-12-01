@@ -2,6 +2,8 @@ package de.frosner.datagenerator.generator;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -149,6 +151,30 @@ public class FeatureDefinitionGraphTest {
 		assertThat(_graph.getDependentParameters(feature1)).containsExactly(parameter1_1, parameter1_2);
 		assertThat(_graph.getDependentParameters(feature1_1)).isEmpty();
 		assertThat(_graph.getDependentParameters(feature1_2)).isEmpty();
+	}
+
+	@Test
+	public void testIterator() {
+		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
+		FeatureDefinition feature1_1 = new FeatureDefinition("feature1_1", new DummyDistribution());
+		Parameter parameter1_1 = new DummyParameter(0);
+		FeatureDefinition feature2 = new FeatureDefinition("feature2", new DummyDistribution());
+		FeatureDefinition feature2_1 = new FeatureDefinition("feature2_1", new DummyDistribution());
+		Parameter parameter2_1 = new DummyParameter(0);
+		FeatureDefinition feature3 = new FeatureDefinition("feature3", new DummyDistribution());
+
+		_graph.addFeatureDefinition(feature1);
+		_graph.addFeatureDefinition(feature2);
+		_graph.addFeatureDefinition(feature3);
+		_graph.addDependency(feature1, feature1_1, parameter1_1);
+		_graph.addDependency(feature2, feature2_1, parameter2_1);
+
+		Iterator<FeatureDefinition> iterator = _graph.iterator();
+		assertThat(iterator.next()).isEqualTo(feature1);
+		assertThat(iterator.next()).isEqualTo(feature2);
+		assertThat(iterator.next()).isEqualTo(feature3);
+		assertThat(iterator.next()).isEqualTo(feature1_1);
+		assertThat(iterator.next()).isEqualTo(feature2_1);
 	}
 
 }
