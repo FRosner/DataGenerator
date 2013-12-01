@@ -4,6 +4,8 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.Iterator;
 
+import net.sf.qualitycheck.exception.IllegalNullArgumentException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,6 +43,11 @@ public class FeatureDefinitionGraphTest {
 		assertThat(_graph.addFeatureDefinition(feature)).isFalse();
 		assertThat(_graph._adjacentNodes.keySet()).containsOnly(feature);
 		assertThat(_graph._insertionOrder).containsExactly(feature);
+	}
+
+	@Test(expected = IllegalNullArgumentException.class)
+	public void testAddFeatureDefinition_null() {
+		_graph.addFeatureDefinition(null);
 	}
 
 	@Test

@@ -26,6 +26,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 	final List<FeatureDefinition> _insertionOrder = Lists.newArrayList();
 
 	public boolean addFeatureDefinition(FeatureDefinition featureDefinition) {
+		Check.notNull(featureDefinition, "featureDefinition");
 		if (_adjacentNodes.containsKey(featureDefinition)) {
 			return false;
 		}
