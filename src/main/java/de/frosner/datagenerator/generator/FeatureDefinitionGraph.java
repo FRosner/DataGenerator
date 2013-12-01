@@ -42,9 +42,9 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 
 	public boolean addDependency(@Nonnull FeatureDefinition parentFeature, @Nonnull FeatureDefinition childFeature,
 			@Nonnull Parameter childParameter) {
-		Check.notNull(parentFeature);
-		Check.notNull(childFeature);
-		Check.notNull(childParameter);
+		Check.notNull(parentFeature, "parentFeature");
+		Check.notNull(childFeature, "childFeature");
+		Check.notNull(childParameter, "childParameter");
 		Check.stateIsTrue(_adjacentNodes.containsKey(parentFeature), "parent feature must be part of the graph");
 		Set<FeatureDefinitionParameterPair> children = _adjacentNodes.get(parentFeature);
 		FeatureDefinitionParameterPair pair = new FeatureDefinitionParameterPair(childFeature, childParameter);

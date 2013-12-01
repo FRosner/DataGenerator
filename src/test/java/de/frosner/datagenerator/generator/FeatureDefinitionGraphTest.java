@@ -125,6 +125,26 @@ public class FeatureDefinitionGraphTest {
 		_graph.addDependency(feature3, feature1, parameter1);
 	}
 
+	@Test(expected = IllegalNullArgumentException.class)
+	public void testAddDependency_nullParent() {
+		FeatureDefinition feature = new FeatureDefinition("feature", new DummyDistribution());
+		Parameter parameter = new DummyParameter(0);
+		_graph.addDependency(null, feature, parameter);
+	}
+
+	@Test(expected = IllegalNullArgumentException.class)
+	public void testAddDependency_nullChild() {
+		FeatureDefinition feature = new FeatureDefinition("feature", new DummyDistribution());
+		Parameter parameter = new DummyParameter(0);
+		_graph.addDependency(feature, null, parameter);
+	}
+
+	@Test(expected = IllegalNullArgumentException.class)
+	public void testAddDependency_nullParameter() {
+		FeatureDefinition feature = new FeatureDefinition("feature", new DummyDistribution());
+		_graph.addDependency(feature, feature, null);
+	}
+
 	@Test
 	public void testIsLeaf() {
 		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
