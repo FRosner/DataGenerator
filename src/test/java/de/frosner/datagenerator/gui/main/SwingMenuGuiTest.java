@@ -27,6 +27,7 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.BernoulliDistribution;
 import de.frosner.datagenerator.distributions.CategorialDistribution;
+import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
@@ -404,7 +405,8 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
-				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(0, 1)), "0", "1.0"));
+				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
+						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeature(0);
@@ -466,7 +468,8 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureMenuItem);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
-				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(0, 1)), "0", "1.0"));
+				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
+						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 	}
@@ -488,8 +491,8 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
-				new GaussianFeatureEntry(new FeatureDefinition("NewFeatureName", new GaussianDistribution(-1000, 2)),
-						"-1000", "2"));
+				new GaussianFeatureEntry(new FeatureDefinition("NewFeatureName", new GaussianDistribution(
+						new FixedParameter<Double>(-1000d), new FixedParameter<Double>(2d))), "-1000", "2"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-[0-9]+.*$");
 	}

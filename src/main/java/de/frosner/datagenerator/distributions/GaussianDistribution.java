@@ -18,8 +18,8 @@ public final class GaussianDistribution implements Distribution {
 	private static final String TYPE = "Gaussian";
 
 	private final Random _generator;
-	private final double _mean;
-	private final double _sigma;
+	private final Parameter<Double> _mean;
+	private final Parameter<Double> _sigma;
 
 	/**
 	 * Construct a {@linkplain GaussianDistribution} with the given mean and standard deviation.
@@ -27,7 +27,7 @@ public final class GaussianDistribution implements Distribution {
 	 * @param mean
 	 * @param sigma
 	 */
-	public GaussianDistribution(double mean, double sigma) {
+	public GaussianDistribution(Parameter<Double> mean, Parameter<Double> sigma) {
 		_generator = new Random();
 		_mean = mean;
 		_sigma = sigma;
@@ -40,7 +40,7 @@ public final class GaussianDistribution implements Distribution {
 
 	@Override
 	public FeatureValue sample() {
-		return new ContinuousFeatureValue(_generator.nextGaussian() * _sigma + _mean);
+		return new ContinuousFeatureValue(_generator.nextGaussian() * _sigma.getParameter() + _mean.getParameter());
 	}
 
 	@Override
@@ -62,9 +62,10 @@ public final class GaussianDistribution implements Distribution {
 	public boolean equals(Object o) {
 		if (o instanceof GaussianDistribution) {
 			GaussianDistribution gaussianDistribution = (GaussianDistribution) o;
-			return (gaussianDistribution._mean == _mean) && (gaussianDistribution._sigma == _sigma);
+			return (gaussianDistribution._mean.equals(_mean)) && (gaussianDistribution._sigma.equals(_sigma));
 		} else {
 			return false;
 		}
 	}
+
 }

@@ -55,6 +55,7 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.BernoulliDistribution;
 import de.frosner.datagenerator.distributions.CategorialDistribution;
+import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.exceptions.UnknownActionEventSourceException;
 import de.frosner.datagenerator.exceptions.UnsupportedSelectionException;
@@ -578,7 +579,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
 			double mean = Double.parseDouble(_gaussianMeanField.getText());
 			double sigma = Double.parseDouble(_gaussianSigmaField.getText());
-			featureDefinition = new FeatureDefinition(name, new GaussianDistribution(mean, sigma));
+			featureDefinition = new FeatureDefinition(name, new GaussianDistribution(new FixedParameter<Double>(mean),
+					new FixedParameter<Double>(sigma)));
 			featureListEntry = new GaussianFeatureEntry(featureDefinition, _gaussianMeanField.getText(),
 					_gaussianSigmaField.getText());
 

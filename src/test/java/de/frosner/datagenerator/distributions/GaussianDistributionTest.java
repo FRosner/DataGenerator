@@ -5,7 +5,6 @@ import static org.fest.assertions.Delta.delta;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -17,16 +16,12 @@ public class GaussianDistributionTest {
 
 	private GaussianDistribution _distribution;
 
-	@Before
-	public void createDistribution() {
-		_distribution = new GaussianDistribution(0, 1);
-	}
-
 	@Test
 	public void testSampleMeanAndSigma_nonStandard() {
 		double expectedMean = 5;
 		double expectedSigma = 10;
-		_distribution = new GaussianDistribution(expectedMean, expectedSigma);
+		_distribution = new GaussianDistribution(new FixedParameter<Double>(expectedMean), new FixedParameter<Double>(
+				expectedSigma));
 		_distribution.setSeed(43253);
 		assertThat(_distribution.sample()).isInstanceOf(ContinuousFeatureValue.class);
 		List<Double> samples = Lists.newArrayList();
