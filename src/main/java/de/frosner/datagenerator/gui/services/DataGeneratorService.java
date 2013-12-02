@@ -10,6 +10,7 @@ import de.frosner.datagenerator.export.ExportConfiguration;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
+import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 /**
@@ -39,7 +40,7 @@ public final class DataGeneratorService {
 	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
 		_featureDefinitions.add(featureDefinition);
 		TextAreaLogManager.info("Added Feature: " + featureDefinition.getName());
-		PreviewTableManager.generatePreview(_featureDefinitions);
+		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
 
 	/**
@@ -53,7 +54,7 @@ public final class DataGeneratorService {
 	 */
 	public void replaceFeatureDefinitionAt(int index, FeatureDefinition featureDefinition) {
 		TextAreaLogManager.info("Edited Feature: " + _featureDefinitions.set(index, featureDefinition).getName());
-		PreviewTableManager.generatePreview(_featureDefinitions);
+		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
 
 	/**
@@ -65,7 +66,7 @@ public final class DataGeneratorService {
 	 */
 	public void removeFeatureDefinition(int index) {
 		TextAreaLogManager.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
-		PreviewTableManager.generatePreview(_featureDefinitions);
+		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
 
 	/**
@@ -83,7 +84,8 @@ public final class DataGeneratorService {
 				_generating = true;
 				boolean aborted = false;
 				ExportConnection exportConnection = exportConfig.createExportConnection();
-				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, _featureDefinitions);
+				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection,
+						FeatureDefinitionGraph.createFromList(_featureDefinitions));
 				TextAreaLogManager.info("Generating " + numberOfInstances + " instances");
 				int range = 1000;
 				ProgressBarManager.resetProgress();

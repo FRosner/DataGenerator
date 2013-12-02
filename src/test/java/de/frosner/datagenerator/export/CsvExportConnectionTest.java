@@ -8,12 +8,11 @@ import java.io.OutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
-
 import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.exceptions.UncheckedIOException;
 import de.frosner.datagenerator.features.DummyFeatureValue;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
 import de.frosner.datagenerator.generator.Instance;
 
 public class CsvExportConnectionTest {
@@ -82,9 +81,10 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExportFeatureNames_oneFeature() {
+		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
+		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
 		_csvExportConnection = new CsvExportConnection(_out, true, false);
-		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("usheight",
-				new DummyDistribution())));
+		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.close();
 
 		assertThat(_out.toString()).isEqualTo("usheight" + "\n");
@@ -92,9 +92,11 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExportFeatureNames_twoFeatures() {
+		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
+		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
+		features.addFeatureDefinition(new FeatureDefinition("uswidth", new DummyDistribution()));
 		_csvExportConnection = new CsvExportConnection(_out, true, false);
-		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("usheight",
-				new DummyDistribution()), new FeatureDefinition("uswidth", new DummyDistribution())));
+		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.close();
 
 		assertThat(_out.toString()).isEqualTo("usheight" + "," + "uswidth" + "\n");
@@ -102,9 +104,10 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExportFeatureNames_doNotExportFeatureNames() {
+		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
+		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
 		_csvExportConnection = new CsvExportConnection(_out, false, false);
-		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("usheight",
-				new DummyDistribution())));
+		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.close();
 
 		assertThat(_out.toString()).isEmpty();
@@ -112,9 +115,10 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExportMetaData_exportInstanceIds() {
+		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
+		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
 		_csvExportConnection = new CsvExportConnection(_out, false, true);
-		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("test",
-				new DummyDistribution())));
+		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();
@@ -126,9 +130,10 @@ public class CsvExportConnectionTest {
 
 	@Test
 	public void testExportMetaData_exportInstanceIds_exportFeatureNames() {
+		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
+		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
 		_csvExportConnection = new CsvExportConnection(_out, true, true);
-		_csvExportConnection.exportMetaDataStrategy(Lists.newArrayList(new FeatureDefinition("test",
-				new DummyDistribution())));
+		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.close();

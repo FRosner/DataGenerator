@@ -17,6 +17,7 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
 import de.frosner.datagenerator.gui.main.VariableColumnCountTableModel;
 import de.frosner.datagenerator.util.GuiTestUtil;
 import de.frosner.datagenerator.util.SwingTests;
@@ -51,7 +52,8 @@ public class PreviewTableManagerTest {
 
 	@Test
 	public void testGeneratePreview() {
-		PreviewTableManager.generatePreview(Lists.newArrayList(new FeatureDefinition("Test", new DummyDistribution())));
+		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(Lists
+				.newArrayList(new FeatureDefinition("Test", new DummyDistribution()))));
 		_testUtil.delay();
 		assertThat(_table.getValueAt(0, 0)).isEqualTo("Test");
 		for (int row = 1; row < _table.getRowCount(); row++) {
@@ -62,8 +64,9 @@ public class PreviewTableManagerTest {
 	@Test
 	public void testGeneratePreview_increaseAndDecreaseColumnsOfTableModel() {
 		assertThat(_table.getColumnCount()).isEqualTo(1);
-		PreviewTableManager.generatePreview(Lists.newArrayList(new FeatureDefinition("Test", new DummyDistribution()),
-				new FeatureDefinition("Foo", new DummyDistribution())));
+		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(Lists.newArrayList(
+				new FeatureDefinition("Test", new DummyDistribution()), new FeatureDefinition("Foo",
+						new DummyDistribution()))));
 		_testUtil.delay();
 		assertThat(_table.getValueAt(0, 0)).isEqualTo("Test");
 		assertThat(_table.getValueAt(0, 1)).isEqualTo("Foo");
@@ -71,7 +74,8 @@ public class PreviewTableManagerTest {
 			assertThat(_table.getValueAt(row, 0)).isEqualTo(DummyDistribution.ANY_SAMPLE.toString());
 			assertThat(_table.getValueAt(row, 1)).isEqualTo(DummyDistribution.ANY_SAMPLE.toString());
 		}
-		PreviewTableManager.generatePreview(Lists.newArrayList(new FeatureDefinition("Test", new DummyDistribution())));
+		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(Lists
+				.newArrayList(new FeatureDefinition("Test", new DummyDistribution()))));
 		_testUtil.delay();
 		assertThat(_table.getColumnCount()).isEqualTo(1);
 	}

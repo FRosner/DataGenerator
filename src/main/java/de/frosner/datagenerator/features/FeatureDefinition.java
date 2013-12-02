@@ -6,6 +6,7 @@ import javax.annotation.concurrent.Immutable;
 import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.distributions.Distribution;
 import de.frosner.datagenerator.generator.DataGenerator;
+import de.frosner.datagenerator.generator.Instance;
 
 /**
  * This class contains all information about a feature, including the feature name and the underlying probability

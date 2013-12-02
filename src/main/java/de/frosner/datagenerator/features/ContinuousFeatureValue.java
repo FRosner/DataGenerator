@@ -25,6 +25,10 @@ public final class ContinuousFeatureValue implements FeatureValue {
 		return _value;
 	}
 
+	public double getDoubleValue() {
+		return _value;
+	}
+
 	@Override
 	public String getValueAsString() {
 		return Double.toString(_value);

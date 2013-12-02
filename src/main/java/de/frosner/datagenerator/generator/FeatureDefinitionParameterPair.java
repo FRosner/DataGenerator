@@ -1,15 +1,15 @@
 package de.frosner.datagenerator.generator;
 
 import net.sf.qualitycheck.Check;
-import de.frosner.datagenerator.distributions.Parameter;
+import de.frosner.datagenerator.distributions.VariableParameter;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
 public class FeatureDefinitionParameterPair {
 
 	private final FeatureDefinition _featureDefinition;
-	private final Parameter _parameter;
+	private final VariableParameter<?> _parameter;
 
-	public FeatureDefinitionParameterPair(FeatureDefinition featureDefinition, Parameter parameter) {
+	public FeatureDefinitionParameterPair(FeatureDefinition featureDefinition, VariableParameter<?> parameter) {
 		_featureDefinition = Check.notNull(featureDefinition);
 		_parameter = Check.notNull(parameter);
 	}
@@ -18,7 +18,7 @@ public class FeatureDefinitionParameterPair {
 		return _featureDefinition;
 	}
 
-	public Parameter getParameter() {
+	public VariableParameter<?> getParameter() {
 		return _parameter;
 	}
 

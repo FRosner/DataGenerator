@@ -1,18 +1,14 @@
 package de.frosner.datagenerator.gui.services;
 
-import java.util.List;
-
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
 import net.sf.qualitycheck.Check;
-
-import com.google.common.collect.Lists;
-
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.generator.DataGenerator;
+import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
 import de.frosner.datagenerator.generator.Instance;
 import de.frosner.datagenerator.gui.main.VariableColumnCountTableModel;
 
@@ -50,7 +46,7 @@ public final class PreviewTableManager {
 		}
 
 		@Override
-		public void exportMetaDataStrategy(List<FeatureDefinition> featureDefinitions) {
+		public void exportMetaDataStrategy(FeatureDefinitionGraph featureDefinitions) {
 			int columnIndex = 0;
 			for (FeatureDefinition featureDefinition : featureDefinitions) {
 				if (columnIndex < _table.getColumnCount()) {
@@ -96,11 +92,11 @@ public final class PreviewTableManager {
 	 * @param features
 	 *            to generate values from
 	 */
-	public static void generatePreview(List<FeatureDefinition> features) {
-		final List<FeatureDefinition> featuresCopy = Lists.newArrayList(features);
+	public static void generatePreview(FeatureDefinitionGraph features) {
+		final FeatureDefinitionGraph featuresCopy = FeatureDefinitionGraph.createCopyOf(features);
 		clearPreviewTable();
 		if (_table != null && !features.isEmpty()) {
-			int columnDifference = features.size() - _table.getColumnCount();
+			int columnDifference = features.getNumberOfFeatures() - _table.getColumnCount();
 			if (columnDifference > 0) {
 				for (int i = 0; i < columnDifference; i++) {
 					_table.addColumn();

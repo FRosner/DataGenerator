@@ -12,8 +12,9 @@ import net.sf.qualitycheck.Check;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
-import de.frosner.datagenerator.distributions.Parameter;
+import de.frosner.datagenerator.distributions.VariableParameter;
 import de.frosner.datagenerator.exceptions.CircularDependencyException;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.util.VisibleForTesting;
@@ -24,6 +25,25 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 	final Map<FeatureDefinition, Set<FeatureDefinitionParameterPair>> _adjacentNodes = Maps.newHashMap();
 	@VisibleForTesting
 	final List<FeatureDefinition> _insertionOrder = Lists.newArrayList();
+
+	public static FeatureDefinitionGraph createCopyOf(FeatureDefinitionGraph graph) {
+		FeatureDefinitionGraph copy = new FeatureDefinitionGraph();
+		for (FeatureDefinition featureDefinition : graph._adjacentNodes.keySet()) {
+			Set<FeatureDefinitionParameterPair> dependencies = Sets.newHashSet();
+			dependencies.addAll(graph._adjacentNodes.get(featureDefinition));
+			copy._adjacentNodes.put(featureDefinition, dependencies);
+		}
+		copy._insertionOrder.addAll(graph._insertionOrder);
+		return copy;
+	}
+
+	public static FeatureDefinitionGraph createFromList(List<FeatureDefinition> featureDefinitions) {
+		FeatureDefinitionGraph graph = new FeatureDefinitionGraph();
+		for (FeatureDefinition featureDefinition : featureDefinitions) {
+			graph.addFeatureDefinition(featureDefinition);
+		}
+		return graph;
+	}
 
 	public boolean addFeatureDefinition(FeatureDefinition featureDefinition) {
 		Check.notNull(featureDefinition, "featureDefinition");
@@ -41,7 +61,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 	}
 
 	public boolean addDependency(@Nonnull FeatureDefinition parentFeature, @Nonnull FeatureDefinition childFeature,
-			@Nonnull Parameter childParameter) {
+			@Nonnull VariableParameter<?> childParameter) {
 		Check.notNull(parentFeature, "parentFeature");
 		Check.notNull(childFeature, "childFeature");
 		Check.notNull(childParameter, "childParameter");
@@ -74,9 +94,9 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 		return _adjacentNodes.get(definition).isEmpty();
 	}
 
-	public List<Parameter> getDependentParameters(@Nonnull FeatureDefinition definition) {
+	public List<VariableParameter<?>> getDependentParameters(@Nonnull FeatureDefinition definition) {
 		Check.notNull(definition);
-		List<Parameter> dependentParameters = Lists.newArrayList();
+		List<VariableParameter<?>> dependentParameters = Lists.newArrayList();
 		for (FeatureDefinitionParameterPair pair : _adjacentNodes.get(definition)) {
 			dependentParameters.add(pair.getParameter());
 		}
@@ -86,6 +106,15 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 	@Override
 	public Iterator<FeatureDefinition> iterator() {
 		return _insertionOrder.iterator();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof FeatureDefinitionGraph) {
+			FeatureDefinitionGraph graph = (FeatureDefinitionGraph) o;
+			return graph._adjacentNodes.equals(_adjacentNodes) && graph._insertionOrder.equals(_insertionOrder);
+		}
+		return false;
 	}
 
 	private boolean containsPath(FeatureDefinition start, FeatureDefinition goal) {
@@ -98,6 +127,10 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 			}
 		}
 		return false;
+	}
+
+	public int getNumberOfFeatures() {
+		return _insertionOrder.size();
 	}
 
 }

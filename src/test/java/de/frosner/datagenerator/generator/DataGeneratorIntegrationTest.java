@@ -42,8 +42,12 @@ public class DataGeneratorIntegrationTest {
 		FeatureDefinition featureD = new FeatureDefinition("D", new GaussianDistribution(-9, 1));
 		FeatureDefinition featureE = new FeatureDefinition("E", new GaussianDistribution(5.4234324235235345E+14,
 				2.243847294729784E+16));
-		List<FeatureDefinition> featureDefinitions = Lists.newArrayList(featureA, featureB, featureC, featureD,
-				featureE);
+		FeatureDefinitionGraph featureDefinitions = new FeatureDefinitionGraph();
+		featureDefinitions.addFeatureDefinition(featureA);
+		featureDefinitions.addFeatureDefinition(featureB);
+		featureDefinitions.addFeatureDefinition(featureC);
+		featureDefinitions.addFeatureDefinition(featureD);
+		featureDefinitions.addFeatureDefinition(featureE);
 
 		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, featureDefinitions);
 		_dataGenerator.generate();
@@ -67,7 +71,9 @@ public class DataGeneratorIntegrationTest {
 		FeatureDefinition featureA = new FeatureDefinition("A", new BernoulliDistribution(0.4));
 		FeatureDefinition featureB = new FeatureDefinition("B", new CategorialDistribution(Lists.newArrayList(0.10,
 				0.4, 0.45, 0.05)));
-		List<FeatureDefinition> featureDefinitions = Lists.newArrayList(featureA, featureB);
+		FeatureDefinitionGraph featureDefinitions = new FeatureDefinitionGraph();
+		featureDefinitions.addFeatureDefinition(featureA);
+		featureDefinitions.addFeatureDefinition(featureB);
 
 		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, featureDefinitions);
 		_dataGenerator.generate();

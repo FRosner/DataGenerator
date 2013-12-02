@@ -1,15 +1,17 @@
 package de.frosner.datagenerator.distributions;
 
-public abstract class Parameter {
+import de.frosner.datagenerator.features.FeatureValue;
 
-	public abstract double getParameter();
+public abstract class Parameter<T> {
 
-	public abstract void setParameter(double parameter);
+	public abstract T getParameter();
+
+	public abstract void updateParameter(FeatureValue value);
 
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Parameter) {
-			return Double.compare(((Parameter) o).getParameter(), getParameter()) == 0;
+			return ((Parameter<?>) o).getParameter().equals(getParameter());
 		}
 		return false;
 	}

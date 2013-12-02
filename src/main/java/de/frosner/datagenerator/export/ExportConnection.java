@@ -1,15 +1,13 @@
 package de.frosner.datagenerator.export;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import net.sf.qualitycheck.Check;
 import net.sf.qualitycheck.exception.IllegalEmptyArgumentException;
 import de.frosner.datagenerator.exceptions.IllegalMethodCallSequenceException;
 import de.frosner.datagenerator.exceptions.MethodNotCallableTwiceException;
-import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
+import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
 import de.frosner.datagenerator.generator.Instance;
 
 /**
@@ -42,17 +40,19 @@ public abstract class ExportConnection {
 	 *             Will be thrown if this method is called after instances have already been exported. This is not
 	 *             permitted as it could destroy the output format.
 	 */
-	public void exportMetaData(@Nonnull List<FeatureDefinition> featureDefinitions) {
+	public void exportMetaData(@Nonnull FeatureDefinitionGraph featureDefinitions) {
 		Check.stateIsTrue(!_alreadyInstancesExported, IllegalMethodCallSequenceException.class);
 		Check.stateIsTrue(!_metaDataAlreadyExported, MethodNotCallableTwiceException.class);
 		_metaDataAlreadyExported = true;
 
-		Check.notEmpty(featureDefinitions);
+		if (featureDefinitions.isEmpty()) {
+			throw new IllegalEmptyArgumentException("featureDefinitions");
+		}
 		Check.noNullElements(featureDefinitions);
 		exportMetaDataStrategy(featureDefinitions);
 	}
 
-	protected abstract void exportMetaDataStrategy(List<FeatureDefinition> featureDefinitions);
+	protected abstract void exportMetaDataStrategy(FeatureDefinitionGraph featureDefinitions);
 
 	/**
 	 * Calling this method will export the supplied {@linkplain Instance} to the {@linkplain ExportConnection}. Export

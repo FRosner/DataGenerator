@@ -590,8 +590,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(_featureDefinitionDialog
-							.getFeatureToEdit(), featureDefinition);
+					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(
+							_featureDefinitionDialog.getFeatureToEdit(), featureDefinition);
 				}
 			}).start();
 			_featureListModel.setElementAt(featureListEntry, _featureDefinitionDialog.getFeatureToEdit());
@@ -619,8 +619,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					.isProbability());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			return verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
-					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
+			return verifyComponent(_uniformCategorialNumberOfStatesField,
+					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
 			return verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
