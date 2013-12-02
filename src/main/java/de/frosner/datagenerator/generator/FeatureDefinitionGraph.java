@@ -60,8 +60,8 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 		_insertionOrder.remove(featureDefinition);
 	}
 
-	public boolean addDependentFeatureDefinition(@Nonnull FeatureDefinition parentFeature, @Nonnull FeatureDefinition childFeature,
-			@Nonnull VariableParameter<?> childParameter) {
+	public boolean addDependentFeatureDefinition(@Nonnull FeatureDefinition parentFeature,
+			@Nonnull FeatureDefinition childFeature, @Nonnull VariableParameter<?> childParameter) {
 		Check.notNull(parentFeature, "parentFeature");
 		Check.notNull(childFeature, "childFeature");
 		Check.notNull(childParameter, "childParameter");
@@ -117,6 +117,10 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 		return false;
 	}
 
+	public int getNumberOfFeatures() {
+		return _insertionOrder.size();
+	}
+
 	private boolean containsPath(FeatureDefinition start, FeatureDefinition goal) {
 		if (start.equals(goal)) {
 			return true;
@@ -127,10 +131,6 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 			}
 		}
 		return false;
-	}
-
-	public int getNumberOfFeatures() {
-		return _insertionOrder.size();
 	}
 
 }
