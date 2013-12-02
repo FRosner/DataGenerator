@@ -10,7 +10,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import de.frosner.datagenerator.distributions.DummyDistribution;
+import de.frosner.datagenerator.distributions.ParameterizedDummyDistribution;
+import de.frosner.datagenerator.distributions.VariableDummyParameter;
 import de.frosner.datagenerator.export.ExportConnection;
+import de.frosner.datagenerator.features.DummyFeatureValue;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
 public class DataGeneratorTest {
@@ -71,6 +74,21 @@ public class DataGeneratorTest {
 					new Instance(i, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE,
 							DummyDistribution.ANY_SAMPLE));
 		}
+	}
+
+	@Test
+	public void testGenerateInstancesWithDependencies() {
+		VariableDummyParameter dependentParameter = new VariableDummyParameter();
+		FeatureDefinition dependentFeature = new FeatureDefinition("D", new ParameterizedDummyDistribution(
+				dependentParameter));
+		_graph.addFeatureDefinition(_x);
+		_graph.addDependency(_x, dependentFeature, dependentParameter);
+
+		_generator = new DataGenerator(1, _mockedOut, _graph);
+		_generator.generate();
+		verify(_mockedOut).exportMetaData(_graph);
+		verify(_mockedOut).exportInstance(
+				new Instance(0, DummyDistribution.ANY_SAMPLE, new DummyFeatureValue(DummyDistribution.ANY_SAMPLE)));
 	}
 
 }
