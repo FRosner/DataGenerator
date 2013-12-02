@@ -82,7 +82,7 @@ public class DataGeneratorTest {
 		FeatureDefinition dependentFeature = new FeatureDefinition("D", new ParameterizedDummyDistribution(
 				dependentParameter));
 		_graph.addFeatureDefinition(_x);
-		_graph.addDependency(_x, dependentFeature, dependentParameter);
+		_graph.addDependentFeatureDefinition(_x, dependentFeature, dependentParameter);
 
 		_generator = new DataGenerator(1, _mockedOut, _graph);
 		_generator.generate();

@@ -114,8 +114,8 @@ public class DataGeneratorIntegrationTest {
 
 		_featureDefinitions.addFeatureDefinition(meanFeature);
 		_featureDefinitions.addFeatureDefinition(sigmaFeature);
-		_featureDefinitions.addDependency(meanFeature, dependentFeature, meanParameter);
-		_featureDefinitions.addDependency(sigmaFeature, dependentFeature, sigmaParameter);
+		_featureDefinitions.addDependentFeatureDefinition(meanFeature, dependentFeature, meanParameter);
+		_featureDefinitions.addDependentFeatureDefinition(sigmaFeature, dependentFeature, sigmaParameter);
 
 		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
 		_dataGenerator.generate();
