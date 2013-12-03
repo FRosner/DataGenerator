@@ -10,14 +10,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import de.frosner.datagenerator.distributions.BernoulliDistribution;
 import de.frosner.datagenerator.distributions.CategorialDistribution;
 import de.frosner.datagenerator.distributions.ContinuousVariableParameter;
+import de.frosner.datagenerator.distributions.DiscreteVariableParameter;
 import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.export.CsvExportConnection;
 import de.frosner.datagenerator.export.ExportConnection;
+import de.frosner.datagenerator.features.DiscreteFeatureValue;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.util.ExportFormatReaderUtil;
 
@@ -146,6 +149,45 @@ public class DataGeneratorIntegrationTest {
 		for (String gaussian : gaussianValues) {
 			assertThat(gaussian).matches(arbitraryDoubleFormat);
 		}
+	}
+
+	@Test
+	public void testDataGenerator_csvExport_bernoulliFeatureWithBernoulliPrior() {
+		_numberOfInstances = 100;
+		_exportConnection = new CsvExportConnection(_out, true, false);
+
+		FeatureDefinition coinA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(0.5)));
+
+		Map<DiscreteFeatureValue, Double> bCoins = Maps.newHashMap();
+		bCoins.put(new DiscreteFeatureValue(0), 0d);
+		bCoins.put(new DiscreteFeatureValue(1), 1d);
+		DiscreteVariableParameter<Double> bParameter = new DiscreteVariableParameter<Double>(bCoins);
+		FeatureDefinition coinB = new FeatureDefinition("B", new BernoulliDistribution(bParameter));
+
+		_featureDefinitions.addFeatureDefinition(coinA);
+		_featureDefinitions.addDependentFeatureDefinition(coinA, coinB, bParameter);
+
+		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
+		_dataGenerator.generate();
+		_exportConnection.close();
+
+		Map<String, List<String>> csv = ExportFormatReaderUtil.readCsvWithHeader(_out.toString(), ",");
+		assertThat(csv.keySet()).containsOnly("A", "B");
+
+		for (List<String> column : csv.values()) {
+			assertThat(column).hasSize(_numberOfInstances);
+		}
+
+		List<String> aValues = csv.get("A");
+		List<String> bValues = csv.get("B");
+		for (int row = 0; row < _numberOfInstances; row++) {
+			if (aValues.get(row).equals("0")) {
+				assertThat(bValues.get(row)).isEqualTo("0");
+			} else {
+				assertThat(bValues.get(row)).isEqualTo("1");
+			}
+		}
+
 	}
 
 }

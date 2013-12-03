@@ -2,6 +2,7 @@ package de.frosner.datagenerator.distributions;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
@@ -28,17 +29,20 @@ public class BernoulliDistribution implements Distribution {
 	 * @param p
 	 *            of success
 	 */
-	public BernoulliDistribution(Parameter<Double> p) {
-		Check.stateIsTrue(p.getParameter() >= 0 && p.getParameter() <= 1, IllegalProbabilityArgumentException.class);
+	public BernoulliDistribution(@Nonnull Parameter<Double> p) {
+		Check.notNull(p);
+
 		_p = p;
 		_random = new Random();
 	}
 
 	@Override
 	public FeatureValue sample() {
+		double pValue = _p.getParameter();
+		Check.stateIsTrue(pValue >= 0 && pValue <= 1, IllegalProbabilityArgumentException.class);
+
 		double randomNumber = _random.nextDouble();
-		return (Double.compare(randomNumber, _p.getParameter()) < 0) ? new DiscreteFeatureValue(1)
-				: new DiscreteFeatureValue(0);
+		return (Double.compare(randomNumber, pValue) < 0) ? new DiscreteFeatureValue(1) : new DiscreteFeatureValue(0);
 	}
 
 	@Override
