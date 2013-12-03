@@ -1,8 +1,17 @@
 package de.frosner.datagenerator.util;
 
 import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.sf.qualitycheck.Check;
+
+import org.apache.commons.math3.util.Precision;
+
+import com.google.common.collect.Lists;
+
+import de.frosner.datagenerator.exceptions.IllegalProbabilityArgumentException;
 
 public final class StatisticsUtil {
 
@@ -57,6 +66,27 @@ public final class StatisticsUtil {
 		} else {
 			throw new UnsupportedNumberTypeException();
 		}
+	}
+
+	public static List<Double> cumulateProbabilities(@Nonnull List<Double> probabilities) {
+		Check.notNull(probabilities, "probabilities");
+		Check.stateIsTrue(compareDoubles(StatisticsUtil.sum(probabilities), 1.0D) == 0,
+				IllegalProbabilityArgumentException.class);
+
+		List<Double> cumulativeProbabilities = Lists.newArrayList();
+		for (double probability : probabilities) {
+			if (cumulativeProbabilities.isEmpty()) {
+				cumulativeProbabilities.add(probability);
+			} else {
+				cumulativeProbabilities.add(cumulativeProbabilities.get(cumulativeProbabilities.size() - 1)
+						+ probability);
+			}
+		}
+		return cumulativeProbabilities;
+	}
+
+	public static int compareDoubles(double a, double b) {
+		return Precision.compareTo(a, b, 0.0001);
 	}
 
 }

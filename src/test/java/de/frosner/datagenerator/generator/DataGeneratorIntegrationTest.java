@@ -76,8 +76,8 @@ public class DataGeneratorIntegrationTest {
 		_exportConnection = new CsvExportConnection(_out, true, false);
 		FeatureDefinition featureA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(
 				0.4)));
-		FeatureDefinition featureB = new FeatureDefinition("B", new CategorialDistribution(Lists.newArrayList(0.10,
-				0.4, 0.45, 0.05)));
+		FeatureDefinition featureB = new FeatureDefinition("B", new CategorialDistribution(
+				new FixedParameter<List<Double>>(Lists.newArrayList(0.10, 0.4, 0.45, 0.05))));
 		_featureDefinitions.addFeatureDefinition(featureA);
 		_featureDefinitions.addFeatureDefinition(featureB);
 

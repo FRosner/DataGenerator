@@ -19,7 +19,7 @@ public class CategorialDistributionTest {
 
 	@Before
 	public void createDistribution() {
-		_distribution = new CategorialDistribution(Lists.newArrayList(0.6, 0.3, 0.1));
+		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(Lists.newArrayList(0.6, 0.3, 0.1)));
 	}
 
 	@Test

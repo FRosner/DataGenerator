@@ -572,7 +572,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			for (int i = 0; i < numberOfStates; i++) {
 				probabilities.add(1D / numberOfStates);
 			}
-			featureDefinition = new FeatureDefinition(name, new CategorialDistribution(probabilities));
+			featureDefinition = new FeatureDefinition(name, new CategorialDistribution(
+					new FixedParameter<List<Double>>(probabilities)));
 			featureListEntry = new UniformCategorialFeatureEntry(featureDefinition,
 					_uniformCategorialNumberOfStatesField.getText());
 

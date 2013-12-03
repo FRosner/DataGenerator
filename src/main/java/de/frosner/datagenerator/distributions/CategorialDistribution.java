@@ -6,13 +6,6 @@ import java.util.Random;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
-
-import org.apache.commons.math3.util.Precision;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-
-import de.frosner.datagenerator.exceptions.IllegalProbabilityArgumentException;
 import de.frosner.datagenerator.features.DiscreteFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.util.StatisticsUtil;
@@ -23,23 +16,13 @@ public final class CategorialDistribution implements Distribution {
 
 	private static final String TYPE = "Categorial";
 
-	private final List<Double> _probabilities;
-	private final List<Double> _cumulativeProbabilities;
+	private final Parameter<List<Double>> _probabilities;
 	private final Random _random;
 
-	public CategorialDistribution(List<Double> probabilities) {
-		Check.stateIsTrue(compare(StatisticsUtil.sum(probabilities), 1.0D) == 0,
-				IllegalProbabilityArgumentException.class);
-		_probabilities = ImmutableList.copyOf(probabilities);
-		_cumulativeProbabilities = Lists.newArrayList();
-		for (double probability : _probabilities) {
-			if (_cumulativeProbabilities.isEmpty()) {
-				_cumulativeProbabilities.add(probability);
-			} else {
-				_cumulativeProbabilities.add(_cumulativeProbabilities.get(_cumulativeProbabilities.size() - 1)
-						+ probability);
-			}
-		}
+	public CategorialDistribution(Parameter<List<Double>> probabilities) {
+		Check.notNull(probabilities, "probabilities");
+
+		_probabilities = probabilities;
 		_random = new Random();
 	}
 
@@ -47,8 +30,9 @@ public final class CategorialDistribution implements Distribution {
 	public FeatureValue sample() {
 		double randomValue = _random.nextDouble();
 		int featureValue = 0;
-		for (double threshold : _cumulativeProbabilities) {
-			if (compare(randomValue, threshold) <= 0) {
+		List<Double> cumulativeProbabilities = StatisticsUtil.cumulateProbabilities(_probabilities.getParameter());
+		for (double threshold : cumulativeProbabilities) {
+			if (StatisticsUtil.compareDoubles(randomValue, threshold) <= 0) {
 				return new DiscreteFeatureValue(featureValue);
 			}
 			featureValue++;
@@ -83,10 +67,6 @@ public final class CategorialDistribution implements Distribution {
 	@VisibleForTesting
 	void setSeed(long seed) {
 		_random.setSeed(seed);
-	}
-
-	private static int compare(double a, double b) {
-		return Precision.compareTo(a, b, 0.0001);
 	}
 
 }

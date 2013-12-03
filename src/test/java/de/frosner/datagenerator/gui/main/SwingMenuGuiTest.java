@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
@@ -448,8 +449,8 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
-				new UniformCategorialFeatureEntry(new FeatureDefinition("Feature", new CategorialDistribution(Lists
-						.newArrayList(1D))), "1"));
+				new UniformCategorialFeatureEntry(new FeatureDefinition("Feature", new CategorialDistribution(
+						new FixedParameter<List<Double>>(Lists.newArrayList(1D)))), "1"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
 		_frameTestUtil.selectFeature(0);
@@ -536,7 +537,7 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
 				new UniformCategorialFeatureEntry(new FeatureDefinition("NewFeatureName", new CategorialDistribution(
-						Lists.newArrayList(0.5, 0.5))), "2"));
+						new FixedParameter<List<Double>>(Lists.newArrayList(0.5, 0.5)))), "2"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^(0|1)$");
 	}
