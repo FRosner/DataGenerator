@@ -36,7 +36,7 @@ public class DataGeneratorIntegrationTest {
 	}
 
 	@Test
-	public void testDataGenerator_csvExport_continuousFeatures() {
+	public void testDataGenerator_csvExport_continuousFeatures_noDependencies() {
 		_numberOfInstances = 100;
 		_exportConnection = new CsvExportConnection(_out, true, false);
 		FeatureDefinition featureA = new FeatureDefinition("A", new GaussianDistribution(new FixedParameter<Double>(
@@ -71,7 +71,7 @@ public class DataGeneratorIntegrationTest {
 	}
 
 	@Test
-	public void testDataGenerator_csvExport_discreteFeatures() {
+	public void testDataGenerator_csvExport_discreteFeatures_noDependencies() {
 		_numberOfInstances = 100;
 		_exportConnection = new CsvExportConnection(_out, true, false);
 		FeatureDefinition featureA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(
@@ -101,7 +101,7 @@ public class DataGeneratorIntegrationTest {
 	}
 
 	@Test
-	public void testDataGenerator_csvExport_dependentGaussianFeature() {
+	public void testDataGenerator_csvExport_gaussianFeatureWithGaussianPriors() {
 		_numberOfInstances = 100;
 		_exportConnection = new CsvExportConnection(_out, true, false);
 		FeatureDefinition meanFeature = new FeatureDefinition("Mean", new GaussianDistribution(
