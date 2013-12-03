@@ -5,7 +5,6 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.util.List;
 
 import org.fest.assertions.Delta;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -17,13 +16,9 @@ public class BernoulliDistributionTest {
 
 	private BernoulliDistribution _distribution;
 
-	@Before
-	public void createDistribution() {
-		_distribution = new BernoulliDistribution(0.4);
-	}
-
 	@Test
 	public void testSample() {
+		_distribution = new BernoulliDistribution(new FixedParameter<Double>(0.4));
 		_distribution.setSeed(43253);
 		assertThat(_distribution.sample()).isInstanceOf(DiscreteFeatureValue.class);
 		List<Integer> samples = Lists.newArrayList();

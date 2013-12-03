@@ -74,7 +74,8 @@ public class DataGeneratorIntegrationTest {
 	public void testDataGenerator_csvExport_discreteFeatures() {
 		_numberOfInstances = 100;
 		_exportConnection = new CsvExportConnection(_out, true, false);
-		FeatureDefinition featureA = new FeatureDefinition("A", new BernoulliDistribution(0.4));
+		FeatureDefinition featureA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(
+				0.4)));
 		FeatureDefinition featureB = new FeatureDefinition("B", new CategorialDistribution(Lists.newArrayList(0.10,
 				0.4, 0.45, 0.05)));
 		_featureDefinitions.addFeatureDefinition(featureA);

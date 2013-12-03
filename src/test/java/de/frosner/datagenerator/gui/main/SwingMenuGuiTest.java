@@ -339,7 +339,8 @@ public class SwingMenuGuiTest {
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
-				new BernoulliFeatureEntry(new FeatureDefinition("FeatureName", new BernoulliDistribution(0)), "0.0"));
+				new BernoulliFeatureEntry(new FeatureDefinition("FeatureName", new BernoulliDistribution(
+						new FixedParameter<Double>(0d))), "0.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("FeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
 		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
@@ -426,7 +427,8 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.get(0)).isEqualTo(
-				new BernoulliFeatureEntry(new FeatureDefinition("Feature", new BernoulliDistribution(1)), "1.0"));
+				new BernoulliFeatureEntry(new FeatureDefinition("Feature", new BernoulliDistribution(
+						new FixedParameter<Double>(1d))), "1.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 		_frameTestUtil.selectFeature(0);
@@ -511,10 +513,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0))
-				.isEqualTo(
-						new BernoulliFeatureEntry(
-								new FeatureDefinition("NewFeatureName", new BernoulliDistribution(1)), "1.0"));
+		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+				new BernoulliFeatureEntry(new FeatureDefinition("NewFeatureName", new BernoulliDistribution(
+						new FixedParameter<Double>(1d))), "1.0"));
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 	}

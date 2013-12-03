@@ -19,7 +19,7 @@ public class BernoulliDistribution implements Distribution {
 
 	private static final String TYPE = "Bernoulli";
 
-	private final double _p;
+	private final Parameter<Double> _p;
 	private final Random _random;
 
 	/**
@@ -28,8 +28,8 @@ public class BernoulliDistribution implements Distribution {
 	 * @param p
 	 *            of success
 	 */
-	public BernoulliDistribution(double p) {
-		Check.stateIsTrue(p >= 0 && p <= 1, IllegalProbabilityArgumentException.class);
+	public BernoulliDistribution(Parameter<Double> p) {
+		Check.stateIsTrue(p.getParameter() >= 0 && p.getParameter() <= 1, IllegalProbabilityArgumentException.class);
 		_p = p;
 		_random = new Random();
 	}
@@ -37,7 +37,8 @@ public class BernoulliDistribution implements Distribution {
 	@Override
 	public FeatureValue sample() {
 		double randomNumber = _random.nextDouble();
-		return (Double.compare(randomNumber, _p) < 0) ? new DiscreteFeatureValue(1) : new DiscreteFeatureValue(0);
+		return (Double.compare(randomNumber, _p.getParameter()) < 0) ? new DiscreteFeatureValue(1)
+				: new DiscreteFeatureValue(0);
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class BernoulliDistribution implements Distribution {
 
 	@Override
 	public String getParameterDescription() {
-		return "p = " + _p;
+		return "p = " + _p.getParameter();
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class BernoulliDistribution implements Distribution {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof BernoulliDistribution) {
-			return ((BernoulliDistribution) o)._p == _p;
+			return ((BernoulliDistribution) o)._p.equals(_p);
 		} else {
 			return false;
 		}

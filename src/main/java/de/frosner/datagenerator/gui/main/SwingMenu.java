@@ -563,7 +563,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		if (selectedItem.equals(BernoulliFeatureEntry.KEY)) {
 			double p = Double.parseDouble(_bernoulliProbabilityField.getText());
-			featureDefinition = new FeatureDefinition(name, new BernoulliDistribution(p));
+			featureDefinition = new FeatureDefinition(name, new BernoulliDistribution(new FixedParameter<Double>(p)));
 			featureListEntry = new BernoulliFeatureEntry(featureDefinition, _bernoulliProbabilityField.getText());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
