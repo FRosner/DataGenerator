@@ -128,6 +128,10 @@ public class DataGeneratorIntegrationTest {
 		String negativeDoubleFormat = "^\\-[0-9]+\\.[0-9]+(E\\-?[0-9]+)?$";
 		String positiveDoubleFormat = "^[0-9]+\\.[0-9]+(E\\-?[0-9]+)?$";
 
+		for (List<String> column : csv.values()) {
+			assertThat(column).hasSize(_numberOfInstances);
+		}
+
 		List<String> meanValues = csv.get("Mean");
 		for (String means : meanValues) {
 			assertThat(means).matches(negativeDoubleFormat);
