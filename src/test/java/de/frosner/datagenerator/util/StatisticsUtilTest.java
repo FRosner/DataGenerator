@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.exceptions.IllegalProbabilityArgumentException;
+import de.frosner.datagenerator.util.StatisticsUtil.UnsupportedNumberTypeException;
 
 public class StatisticsUtilTest {
 
@@ -73,6 +74,13 @@ public class StatisticsUtilTest {
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(new Long(1));
 		collection.add(new Long(2));
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(new Long(3));
+	}
+
+
+	@Test(expected = UnsupportedNumberTypeException.class)
+	public void testSumWithUnsupportedNumberType() {
+		List<Byte> collection = Lists.newArrayList(new Byte("0"));
+		StatisticsUtil.sum(collection);
 	}
 
 }
