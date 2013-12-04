@@ -53,4 +53,5 @@ public class BernoulliDistributionTest {
 		_distribution = new BernoulliDistribution(parameter);
 		_distribution.sample();
 	}
+
 }
