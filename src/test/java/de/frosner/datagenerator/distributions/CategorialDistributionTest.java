@@ -1,6 +1,8 @@
 package de.frosner.datagenerator.distributions;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
+import de.frosner.datagenerator.exceptions.IllegalProbabilityArgumentException;
 import de.frosner.datagenerator.features.DiscreteFeatureValue;
 import de.frosner.datagenerator.util.StatisticsTestUtil;
 
@@ -39,6 +42,21 @@ public class CategorialDistributionTest {
 	@Test(expected = IllegalNullArgumentException.class)
 	public void testCreate_nullArgument() {
 		new CategorialDistribution(null);
+	}
+
+	@Test(expected = IllegalProbabilityArgumentException.class)
+	public void testSample_illegalFixedParameter() {
+		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(Lists.newArrayList(0.4)));
+		_distribution.sample();
+	}
+
+	@Test(expected = IllegalProbabilityArgumentException.class)
+	public void testSample_illegalVariableParameter() {
+		@SuppressWarnings("unchecked")
+		VariableParameter<List<Double>> parameter = mock(VariableParameter.class);
+		when(parameter.getParameter()).thenReturn(Lists.newArrayList(1.2));
+		_distribution = new CategorialDistribution(parameter);
+		_distribution.sample();
 	}
 
 }
