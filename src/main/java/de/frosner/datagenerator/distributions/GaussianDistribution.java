@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
+import de.frosner.datagenerator.exceptions.IllegalSigmaParameterArgumentException;
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.util.VisibleForTesting;
@@ -42,7 +43,11 @@ public final class GaussianDistribution implements Distribution {
 
 	@Override
 	public FeatureValue sample() {
-		return new ContinuousFeatureValue(_generator.nextGaussian() * _sigma.getParameter() + _mean.getParameter());
+		double mean = _mean.getParameter();
+		double sigma = _sigma.getParameter();
+		Check.stateIsTrue(sigma > 0, IllegalSigmaParameterArgumentException.class);
+
+		return new ContinuousFeatureValue(_generator.nextGaussian() * sigma + mean);
 	}
 
 	@Override

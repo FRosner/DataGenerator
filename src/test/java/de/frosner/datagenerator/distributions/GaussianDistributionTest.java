@@ -2,6 +2,8 @@ package de.frosner.datagenerator.distributions;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.Delta.delta;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
+import de.frosner.datagenerator.exceptions.IllegalSigmaParameterArgumentException;
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.util.StatisticsTestUtil;
 
@@ -44,6 +47,38 @@ public class GaussianDistributionTest {
 	@Test(expected = IllegalNullArgumentException.class)
 	public void testCreate_secondArgumentNull() {
 		new GaussianDistribution(new FixedParameter<Double>(1d), null);
+	}
+
+	@Test(expected = IllegalSigmaParameterArgumentException.class)
+	public void testSample_zeroSigma_fixedParameter() {
+		_distribution = new GaussianDistribution(new FixedParameter<Double>(1d), new FixedParameter<Double>(0d));
+		_distribution.sample();
+	}
+
+	@Test(expected = IllegalSigmaParameterArgumentException.class)
+	public void testSample_negativeSigma_fixedParameter() {
+		_distribution = new GaussianDistribution(new FixedParameter<Double>(1d), new FixedParameter<Double>(-1d));
+		_distribution.sample();
+	}
+
+	@Test(expected = IllegalSigmaParameterArgumentException.class)
+	public void testSample_zeroSigma_variableParameter() {
+		@SuppressWarnings("unchecked")
+		VariableParameter<Double> sigmaParameter = mock(VariableParameter.class);
+		when(sigmaParameter.getParameter()).thenReturn(0d);
+
+		_distribution = new GaussianDistribution(new FixedParameter<Double>(1d), sigmaParameter);
+		_distribution.sample();
+	}
+
+	@Test(expected = IllegalSigmaParameterArgumentException.class)
+	public void testSample_negativeSigma_variableParameter() {
+		@SuppressWarnings("unchecked")
+		VariableParameter<Double> sigmaParameter = mock(VariableParameter.class);
+		when(sigmaParameter.getParameter()).thenReturn(-1d);
+
+		_distribution = new GaussianDistribution(new FixedParameter<Double>(1d), sigmaParameter);
+		_distribution.sample();
 	}
 
 }
