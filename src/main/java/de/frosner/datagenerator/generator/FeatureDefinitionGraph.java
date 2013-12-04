@@ -60,7 +60,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 		_insertionOrder.remove(featureDefinition);
 	}
 
-	public boolean addDependentFeatureDefinition(@Nonnull FeatureDefinition parentFeature,
+	public boolean addFeatureDefinitionParameterDependency(@Nonnull FeatureDefinition parentFeature,
 			@Nonnull FeatureDefinition childFeature, @Nonnull VariableParameter<?> childParameter) {
 		Check.notNull(parentFeature, "parentFeature");
 		Check.notNull(childFeature, "childFeature");

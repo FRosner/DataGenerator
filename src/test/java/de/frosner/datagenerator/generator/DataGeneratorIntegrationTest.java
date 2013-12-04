@@ -118,8 +118,8 @@ public class DataGeneratorIntegrationTest {
 
 		_featureDefinitions.addFeatureDefinition(meanFeature);
 		_featureDefinitions.addFeatureDefinition(sigmaFeature);
-		_featureDefinitions.addDependentFeatureDefinition(meanFeature, dependentFeature, meanParameter);
-		_featureDefinitions.addDependentFeatureDefinition(sigmaFeature, dependentFeature, sigmaParameter);
+		_featureDefinitions.addFeatureDefinitionParameterDependency(meanFeature, dependentFeature, meanParameter);
+		_featureDefinitions.addFeatureDefinitionParameterDependency(sigmaFeature, dependentFeature, sigmaParameter);
 
 		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
 		_dataGenerator.generate();
@@ -165,7 +165,7 @@ public class DataGeneratorIntegrationTest {
 		FeatureDefinition coinB = new FeatureDefinition("B", new BernoulliDistribution(bParameter));
 
 		_featureDefinitions.addFeatureDefinition(coinA);
-		_featureDefinitions.addDependentFeatureDefinition(coinA, coinB, bParameter);
+		_featureDefinitions.addFeatureDefinitionParameterDependency(coinA, coinB, bParameter);
 
 		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
 		_dataGenerator.generate();
