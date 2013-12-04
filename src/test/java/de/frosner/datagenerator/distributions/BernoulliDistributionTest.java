@@ -4,6 +4,8 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.List;
 
+import net.sf.qualitycheck.exception.IllegalNullArgumentException;
+
 import org.fest.assertions.Delta;
 import org.junit.Test;
 
@@ -27,6 +29,11 @@ public class BernoulliDistributionTest {
 		}
 		double sampleMean = StatisticsTestUtil.sampleMeanFromIntegerList(samples);
 		assertThat(sampleMean).isEqualTo(0.4, Delta.delta(0.01));
+	}
+
+	@Test(expected = IllegalNullArgumentException.class)
+	public void testCreate_nullArgument() {
+		new BernoulliDistribution(null);
 	}
 
 }
