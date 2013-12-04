@@ -2,8 +2,10 @@ package de.frosner.datagenerator.distributions;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.util.VisibleForTesting;
@@ -27,10 +29,10 @@ public final class GaussianDistribution implements Distribution {
 	 * @param mean
 	 * @param sigma
 	 */
-	public GaussianDistribution(Parameter<Double> mean, Parameter<Double> sigma) {
+	public GaussianDistribution(@Nonnull Parameter<Double> mean, @Nonnull Parameter<Double> sigma) {
+		_mean = Check.notNull(mean, "mean");
+		_sigma = Check.notNull(sigma, "sigma");
 		_generator = new Random();
-		_mean = mean;
-		_sigma = sigma;
 	}
 
 	@VisibleForTesting

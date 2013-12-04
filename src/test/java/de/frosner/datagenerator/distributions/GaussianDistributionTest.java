@@ -5,6 +5,8 @@ import static org.fest.assertions.Delta.delta;
 
 import java.util.List;
 
+import net.sf.qualitycheck.exception.IllegalNullArgumentException;
+
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -32,6 +34,16 @@ public class GaussianDistributionTest {
 		double sampleSigma = StatisticsTestUtil.sampleSigma(samples, sampleMean);
 		assertThat(sampleMean).isEqualTo(expectedMean, delta(0.1));
 		assertThat(sampleSigma).isEqualTo(expectedSigma, delta(0.1));
+	}
+
+	@Test(expected = IllegalNullArgumentException.class)
+	public void testCreate_firstArgumentNull() {
+		new GaussianDistribution(null, new FixedParameter<Double>(1d));
+	}
+
+	@Test(expected = IllegalNullArgumentException.class)
+	public void testCreate_secondArgumentNull() {
+		new GaussianDistribution(new FixedParameter<Double>(1d), null);
 	}
 
 }
