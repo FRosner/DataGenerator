@@ -40,8 +40,8 @@ import de.frosner.datagenerator.util.LongRunningSwingTests;
 public class SwingMenuGuiTest {
 
 	private static final String VALIDATION_FAILURE_MESSAGE = "Input verification was corrupt";
-	private static final long TIMEOUT = 2000;
-	private static final long TIMEOUT_LONG = 3500;
+	private static final long ADD_FEATURE_TIMEOUT = 2000;
+	private static final long EDIT_FEATURE_TIMEOUT = 3500;
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
 	private File _testFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
@@ -84,9 +84,9 @@ public class SwingMenuGuiTest {
 	@Rule
 	public ExpectedException _thrown = ExpectedException.none();
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_addGaussian() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
@@ -96,9 +96,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT_LONG)
+	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_editGaussian() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT_LONG + " milliseconds");
+		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -117,9 +117,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_addBernoulli() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
@@ -128,9 +128,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT_LONG)
+	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_editBernoulli() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT_LONG + " milliseconds");
+		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -147,9 +147,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_addUniformCategorial() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
@@ -158,9 +158,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT_LONG)
+	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_editUniformCategorial() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT_LONG + " milliseconds");
+		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -177,9 +177,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyGaussianMean_addFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
@@ -189,9 +189,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT_LONG)
+	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyGaussianMean_editFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT_LONG + " milliseconds");
+		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -210,9 +210,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyGaussianSigma_addFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
@@ -222,9 +222,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT_LONG)
+	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyGaussianSigma_editFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT_LONG + " milliseconds");
+		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -243,9 +243,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyBernoulliProbability_addFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
@@ -254,9 +254,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT_LONG)
+	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyBernoulliProbability_editFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT_LONG + " milliseconds");
+		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -273,9 +273,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyUniformCategorialNumberOfStates_addFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
@@ -284,9 +284,9 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	@Test(timeout = TIMEOUT_LONG)
+	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyUniformCategorialNumberOfStates_editFeature() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT_LONG + " milliseconds");
+		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -347,9 +347,9 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
-	@Test(timeout = TIMEOUT)
+	@Test(timeout = ADD_FEATURE_TIMEOUT)
 	public void testVerifyWithOk_addFeatureDialog_menuItem() {
-		_thrown.expectMessage("test timed out after " + TIMEOUT + " milliseconds");
+		_thrown.expectMessage("test timed out after " + ADD_FEATURE_TIMEOUT + " milliseconds");
 
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
