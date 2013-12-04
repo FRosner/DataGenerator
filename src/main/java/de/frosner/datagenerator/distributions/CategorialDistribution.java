@@ -3,6 +3,7 @@ package de.frosner.datagenerator.distributions;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
@@ -19,7 +20,7 @@ public final class CategorialDistribution implements Distribution {
 	private final Parameter<List<Double>> _probabilities;
 	private final Random _random;
 
-	public CategorialDistribution(Parameter<List<Double>> probabilities) {
+	public CategorialDistribution(@Nonnull Parameter<List<Double>> probabilities) {
 		Check.notNull(probabilities, "probabilities");
 
 		_probabilities = probabilities;
