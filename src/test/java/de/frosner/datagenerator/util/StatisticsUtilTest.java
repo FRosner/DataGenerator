@@ -43,4 +43,36 @@ public class StatisticsUtilTest {
 		assertThat(StatisticsUtil.compareDoubles(0.1, 0.09999)).isEqualTo(0);
 	}
 
+	@Test
+	public void testSum_double() {
+		List<Double> collection = Lists.newArrayList(1d);
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(1d);
+		collection.add(2d);
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(3d);
+	}
+
+	@Test
+	public void testSum_float() {
+		List<Float> collection = Lists.newArrayList(1f);
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(1f);
+		collection.add(2f);
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(3f);
+	}
+
+	@Test
+	public void testSum_integer() {
+		List<Integer> collection = Lists.newArrayList(1);
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(1);
+		collection.add(2);
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(3);
+	}
+
+	@Test
+	public void testSum_long() {
+		List<Long> collection = Lists.newArrayList(new Long(1));
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(new Long(1));
+		collection.add(new Long(2));
+		assertThat(StatisticsUtil.sum(collection)).isEqualTo(new Long(3));
+	}
+
 }
