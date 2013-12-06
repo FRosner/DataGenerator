@@ -81,6 +81,25 @@ public class StatisticsUtilTest {
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(new Long(3));
 	}
 
+	@Test
+	public void testSumWithOverflow_double() {
+		assertThat(StatisticsUtil.sum(Lists.newArrayList(Double.MAX_VALUE, 1d))).isEqualTo(Double.MAX_VALUE);
+	}
+
+	@Test
+	public void testSumWithOverflow_float() {
+		assertThat(StatisticsUtil.sum(Lists.newArrayList(Float.MAX_VALUE, 1f))).isEqualTo(Float.MAX_VALUE);
+	}
+
+	@Test
+	public void testSumWithOverflow_integer() {
+		assertThat(StatisticsUtil.sum(Lists.newArrayList(Integer.MAX_VALUE, 1))).isEqualTo(Integer.MIN_VALUE);
+	}
+
+	@Test
+	public void testSumWithOverflow_long() {
+		assertThat(StatisticsUtil.sum(Lists.newArrayList(Long.MAX_VALUE, new Long(1)))).isEqualTo(Long.MIN_VALUE);
+	}
 
 	@Test(expected = UnsupportedNumberTypeException.class)
 	public void testSumWithUnsupportedNumberType_atomicInteger() {
