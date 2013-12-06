@@ -2,8 +2,12 @@ package de.frosner.datagenerator.util;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import net.sf.qualitycheck.exception.IllegalNullArgumentException;
 
@@ -79,8 +83,33 @@ public class StatisticsUtilTest {
 
 
 	@Test(expected = UnsupportedNumberTypeException.class)
-	public void testSumWithUnsupportedNumberType() {
+	public void testSumWithUnsupportedNumberType_atomicInteger() {
+		StatisticsUtil.sum(Lists.newArrayList(new AtomicInteger()));
+	}
+
+	@Test(expected = UnsupportedNumberTypeException.class)
+	public void testSumWithUnsupportedNumberType_atomicLong() {
+		StatisticsUtil.sum(Lists.newArrayList(new AtomicLong()));
+	}
+
+	@Test(expected = UnsupportedNumberTypeException.class)
+	public void testSumWithUnsupportedNumberType_bigDecimal() {
+		StatisticsUtil.sum(Lists.newArrayList(new BigDecimal(0)));
+	}
+
+	@Test(expected = UnsupportedNumberTypeException.class)
+	public void testSumWithUnsupportedNumberType_bigInteger() {
+		StatisticsUtil.sum(Lists.newArrayList(new BigInteger("0")));
+	}
+
+	@Test(expected = UnsupportedNumberTypeException.class)
+	public void testSumWithUnsupportedNumberType_byte() {
 		StatisticsUtil.sum(Lists.newArrayList(new Byte("0")));
+	}
+
+	@Test(expected = UnsupportedNumberTypeException.class)
+	public void testSumWithUnsupportedNumberType_short() {
+		StatisticsUtil.sum(Lists.newArrayList(new Short("0")));
 	}
 
 }
