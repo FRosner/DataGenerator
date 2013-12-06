@@ -2,6 +2,7 @@ package de.frosner.datagenerator.util;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.util.Collection;
 import java.util.List;
 
 import net.sf.qualitycheck.exception.IllegalNullArgumentException;
@@ -46,7 +47,7 @@ public class StatisticsUtilTest {
 
 	@Test
 	public void testSum_double() {
-		List<Double> collection = Lists.newArrayList(1d);
+		Collection<Double> collection = Lists.newArrayList(1d);
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(1d);
 		collection.add(2d);
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(3d);
@@ -54,7 +55,7 @@ public class StatisticsUtilTest {
 
 	@Test
 	public void testSum_float() {
-		List<Float> collection = Lists.newArrayList(1f);
+		Collection<Float> collection = Lists.newArrayList(1f);
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(1f);
 		collection.add(2f);
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(3f);
@@ -62,7 +63,7 @@ public class StatisticsUtilTest {
 
 	@Test
 	public void testSum_integer() {
-		List<Integer> collection = Lists.newArrayList(1);
+		Collection<Integer> collection = Lists.newArrayList(1);
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(1);
 		collection.add(2);
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(3);
@@ -70,7 +71,7 @@ public class StatisticsUtilTest {
 
 	@Test
 	public void testSum_long() {
-		List<Long> collection = Lists.newArrayList(new Long(1));
+		Collection<Long> collection = Lists.newArrayList(new Long(1));
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(new Long(1));
 		collection.add(new Long(2));
 		assertThat(StatisticsUtil.sum(collection)).isEqualTo(new Long(3));
@@ -79,7 +80,7 @@ public class StatisticsUtilTest {
 
 	@Test(expected = UnsupportedNumberTypeException.class)
 	public void testSumWithUnsupportedNumberType() {
-		List<Byte> collection = Lists.newArrayList(new Byte("0"));
+		Collection<Byte> collection = Lists.newArrayList(new Byte("0"));
 		StatisticsUtil.sum(collection);
 	}
 
