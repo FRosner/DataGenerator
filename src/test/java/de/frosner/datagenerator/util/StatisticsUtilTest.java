@@ -80,8 +80,7 @@ public class StatisticsUtilTest {
 
 	@Test(expected = UnsupportedNumberTypeException.class)
 	public void testSumWithUnsupportedNumberType() {
-		Collection<Byte> collection = Lists.newArrayList(new Byte("0"));
-		StatisticsUtil.sum(collection);
+		StatisticsUtil.sum(Lists.newArrayList(new Byte("0")));
 	}
 
 }
