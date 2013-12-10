@@ -143,4 +143,36 @@ public class DataGeneratorIntegrationTest {
 		}
 	}
 
+	@Test
+	public void testGenerate_categorialFeature_categorialPrior() {
+		FeatureDefinition diceA = new FeatureDefinition("A", new CategorialDistribution(
+				new FixedParameter<List<Double>>(Lists.newArrayList(0.5, 0.25, 0.25))));
+
+		Map<DiscreteFeatureValue, List<Double>> bDicesProbabilities = Maps.newHashMap();
+		bDicesProbabilities.put(new DiscreteFeatureValue(0), Lists.newArrayList(0d, 1d, 0d, 0d));
+		bDicesProbabilities.put(new DiscreteFeatureValue(1), Lists.newArrayList(0d, 0d, 1d, 0d));
+		bDicesProbabilities.put(new DiscreteFeatureValue(2), Lists.newArrayList(0d, 0d, 0d, 1d));
+		DiscreteVariableParameter<List<Double>> bParameter = new DiscreteVariableParameter<List<Double>>(
+				bDicesProbabilities);
+		FeatureDefinition coinB = new FeatureDefinition("B", new CategorialDistribution(bParameter));
+
+		_featureDefinitions.addFeatureDefinition(diceA);
+		_featureDefinitions.addFeatureDefinitionParameterDependency(diceA, coinB, bParameter);
+
+		_dataGenerator = new DataGenerator(NUMBER_OF_INSTANCES, _exportConnection, _featureDefinitions);
+		_dataGenerator.generate();
+
+		assertThat(_exportConnection.getMetaData().equals(_featureDefinitions)).isTrue();
+		assertThat(_exportConnection.getInstances()).hasSize(NUMBER_OF_INSTANCES);
+		for (Instance instance : _exportConnection.getInstances()) {
+			FeatureValue aValue = instance.getFeatureValue(0);
+			assertThat(aValue).isInstanceOf(DiscreteFeatureValue.class);
+
+			FeatureValue bValue = instance.getFeatureValue(1);
+			assertThat(bValue).isInstanceOf(DiscreteFeatureValue.class);
+
+			assertThat(bValue.getValue()).isEqualTo((Integer) aValue.getValue() + 1);
+		}
+	}
+
 }
