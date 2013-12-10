@@ -118,10 +118,10 @@ public class DataGeneratorIntegrationTest {
 	public void testGenerate_bernoulliFeature_bernoulliPrior() {
 		FeatureDefinition coinA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(0.5)));
 
-		Map<DiscreteFeatureValue, Double> bCoins = Maps.newHashMap();
-		bCoins.put(new DiscreteFeatureValue(0), 0d);
-		bCoins.put(new DiscreteFeatureValue(1), 1d);
-		DiscreteVariableParameter<Double> bParameter = new DiscreteVariableParameter<Double>(bCoins);
+		Map<DiscreteFeatureValue, Double> bCoinsProbabilities = Maps.newHashMap();
+		bCoinsProbabilities.put(new DiscreteFeatureValue(0), 0d);
+		bCoinsProbabilities.put(new DiscreteFeatureValue(1), 1d);
+		DiscreteVariableParameter<Double> bParameter = new DiscreteVariableParameter<Double>(bCoinsProbabilities);
 		FeatureDefinition coinB = new FeatureDefinition("B", new BernoulliDistribution(bParameter));
 
 		_featureDefinitions.addFeatureDefinition(coinA);
