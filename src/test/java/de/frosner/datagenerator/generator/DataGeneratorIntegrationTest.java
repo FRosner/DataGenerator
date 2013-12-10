@@ -5,6 +5,7 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.util.List;
 import java.util.Map;
 
+import org.fest.assertions.Fail;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -172,6 +173,56 @@ public class DataGeneratorIntegrationTest {
 			assertThat(bValue).isInstanceOf(DiscreteFeatureValue.class);
 
 			assertThat(bValue.getValue()).isEqualTo((Integer) aValue.getValue() + 1);
+		}
+	}
+
+	@Test
+	public void testGenerate_gaussianFeature_discretePriors() {
+		FeatureDefinition diceA = new FeatureDefinition("A", new CategorialDistribution(
+				new FixedParameter<List<Double>>(Lists.newArrayList(0.5, 0.25, 0.25))));
+		FeatureDefinition coinB = new FeatureDefinition("B", new BernoulliDistribution(new FixedParameter<Double>(0.5)));
+
+		Map<DiscreteFeatureValue, Double> cMeans = Maps.newHashMap();
+		cMeans.put(new DiscreteFeatureValue(0), -100d);
+		cMeans.put(new DiscreteFeatureValue(1), 0d);
+		cMeans.put(new DiscreteFeatureValue(2), 100d);
+		DiscreteVariableParameter<Double> cMeanParameter = new DiscreteVariableParameter<Double>(cMeans);
+		Map<DiscreteFeatureValue, Double> cSigmas = Maps.newHashMap();
+		cSigmas.put(new DiscreteFeatureValue(0), 0.1d);
+		cSigmas.put(new DiscreteFeatureValue(1), 0.001d);
+		DiscreteVariableParameter<Double> cSigmaParameter = new DiscreteVariableParameter<Double>(cSigmas);
+		FeatureDefinition gaussianC = new FeatureDefinition("C", new GaussianDistribution(cMeanParameter,
+				cSigmaParameter));
+
+		_featureDefinitions.addFeatureDefinition(diceA);
+		_featureDefinitions.addFeatureDefinition(coinB);
+		_featureDefinitions.addFeatureDefinitionParameterDependency(diceA, gaussianC, cMeanParameter);
+		_featureDefinitions.addFeatureDefinitionParameterDependency(coinB, gaussianC, cSigmaParameter);
+
+		_dataGenerator = new DataGenerator(NUMBER_OF_INSTANCES, _exportConnection, _featureDefinitions);
+		_dataGenerator.generate();
+
+		assertThat(_exportConnection.getMetaData().equals(_featureDefinitions)).isTrue();
+		assertThat(_exportConnection.getInstances()).hasSize(NUMBER_OF_INSTANCES);
+		for (Instance instance : _exportConnection.getInstances()) {
+			FeatureValue aValue = instance.getFeatureValue(0);
+			assertThat(aValue).isInstanceOf(DiscreteFeatureValue.class);
+
+			FeatureValue bValue = instance.getFeatureValue(1);
+			assertThat(bValue).isInstanceOf(DiscreteFeatureValue.class);
+
+			FeatureValue cValue = instance.getFeatureValue(2);
+			assertThat(cValue).isInstanceOf(ContinuousFeatureValue.class);
+			double cDoubleValue = (Double) cValue.getValue();
+			if (aValue.getValue().equals(0)) {
+				assertThat(cDoubleValue).isGreaterThan(-110).isLessThan(-90);
+			} else if (aValue.getValue().equals(1)) {
+				assertThat(cDoubleValue).isGreaterThan(-10).isLessThan(10);
+			} else if (aValue.getValue().equals(2)) {
+				assertThat(cDoubleValue).isGreaterThan(90).isLessThan(110);
+			} else {
+				Fail.fail("Unexpected feature value generated.");
+			}
 		}
 	}
 
