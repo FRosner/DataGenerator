@@ -115,7 +115,7 @@ public class DataGeneratorIntegrationTest {
 	}
 
 	@Test
-	public void testDataGenerator_csvExport_bernoulliFeature_bernoulliPrior() {
+	public void testDataGenerator_bernoulliFeature_bernoulliPrior() {
 		FeatureDefinition coinA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(0.5)));
 
 		Map<DiscreteFeatureValue, Double> bCoins = Maps.newHashMap();
