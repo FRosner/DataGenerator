@@ -24,10 +24,11 @@ import de.frosner.datagenerator.features.FeatureValue;
 
 public class DataGeneratorIntegrationTest {
 
+	private static final int NUMBER_OF_INSTANCES = 1000;
+
 	private DataGenerator _dataGenerator;
 	private FeatureDefinitionGraph _featureDefinitions;
 	private DummyExportConnection _exportConnection;
-	private int _numberOfInstances;
 
 	@Before
 	public void setup() {
@@ -37,16 +38,15 @@ public class DataGeneratorIntegrationTest {
 
 	@Test
 	public void testGenerate_continuousFeatures_noDependencies() {
-		_numberOfInstances = 1000;
 		FeatureDefinition feature = new FeatureDefinition("A", new GaussianDistribution(new FixedParameter<Double>(0d),
 				new FixedParameter<Double>(1d)));
 		_featureDefinitions.addFeatureDefinition(feature);
 
-		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
+		_dataGenerator = new DataGenerator(NUMBER_OF_INSTANCES, _exportConnection, _featureDefinitions);
 		_dataGenerator.generate();
 
 		assertThat(_exportConnection.getMetaData().equals(_featureDefinitions)).isTrue();
-		assertThat(_exportConnection.getInstances()).hasSize(_numberOfInstances);
+		assertThat(_exportConnection.getInstances()).hasSize(NUMBER_OF_INSTANCES);
 		for (Instance instance : _exportConnection.getInstances()) {
 			FeatureValue gaussianValue = instance.getFeatureValue(0);
 			assertThat(gaussianValue).isInstanceOf(ContinuousFeatureValue.class);
@@ -55,7 +55,6 @@ public class DataGeneratorIntegrationTest {
 
 	@Test
 	public void testGenerate_discreteFeatures_noDependencies() {
-		_numberOfInstances = 1000;
 		FeatureDefinition featureA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(
 				0.4)));
 		FeatureDefinition featureB = new FeatureDefinition("B", new CategorialDistribution(
@@ -63,11 +62,11 @@ public class DataGeneratorIntegrationTest {
 		_featureDefinitions.addFeatureDefinition(featureA);
 		_featureDefinitions.addFeatureDefinition(featureB);
 
-		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
+		_dataGenerator = new DataGenerator(NUMBER_OF_INSTANCES, _exportConnection, _featureDefinitions);
 		_dataGenerator.generate();
 
 		assertThat(_exportConnection.getMetaData().equals(_featureDefinitions)).isTrue();
-		assertThat(_exportConnection.getInstances()).hasSize(_numberOfInstances);
+		assertThat(_exportConnection.getInstances()).hasSize(NUMBER_OF_INSTANCES);
 		for (Instance instance : _exportConnection.getInstances()) {
 			FeatureValue bernoulliValue = instance.getFeatureValue(0);
 			assertThat(bernoulliValue).isInstanceOf(DiscreteFeatureValue.class);
@@ -81,7 +80,6 @@ public class DataGeneratorIntegrationTest {
 
 	@Test
 	public void testGenerate_gaussianFeature_gaussianPriors() {
-		_numberOfInstances = 1000;
 		FeatureDefinition meanFeature = new FeatureDefinition("Mean", new GaussianDistribution(
 				new FixedParameter<Double>(-1000d), new FixedParameter<Double>(1d)));
 		FeatureDefinition sigmaFeature = new FeatureDefinition("Sigma", new GaussianDistribution(
@@ -96,11 +94,11 @@ public class DataGeneratorIntegrationTest {
 		_featureDefinitions.addFeatureDefinitionParameterDependency(meanFeature, dependentFeature, meanParameter);
 		_featureDefinitions.addFeatureDefinitionParameterDependency(sigmaFeature, dependentFeature, sigmaParameter);
 
-		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
+		_dataGenerator = new DataGenerator(NUMBER_OF_INSTANCES, _exportConnection, _featureDefinitions);
 		_dataGenerator.generate();
 
 		assertThat(_exportConnection.getMetaData().equals(_featureDefinitions)).isTrue();
-		assertThat(_exportConnection.getInstances()).hasSize(_numberOfInstances);
+		assertThat(_exportConnection.getInstances()).hasSize(NUMBER_OF_INSTANCES);
 		for (Instance instance : _exportConnection.getInstances()) {
 			FeatureValue meanValue = instance.getFeatureValue(0);
 			assertThat(meanValue).isInstanceOf(ContinuousFeatureValue.class);
@@ -118,8 +116,6 @@ public class DataGeneratorIntegrationTest {
 
 	@Test
 	public void testDataGenerator_csvExport_bernoulliFeature_bernoulliPrior() {
-		_numberOfInstances = 1000;
-
 		FeatureDefinition coinA = new FeatureDefinition("A", new BernoulliDistribution(new FixedParameter<Double>(0.5)));
 
 		Map<DiscreteFeatureValue, Double> bCoins = Maps.newHashMap();
@@ -131,11 +127,11 @@ public class DataGeneratorIntegrationTest {
 		_featureDefinitions.addFeatureDefinition(coinA);
 		_featureDefinitions.addFeatureDefinitionParameterDependency(coinA, coinB, bParameter);
 
-		_dataGenerator = new DataGenerator(_numberOfInstances, _exportConnection, _featureDefinitions);
+		_dataGenerator = new DataGenerator(NUMBER_OF_INSTANCES, _exportConnection, _featureDefinitions);
 		_dataGenerator.generate();
 
 		assertThat(_exportConnection.getMetaData().equals(_featureDefinitions)).isTrue();
-		assertThat(_exportConnection.getInstances()).hasSize(_numberOfInstances);
+		assertThat(_exportConnection.getInstances()).hasSize(NUMBER_OF_INSTANCES);
 		for (Instance instance : _exportConnection.getInstances()) {
 			FeatureValue aValue = instance.getFeatureValue(0);
 			assertThat(aValue).isInstanceOf(DiscreteFeatureValue.class);
