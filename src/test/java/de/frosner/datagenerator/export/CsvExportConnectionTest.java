@@ -25,7 +25,7 @@ public class CsvExportConnectionTest {
 	@Before
 	public void createCsvExportConnection() {
 		_out = new ByteArrayOutputStream();
-		_csvExportConnection = new CsvExportConnection(_out, false, false);
+		_csvExportConnection = new CsvExportConnection(_out, ExportFeatureNames.NO, false);
 		_dummyInstanceWithOneFeature = new Instance(0, new DummyFeatureValue(0));
 		_dummyInstanceWithTwoFeatures = new Instance(0, new DummyFeatureValue(0), new DummyFeatureValue(1));
 	}
@@ -83,7 +83,7 @@ public class CsvExportConnectionTest {
 	public void testExportFeatureNames_oneFeature() {
 		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
 		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
-		_csvExportConnection = new CsvExportConnection(_out, true, false);
+		_csvExportConnection = new CsvExportConnection(_out, ExportFeatureNames.YES, false);
 		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.close();
 
@@ -95,7 +95,7 @@ public class CsvExportConnectionTest {
 		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
 		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
 		features.addFeatureDefinition(new FeatureDefinition("uswidth", new DummyDistribution()));
-		_csvExportConnection = new CsvExportConnection(_out, true, false);
+		_csvExportConnection = new CsvExportConnection(_out, ExportFeatureNames.YES, false);
 		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.close();
 
@@ -106,7 +106,7 @@ public class CsvExportConnectionTest {
 	public void testExportFeatureNames_doNotExportFeatureNames() {
 		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
 		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
-		_csvExportConnection = new CsvExportConnection(_out, false, false);
+		_csvExportConnection = new CsvExportConnection(_out, ExportFeatureNames.NO, false);
 		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.close();
 
@@ -117,7 +117,7 @@ public class CsvExportConnectionTest {
 	public void testExportMetaData_exportInstanceIds() {
 		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
 		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
-		_csvExportConnection = new CsvExportConnection(_out, false, true);
+		_csvExportConnection = new CsvExportConnection(_out, ExportFeatureNames.NO, true);
 		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
@@ -132,7 +132,7 @@ public class CsvExportConnectionTest {
 	public void testExportMetaData_exportInstanceIds_exportFeatureNames() {
 		FeatureDefinitionGraph features = new FeatureDefinitionGraph();
 		features.addFeatureDefinition(new FeatureDefinition("usheight", new DummyDistribution()));
-		_csvExportConnection = new CsvExportConnection(_out, true, true);
+		_csvExportConnection = new CsvExportConnection(_out, ExportFeatureNames.YES, true);
 		_csvExportConnection.exportMetaDataStrategy(features);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);
 		_csvExportConnection.exportInstanceStrategy(_dummyInstanceWithTwoFeatures);

@@ -60,6 +60,7 @@ import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.exceptions.UnknownActionEventSourceException;
 import de.frosner.datagenerator.exceptions.UnsupportedSelectionException;
 import de.frosner.datagenerator.export.CsvFileExportConfiguration;
+import de.frosner.datagenerator.export.ExportFeatureNames;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
@@ -527,7 +528,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
 				final boolean exportInstanceIds = _exportInstanceIdsBox.isSelected();
-				final boolean exportFeatureNames = _exportFeatureNamesBox.isSelected();
+				final ExportFeatureNames exportFeatureNames = ExportFeatureNames.when(_exportFeatureNamesBox
+						.isSelected());
 				_generateDataButtonWorker = new GenerateDataButtonWorker(numberOfInstances,
 						new CsvFileExportConfiguration(exportFile, exportInstanceIds, exportFeatureNames));
 				_generateDataButtonWorker.execute();

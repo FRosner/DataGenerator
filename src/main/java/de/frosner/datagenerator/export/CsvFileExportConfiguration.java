@@ -6,9 +6,8 @@ import java.io.FileOutputStream;
 
 import javax.annotation.Nonnull;
 
-import de.frosner.datagenerator.exceptions.UncheckedFileNotFoundException;
-
 import net.sf.qualitycheck.Check;
+import de.frosner.datagenerator.exceptions.UncheckedFileNotFoundException;
 
 /**
  * {@linkplain ExportConfiguration} for a {@linkplain CsvExportConnection}.
@@ -17,7 +16,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 
 	private final File _file;
 	private final boolean _isExportingInstanceIds;
-	private final boolean _isExportingFeatureNames;
+	private final ExportFeatureNames _isExportingFeatureNames;
 
 	/**
 	 * Creates a {@linkplain CsvFileExportConfiguration} with the specified file. You may also decide whether to include
@@ -29,7 +28,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	 * @param isExportingFeatureNames
 	 */
 	public CsvFileExportConfiguration(@Nonnull File exportFile, boolean isExportingInstanceIds,
-			boolean isExportingFeatureNames) {
+			ExportFeatureNames isExportingFeatureNames) {
 		_file = Check.notNull(exportFile);
 		_isExportingInstanceIds = isExportingInstanceIds;
 		_isExportingFeatureNames = isExportingFeatureNames;
@@ -59,7 +58,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	 * @return whether to include the feature names
 	 */
 	public boolean isExportingFeatureNames() {
-		return _isExportingFeatureNames;
+		return _isExportingFeatureNames.toBoolean();
 	}
 
 	/**
