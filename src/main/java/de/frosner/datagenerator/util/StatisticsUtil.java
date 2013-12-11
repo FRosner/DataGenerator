@@ -86,7 +86,7 @@ public final class StatisticsUtil {
 	}
 
 	public static int compareDoubles(double a, double b) {
-		return Precision.compareTo(a, b, 0.0001);
+		return Precision.compareTo(a, b, 0.000001);
 	}
 
 }

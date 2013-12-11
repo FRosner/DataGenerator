@@ -45,8 +45,8 @@ public class StatisticsUtilTest {
 
 		assertThat(StatisticsUtil.compareDoubles(0.1, 0.101)).isEqualTo(-1);
 		assertThat(StatisticsUtil.compareDoubles(0.1, 0.099)).isEqualTo(1);
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.10001)).isEqualTo(0);
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.09999)).isEqualTo(0);
+		assertThat(StatisticsUtil.compareDoubles(0.1, 0.10000001)).isEqualTo(0);
+		assertThat(StatisticsUtil.compareDoubles(0.1, 0.09999999)).isEqualTo(0);
 	}
 
 	@Test
