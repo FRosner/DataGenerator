@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CsvExportConfigurationTest {
+public class CsvFileExportConfigurationTest {
 
 	private File _exportFile;
 
