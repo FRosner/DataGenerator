@@ -1,11 +1,11 @@
 package de.frosner.datagenerator.generator;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Fail.fail;
 
 import java.util.List;
 import java.util.Map;
 
-import org.fest.assertions.Fail;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -221,7 +221,7 @@ public class DataGeneratorIntegrationTest {
 			} else if (aValue.getValue().equals(2)) {
 				assertThat(cDoubleValue).isGreaterThan(90).isLessThan(110);
 			} else {
-				Fail.fail("Unexpected feature value generated.");
+				fail("Unexpected feature value generated.");
 			}
 		}
 	}
