@@ -228,7 +228,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_addFeatureButton.addActionListener(this);
 		_editFeatureButton = new JButton("Edit Feature");
 		_editFeatureButton.addActionListener(this);
-		_featureDefinitionDialog = new FeatureDefinitionDialog(this, "Add Feature", true);
+		_featureDefinitionDialog = new FeatureDefinitionDialog(this, "Add Feature");
 		_featureListModel = new DefaultListModel();
 		_featureList = new JList(_featureListModel);
 		_featureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

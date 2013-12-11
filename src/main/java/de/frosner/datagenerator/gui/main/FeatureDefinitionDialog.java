@@ -13,10 +13,12 @@ public class FeatureDefinitionDialog extends JDialog {
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
 
+	private static final boolean FORCED_FOCUS = true;
+
 	private int _featureIndexToEdit = -1;
 
-	public FeatureDefinitionDialog(Frame parent, String title, boolean b) {
-		super(parent, title, b);
+	public FeatureDefinitionDialog(Frame parent, String title) {
+		super(parent, title, FORCED_FOCUS);
 	}
 
 	public void setFeatureToEdit(int featureIndexToEdit) {

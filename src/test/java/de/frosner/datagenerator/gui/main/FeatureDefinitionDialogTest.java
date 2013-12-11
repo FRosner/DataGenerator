@@ -30,7 +30,7 @@ public class FeatureDefinitionDialogTest {
 		_dialog = execute(new GuiQuery<FeatureDefinitionDialog>() {
 			@Override
 			public FeatureDefinitionDialog executeInEDT() {
-				return new FeatureDefinitionDialog(new Frame(), FeatureDefinitionDialog.TITLE_ADD, true);
+				return new FeatureDefinitionDialog(new Frame(), FeatureDefinitionDialog.TITLE_ADD);
 			}
 		});
 	}
