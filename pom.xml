@@ -24,7 +24,13 @@
 		<profile>
 			<id>no-gui</id>
 			<properties>
-    	        <exclude.test.groups>de.frosner.datagenerator.util.LongRunningSwingTests</exclude.test.groups>
+    	        <exclude.test.groups>de.frosner.datagenerator.testutils.SwingTests</exclude.test.groups>
+	        </properties>
+		</profile>
+		<profile>
+			<id>no-gui-it</id>
+			<properties>
+    	        <exclude.test.groups>de.frosner.datagenerator.testutils.LongRunningSwingTests</exclude.test.groups>
 	        </properties>
 		</profile>
 	</profiles>
