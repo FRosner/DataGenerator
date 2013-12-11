@@ -25,7 +25,7 @@ import de.frosner.datagenerator.features.FeatureValue;
 
 public class DataGeneratorIntegrationTest {
 
-	private static final int NUMBER_OF_INSTANCES = 1000;
+	private static final int NUMBER_OF_INSTANCES = 100000;
 
 	private DataGenerator _dataGenerator;
 	private FeatureDefinitionGraph _featureDefinitions;
