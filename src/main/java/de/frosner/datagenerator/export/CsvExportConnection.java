@@ -37,10 +37,10 @@ public final class CsvExportConnection extends ExportConnection {
 	 *            textual representation of the export location
 	 */
 	public CsvExportConnection(OutputStream outputStream, ExportFeatureNames exportFeatureNames,
-			boolean exportInstanceIds, String location) {
+			ExportInstanceIds exportInstanceIds, String location) {
 		_out = new BufferedWriter(new OutputStreamWriter(outputStream));
 		_exportFeatureNames = exportFeatureNames.toBoolean();
-		_exportInstanceIds = exportInstanceIds;
+		_exportInstanceIds = exportInstanceIds.toBoolean();
 		_exportLocation = location;
 	}
 
@@ -55,7 +55,7 @@ public final class CsvExportConnection extends ExportConnection {
 	 *            should instances have their ID exported as well?
 	 **/
 	public CsvExportConnection(OutputStream outputStream, ExportFeatureNames exportFeatureNames,
-			boolean exportInstanceIds) {
+			ExportInstanceIds exportInstanceIds) {
 		this(outputStream, exportFeatureNames, exportInstanceIds, outputStream.toString());
 	}
 

@@ -15,7 +15,7 @@ import de.frosner.datagenerator.exceptions.UncheckedFileNotFoundException;
 public final class CsvFileExportConfiguration implements ExportConfiguration {
 
 	private final File _file;
-	private final boolean _isExportingInstanceIds;
+	private final ExportInstanceIds _isExportingInstanceIds;
 	private final ExportFeatureNames _isExportingFeatureNames;
 
 	/**
@@ -27,7 +27,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	 * @param isExportingInstanceIds
 	 * @param isExportingFeatureNames
 	 */
-	public CsvFileExportConfiguration(@Nonnull File exportFile, boolean isExportingInstanceIds,
+	public CsvFileExportConfiguration(@Nonnull File exportFile, ExportInstanceIds isExportingInstanceIds,
 			ExportFeatureNames isExportingFeatureNames) {
 		_file = Check.notNull(exportFile);
 		_isExportingInstanceIds = isExportingInstanceIds;
@@ -49,7 +49,7 @@ public final class CsvFileExportConfiguration implements ExportConfiguration {
 	 * @return whether to include the instance IDs
 	 */
 	public boolean isExportingInstanceIds() {
-		return _isExportingInstanceIds;
+		return _isExportingInstanceIds.toBoolean();
 	}
 
 	/**
