@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 
-import de.frosner.datagenerator.util.SwingTests;
+import de.frosner.datagenerator.testutils.SwingTests;
 
 @Category(SwingTests.class)
 public class InputVerifierTest {

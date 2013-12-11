@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.util;
+package de.frosner.datagenerator.testutils;
 
 import static org.fest.assertions.Fail.fail;
 

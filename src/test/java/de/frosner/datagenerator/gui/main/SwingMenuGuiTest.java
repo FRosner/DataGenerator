@@ -34,7 +34,7 @@ import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
 import de.frosner.datagenerator.gui.verifiers.InputVerifier;
-import de.frosner.datagenerator.util.LongRunningSwingTests;
+import de.frosner.datagenerator.testutils.LongRunningSwingTests;
 
 @Category(LongRunningSwingTests.class)
 public class SwingMenuGuiTest {

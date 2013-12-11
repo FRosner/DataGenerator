@@ -19,8 +19,8 @@ import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
 import de.frosner.datagenerator.gui.main.VariableColumnCountTableModel;
-import de.frosner.datagenerator.util.GuiTestUtil;
-import de.frosner.datagenerator.util.SwingTests;
+import de.frosner.datagenerator.testutils.GuiTestUtil;
+import de.frosner.datagenerator.testutils.SwingTests;
 
 @Category(SwingTests.class)
 public class PreviewTableManagerTest {

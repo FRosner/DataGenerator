@@ -16,7 +16,7 @@ import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
-import de.frosner.datagenerator.util.GuiTestUtil;
+import de.frosner.datagenerator.testutils.GuiTestUtil;
 
 public final class SwingMenuTestUtil extends GuiTestUtil {
 

@@ -16,8 +16,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import de.frosner.datagenerator.util.GuiTestUtil;
-import de.frosner.datagenerator.util.SwingTests;
+import de.frosner.datagenerator.testutils.GuiTestUtil;
+import de.frosner.datagenerator.testutils.SwingTests;
 
 @Category(SwingTests.class)
 public class GenerationButtonsToggleManagerTest {

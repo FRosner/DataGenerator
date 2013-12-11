@@ -26,8 +26,8 @@ import org.junit.experimental.categories.Category;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.exceptions.NoEnabledComponentInFocusOrderException;
-import de.frosner.datagenerator.util.GuiTestUtil;
-import de.frosner.datagenerator.util.SwingTests;
+import de.frosner.datagenerator.testutils.GuiTestUtil;
+import de.frosner.datagenerator.testutils.SwingTests;
 
 @Category(SwingTests.class)
 public class OrderedFocusTraversalPolicyTest {

@@ -1,4 +1,4 @@
-package de.frosner.datagenerator.util;
+package de.frosner.datagenerator.testutils;
 
 import java.util.ArrayList;
 import java.util.List;

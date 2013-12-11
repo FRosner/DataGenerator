@@ -15,7 +15,7 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.exceptions.IllegalProbabilityArgumentException;
 import de.frosner.datagenerator.features.DiscreteFeatureValue;
-import de.frosner.datagenerator.util.StatisticsTestUtil;
+import de.frosner.datagenerator.testutils.StatisticsTestUtil;
 
 public class BernoulliDistributionTest {
 
