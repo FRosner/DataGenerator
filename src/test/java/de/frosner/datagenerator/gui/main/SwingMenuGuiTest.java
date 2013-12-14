@@ -339,9 +339,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.delay(500);
 
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new BernoulliFeatureEntry(new FeatureDefinition("FeatureName", new BernoulliDistribution(
-						new FixedParameter<Double>(0d))), "0.0"));
+						new FixedParameter<Double>(0d))), "0.0").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("FeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
 		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
@@ -406,9 +406,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
-						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0"));
+						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeature(0);
@@ -427,9 +427,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new BernoulliFeatureEntry(new FeatureDefinition("Feature", new BernoulliDistribution(
-						new FixedParameter<Double>(1d))), "1.0"));
+						new FixedParameter<Double>(1d))), "1.0").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 		_frameTestUtil.selectFeature(0);
@@ -448,9 +448,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new UniformCategorialFeatureEntry(new FeatureDefinition("Feature", new CategorialDistribution(
-						new FixedParameter<List<Double>>(Lists.newArrayList(1D)))), "1"));
+						new FixedParameter<List<Double>>(Lists.newArrayList(1D)))), "1").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
 		_frameTestUtil.selectFeature(0);
@@ -470,9 +470,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureMenuItem);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
-						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0"));
+						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 	}
@@ -493,9 +493,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("NewFeatureName", new GaussianDistribution(
-						new FixedParameter<Double>(-1000d), new FixedParameter<Double>(2d))), "-1000", "2"));
+						new FixedParameter<Double>(-1000d), new FixedParameter<Double>(2d))), "-1000", "2").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-[0-9]+.*$");
 	}
@@ -514,9 +514,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new BernoulliFeatureEntry(new FeatureDefinition("NewFeatureName", new BernoulliDistribution(
-						new FixedParameter<Double>(1d))), "1.0"));
+						new FixedParameter<Double>(1d))), "1.0").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 	}
@@ -535,9 +535,9 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureListModel.getSize()).isEqualTo(1);
-		assertThat(_frame._featureListModel.get(0)).isEqualTo(
+		assertThat(_frame._featureListModel.get(0).toString()).isEqualTo(
 				new UniformCategorialFeatureEntry(new FeatureDefinition("NewFeatureName", new CategorialDistribution(
-						new FixedParameter<List<Double>>(Lists.newArrayList(0.5, 0.5)))), "2"));
+						new FixedParameter<List<Double>>(Lists.newArrayList(0.5, 0.5)))), "2").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^(0|1)$");
 	}
