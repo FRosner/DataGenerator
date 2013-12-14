@@ -410,10 +410,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_featureDefinitionPane.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent e) {
-				String prop = e.getPropertyName();
+				String property = e.getPropertyName();
 
 				if (_featureDefinitionDialog.isVisible() && (e.getSource() == _featureDefinitionPane)
-						&& (prop.equals(JOptionPane.VALUE_PROPERTY))) {
+						&& (property.equals(JOptionPane.VALUE_PROPERTY))) {
 					if (_featureDefinitionPane.getValue().equals(JOptionPane.OK_OPTION)) {
 						if (verifyInputs()) {
 							addFeatureDefinition();
