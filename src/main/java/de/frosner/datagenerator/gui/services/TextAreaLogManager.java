@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.annotation.Nonnull;
 import javax.swing.JEditorPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
@@ -34,7 +35,7 @@ public final class TextAreaLogManager {
 	 * @param logArea
 	 *            to manage
 	 */
-	public static void setLogArea(JEditorPane logArea) {
+	public static void setLogArea(@Nonnull JEditorPane logArea) {
 		_logArea = Check.notNull(logArea, "logArea");
 		_doc = (HTMLDocument) _logArea.getDocument();
 		_editorKit = (HTMLEditorKit) _logArea.getEditorKit();
@@ -60,7 +61,8 @@ public final class TextAreaLogManager {
 	 * @throws UncheckedBadLocationException
 	 *             if the underlying {@linkplain HTMLEditorKit} throws a {@linkplain BadLocationException}
 	 */
-	public static void info(final String message) {
+	public static void info(@Nonnull final String message) {
+		Check.notNull(message, "message");
 		if (_logArea != null) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
@@ -82,7 +84,8 @@ public final class TextAreaLogManager {
 	 * @throws UncheckedBadLocationException
 	 *             if the underlying {@linkplain HTMLEditorKit} throws a {@linkplain BadLocationException}
 	 */
-	public static void warn(final String message) {
+	public static void warn(@Nonnull final String message) {
+		Check.notNull(message, "message");
 		if (_logArea != null) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
@@ -104,7 +107,8 @@ public final class TextAreaLogManager {
 	 * @throws UncheckedBadLocationException
 	 *             if the underlying {@linkplain HTMLEditorKit} throws a {@linkplain BadLocationException}
 	 */
-	public static void error(final String message) {
+	public static void error(@Nonnull final String message) {
+		Check.notNull(message, "message");
 		if (_logArea != null) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
