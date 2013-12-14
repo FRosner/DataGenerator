@@ -1,5 +1,6 @@
 package de.frosner.datagenerator.gui.services;
 
+import javax.annotation.Nonnull;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
@@ -72,7 +73,7 @@ public final class PreviewTableManager {
 	 * @param table
 	 *            to be managed
 	 */
-	public static void setPreviewTable(VariableColumnCountTableModel table) {
+	public static void setPreviewTable(@Nonnull VariableColumnCountTableModel table) {
 		_table = Check.notNull(table, "table");
 		_originalColumnCount = _table.getColumnCount();
 	}
@@ -92,7 +93,8 @@ public final class PreviewTableManager {
 	 * @param features
 	 *            to generate values from
 	 */
-	public static void generatePreview(FeatureDefinitionGraph features) {
+	public static void generatePreview(@Nonnull FeatureDefinitionGraph features) {
+		Check.notNull(features, "features");
 		final FeatureDefinitionGraph featuresCopy = FeatureDefinitionGraph.createCopyOf(features);
 		clearPreviewTable();
 		if (_table != null && !features.isEmpty()) {
