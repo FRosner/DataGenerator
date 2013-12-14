@@ -31,12 +31,12 @@ public class FeatureDefinitionGraphTest {
 		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
 		assertThat(_graph.addFeatureDefinition(feature1)).isTrue();
 		assertThat(_graph._adjacentNodes.keySet()).containsOnly(feature1);
-		assertThat(_graph._insertionOrder).containsExactly(feature1);
+		assertThat(_graph._topologicalOrder).containsExactly(feature1);
 
 		FeatureDefinition feature2 = new FeatureDefinition("feature2", new DummyDistribution());
 		assertThat(_graph.addFeatureDefinition(feature2)).isTrue();
 		assertThat(_graph._adjacentNodes.keySet()).containsOnly(feature1, feature2);
-		assertThat(_graph._insertionOrder).containsExactly(feature1, feature2);
+		assertThat(_graph._topologicalOrder).containsExactly(feature1, feature2);
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public class FeatureDefinitionGraphTest {
 		_graph.addFeatureDefinition(feature);
 		assertThat(_graph.addFeatureDefinition(feature)).isFalse();
 		assertThat(_graph._adjacentNodes.keySet()).containsOnly(feature);
-		assertThat(_graph._insertionOrder).containsExactly(feature);
+		assertThat(_graph._topologicalOrder).containsExactly(feature);
 	}
 
 	@Test(expected = IllegalNullArgumentException.class)
@@ -72,7 +72,7 @@ public class FeatureDefinitionGraphTest {
 
 		assertThat(_graph._adjacentNodes.get(feature1)).containsOnly(
 				new FeatureDefinitionParameterPair(feature1_1, parameter1_1));
-		assertThat(_graph._insertionOrder).containsExactly(feature1, feature1_1);
+		assertThat(_graph._topologicalOrder).containsExactly(feature1, feature1_1);
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class FeatureDefinitionGraphTest {
 				new FeatureDefinitionParameterPair(feature1_1, parameter1_1));
 		assertThat(_graph._adjacentNodes.get(feature1_1)).containsOnly(
 				new FeatureDefinitionParameterPair(feature1_1_1, parameter1_1_1));
-		assertThat(_graph._insertionOrder).containsExactly(feature1, feature1_1, feature1_1_1);
+		assertThat(_graph._topologicalOrder).containsExactly(feature1, feature1_1, feature1_1_1);
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class FeatureDefinitionGraphTest {
 
 		assertThat(_graph._adjacentNodes.get(feature1)).containsOnly(
 				new FeatureDefinitionParameterPair(feature1_1, parameter1_1));
-		assertThat(_graph._insertionOrder).containsExactly(feature1, feature1_1);
+		assertThat(_graph._topologicalOrder).containsExactly(feature1, feature1_1);
 	}
 
 	@Test(expected = CircularDependencyException.class)

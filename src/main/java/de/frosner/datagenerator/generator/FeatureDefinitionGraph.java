@@ -25,7 +25,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 	@VisibleForTesting
 	final Map<FeatureDefinition, Set<FeatureDefinitionParameterPair>> _adjacentNodes = Maps.newHashMap();
 	@VisibleForTesting
-	final LinkedList<FeatureDefinition> _insertionOrder = Lists.newLinkedList();
+	final LinkedList<FeatureDefinition> _topologicalOrder = Lists.newLinkedList();
 
 	public static FeatureDefinitionGraph createCopyOf(FeatureDefinitionGraph graph) {
 		FeatureDefinitionGraph copy = new FeatureDefinitionGraph();
@@ -34,7 +34,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 			dependencies.addAll(graph._adjacentNodes.get(featureDefinition));
 			copy._adjacentNodes.put(featureDefinition, dependencies);
 		}
-		copy._insertionOrder.addAll(graph._insertionOrder);
+		copy._topologicalOrder.addAll(graph._topologicalOrder);
 		return copy;
 	}
 
@@ -52,13 +52,13 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 			return false;
 		}
 		_adjacentNodes.put(featureDefinition, new HashSet<FeatureDefinitionParameterPair>());
-		_insertionOrder.add(featureDefinition);
+		_topologicalOrder.add(featureDefinition);
 		return true;
 	}
 
 	private void removeFeatureDefinition(FeatureDefinition featureDefinition) {
 		_adjacentNodes.remove(featureDefinition);
-		_insertionOrder.remove(featureDefinition);
+		_topologicalOrder.remove(featureDefinition);
 	}
 
 	public boolean addFeatureDefinitionParameterDependency(@Nonnull FeatureDefinition parentFeature,
@@ -107,20 +107,20 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 
 	@Override
 	public Iterator<FeatureDefinition> iterator() {
-		return _insertionOrder.iterator();
+		return _topologicalOrder.iterator();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof FeatureDefinitionGraph) {
 			FeatureDefinitionGraph graph = (FeatureDefinitionGraph) o;
-			return graph._adjacentNodes.equals(_adjacentNodes) && graph._insertionOrder.equals(_insertionOrder);
+			return graph._adjacentNodes.equals(_adjacentNodes) && graph._topologicalOrder.equals(_topologicalOrder);
 		}
 		return false;
 	}
 
 	public int getNumberOfFeatures() {
-		return _insertionOrder.size();
+		return _topologicalOrder.size();
 	}
 
 	private boolean containsPath(FeatureDefinition start, FeatureDefinition goal) {
@@ -136,11 +136,11 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 	}
 
 	private void adjustInsertionOrder(FeatureDefinition parentFeature, FeatureDefinition childFeature) {
-		int parentPosition = _insertionOrder.indexOf(parentFeature);
-		int childPosition = _insertionOrder.indexOf(childFeature);
+		int parentPosition = _topologicalOrder.indexOf(parentFeature);
+		int childPosition = _topologicalOrder.indexOf(childFeature);
 		if (parentPosition > childPosition) {
-			_insertionOrder.remove(parentFeature);
-			_insertionOrder.add(childPosition, parentFeature);
+			_topologicalOrder.remove(parentFeature);
+			_topologicalOrder.add(childPosition, parentFeature);
 		}
 	}
 
