@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
+import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.exceptions.UncheckedFileNotFoundException;
 import de.frosner.datagenerator.exceptions.UncheckedIOException;
 import de.frosner.datagenerator.export.ExportConfiguration;
@@ -37,7 +40,8 @@ public final class DataGeneratorService {
 	 * @param featureDefinition
 	 *            to add
 	 */
-	public void addFeatureDefinition(FeatureDefinition featureDefinition) {
+	public void addFeatureDefinition(@Nonnull FeatureDefinition featureDefinition) {
+		Check.notNull(featureDefinition, "featureDefinition");
 		_featureDefinitions.add(featureDefinition);
 		TextAreaLogManager.info("Added Feature: " + featureDefinition.getName());
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
@@ -52,7 +56,8 @@ public final class DataGeneratorService {
 	 * @param featureDefinition
 	 *            to replace with
 	 */
-	public void replaceFeatureDefinitionAt(int index, FeatureDefinition featureDefinition) {
+	public void replaceFeatureDefinitionAt(int index, @Nonnull FeatureDefinition featureDefinition) {
+		Check.notNull(featureDefinition, "featureDefinition");
 		TextAreaLogManager.info("Edited Feature: " + _featureDefinitions.set(index, featureDefinition).getName());
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
@@ -78,14 +83,15 @@ public final class DataGeneratorService {
 	 * @param exportConfig
 	 *            containing everything needed to create an {@linkplain ExportConnection}.
 	 */
-	public void generateData(int numberOfInstances, ExportConfiguration exportConfig) {
+	public void generateData(int numberOfInstances, @Nonnull ExportConfiguration exportConfig) {
+		Check.notNull(exportConfig, "exportConfig");
 		if (!_generating) {
 			try {
 				_generating = true;
 				boolean aborted = false;
 				ExportConnection exportConnection = exportConfig.createExportConnection();
-				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection,
-						FeatureDefinitionGraph.createFromList(_featureDefinitions));
+				DataGenerator generator = new DataGenerator(numberOfInstances, exportConnection, FeatureDefinitionGraph
+						.createFromList(_featureDefinitions));
 				TextAreaLogManager.info("Generating " + numberOfInstances + " instances");
 				int range = 1000;
 				ProgressBarManager.resetProgress();
