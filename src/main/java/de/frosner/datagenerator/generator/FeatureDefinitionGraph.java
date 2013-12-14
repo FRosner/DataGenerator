@@ -2,6 +2,7 @@ package de.frosner.datagenerator.generator;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 	@VisibleForTesting
 	final Map<FeatureDefinition, Set<FeatureDefinitionParameterPair>> _adjacentNodes = Maps.newHashMap();
 	@VisibleForTesting
-	final List<FeatureDefinition> _insertionOrder = Lists.newArrayList();
+	final LinkedList<FeatureDefinition> _insertionOrder = Lists.newLinkedList();
 
 	public static FeatureDefinitionGraph createCopyOf(FeatureDefinitionGraph graph) {
 		FeatureDefinitionGraph copy = new FeatureDefinitionGraph();
@@ -71,6 +72,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 		if (children.add(pair)) {
 			addFeatureDefinition(childFeature);
 			if (!containsPath(childFeature, parentFeature)) {
+				adjustInsertionOrder(parentFeature, childFeature);
 				return true;
 			} else {
 				children.remove(pair);
@@ -131,6 +133,15 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 			}
 		}
 		return false;
+	}
+
+	private void adjustInsertionOrder(FeatureDefinition parentFeature, FeatureDefinition childFeature) {
+		int parentPosition = _insertionOrder.indexOf(parentFeature);
+		int childPosition = _insertionOrder.indexOf(childFeature);
+		if (parentPosition > childPosition) {
+			_insertionOrder.remove(parentFeature);
+			_insertionOrder.add(childPosition, parentFeature);
+		}
 	}
 
 }

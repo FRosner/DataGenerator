@@ -216,6 +216,25 @@ public class FeatureDefinitionGraphTest {
 	}
 
 	@Test
+	public void testIterator_backwardEdges() {
+		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
+		FeatureDefinition feature1_1 = new FeatureDefinition("feature1_1", new DummyDistribution());
+		VariableDummyParameter parameter1_1 = new VariableDummyParameter();
+		FeatureDefinition feature2 = new FeatureDefinition("feature2", new DummyDistribution());
+		VariableDummyParameter parameter2 = new VariableDummyParameter();
+
+		_graph.addFeatureDefinition(feature1);
+		_graph.addFeatureDefinitionParameterDependency(feature1, feature1_1, parameter1_1);
+		_graph.addFeatureDefinition(feature2);
+		_graph.addFeatureDefinitionParameterDependency(feature2, feature1, parameter2);
+
+		Iterator<FeatureDefinition> iterator = _graph.iterator();
+		assertThat(iterator.next()).isEqualTo(feature2);
+		assertThat(iterator.next()).isEqualTo(feature1);
+		assertThat(iterator.next()).isEqualTo(feature1_1);
+	}
+
+	@Test
 	public void testEquals() {
 		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
 		FeatureDefinition feature1_1 = new FeatureDefinition("feature1_1", new DummyDistribution());
