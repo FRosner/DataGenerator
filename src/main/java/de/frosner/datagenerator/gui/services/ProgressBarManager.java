@@ -1,5 +1,6 @@
 package de.frosner.datagenerator.gui.services;
 
+import javax.annotation.Nonnull;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
@@ -22,7 +23,7 @@ public final class ProgressBarManager {
 	 * @param progressBar
 	 *            to be managed.
 	 */
-	public static void setProgressBar(JProgressBar progressBar) {
+	public static void setProgressBar(@Nonnull JProgressBar progressBar) {
 		_progressBar = Check.notNull(progressBar, "progressBar");
 	}
 
