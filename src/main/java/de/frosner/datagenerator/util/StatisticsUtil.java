@@ -82,10 +82,11 @@ public final class StatisticsUtil {
 						+ probability);
 			}
 		}
+		cumulativeProbabilities.set(cumulativeProbabilities.size() - 1, 1D);
 		return cumulativeProbabilities;
 	}
 
-	public static int compareDoubles(double a, double b) {
+	private static int compareDoubles(double a, double b) {
 		return Precision.compareTo(a, b, 0.000001);
 	}
 

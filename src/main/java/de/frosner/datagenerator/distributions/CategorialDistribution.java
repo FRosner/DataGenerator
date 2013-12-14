@@ -33,7 +33,7 @@ public final class CategorialDistribution implements Distribution {
 		int featureValue = 0;
 		List<Double> cumulativeProbabilities = StatisticsUtil.cumulateProbabilities(_probabilities.getParameter());
 		for (double threshold : cumulativeProbabilities) {
-			if (StatisticsUtil.compareDoubles(randomValue, threshold) <= 0) {
+			if (randomValue <= threshold) {
 				return new DiscreteFeatureValue(featureValue);
 			}
 			featureValue++;

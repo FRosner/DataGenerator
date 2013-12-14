@@ -9,7 +9,6 @@ import java.util.List;
 import net.sf.qualitycheck.exception.IllegalNullArgumentException;
 
 import org.fest.assertions.Delta;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -22,13 +21,9 @@ public class CategorialDistributionTest {
 
 	private CategorialDistribution _distribution;
 
-	@Before
-	public void createDistribution() {
-		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(Lists.newArrayList(0.6, 0.3, 0.1)));
-	}
-
 	@Test
 	public void testSample() {
+		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(Lists.newArrayList(0.6, 0.3, 0.1)));
 		_distribution.setSeed(43253);
 		assertThat(_distribution.sample()).isInstanceOf(DiscreteFeatureValue.class);
 		List<Integer> samples = Lists.newArrayList();
@@ -37,6 +32,15 @@ public class CategorialDistributionTest {
 		}
 		double sampleMean = StatisticsTestUtil.sampleMeanFromIntegerList(samples);
 		assertThat(sampleMean).isEqualTo(0.5, Delta.delta(0.01));
+	}
+
+	@Test
+	public void testSample_noRandom() {
+		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(Lists.newArrayList(0d, 0d, 1d)));
+		_distribution.setSeed(43253);
+		for (int i = 0; i < 100000; i++) {
+			assertThat(_distribution.sample().getValue()).isEqualTo(2);
+		}
 	}
 
 	@Test(expected = IllegalNullArgumentException.class)

@@ -26,6 +26,12 @@ public class StatisticsUtilTest {
 		assertThat(StatisticsUtil.cumulateProbabilities(probabilities)).containsExactly(0.3, 0.8, 1.0);
 	}
 
+	@Test
+	public void testCalculateCumulativeProbabilities_shouldSumToOne() {
+		List<Double> probabilities = Lists.newArrayList(0.3, 0.5, 0.1999999);
+		assertThat(StatisticsUtil.cumulateProbabilities(probabilities)).containsExactly(0.3, 0.8, 1.0);
+	}
+
 	@Test(expected = IllegalNullArgumentException.class)
 	public void testCalculateCumulativeProbabilities_nullArgument() {
 		StatisticsUtil.cumulateProbabilities(null);
@@ -35,18 +41,6 @@ public class StatisticsUtilTest {
 	public void testCalculateCumulativeProbabilities_probabilitiesNotSummingToOne() {
 		List<Double> probabilities = Lists.newArrayList(0.3, 0.3, 0.3);
 		StatisticsUtil.cumulateProbabilities(probabilities);
-	}
-
-	@Test
-	public void testCompareDoubles() {
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.1)).isEqualTo(0);
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.2)).isEqualTo(-1);
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.0)).isEqualTo(1);
-
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.101)).isEqualTo(-1);
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.099)).isEqualTo(1);
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.10000001)).isEqualTo(0);
-		assertThat(StatisticsUtil.compareDoubles(0.1, 0.09999999)).isEqualTo(0);
 	}
 
 	@Test
