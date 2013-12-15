@@ -14,6 +14,8 @@ import de.frosner.datagenerator.export.ExportConfiguration;
 import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.Instance;
+import de.frosner.datagenerator.gui.main.DummyFeatureDefinitionEntry;
+import de.frosner.datagenerator.gui.main.FeatureDefinitionEntry;
 
 public class DataGeneratorServiceTest {
 
@@ -23,8 +25,10 @@ public class DataGeneratorServiceTest {
 	private ExportConfiguration _mockedExportConfiguration;
 	private DataGeneratorService _service;
 
-	private FeatureDefinition _feature1 = new FeatureDefinition("1", new DummyDistribution());
-	private FeatureDefinition _feature2 = new FeatureDefinition("2", new DummyDistribution());
+	private FeatureDefinitionEntry _feature1 = new DummyFeatureDefinitionEntry(new FeatureDefinition("1",
+			new DummyDistribution()));
+	private FeatureDefinitionEntry _feature2 = new DummyFeatureDefinitionEntry(new FeatureDefinition("2",
+			new DummyDistribution()));
 
 	@Before
 	public void createObjects() {
@@ -41,37 +45,37 @@ public class DataGeneratorServiceTest {
 	public void testAddFeatureDefinition() {
 		assertThat(_service.getFeatureDefinitions()).isEmpty();
 		_service.addFeatureDefinition(_feature1);
-		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature1);
+		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature1.getFeatureDefinition());
 		_service.addFeatureDefinition(_feature2);
-		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature1, _feature2);
+		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature1.getFeatureDefinition(),
+				_feature2.getFeatureDefinition());
 	}
 
 	@Test
 	public void testRemoveFeatureDefinition() {
-		_service.getFeatureDefinitions().add(_feature1);
-		_service.getFeatureDefinitions().add(_feature2);
+		_service.addFeatureDefinition(_feature1);
+		_service.addFeatureDefinition(_feature2);
 
-		_service.removeFeatureDefinition(0);
-		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature2);
+		_service.removeFeatureDefinition(_feature1);
+		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature2.getFeatureDefinition());
 
-		_service.removeFeatureDefinition(0);
+		_service.removeFeatureDefinition(_feature2);
 		assertThat(_service.getFeatureDefinitions()).isEmpty();
 	}
 
 	@Test
 	public void testReplaceFeatureDefinitionAt() {
-		_service.getFeatureDefinitions().add(_feature1);
+		_service.addFeatureDefinition(_feature1);
 
-		_service.replaceFeatureDefinitionAt(0, _feature2);
-		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature2);
+		_service.replaceFeatureDefinitionAt(0, _feature2.getFeatureDefinition());
+		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature2.getFeatureDefinition());
 	}
 
 	@Test
 	public void testGenerateData() throws InterruptedException {
-		_service.getFeatureDefinitions().add(_feature1);
-		Thread.sleep(100);
-		_service.getFeatureDefinitions().add(_feature2);
-		Thread.sleep(100);
+		_service.addFeatureDefinition(_feature1);
+		_service.addFeatureDefinition(_feature2);
+		Thread.sleep(200);
 
 		_service.generateData(5, _mockedExportConfiguration);
 		verify(_mockedExportConnection).exportInstance(

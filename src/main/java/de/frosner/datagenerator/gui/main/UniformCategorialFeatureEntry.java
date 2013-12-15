@@ -3,7 +3,7 @@ package de.frosner.datagenerator.gui.main;
 import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
-public class UniformCategorialFeatureEntry extends FeatureListEntry {
+public class UniformCategorialFeatureEntry extends FeatureDefinitionEntry {
 
 	public static final String KEY = "Uniform Categorial";
 

@@ -11,7 +11,9 @@ import javax.swing.filechooser.FileFilter;
 
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
+import org.jgraph.graph.DefaultGraphCell;
 
+import de.frosner.datagenerator.gui.services.FeatureDefinitionGraphVisualizationManager;
 import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
@@ -148,11 +150,12 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		});
 	}
 
-	void selectFeature(final int i) {
+	void selectFeatureDefinitionEntryByName(String name) {
+		final DefaultGraphCell cell = FeatureDefinitionGraphVisualizationManager.getCellByFeatureName("Feature");
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {
-				_menu._featureList.setSelectedIndex(i);
+				_menu._featureGraph.setSelectionCell(cell);
 			}
 		});
 	}
@@ -206,6 +209,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		PreviewTableManager.unsetPreviewTable();
 		ProgressBarManager.unsetProgressBar();
 		GenerationButtonsToggleManager.unsetButtons();
+		FeatureDefinitionGraphVisualizationManager.stopManaging();
 	}
 
 }

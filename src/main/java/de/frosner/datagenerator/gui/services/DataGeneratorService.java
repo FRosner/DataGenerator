@@ -14,6 +14,7 @@ import de.frosner.datagenerator.export.ExportConnection;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
+import de.frosner.datagenerator.gui.main.FeatureDefinitionEntry;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 /**
@@ -35,15 +36,17 @@ public final class DataGeneratorService {
 	}
 
 	/**
-	 * Adds a {@linkplain FeatureDefinition} to the list. Make sure that it is added to the list in the UI as well.
+	 * Adds a {@linkplain FeatureDefinitionEntry} to the graph.
 	 * 
-	 * @param featureDefinition
+	 * @param featureDefinitionEntry
 	 *            to add
 	 */
-	public void addFeatureDefinition(@Nonnull FeatureDefinition featureDefinition) {
-		Check.notNull(featureDefinition, "featureDefinition");
-		_featureDefinitions.add(featureDefinition);
-		TextAreaLogManager.info("Added Feature: " + featureDefinition.getName());
+	public void addFeatureDefinition(@Nonnull FeatureDefinitionEntry featureDefinitionEntry) {
+		Check.notNull(featureDefinitionEntry, "featureDefinition");
+		_featureDefinitions.add(featureDefinitionEntry.getFeatureDefinition());
+
+		FeatureDefinitionGraphVisualizationManager.addVertex(featureDefinitionEntry);
+		TextAreaLogManager.info("Added Feature: " + featureDefinitionEntry.getFeatureName());
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
 
@@ -63,14 +66,15 @@ public final class DataGeneratorService {
 	}
 
 	/**
-	 * Removes a {@linkplain FeatureDefinition} from the list at the specified index. Make sure that it is removed from
-	 * the list in the UI as well.
+	 * Removes a {@linkplain FeatureDefinitionEntry} from the graph.
 	 * 
 	 * @param index
 	 *            to remove the feature definition at
 	 */
-	public void removeFeatureDefinition(int index) {
-		TextAreaLogManager.info("Removed Feature: " + _featureDefinitions.remove(index).getName());
+	public void removeFeatureDefinition(FeatureDefinitionEntry featureDefinitionEntry) {
+		_featureDefinitions.remove(featureDefinitionEntry.getFeatureDefinition());
+		TextAreaLogManager.info("Removed Feature: " + featureDefinitionEntry.getFeatureName());
+		FeatureDefinitionGraphVisualizationManager.removeVertex(featureDefinitionEntry);
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
 

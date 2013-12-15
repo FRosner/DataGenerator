@@ -5,11 +5,11 @@ import javax.annotation.concurrent.Immutable;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
 @Immutable
-public abstract class FeatureListEntry {
+public abstract class FeatureDefinitionEntry {
 
 	protected final FeatureDefinition _featureDefinition;
 
-	protected FeatureListEntry(FeatureDefinition featureDefinition) {
+	protected FeatureDefinitionEntry(FeatureDefinition featureDefinition) {
 		_featureDefinition = featureDefinition;
 	}
 

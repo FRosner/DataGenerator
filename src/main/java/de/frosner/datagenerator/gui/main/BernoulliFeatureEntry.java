@@ -3,7 +3,7 @@ package de.frosner.datagenerator.gui.main;
 import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
-public class BernoulliFeatureEntry extends FeatureListEntry {
+public class BernoulliFeatureEntry extends FeatureDefinitionEntry {
 
 	public static final String KEY = "Bernoulli";
 

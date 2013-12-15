@@ -24,7 +24,6 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -33,7 +32,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -45,11 +43,13 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
+
+import org.jgraph.JGraph;
+import org.jgraph.graph.DefaultGraphCell;
 
 import com.google.common.collect.Lists;
 
@@ -64,6 +64,7 @@ import de.frosner.datagenerator.export.ExportFeatureNames;
 import de.frosner.datagenerator.export.ExportInstanceIds;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
+import de.frosner.datagenerator.gui.services.FeatureDefinitionGraphVisualizationManager;
 import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
@@ -130,10 +131,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	static final FileFilter ALL_FILE_FILTER = new AllFileFilter();
 
 	@VisibleForTesting
-	final DefaultListModel _featureListModel;
-	@VisibleForTesting
-	final JList _featureList;
-	private final JScrollPane _featureListScroller;
+	final JGraph _featureGraph;
 
 	@VisibleForTesting
 	final VariableColumnCountTableModel _previewTableModel;
@@ -228,14 +226,18 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_addFeatureButton.addActionListener(this);
 		_editFeatureButton = new JButton("Edit Feature");
 		_editFeatureButton.addActionListener(this);
+		_editFeatureButton.setEnabled(false); // TODO implement editing
 		_featureDefinitionDialog = new FeatureDefinitionDialog(this, "Add Feature");
-		_featureListModel = new DefaultListModel();
-		_featureList = new JList(_featureListModel);
-		_featureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		_featureList.setFocusable(true);
-		_featureListScroller = new JScrollPane(_featureList);
-		_featureListScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		_featureListScroller.setFocusable(false);
+		_featureGraph = FeatureDefinitionGraphVisualizationManager.createNewManagedJGraph();
+		_featureGraph.setCloneable(true);
+		_featureGraph.setDragEnabled(false);
+		_featureGraph.setDropEnabled(false);
+		_featureGraph.setEdgeLabelsMovable(false);
+		_featureGraph.setEditable(false);
+		_featureGraph.setMoveable(false);
+		_featureGraph.setSizeable(false);
+		_featureGraph.setXorEnabled(false);
+		_featureGraph.setJumpToDefaultPort(true);
 		_removeFeatureButton = new JButton("Remove Feature");
 		_removeFeatureButton.addActionListener(this);
 		_numberOfInstancesLabel = new JLabel("#Instances", JLabel.RIGHT);
@@ -287,11 +289,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		JPanel removeFeaturePanel = new JPanel();
 		removeFeaturePanel.setLayout(new SpringLayout());
 		topPanel.add(removeFeaturePanel);
-		JPanel featureListPanel = new JPanel();
-		removeFeaturePanel.add(featureListPanel);
-		featureListPanel.setLayout(new BorderLayout());
-		featureListPanel.add(_featureListScroller, BorderLayout.CENTER);
-		featureListPanel.setPreferredSize(new Dimension(LINE_WIDTH, 5));
+		JPanel featureViewPanel = new JPanel();
+		removeFeaturePanel.add(featureViewPanel);
+		featureViewPanel.setLayout(new BorderLayout());
+		featureViewPanel.add(new JScrollPane(_featureGraph), BorderLayout.CENTER);
+		featureViewPanel.setPreferredSize(new Dimension(LINE_WIDTH, 5));
 		SpringUtilities.makeCompactGrid(removeFeaturePanel, 1, 1, 0, 0, PADDING, PADDING);
 
 		JPanel generateDataPanel = new JPanel();
@@ -444,7 +446,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		focusOrder.add(_gaussianMeanField);
 		focusOrder.add(_gaussianSigmaField);
 		focusOrder.add(_addFeatureButton);
-		focusOrder.add(_featureList);
+		focusOrder.add(_featureGraph);
 		focusOrder.add(_removeFeatureButton);
 		focusOrder.add(_numberOfInstancesField);
 		focusOrder.add(_exportFileButton);
@@ -482,37 +484,39 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			((CardLayout) _cards.getLayout()).show(_cards, (String) _addFeatureDistributionSelection.getSelectedItem());
 
 		} else if (source.equals(_editFeatureButton)) {
-			final int selected = _featureList.getSelectedIndex();
-			if (selected > -1) {
-				_featureDefinitionDialog.setFeatureToEdit(selected);
-				FeatureListEntry selectedEntry = (FeatureListEntry) _featureListModel.get(selected);
-				_featureNameField.setText(selectedEntry.getFeatureName());
-				if (selectedEntry instanceof BernoulliFeatureEntry) {
-					_addFeatureDistributionSelection.setSelectedItem(BernoulliFeatureEntry.KEY);
-					_bernoulliProbabilityField.setText(((BernoulliFeatureEntry) selectedEntry).getP());
-				} else if (selectedEntry instanceof UniformCategorialFeatureEntry) {
-					_addFeatureDistributionSelection.setSelectedItem(UniformCategorialFeatureEntry.KEY);
-					_uniformCategorialNumberOfStatesField.setText(((UniformCategorialFeatureEntry) selectedEntry)
-							.getNumberOfStates());
-				} else if (selectedEntry instanceof GaussianFeatureEntry) {
-					_addFeatureDistributionSelection.setSelectedItem(GaussianFeatureEntry.KEY);
-					_gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMean());
-					_gaussianSigmaField.setText(((GaussianFeatureEntry) selectedEntry).getSigma());
-				}
-				_featureDefinitionDialog.setVisible(true);
-				_featureDefinitionDialog.leaveEditMode();
-			}
+			// TODO implement editing (#176)
+			// final int selected = _featureList.getSelectedIndex();
+			// if (selected > -1) {
+			// _featureDefinitionDialog.setFeatureToEdit(selected);
+			// FeatureDefinitionEntry selectedEntry = (FeatureDefinitionEntry) _featureListModel.get(selected);
+			// _featureNameField.setText(selectedEntry.getFeatureName());
+			// if (selectedEntry instanceof BernoulliFeatureEntry) {
+			// _addFeatureDistributionSelection.setSelectedItem(BernoulliFeatureEntry.KEY);
+			// _bernoulliProbabilityField.setText(((BernoulliFeatureEntry) selectedEntry).getP());
+			// } else if (selectedEntry instanceof UniformCategorialFeatureEntry) {
+			// _addFeatureDistributionSelection.setSelectedItem(UniformCategorialFeatureEntry.KEY);
+			// _uniformCategorialNumberOfStatesField.setText(((UniformCategorialFeatureEntry) selectedEntry)
+			// .getNumberOfStates());
+			// } else if (selectedEntry instanceof GaussianFeatureEntry) {
+			// _addFeatureDistributionSelection.setSelectedItem(GaussianFeatureEntry.KEY);
+			// _gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMean());
+			// _gaussianSigmaField.setText(((GaussianFeatureEntry) selectedEntry).getSigma());
+			// }
+			// _featureDefinitionDialog.setVisible(true);
+			// _featureDefinitionDialog.leaveEditMode();
+			// }
 
 		} else if (source.equals(_removeFeatureButton)) {
-			final int selected = _featureList.getSelectedIndex();
-			if (selected > -1) {
+			DefaultGraphCell selectedCell = (DefaultGraphCell) _featureGraph.getSelectionCell();
+			if (selectedCell != null) {
+				final FeatureDefinitionEntry selectedFeatureEntry = (FeatureDefinitionEntry) selectedCell
+						.getUserObject();
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						DataGeneratorService.INSTANCE.removeFeatureDefinition(selected);
+						DataGeneratorService.INSTANCE.removeFeatureDefinition(selectedFeatureEntry);
 					}
 				}).start();
-				_featureListModel.remove(selected);
 			}
 
 		} else if (source.equals(_exportFileButton)) {
@@ -524,7 +528,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (source.equals(_generateDataButton) || source.equals(_generateDataMenuItem)) {
 			if (verifyComponent(_numberOfInstancesField, isInteger(_numberOfInstancesField.getText()).isPositive()
 					.verify())
-					& verifyComponent(_featureList, _featureListModel.getSize() > 0)
+					& verifyComponent(_featureGraph, _featureGraph.getModel().getRootCount() > 0)
 					& verifyComponent(_exportFileField, isName(_exportFileField.getText()).isFileName().verify())) {
 				final int numberOfInstances = Integer.parseInt(_numberOfInstancesField.getText());
 				final File exportFile = _exportFileDialog.getSelectedFile();
@@ -562,12 +566,12 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		String name = _featureNameField.getText();
 		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
 		final FeatureDefinition featureDefinition;
-		final FeatureListEntry featureListEntry;
+		final FeatureDefinitionEntry featureDefinitionEntry;
 
 		if (selectedItem.equals(BernoulliFeatureEntry.KEY)) {
 			double p = Double.parseDouble(_bernoulliProbabilityField.getText());
 			featureDefinition = new FeatureDefinition(name, new BernoulliDistribution(new FixedParameter<Double>(p)));
-			featureListEntry = new BernoulliFeatureEntry(featureDefinition, _bernoulliProbabilityField.getText());
+			featureDefinitionEntry = new BernoulliFeatureEntry(featureDefinition, _bernoulliProbabilityField.getText());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
 			int numberOfStates = Integer.parseInt(_uniformCategorialNumberOfStatesField.getText());
@@ -577,7 +581,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			}
 			featureDefinition = new FeatureDefinition(name, new CategorialDistribution(
 					new FixedParameter<List<Double>>(probabilities)));
-			featureListEntry = new UniformCategorialFeatureEntry(featureDefinition,
+			featureDefinitionEntry = new UniformCategorialFeatureEntry(featureDefinition,
 					_uniformCategorialNumberOfStatesField.getText());
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
@@ -585,7 +589,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			double sigma = Double.parseDouble(_gaussianSigmaField.getText());
 			featureDefinition = new FeatureDefinition(name, new GaussianDistribution(new FixedParameter<Double>(mean),
 					new FixedParameter<Double>(sigma)));
-			featureListEntry = new GaussianFeatureEntry(featureDefinition, _gaussianMeanField.getText(),
+			featureDefinitionEntry = new GaussianFeatureEntry(featureDefinition, _gaussianMeanField.getText(),
 					_gaussianSigmaField.getText());
 
 		} else {
@@ -596,21 +600,19 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(
-							_featureDefinitionDialog.getFeatureToEdit(), featureDefinition);
+					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(_featureDefinitionDialog
+							.getFeatureToEdit(), featureDefinition);
 				}
 			}).start();
-			_featureListModel.setElementAt(featureListEntry, _featureDefinitionDialog.getFeatureToEdit());
 		} else {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinition);
+					DataGeneratorService.INSTANCE.addFeatureDefinition(featureDefinitionEntry);
 				}
 			}).start();
-			_featureListModel.addElement(featureListEntry);
 		}
-		verifyComponent(_featureList, _featureListModel.getSize() > 0);
+		verifyComponent(_featureGraph, true);
 	}
 
 	private boolean verifyInputs() {
@@ -625,8 +627,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					.isProbability());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			return verifyComponent(_uniformCategorialNumberOfStatesField,
-					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
+			return verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
+					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
 			return verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
@@ -643,4 +645,5 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		Point newLocation = new Point(middle.x - (component.getWidth() / 2), middle.y - (component.getHeight() / 2));
 		return newLocation;
 	}
+
 }

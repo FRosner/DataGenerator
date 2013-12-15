@@ -92,6 +92,21 @@
 			<version>1.8.4</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>jgraph</groupId>
+			<artifactId>jgraph</artifactId>
+			<version>5.13.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>jgraph</groupId>
+			<artifactId>jgraphaddons</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jgrapht</groupId>
+			<artifactId>jgrapht</artifactId>
+		<version>0.8.3</version>
+		</dependency>
 	</dependencies>
   
   	<build>

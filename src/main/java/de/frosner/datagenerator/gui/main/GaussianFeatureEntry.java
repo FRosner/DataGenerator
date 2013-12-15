@@ -3,7 +3,7 @@ package de.frosner.datagenerator.gui.main;
 import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
-public class GaussianFeatureEntry extends FeatureListEntry {
+public class GaussianFeatureEntry extends FeatureDefinitionEntry {
 
 	public static String KEY = "Gaussian";
 
