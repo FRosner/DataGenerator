@@ -205,10 +205,10 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 	}
 
 	public static void resetComponentManagers() {
-		TextAreaLogManager.unsetLogArea();
-		PreviewTableManager.unsetPreviewTable();
-		ProgressBarManager.unsetProgressBar();
-		GenerationButtonsToggleManager.unsetButtons();
+		TextAreaLogManager.stopManaging();
+		PreviewTableManager.stopManaging();
+		ProgressBarManager.stopManaging();
+		GenerationButtonsToggleManager.stopManaging();
 		FeatureDefinitionGraphVisualizationManager.stopManaging();
 	}
 

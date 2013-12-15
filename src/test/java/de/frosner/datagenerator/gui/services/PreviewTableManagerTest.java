@@ -41,13 +41,13 @@ public class PreviewTableManagerTest {
 				return new VariableColumnCountTableModel(5, 1);
 			}
 		});
-		PreviewTableManager.setPreviewTable(_table);
+		PreviewTableManager.managePreviewTable(_table);
 		_testUtil = new GuiTestUtil();
 	}
 
 	@After
 	public void unsetPreviewTable() {
-		PreviewTableManager.unsetPreviewTable();
+		PreviewTableManager.stopManaging();
 	}
 
 	@Test

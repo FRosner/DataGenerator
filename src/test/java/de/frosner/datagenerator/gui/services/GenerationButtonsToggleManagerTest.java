@@ -45,13 +45,13 @@ public class GenerationButtonsToggleManagerTest {
 				return new JButton("Button2");
 			}
 		});
-		GenerationButtonsToggleManager.setButtons(_button1, _button2);
+		GenerationButtonsToggleManager.manageButtons(_button1, _button2);
 		_testUtil = new GuiTestUtil();
 	}
 
 	@After
 	public void unsetPreviewTable() {
-		GenerationButtonsToggleManager.unsetButtons();
+		GenerationButtonsToggleManager.stopManaging();
 	}
 
 	@Test

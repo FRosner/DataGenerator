@@ -23,14 +23,14 @@ public final class ProgressBarManager {
 	 * @param progressBar
 	 *            to be managed.
 	 */
-	public static void setProgressBar(@Nonnull JProgressBar progressBar) {
+	public static void manageProgressBar(@Nonnull JProgressBar progressBar) {
 		_progressBar = Check.notNull(progressBar, "progressBar");
 	}
 
 	/**
 	 * Unset the managed progress bar.
 	 */
-	public static void unsetProgressBar() {
+	public static void stopManaging() {
 		_progressBar = null;
 	}
 

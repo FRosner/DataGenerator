@@ -38,13 +38,13 @@ public class TextAreaLogManagerTest {
 				return new JEditorPane("text/html", null);
 			}
 		});
-		TextAreaLogManager.setLogArea(_editorPane);
+		TextAreaLogManager.manageLogArea(_editorPane);
 		_testUtil = new GuiTestUtil();
 	}
 
 	@After
 	public void unsetLogArea() {
-		TextAreaLogManager.unsetLogArea();
+		TextAreaLogManager.stopManaging();
 	}
 
 	@Test

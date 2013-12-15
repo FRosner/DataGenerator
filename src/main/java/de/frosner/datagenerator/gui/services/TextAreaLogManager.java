@@ -35,7 +35,7 @@ public final class TextAreaLogManager {
 	 * @param logArea
 	 *            to manage
 	 */
-	public static void setLogArea(@Nonnull JEditorPane logArea) {
+	public static void manageLogArea(@Nonnull JEditorPane logArea) {
 		_logArea = Check.notNull(logArea, "logArea");
 		_doc = (HTMLDocument) _logArea.getDocument();
 		_editorKit = (HTMLEditorKit) _logArea.getEditorKit();
@@ -44,7 +44,7 @@ public final class TextAreaLogManager {
 	/**
 	 * Unset the managed log area.
 	 */
-	public static void unsetLogArea() {
+	public static void stopManaging() {
 		_logArea = null;
 		_doc = null;
 		_editorKit = null;

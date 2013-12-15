@@ -15,12 +15,12 @@ public class GenerationButtonsToggleManager {
 	private static JButton _button1;
 	private static JButton _button2;
 
-	public static void setButtons(@Nonnull JButton button1, @Nonnull JButton button2) {
+	public static void manageButtons(@Nonnull JButton button1, @Nonnull JButton button2) {
 		_button1 = Check.notNull(button1);
 		_button2 = Check.notNull(button2);
 	}
 
-	public static void unsetButtons() {
+	public static void stopManaging() {
 		_button1 = null;
 		_button2 = null;
 	}

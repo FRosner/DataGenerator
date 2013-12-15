@@ -73,7 +73,7 @@ public final class PreviewTableManager {
 	 * @param table
 	 *            to be managed
 	 */
-	public static void setPreviewTable(@Nonnull VariableColumnCountTableModel table) {
+	public static void managePreviewTable(@Nonnull VariableColumnCountTableModel table) {
 		_table = Check.notNull(table, "table");
 		_originalColumnCount = _table.getColumnCount();
 	}
@@ -81,7 +81,7 @@ public final class PreviewTableManager {
 	/**
 	 * Unset the preview table to be managed.
 	 */
-	public static void unsetPreviewTable() {
+	public static void stopManaging() {
 		_table = null;
 		_originalColumnCount = 0;
 	}

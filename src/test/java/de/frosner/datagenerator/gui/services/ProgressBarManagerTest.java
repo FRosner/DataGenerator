@@ -37,13 +37,13 @@ public class ProgressBarManagerTest {
 				return new JProgressBar();
 			}
 		});
-		ProgressBarManager.setProgressBar(_progressBar);
+		ProgressBarManager.manageProgressBar(_progressBar);
 		_testUtil = new GuiTestUtil();
 	}
 
 	@After
 	public void unsetProgressBar() {
-		ProgressBarManager.unsetProgressBar();
+		ProgressBarManager.stopManaging();
 	}
 
 	@Test
