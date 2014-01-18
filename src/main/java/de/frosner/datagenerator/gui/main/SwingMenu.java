@@ -132,6 +132,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	@VisibleForTesting
 	final JGraph _featureGraph;
+	private final JScrollPane _featureGraphScroller;
 
 	@VisibleForTesting
 	final VariableColumnCountTableModel _previewTableModel;
@@ -237,6 +238,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_featureGraph.setSizeable(false);
 		_featureGraph.setXorEnabled(false);
 		_featureGraph.setJumpToDefaultPort(true);
+		_featureGraphScroller = new JScrollPane(_featureGraph);
 		_removeFeatureButton = new JButton("Remove Feature");
 		_removeFeatureButton.addActionListener(this);
 		_numberOfInstancesLabel = new JLabel("#Instances", JLabel.RIGHT);
@@ -254,6 +256,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_exportInstanceIdsBox = new JCheckBox("Instance IDs");
 		_exportFeatureNamesBox = new JCheckBox("Feature Names");
 		_progressBar = new JProgressBar(0, 100);
+		_progressBar.setPreferredSize(new Dimension(100, LINE_HEIGHT + 5));
 		ProgressBarManager.manageProgressBar(_progressBar);
 		_generateDataButton = new JButton("Generate Data");
 		_generateDataButton.addActionListener(this);
@@ -261,9 +264,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_abortDataGenerationButton.addActionListener(this);
 		_abortDataGenerationButton.setEnabled(false);
 		GenerationButtonsToggleManager.manageButtons(_generateDataButton, _abortDataGenerationButton);
-		_previewTableModel = new VariableColumnCountTableModel(8, 4);
+		_previewTableModel = new VariableColumnCountTableModel(10, 4);
 		_previewTable = new JTable(_previewTableModel);
 		_previewTable.setEnabled(false);
+		_previewTable.setPreferredSize(new Dimension(700, 50));
 		PreviewTableManager.managePreviewTable(_previewTableModel);
 		_logArea = new JEditorPane("text/html", null);
 		_logArea.setPreferredSize(new Dimension(LINE_WIDTH, 70));
@@ -285,18 +289,33 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		topPanel.setMaximumSize(new Dimension(0, 0)); // avoid resizing
 		contentPane.add(topPanel);
 
-		JPanel removeFeaturePanel = new JPanel();
-		removeFeaturePanel.setLayout(new SpringLayout());
-		topPanel.add(removeFeaturePanel);
-		JPanel featureViewPanel = new JPanel();
-		removeFeaturePanel.add(featureViewPanel);
-		featureViewPanel.setLayout(new BorderLayout());
-		featureViewPanel.add(new JScrollPane(_featureGraph), BorderLayout.CENTER);
-		featureViewPanel.setPreferredSize(new Dimension(LINE_WIDTH, 5));
-		SpringUtilities.makeCompactGrid(removeFeaturePanel, 1, 1, 0, 0, PADDING, PADDING);
+		JPanel featureButtonPanel = new JPanel();
+		featureButtonPanel.setLayout(new SpringLayout());
+		topPanel.add(featureButtonPanel);
+		featureButtonPanel.add(_addFeatureButton);
+		featureButtonPanel.add(_editFeatureButton);
+		featureButtonPanel.add(_removeFeatureButton);
+		JLabel whiteSpaceLabel = new JLabel(" "); // just for adding whitespace at bottom
+		whiteSpaceLabel.setPreferredSize(new Dimension(50, 250));
+		featureButtonPanel.add(whiteSpaceLabel);
+		SpringUtilities.makeCompactGrid(featureButtonPanel, 4, 1, 0, 0, 5, 5);
 
+		JPanel featureGraphPanel = new JPanel();
+		featureGraphPanel.setLayout(new SpringLayout());
+		topPanel.add(featureGraphPanel);
+		featureGraphPanel.setLayout(new BorderLayout());
+		featureGraphPanel.add(_featureGraphScroller, BorderLayout.CENTER);
+		featureGraphPanel.setPreferredSize(new Dimension(LINE_WIDTH, 5));
+
+		SpringUtilities.makeCompactGrid(topPanel, 1, 2, 0, 0, 0, 0);
+
+		JPanel midPanel = new JPanel();
+		midPanel.setLayout(new SpringLayout());
+		contentPane.add(midPanel);
+		JPanel midLeftPanel = new JPanel();
+		midPanel.add(midLeftPanel);
+		midLeftPanel.setLayout(new SpringLayout());
 		JPanel generateDataPanel = new JPanel();
-		topPanel.add(generateDataPanel);
 		generateDataPanel.setLayout(new SpringLayout());
 		generateDataPanel.add(_numberOfInstancesLabel);
 		generateDataPanel.add(_numberOfInstancesField);
@@ -313,34 +332,22 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		exportCheckBoxPanel.add(_exportInstanceIdsBox);
 		exportCheckBoxPanel.add(_exportFeatureNamesBox);
 		SpringUtilities.makeCompactGrid(exportFileSubPanel, 1, 2, 0, 0, 0, 0);
-		SpringUtilities.makeCompactGrid(generateDataPanel, 3, 2, 0, 0, PADDING, PADDING);
-
-		JPanel featureButtonPanel = new JPanel();
-		featureButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		topPanel.add(featureButtonPanel);
-		featureButtonPanel.add(_removeFeatureButton, BorderLayout.WEST);
-		featureButtonPanel.add(_editFeatureButton, BorderLayout.CENTER);
-		featureButtonPanel.add(_addFeatureButton, BorderLayout.EAST);
-
-		JPanel generateDataButtonPanel = new JPanel();
-		generateDataButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		topPanel.add(generateDataButtonPanel);
-		generateDataButtonPanel.add(_generateDataButton, BorderLayout.EAST);
-
-		SpringUtilities.makeCompactGrid(topPanel, 2, 2, 0, 0, 0, 0);
-
-		contentPane.add(_previewTable);
-
-		JPanel progressPanel = new JPanel();
-		contentPane.add(progressPanel);
-		progressPanel.setLayout(new SpringLayout());
-		progressPanel.add(_progressBar);
-		progressPanel.add(_abortDataGenerationButton);
-		SpringUtilities.makeCompactGrid(progressPanel, 1, 2, 0, 0, 0, 0);
+		SpringUtilities.makeCompactGrid(generateDataPanel, 3, 2, 0, 0, 0, 0);
+		JPanel midLeftButtonPanel = new JPanel();
+		midLeftButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		midLeftButtonPanel.add(_abortDataGenerationButton);
+		midLeftButtonPanel.add(_generateDataButton);
+		midLeftPanel.add(generateDataPanel);
+		midLeftPanel.add(midLeftButtonPanel);
+		midLeftPanel.add(_progressBar);
+		SpringUtilities.makeCompactGrid(midLeftPanel, 3, 1, 0, 0, 0, 0);
+		midPanel.add(midLeftPanel);
+		midPanel.add(_previewTable);
+		SpringUtilities.makeCompactGrid(midPanel, 1, 2, 0, 0, PADDING, PADDING);
 
 		contentPane.add(_logAreaScroller);
 
-		SpringUtilities.makeCompactGrid(contentPane, 4, 1, 15, 15, 15, 15);
+		SpringUtilities.makeCompactGrid(contentPane, 3, 1, 15, 15, 15, 15);
 		// END main layout
 
 		// BEGIN dialogs layout
@@ -626,8 +633,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					.isProbability());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			return verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
-					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
+			return verifyComponent(_uniformCategorialNumberOfStatesField,
+					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
 			return verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
