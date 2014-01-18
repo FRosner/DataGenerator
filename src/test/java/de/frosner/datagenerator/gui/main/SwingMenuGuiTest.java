@@ -96,8 +96,6 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_editGaussian() {
 		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
@@ -130,8 +128,6 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_editBernoulli() {
 		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
@@ -162,8 +158,6 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyFeatureName_editUniformCategorial() {
 		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
@@ -195,8 +189,6 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyGaussianMean_editFeature() {
 		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
@@ -230,8 +222,6 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyGaussianSigma_editFeature() {
 		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
@@ -264,8 +254,6 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyBernoulliProbability_editFeature() {
 		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
@@ -296,8 +284,6 @@ public class SwingMenuGuiTest {
 		fail(VALIDATION_FAILURE_MESSAGE);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = EDIT_FEATURE_TIMEOUT)
 	public void testVerifyUniformCategorialNumberOfStates_editFeature() {
 		_thrown.expectMessage("test timed out after " + EDIT_FEATURE_TIMEOUT + " milliseconds");
@@ -337,9 +323,7 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._bernoulliProbabilityField.getBackground()).isEqualTo(InputVerifier.INVALID_INPUT_RED);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
-	@Test()
+	@Test
 	public void testVerifyWithCancel_editFeatureDialog() {
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
@@ -493,8 +477,6 @@ public class SwingMenuGuiTest {
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test
 	public void testEditFeature_gaussian() {
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
@@ -504,7 +486,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
-		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureFeature");
+		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureName");
 		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "-1000");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "2");
@@ -518,8 +500,6 @@ public class SwingMenuGuiTest {
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-[0-9]+.*$");
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test
 	public void testEditFeature_bernoulli() {
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
@@ -541,8 +521,6 @@ public class SwingMenuGuiTest {
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test
 	public void testEditFeature_uniformCategorial() {
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
@@ -699,8 +677,6 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._menuBar.getMenu(0).getItem(1)).isEqualTo(_frame._closeMenuItem);
 	}
 
-	// TODO implement editing
-	@Ignore("#176 editing on graphs not implemented, yet")
 	@Test(timeout = 6000)
 	public void testChangeToEditModeWhenEditButtonWasClicked() throws InterruptedException {
 		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();

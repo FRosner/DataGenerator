@@ -1,5 +1,7 @@
 package de.frosner.datagenerator.gui.main;
 
+import static org.fest.assertions.Fail.fail;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -151,7 +153,10 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 	}
 
 	void selectFeatureDefinitionEntryByName(String name) {
-		final DefaultGraphCell cell = FeatureDefinitionGraphVisualizationManager.getCellByFeatureName("Feature");
+		final DefaultGraphCell cell = FeatureDefinitionGraphVisualizationManager.getCellByFeatureName(name);
+		if (cell == null) {
+			fail("No feature with the given name exists: " + name);
+		}
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() {

@@ -64,6 +64,24 @@ public class FeatureDefinitionGraphVisualizationManager {
 		}
 	}
 
+	// TODO replacing needs to preserve the ordering
+	public static void replaceVertex(@Nonnull final FeatureDefinitionEntry toReplace,
+			@Nonnull final FeatureDefinitionEntry newEntry) {
+		Check.notNull(toReplace, "toReplace");
+		Check.notNull(newEntry, "newEntry");
+		if (_featureGraph != null) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					_featureGraphModel.removeVertex(toReplace);
+					_featureGraphModel.addVertex(newEntry);
+					adjustLayout(newEntry, Color.GRAY);
+					JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
+				}
+			});
+		}
+	}
+
 	public static void removeVertex(@Nonnull final FeatureDefinitionEntry entry) {
 		Check.notNull(entry, "entry");
 		if (_featureGraph != null) {
@@ -88,6 +106,10 @@ public class FeatureDefinitionGraphVisualizationManager {
 			}
 		}
 		return null;
+	}
+
+	public static FeatureDefinitionEntry getFeatureDefinitionEntryByCell(Object selectedCell) {
+		return (FeatureDefinitionEntry) _featureGraphModelAdapter.getValue(selectedCell);
 	}
 
 	private static void adjustLayout(FeatureDefinitionEntry feature, @Nullable Color bg) {

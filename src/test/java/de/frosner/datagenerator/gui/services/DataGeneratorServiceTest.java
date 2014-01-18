@@ -67,7 +67,7 @@ public class DataGeneratorServiceTest {
 	public void testReplaceFeatureDefinitionAt() {
 		_service.addFeatureDefinition(_feature1);
 
-		_service.replaceFeatureDefinitionAt(0, _feature2.getFeatureDefinition());
+		_service.replaceFeatureDefinition(_feature1, _feature2);
 		assertThat(_service.getFeatureDefinitions()).containsExactly(_feature2.getFeatureDefinition());
 	}
 

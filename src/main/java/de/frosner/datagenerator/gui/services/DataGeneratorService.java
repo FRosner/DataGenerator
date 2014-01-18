@@ -43,35 +43,44 @@ public final class DataGeneratorService {
 	 */
 	public void addFeatureDefinition(@Nonnull FeatureDefinitionEntry featureDefinitionEntry) {
 		Check.notNull(featureDefinitionEntry, "featureDefinition");
-		_featureDefinitions.add(featureDefinitionEntry.getFeatureDefinition());
 
+		_featureDefinitions.add(featureDefinitionEntry.getFeatureDefinition());
 		FeatureDefinitionGraphVisualizationManager.addVertex(featureDefinitionEntry);
 		TextAreaLogManager.info("Added Feature: " + featureDefinitionEntry.getFeatureName());
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
 
 	/**
-	 * Replaces a {@linkplain FeatureDefinition} from the list at the specified index by the specified
-	 * {@linkplain FeatureDefinition}. Make sure that it is replaced in the list in the UI as well.
+	 * Replaces a {@linkplain FeatureDefinition} (in the {@linkplain FeatureDefinitionEntry}) from the graph by the
+	 * specified {@linkplain FeatureDefinition} (in the {@linkplain FeatureDefinitionEntry}). The method will also
+	 * remove the feature definition from the front end visualization.
 	 * 
-	 * @param index
-	 *            to replace at
-	 * @param featureDefinition
+	 * @param toReplace
+	 *            to replace
+	 * @param newEntry
 	 *            to replace with
 	 */
-	public void replaceFeatureDefinitionAt(int index, @Nonnull FeatureDefinition featureDefinition) {
-		Check.notNull(featureDefinition, "featureDefinition");
-		TextAreaLogManager.info("Edited Feature: " + _featureDefinitions.set(index, featureDefinition).getName());
+	public void replaceFeatureDefinition(@Nonnull FeatureDefinitionEntry toReplace,
+			@Nonnull FeatureDefinitionEntry newEntry) {
+		Check.notNull(toReplace, "toReplace");
+		Check.notNull(newEntry, "featureDefinition");
+
+		TextAreaLogManager.info("Edited Feature: "
+				+ _featureDefinitions.set(_featureDefinitions.indexOf(toReplace.getFeatureDefinition()),
+						newEntry.getFeatureDefinition()).getName());
+		FeatureDefinitionGraphVisualizationManager.replaceVertex(toReplace, newEntry);
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
 
 	/**
-	 * Removes a {@linkplain FeatureDefinitionEntry} from the graph.
+	 * Removes a {@linkplain FeatureDefinition} (in the {@linkplain FeatureDefinitionEntry}) from the graph.
 	 * 
 	 * @param index
 	 *            to remove the feature definition at
 	 */
-	public void removeFeatureDefinition(FeatureDefinitionEntry featureDefinitionEntry) {
+	public void removeFeatureDefinition(@Nonnull FeatureDefinitionEntry featureDefinitionEntry) {
+		Check.notNull(featureDefinitionEntry, "featureDefinitionEntry");
+
 		_featureDefinitions.remove(featureDefinitionEntry.getFeatureDefinition());
 		TextAreaLogManager.info("Removed Feature: " + featureDefinitionEntry.getFeatureName());
 		FeatureDefinitionGraphVisualizationManager.removeVertex(featureDefinitionEntry);

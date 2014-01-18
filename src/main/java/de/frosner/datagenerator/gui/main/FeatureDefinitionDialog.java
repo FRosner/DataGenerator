@@ -15,27 +15,27 @@ public class FeatureDefinitionDialog extends JDialog {
 
 	private static final boolean FORCED_FOCUS = true;
 
-	private int _featureIndexToEdit = -1;
+	private FeatureDefinitionEntry _featureToEdit;
 
 	public FeatureDefinitionDialog(Frame parent, String title) {
 		super(parent, title, FORCED_FOCUS);
 	}
 
-	public void setFeatureToEdit(int featureIndexToEdit) {
-		_featureIndexToEdit = featureIndexToEdit;
+	public void setFeatureToEdit(FeatureDefinitionEntry featureIndexToEdit) {
+		_featureToEdit = featureIndexToEdit;
 		setTitle(TITLE_EDIT);
 	}
 
-	public int getFeatureToEdit() {
-		return _featureIndexToEdit;
+	public FeatureDefinitionEntry getFeatureToEdit() {
+		return _featureToEdit;
 	}
 
 	public boolean isInEditMode() {
-		return _featureIndexToEdit >= 0;
+		return _featureToEdit != null;
 	}
 
 	public void leaveEditMode() {
-		_featureIndexToEdit = -1;
+		_featureToEdit = null;
 		setTitle(TITLE_ADD);
 	}
 

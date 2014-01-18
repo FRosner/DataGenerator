@@ -13,6 +13,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import de.frosner.datagenerator.distributions.DummyDistribution;
+import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.testutils.SwingTests;
 
 @Category(SwingTests.class)
@@ -37,7 +39,9 @@ public class FeatureDefinitionDialogTest {
 
 	@Test
 	public void testEnterAndLeaveEditMode() {
-		_dialog.setFeatureToEdit(0);
+		DummyFeatureDefinitionEntry featureToEdit = new DummyFeatureDefinitionEntry(new FeatureDefinition("test",
+				new DummyDistribution()));
+		_dialog.setFeatureToEdit(featureToEdit);
 		assertThat(_dialog.getTitle()).isEqualTo(FeatureDefinitionDialog.TITLE_EDIT);
 		assertThat(_dialog.isInEditMode()).isTrue();
 		_dialog.leaveEditMode();

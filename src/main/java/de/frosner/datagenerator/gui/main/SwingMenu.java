@@ -226,7 +226,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_addFeatureButton.addActionListener(this);
 		_editFeatureButton = new JButton("Edit Feature");
 		_editFeatureButton.addActionListener(this);
-		_editFeatureButton.setEnabled(false); // TODO implement editing
 		_featureDefinitionDialog = new FeatureDefinitionDialog(this, "Add Feature");
 		_featureGraph = FeatureDefinitionGraphVisualizationManager.createNewManagedJGraph();
 		_featureGraph.setCloneable(true);
@@ -484,27 +483,27 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			((CardLayout) _cards.getLayout()).show(_cards, (String) _addFeatureDistributionSelection.getSelectedItem());
 
 		} else if (source.equals(_editFeatureButton)) {
-			// TODO implement editing (#176)
-			// final int selected = _featureList.getSelectedIndex();
-			// if (selected > -1) {
-			// _featureDefinitionDialog.setFeatureToEdit(selected);
-			// FeatureDefinitionEntry selectedEntry = (FeatureDefinitionEntry) _featureListModel.get(selected);
-			// _featureNameField.setText(selectedEntry.getFeatureName());
-			// if (selectedEntry instanceof BernoulliFeatureEntry) {
-			// _addFeatureDistributionSelection.setSelectedItem(BernoulliFeatureEntry.KEY);
-			// _bernoulliProbabilityField.setText(((BernoulliFeatureEntry) selectedEntry).getP());
-			// } else if (selectedEntry instanceof UniformCategorialFeatureEntry) {
-			// _addFeatureDistributionSelection.setSelectedItem(UniformCategorialFeatureEntry.KEY);
-			// _uniformCategorialNumberOfStatesField.setText(((UniformCategorialFeatureEntry) selectedEntry)
-			// .getNumberOfStates());
-			// } else if (selectedEntry instanceof GaussianFeatureEntry) {
-			// _addFeatureDistributionSelection.setSelectedItem(GaussianFeatureEntry.KEY);
-			// _gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMean());
-			// _gaussianSigmaField.setText(((GaussianFeatureEntry) selectedEntry).getSigma());
-			// }
-			// _featureDefinitionDialog.setVisible(true);
-			// _featureDefinitionDialog.leaveEditMode();
-			// }
+			final Object selectedCell = _featureGraph.getSelectionCell();
+			if (selectedCell != null) {
+				FeatureDefinitionEntry selectedEntry = FeatureDefinitionGraphVisualizationManager
+						.getFeatureDefinitionEntryByCell(selectedCell);
+				_featureDefinitionDialog.setFeatureToEdit(selectedEntry);
+				_featureNameField.setText(selectedEntry.getFeatureName());
+				if (selectedEntry instanceof BernoulliFeatureEntry) {
+					_addFeatureDistributionSelection.setSelectedItem(BernoulliFeatureEntry.KEY);
+					_bernoulliProbabilityField.setText(((BernoulliFeatureEntry) selectedEntry).getP());
+				} else if (selectedEntry instanceof UniformCategorialFeatureEntry) {
+					_addFeatureDistributionSelection.setSelectedItem(UniformCategorialFeatureEntry.KEY);
+					_uniformCategorialNumberOfStatesField.setText(((UniformCategorialFeatureEntry) selectedEntry)
+							.getNumberOfStates());
+				} else if (selectedEntry instanceof GaussianFeatureEntry) {
+					_addFeatureDistributionSelection.setSelectedItem(GaussianFeatureEntry.KEY);
+					_gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMean());
+					_gaussianSigmaField.setText(((GaussianFeatureEntry) selectedEntry).getSigma());
+				}
+				_featureDefinitionDialog.setVisible(true);
+				_featureDefinitionDialog.leaveEditMode();
+			}
 
 		} else if (source.equals(_removeFeatureButton)) {
 			DefaultGraphCell selectedCell = (DefaultGraphCell) _featureGraph.getSelectionCell();
@@ -600,8 +599,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					DataGeneratorService.INSTANCE.replaceFeatureDefinitionAt(_featureDefinitionDialog
-							.getFeatureToEdit(), featureDefinition);
+					DataGeneratorService.INSTANCE.replaceFeatureDefinition(_featureDefinitionDialog.getFeatureToEdit(),
+							featureDefinitionEntry);
 				}
 			}).start();
 		} else {
