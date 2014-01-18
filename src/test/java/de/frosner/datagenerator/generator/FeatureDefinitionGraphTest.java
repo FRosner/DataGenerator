@@ -221,12 +221,12 @@ public class FeatureDefinitionGraphTest {
 		FeatureDefinition feature1_1 = new FeatureDefinition("feature1_1", new DummyDistribution());
 		VariableDummyParameter parameter1_1 = new VariableDummyParameter();
 		FeatureDefinition feature2 = new FeatureDefinition("feature2", new DummyDistribution());
-		VariableDummyParameter parameter2 = new VariableDummyParameter();
+		VariableDummyParameter parameter1 = new VariableDummyParameter();
 
 		_graph.addFeatureDefinition(feature1);
 		_graph.addFeatureDefinitionParameterDependency(feature1, feature1_1, parameter1_1);
 		_graph.addFeatureDefinition(feature2);
-		_graph.addFeatureDefinitionParameterDependency(feature2, feature1, parameter2);
+		_graph.addFeatureDefinitionParameterDependency(feature2, feature1, parameter1);
 
 		Iterator<FeatureDefinition> iterator = _graph.iterator();
 		assertThat(iterator.next()).isEqualTo(feature2);
