@@ -82,6 +82,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	@VisibleForTesting
 	final JButton _addFeatureButton;
+	private final JButton _addDependencyButton;
 	@VisibleForTesting
 	final JButton _editFeatureButton;
 	@VisibleForTesting
@@ -225,6 +226,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_uniformCategorialNumberOfStatesField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_addFeatureButton = new JButton("Add Feature");
 		_addFeatureButton.addActionListener(this);
+		_addDependencyButton = new JButton("Add Dependency");
+		_addDependencyButton.addActionListener(this);
 		_editFeatureButton = new JButton("Edit Feature");
 		_editFeatureButton.addActionListener(this);
 		_featureDefinitionDialog = new FeatureDefinitionDialog(this, "Add Feature");
@@ -293,12 +296,13 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		featureButtonPanel.setLayout(new SpringLayout());
 		topPanel.add(featureButtonPanel);
 		featureButtonPanel.add(_addFeatureButton);
+		featureButtonPanel.add(_addDependencyButton);
 		featureButtonPanel.add(_editFeatureButton);
 		featureButtonPanel.add(_removeFeatureButton);
 		JLabel whiteSpaceLabel = new JLabel(" "); // just for adding whitespace at bottom
 		whiteSpaceLabel.setPreferredSize(new Dimension(50, 250));
 		featureButtonPanel.add(whiteSpaceLabel);
-		SpringUtilities.makeCompactGrid(featureButtonPanel, 4, 1, 0, 0, 5, 5);
+		SpringUtilities.makeCompactGrid(featureButtonPanel, 5, 1, 0, 0, 5, 5);
 
 		JPanel featureGraphPanel = new JPanel();
 		featureGraphPanel.setLayout(new SpringLayout());
@@ -489,6 +493,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (source.equals(_addFeatureDistributionSelection)) {
 			((CardLayout) _cards.getLayout()).show(_cards, (String) _addFeatureDistributionSelection.getSelectedItem());
 
+		} else if (source.equals(_addDependencyButton)) {
+			// TODO implement adding dependencies
+
 		} else if (source.equals(_editFeatureButton)) {
 			final Object selectedCell = _featureGraph.getSelectionCell();
 			if (selectedCell != null) {
@@ -633,8 +640,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					.isProbability());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			return verifyComponent(_uniformCategorialNumberOfStatesField,
-					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
+			return verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
+					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
 			return verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
