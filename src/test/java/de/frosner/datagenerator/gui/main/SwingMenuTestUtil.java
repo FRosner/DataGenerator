@@ -216,14 +216,6 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		clickButtonOrItem(_menu._exportFileButton);
 	}
 
-	public static void resetComponentManagers() {
-		TextAreaLogManager.stopManaging();
-		PreviewTableManager.stopManaging();
-		ProgressBarManager.stopManaging();
-		GenerationButtonsToggleManager.stopManaging();
-		FeatureDefinitionGraphVisualizationManager.stopManaging();
-	}
-
 	Boolean clickAddButtonAndCheckComponentVerification(final AbstractButton button, final JTextField component) {
 		return GuiActionRunner.execute(new GuiQuery<Boolean>() {
 			@Override
@@ -307,5 +299,13 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 				return inputIsValid;
 			}
 		});
+	}
+
+	public static void resetComponentManagers() {
+		TextAreaLogManager.stopManaging();
+		PreviewTableManager.stopManaging();
+		ProgressBarManager.stopManaging();
+		GenerationButtonsToggleManager.stopManaging();
+		FeatureDefinitionGraphVisualizationManager.stopManaging();
 	}
 }
