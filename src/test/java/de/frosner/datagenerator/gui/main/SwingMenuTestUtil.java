@@ -224,8 +224,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		FeatureDefinitionGraphVisualizationManager.stopManaging();
 	}
 
-	public Boolean clickButtonAndCheckComponentVerification(final AbstractButton button, final JTextField component) {
-
+	Boolean clickAddButtonAndCheckComponentVerification(final AbstractButton button, final JTextField component) {
 		return GuiActionRunner.execute(new GuiQuery<Boolean>() {
 			@Override
 			protected Boolean executeInEDT() {

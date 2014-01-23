@@ -81,7 +81,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureButton,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
 						_frame._featureNameField)).isFalse();
 	}
 
@@ -108,7 +108,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureButton,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
 						_frame._featureNameField)).isFalse();
 	}
 
@@ -133,7 +133,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureButton,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
 						_frame._featureNameField)).isFalse();
 	}
 
@@ -159,7 +159,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureButton,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
 						_frame._gaussianMeanField)).isFalse();
 	}
 
@@ -187,7 +187,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureButton,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
 						_frame._gaussianSigmaField)).isFalse();
 	}
 
@@ -214,7 +214,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureButton,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
 						_frame._bernoulliProbabilityField)).isFalse();
 	}
 
@@ -240,7 +240,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureButton,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
 						_frame._uniformCategorialNumberOfStatesField)).isFalse();
 	}
 
@@ -312,7 +312,7 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
 
 		assertThat(
-				_frameTestUtil.clickButtonAndCheckComponentVerification(_frame._addFeatureMenuItem,
+				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureMenuItem,
 						_frame._bernoulliProbabilityField)).isFalse();
 	}
 
