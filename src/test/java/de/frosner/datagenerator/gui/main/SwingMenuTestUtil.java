@@ -5,6 +5,11 @@ import static org.fest.assertions.Fail.fail;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.swing.AbstractButton;
 import javax.swing.JComboBox;
@@ -12,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
 import org.fest.swing.edt.GuiActionRunner;
+import org.fest.swing.edt.GuiQuery;
 import org.fest.swing.edt.GuiTask;
 import org.jgraph.graph.DefaultGraphCell;
 
@@ -20,6 +26,7 @@ import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
+import de.frosner.datagenerator.gui.verifiers.InputVerifier;
 import de.frosner.datagenerator.testutils.GuiTestUtil;
 
 public final class SwingMenuTestUtil extends GuiTestUtil {
@@ -217,4 +224,38 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		FeatureDefinitionGraphVisualizationManager.stopManaging();
 	}
 
+	public Boolean clickButtonAndCheckComponentVerification(final AbstractButton button, final JTextField component) {
+
+		return GuiActionRunner.execute(new GuiQuery<Boolean>() {
+			@Override
+			protected Boolean executeInEDT() {
+				Boolean inputIsValid = null;
+
+				ExecutorService executor = Executors.newFixedThreadPool(1);
+				Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+					@Override
+					public Boolean call() {
+						delay(DIALOG_OPEN_DELAY);
+						pressAndReleaseKey(KeyEvent.VK_ENTER);
+						delay(DIALOG_OPEN_DELAY);
+						boolean inputIsValid = component.getBackground().equals(InputVerifier.VALID_INPUT_WHITE);
+						pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+						delay(DIALOG_OPEN_DELAY);
+						return inputIsValid;
+					}
+				});
+
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
+
+				try {
+					inputIsValid = future.get();
+				} catch (InterruptedException e1) {
+					fail(e1.getMessage());
+				} catch (ExecutionException e2) {
+					fail(e2.getMessage());
+				}
+				return inputIsValid;
+			}
+		});
+	}
 }
