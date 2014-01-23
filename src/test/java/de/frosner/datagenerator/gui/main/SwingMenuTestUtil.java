@@ -258,4 +258,55 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 			}
 		});
 	}
+
+	Boolean clickEditButtonAndCheckComponentVerification(final JTextField component) {
+		final String featureName = _menu._featureNameField.getText();
+		final String gaussianMean = _menu._gaussianMeanField.getText();
+		final String gaussianSigma = _menu._gaussianSigmaField.getText();
+		final String bernoulliProbability = _menu._bernoulliProbabilityField.getText();
+		final String categorialNumberOfStates = _menu._uniformCategorialNumberOfStatesField.getText();
+
+		return GuiActionRunner.execute(new GuiQuery<Boolean>() {
+			@Override
+			protected Boolean executeInEDT() {
+				Boolean inputIsValid = null;
+
+				ExecutorService executor = Executors.newFixedThreadPool(1);
+				Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+					@Override
+					public Boolean call() {
+						delay(DIALOG_OPEN_DELAY);
+						GuiActionRunner.execute(new GuiTask() {
+							@Override
+							protected void executeInEDT() {
+								_menu._featureNameField.setText(featureName);
+								_menu._gaussianMeanField.setText(gaussianMean);
+								_menu._gaussianSigmaField.setText(gaussianSigma);
+								_menu._bernoulliProbabilityField.setText(bernoulliProbability);
+								_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+							}
+						});
+						delay(DIALOG_OPEN_DELAY);
+						pressAndReleaseKey(KeyEvent.VK_ENTER);
+						delay(DIALOG_OPEN_DELAY);
+						boolean inputIsValid = component.getBackground().equals(InputVerifier.VALID_INPUT_WHITE);
+
+						pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+						return inputIsValid;
+					}
+				});
+
+				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+
+				try {
+					inputIsValid = future.get();
+				} catch (InterruptedException e1) {
+					fail(e1.getMessage());
+				} catch (ExecutionException e2) {
+					fail(e2.getMessage());
+				}
+				return inputIsValid;
+			}
+		});
+	}
 }
