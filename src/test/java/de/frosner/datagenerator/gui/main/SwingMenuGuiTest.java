@@ -1,8 +1,8 @@
 package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Fail.fail;
 import static org.fest.swing.edt.GuiActionRunner.execute;
-import static org.junit.Assert.fail;
 
 import java.awt.AWTException;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,11 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
@@ -636,7 +641,7 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test(timeout = 6000)
-	public void testChangeToEditModeWhenEditButtonWasClicked() throws InterruptedException {
+	public void testChangeToEditModeWhenEditButtonWasClicked() {
 		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();
 
 		// dummy feature entry, as at least one feature is needed for editing
@@ -647,25 +652,34 @@ public class SwingMenuGuiTest {
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeatureDefinitionEntryByName("FeatureToEdit");
 
-		Thread thread;
-		thread = new Thread(new Runnable() {
+		assertThat(GuiActionRunner.execute(new GuiQuery<Boolean>() {
 			@Override
-			public void run() {
-				_frameTestUtil.delay(500);
-				assertThat(_frame._featureDefinitionDialog.isInEditMode()).isTrue();
-				_frameTestUtil.pressAndReleaseKey(KeyEvent.VK_ESCAPE);
-			}
-		});
-		thread.start();
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() {
+			protected Boolean executeInEDT() {
+				Boolean isInEditMode = null;
+
+				ExecutorService executor = Executors.newFixedThreadPool(1);
+				Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+					@Override
+					public Boolean call() {
+						_frameTestUtil.delay(500);
+						boolean isInEditMode = _frame._featureDefinitionDialog.isInEditMode();
+						_frameTestUtil.pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+						return isInEditMode;
+					}
+				});
+
 				_frame.actionPerformed(new ActionEvent(_frame._editFeatureButton, 1, ""));
+
+				try {
+					isInEditMode = future.get();
+				} catch (InterruptedException e1) {
+					fail(e1.getMessage());
+				} catch (ExecutionException e2) {
+					fail(e2.getMessage());
+				}
+				return isInEditMode;
 			}
-		});
-		while (thread.isAlive()) {
-			Thread.sleep(50);
-		}
+		})).isTrue();
 
 		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();
 	}
