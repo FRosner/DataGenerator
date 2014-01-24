@@ -24,6 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -172,6 +173,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		setTitle(ApplicationMetaData.getName());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(true);
+		setIconImage(new ImageIcon(getClass().getClassLoader().getResource("frame_icon.png")).getImage());
 		// END frame initialization
 
 		// BEGIN menu bar initialization

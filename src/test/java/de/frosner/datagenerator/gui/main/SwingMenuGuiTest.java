@@ -16,6 +16,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.swing.ImageIcon;
+
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
@@ -682,5 +684,11 @@ public class SwingMenuGuiTest {
 		})).isTrue();
 
 		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();
+	}
+
+	@Test
+	public void testThatIconImageIsSet() {
+		assertThat(_frame.getIconImages().get(0)).isEqualTo(
+				new ImageIcon(getClass().getClassLoader().getResource("frame_icon.png")).getImage());
 	}
 }
