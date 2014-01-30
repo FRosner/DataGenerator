@@ -80,5 +80,6 @@ public class DataGeneratorServiceTest {
 		_service.generateData(5, _mockedExportConfiguration);
 		verify(_mockedExportConnection).exportInstance(
 				new Instance(0, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE));
+		verify(_mockedExportConnection).close();
 	}
 }
