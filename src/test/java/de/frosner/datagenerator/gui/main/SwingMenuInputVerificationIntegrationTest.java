@@ -25,7 +25,7 @@ public class SwingMenuInputVerificationIntegrationTest {
 
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
-	private File _testFile = new File("src/test/resources/" + SwingMenuMiscIntegrationTest.class.getSimpleName() + ".tmp");
+	private File _testFile = new File("src/test/resources/" + this.getClass().getSimpleName() + ".tmp");
 
 	@BeforeClass
 	public static void setUpOnce() {
