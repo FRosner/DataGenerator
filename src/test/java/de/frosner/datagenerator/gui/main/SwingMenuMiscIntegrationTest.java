@@ -8,7 +8,6 @@ import java.awt.AWTException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -33,11 +32,12 @@ import de.frosner.datagenerator.gui.services.TextAreaLogManager;
 import de.frosner.datagenerator.testutils.LongRunningSwingTests;
 
 @Category(LongRunningSwingTests.class)
-public class SwingMenuGuiTest {
+public class SwingMenuMiscIntegrationTest {
 
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
-	private File _testFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
+	private File _testFile = new File("src/test/resources/" + SwingMenuMiscIntegrationTest.class.getSimpleName()
+			+ ".tmp");
 
 	@BeforeClass
 	public static void setUpOnce() {
@@ -73,33 +73,6 @@ public class SwingMenuGuiTest {
 	}
 
 	@Test
-	public void testSelectExportFile() {
-		assertThat(_frame._exportFileField.isEditable()).isFalse();
-		_frameTestUtil.selectFileUsingFileChooserDialog(new File("t"));
-		assertThat(_frame._exportFileField.getText()).endsWith("t");
-	}
-
-	@Test
-	public void testSelectExportFile_fileExtensionCsv() {
-		_frameTestUtil.setExportFileFilter(SwingMenu.CSV_FILE_FILTER);
-		_frameTestUtil.selectFileUsingFileChooserDialog(new File("t"));
-		assertThat(_frame._exportFileField.getText()).endsWith("t.csv");
-	}
-
-	@Test
-	public void testSelectExportFile_fileExtensionNotAddedTwice() throws InterruptedException {
-		_frameTestUtil.setExportFileFilter(SwingMenu.CSV_FILE_FILTER);
-		_frameTestUtil.selectFileUsingFileChooserDialog(new File("t.csv"));
-		assertThat(_frame._exportFileField.getText()).endsWith("t.csv");
-	}
-
-	@Test
-	public void testSelectedDirectoryEqualsCurrentDirectoryAtStartUp() throws IOException {
-		assertThat(_frame._exportFileDialog.getCurrentDirectory().getCanonicalPath()).isEqualTo(
-				new File("").getCanonicalPath());
-	}
-
-	@Test
 	public void testLogging() {
 		TextAreaLogManager.info("Test");
 		_frameTestUtil.delay(250);
@@ -114,6 +87,12 @@ public class SwingMenuGuiTest {
 	@Test
 	public void testWhetherExitItemIsInFileMenu() {
 		assertThat(_frame._menuBar.getMenu(0).getItem(1)).isEqualTo(_frame._closeMenuItem);
+	}
+
+	@Test
+	public void testThatIconImageIsSet() {
+		assertThat(_frame.getIconImages().get(0)).isEqualTo(
+				new ImageIcon(getClass().getClassLoader().getResource("frame_icon.png")).getImage());
 	}
 
 	@Test(timeout = 6000)
@@ -160,9 +139,4 @@ public class SwingMenuGuiTest {
 		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();
 	}
 
-	@Test
-	public void testThatIconImageIsSet() {
-		assertThat(_frame.getIconImages().get(0)).isEqualTo(
-				new ImageIcon(getClass().getClassLoader().getResource("frame_icon.png")).getImage());
-	}
 }

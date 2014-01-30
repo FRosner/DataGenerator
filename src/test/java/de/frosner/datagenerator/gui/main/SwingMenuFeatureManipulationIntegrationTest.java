@@ -29,7 +29,7 @@ public class SwingMenuFeatureManipulationIntegrationTest {
 
 	private SwingMenu _frame;
 	private SwingMenuTestUtil _frameTestUtil;
-	private File _testFile = new File("src/test/resources/" + SwingMenuGuiTest.class.getSimpleName() + ".tmp");
+	private File _testFile = new File("src/test/resources/" + SwingMenuMiscIntegrationTest.class.getSimpleName() + ".tmp");
 
 	@BeforeClass
 	public static void setUpOnce() {
