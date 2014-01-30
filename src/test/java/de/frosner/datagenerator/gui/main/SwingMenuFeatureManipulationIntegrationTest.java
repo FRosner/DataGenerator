@@ -1,19 +1,9 @@
 package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.swing.edt.GuiActionRunner.execute;
 
-import java.awt.AWTException;
-import java.io.File;
 import java.util.List;
 
-import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
-import org.fest.swing.edt.GuiActionRunner;
-import org.fest.swing.edt.GuiQuery;
-import org.fest.swing.edt.GuiTask;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -23,46 +13,8 @@ import de.frosner.datagenerator.distributions.CategorialDistribution;
 import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.gui.services.DataGeneratorService;
 
-public class SwingMenuFeatureManipulationIntegrationTest {
-
-	private SwingMenu _frame;
-	private SwingMenuTestUtil _frameTestUtil;
-	private File _testFile = new File("src/test/resources/" + this.getClass().getSimpleName() + ".tmp");
-
-	@BeforeClass
-	public static void setUpOnce() {
-		FailOnThreadViolationRepaintManager.install();
-	}
-
-	@Before
-	public void setUp() throws AWTException {
-		DataGeneratorService.INSTANCE.reset();
-		_frame = GuiActionRunner.execute(new GuiQuery<SwingMenu>() {
-			@Override
-			protected SwingMenu executeInEDT() {
-				return new SwingMenu();
-			}
-		});
-		_frameTestUtil = new SwingMenuTestUtil(_frame);
-		SwingLauncher.GUI = _frame;
-		_frameTestUtil.setExportFileFilter(SwingMenu.ALL_FILE_FILTER);
-		if (_testFile.exists()) {
-			_testFile.delete();
-		}
-	}
-
-	@After
-	public void destroyGUI() {
-		execute(new GuiTask() {
-			@Override
-			public void executeInEDT() {
-				_frame.dispose();
-			}
-		});
-		SwingMenuTestUtil.resetComponentManagers();
-	}
+public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegrationTest {
 
 	@Test
 	public void testAddAndRemoveFeature_gaussian() {
