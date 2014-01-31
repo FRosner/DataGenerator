@@ -16,14 +16,14 @@ public interface Distribution {
 	 * 
 	 * @return random feature value
 	 */
-	public FeatureValue sample();
+	FeatureValue sample();
 
 	/**
 	 * Returns a string representation of the distribution type.
 	 * 
 	 * @return distribution type
 	 */
-	public String getType();
+	String getType();
 
 	/**
 	 * Returns the parameters necessary for the construction of the given {@linkplain Distribution}.
@@ -33,6 +33,6 @@ public interface Distribution {
 	 * 
 	 * @return parameters
 	 */
-	public String getParameterDescription();
+	String getParameterDescription();
 
 }
