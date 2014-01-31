@@ -59,7 +59,7 @@ public class GenerationButtonsToggleManagerTest {
 		execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				_button2.setEnabled(true);
+				_button1.setEnabled(true);
 			}
 		});
 		execute(new GuiTask() {
@@ -83,7 +83,7 @@ public class GenerationButtonsToggleManagerTest {
 		execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				_button2.setEnabled(true);
+				_button1.setEnabled(true);
 			}
 		});
 		execute(new GuiTask() {
