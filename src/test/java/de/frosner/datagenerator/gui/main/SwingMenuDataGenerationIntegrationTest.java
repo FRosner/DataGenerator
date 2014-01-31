@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegrationTest {
 
-	@Test(timeout = 5000)
+	@Test(timeout = 10000)
 	public void testGenerateData_clickButton() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
@@ -34,7 +34,7 @@ public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegration
 		assertThat(_frame._progressBar.getValue()).isEqualTo(_frame._progressBar.getMaximum());
 	}
 
-	@Test(timeout = 5000)
+	@Test(timeout = 10000)
 	public void testGenerateData_clickMenuItem() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
@@ -62,7 +62,7 @@ public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegration
 		assertThat(_frame._progressBar.getValue()).isEqualTo(_frame._progressBar.getMaximum());
 	}
 
-	@Test(timeout = 5000)
+	@Test(timeout = 10000)
 	public void testAbortGeneration() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
