@@ -143,7 +143,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JOptionPane _featureDefinitionPane;
 	@VisibleForTesting
 	final FeatureDefinitionDialog _featureDefinitionDialog;
-	private final JPanel _cards;
+	private final JPanel _distributionSelectionPanel;
 
 	@VisibleForTesting
 	final JProgressBar _progressBar;
@@ -353,8 +353,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		// END main layout
 
 		// BEGIN dialogs layout
-		_cards = new JPanel();
-		_cards.setLayout(new CardLayout());
+		_distributionSelectionPanel = new JPanel();
+		_distributionSelectionPanel.setLayout(new CardLayout());
 
 		JPanel trashPanel = new JPanel(); // container for trash components
 		JLabel trashLabel = new JLabel(""); // used as placeholder
@@ -362,7 +362,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		trashField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 
 		JPanel bernoulliPanel = new JPanel();
-		_cards.add(bernoulliPanel, BernoulliFeatureEntry.KEY);
+		_distributionSelectionPanel.add(bernoulliPanel, BernoulliFeatureEntry.KEY);
 		bernoulliPanel.setLayout(new SpringLayout());
 		bernoulliPanel.add(_bernoulliProbabilityLabel);
 		bernoulliPanel.add(_bernoulliProbabilityField);
@@ -371,7 +371,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		SpringUtilities.makeCompactGrid(bernoulliPanel, 2, 2, 0, 0, PADDING, PADDING);
 
 		JPanel uniformCategorialPanel = new JPanel();
-		_cards.add(uniformCategorialPanel, UniformCategorialFeatureEntry.KEY);
+		_distributionSelectionPanel.add(uniformCategorialPanel, UniformCategorialFeatureEntry.KEY);
 		uniformCategorialPanel.setLayout(new SpringLayout());
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesLabel);
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesField);
@@ -382,7 +382,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		SpringUtilities.makeCompactGrid(uniformCategorialPanel, 2, 2, 0, 0, PADDING, PADDING);
 
 		JPanel gaussianPanel = new JPanel();
-		_cards.add(gaussianPanel, GaussianFeatureEntry.KEY);
+		_distributionSelectionPanel.add(gaussianPanel, GaussianFeatureEntry.KEY);
 		gaussianPanel.setLayout(new SpringLayout());
 		gaussianPanel.add(_gaussianMeanLabel);
 		gaussianPanel.add(_gaussianMeanField);
@@ -406,7 +406,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		featureDefinitionDialogPanel.add(new JLabel("           "));
 		featureDefinitionDialogPanel.add(new JLabel("Distribution Parameters", JLabel.LEFT));
 		featureDefinitionDialogPanel.add(new JLabel("           "));
-		featureDefinitionDialogPanel.add(_cards);
+		featureDefinitionDialogPanel.add(_distributionSelectionPanel);
 
 		SpringUtilities.makeCompactGrid(featureDefinitionDialogPanel, 7, 1, 5, 0, 0, 0);
 
@@ -489,7 +489,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			_featureDefinitionDialog.setVisible(true);
 
 		} else if (source.equals(_addFeatureDistributionSelection)) {
-			((CardLayout) _cards.getLayout()).show(_cards, (String) _addFeatureDistributionSelection.getSelectedItem());
+			((CardLayout) _distributionSelectionPanel.getLayout()).show(_distributionSelectionPanel,
+					(String) _addFeatureDistributionSelection.getSelectedItem());
 
 		} else if (source.equals(_editFeatureButton)) {
 			final Object selectedCell = _featureGraph.getSelectionCell();
