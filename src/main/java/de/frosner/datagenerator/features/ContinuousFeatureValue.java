@@ -6,7 +6,7 @@ import javax.annotation.concurrent.Immutable;
  * Representation of a continuous feature / variable.
  */
 @Immutable
-public final class ContinuousFeatureValue implements FeatureValue {
+public final class ContinuousFeatureValue implements FeatureValue, Comparable<ContinuousFeatureValue> {
 
 	private final double _value;
 
@@ -47,10 +47,15 @@ public final class ContinuousFeatureValue implements FeatureValue {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof ContinuousFeatureValue) {
-			return ((ContinuousFeatureValue) o).getValue().equals(_value);
+			return Double.compare(((ContinuousFeatureValue) o).getDoubleValue(), getDoubleValue()) == 0;
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public int compareTo(ContinuousFeatureValue value) {
+		return Double.compare(_value, value._value);
 	}
 
 }

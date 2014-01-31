@@ -16,7 +16,7 @@ import de.frosner.datagenerator.util.VisibleForTesting;
  * the specified standard deviation.
  */
 @Immutable
-public final class GaussianDistribution implements Distribution {
+public final class GaussianDistribution implements ContinuousDistribution {
 
 	private static final String TYPE = "Gaussian";
 
@@ -58,6 +58,11 @@ public final class GaussianDistribution implements Distribution {
 	@Override
 	public String getParameterDescription() {
 		return "Mean = " + _mean + ", Sigma = " + _sigma;
+	}
+
+	@Override
+	public Interval getPossibleValueInterval() {
+		return Interval.UNBOUNDED;
 	}
 
 	@Override

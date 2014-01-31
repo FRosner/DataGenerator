@@ -39,6 +39,12 @@ public class GaussianDistributionTest {
 		assertThat(sampleSigma).isEqualTo(expectedSigma, delta(0.1));
 	}
 
+	@Test
+	public void testGetPossibleValueInterval() {
+		_distribution = new GaussianDistribution(new FixedParameter<Double>(0d), new FixedParameter<Double>(1d));
+		assertThat(_distribution.getPossibleValueInterval()).isEqualTo(Interval.UNBOUNDED);
+	}
+
 	@Test(expected = IllegalNullArgumentException.class)
 	public void testCreate_firstArgumentNull() {
 		new GaussianDistribution(null, new FixedParameter<Double>(1d));
