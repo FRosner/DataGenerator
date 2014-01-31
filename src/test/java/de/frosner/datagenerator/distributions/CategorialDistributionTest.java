@@ -43,6 +43,14 @@ public class CategorialDistributionTest {
 		}
 	}
 
+	@Test
+	public void testGetPossibleValues() {
+		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(
+				Lists.newArrayList(0.33, 0.33, 0.34)));
+		assertThat(_distribution.getPossibleValues()).containsOnly(new DiscreteFeatureValue(0),
+				new DiscreteFeatureValue(1), new DiscreteFeatureValue(2));
+	}
+
 	@Test(expected = IllegalNullArgumentException.class)
 	public void testCreate_nullArgument() {
 		new CategorialDistribution(null);

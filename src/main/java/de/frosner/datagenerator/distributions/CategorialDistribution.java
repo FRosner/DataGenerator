@@ -2,18 +2,22 @@ package de.frosner.datagenerator.distributions;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
+
+import com.google.common.collect.Sets;
+
 import de.frosner.datagenerator.features.DiscreteFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
 import de.frosner.datagenerator.util.StatisticsUtil;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 @Immutable
-public final class CategorialDistribution implements Distribution {
+public final class CategorialDistribution implements DiscreteDistribution {
 
 	private static final String TYPE = "Categorial";
 
@@ -49,6 +53,15 @@ public final class CategorialDistribution implements Distribution {
 	@Override
 	public String getParameterDescription() {
 		return "p = " + _probabilities;
+	}
+
+	@Override
+	public Set<FeatureValue> getPossibleValues() {
+		Set<FeatureValue> possibleValues = Sets.newHashSet();
+		for (int i = 0; i < _probabilities.getParameter().size(); i++) {
+			possibleValues.add(new DiscreteFeatureValue(i));
+		}
+		return possibleValues;
 	}
 
 	@Override

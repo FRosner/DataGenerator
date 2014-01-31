@@ -1,11 +1,15 @@
 package de.frosner.datagenerator.distributions;
 
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
+
+import com.google.common.collect.Sets;
+
 import de.frosner.datagenerator.exceptions.IllegalProbabilityArgumentException;
 import de.frosner.datagenerator.features.DiscreteFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
@@ -16,7 +20,10 @@ import de.frosner.datagenerator.util.VisibleForTesting;
  * specified probability of success (value = 1).
  */
 @Immutable
-public class BernoulliDistribution implements Distribution {
+public class BernoulliDistribution implements DiscreteDistribution {
+
+	public static final FeatureValue TAILS = new DiscreteFeatureValue(0);
+	public static final FeatureValue HEADS = new DiscreteFeatureValue(1);
 
 	private static final String TYPE = "Bernoulli";
 
@@ -42,7 +49,7 @@ public class BernoulliDistribution implements Distribution {
 		Check.stateIsTrue(pValue >= 0 && pValue <= 1, IllegalProbabilityArgumentException.class);
 
 		double randomNumber = _random.nextDouble();
-		return (Double.compare(randomNumber, pValue) < 0) ? new DiscreteFeatureValue(1) : new DiscreteFeatureValue(0);
+		return (Double.compare(randomNumber, pValue) < 0) ? HEADS : TAILS;
 	}
 
 	@Override
@@ -53,6 +60,11 @@ public class BernoulliDistribution implements Distribution {
 	@Override
 	public String getParameterDescription() {
 		return "p = " + _p.getParameter();
+	}
+
+	@Override
+	public Set<FeatureValue> getPossibleValues() {
+		return Sets.newHashSet(TAILS, HEADS);
 	}
 
 	@Override
@@ -74,4 +86,5 @@ public class BernoulliDistribution implements Distribution {
 	void setSeed(long seed) {
 		_random.setSeed(seed);
 	}
+
 }
