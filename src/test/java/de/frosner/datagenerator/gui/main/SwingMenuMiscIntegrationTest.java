@@ -17,12 +17,9 @@ import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
-import de.frosner.datagenerator.testutils.LongRunningSwingTests;
 
-@Category(LongRunningSwingTests.class)
 public class SwingMenuMiscIntegrationTest extends SwingMenuIntegrationTest {
 
 	@Test

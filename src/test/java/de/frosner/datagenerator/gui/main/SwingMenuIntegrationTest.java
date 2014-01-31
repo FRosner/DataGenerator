@@ -12,9 +12,12 @@ import org.fest.swing.edt.GuiTask;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.experimental.categories.Category;
 
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
+import de.frosner.datagenerator.testutils.LongRunningSwingTests;
 
+@Category(LongRunningSwingTests.class)
 public abstract class SwingMenuIntegrationTest {
 
 	protected SwingMenu _frame;
