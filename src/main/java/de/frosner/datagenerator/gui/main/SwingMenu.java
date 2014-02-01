@@ -368,8 +368,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		uniformCategorialPanel.setLayout(new SpringLayout());
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesLabel);
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesField);
-		JLabel filler = new JLabel("");
-		filler.setSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		SpringUtilities.makeCompactGrid(uniformCategorialPanel, 1, 2, 0, 0, PADDING, PADDING);
 
 		JPanel gaussianPanel = new JPanel();
