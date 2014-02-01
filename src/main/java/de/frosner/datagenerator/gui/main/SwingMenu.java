@@ -24,6 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -144,6 +145,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@VisibleForTesting
 	final FeatureDefinitionDialog _featureDefinitionDialog;
 	private final JPanel _distributionSelectionPanel;
+	private final JPanel _featureDefinitionDialogPanel;
 
 	@VisibleForTesting
 	final JProgressBar _progressBar;
@@ -354,7 +356,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		// BEGIN dialogs layout
 		_distributionSelectionPanel = new JPanel();
-		_distributionSelectionPanel.setLayout(new CardLayout());
+		_distributionSelectionPanel.setLayout(new MinimalCardLayout());
 
 		JPanel bernoulliPanel = new JPanel();
 		_distributionSelectionPanel.add(bernoulliPanel, BernoulliFeatureEntry.KEY);
@@ -379,27 +381,25 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		gaussianPanel.add(_gaussianSigmaField);
 		SpringUtilities.makeCompactGrid(gaussianPanel, 2, 2, 0, 0, PADDING, PADDING);
 
-		JPanel featureDefinitionDialogPanel = new JPanel();
-		featureDefinitionDialogPanel.setLayout(new SpringLayout());
+		_featureDefinitionDialogPanel = new JPanel();
+		_featureDefinitionDialogPanel.setLayout(new BoxLayout(_featureDefinitionDialogPanel, BoxLayout.Y_AXIS));
 		JPanel distributionSelectionPanel = new JPanel();
 		distributionSelectionPanel.setLayout(new SpringLayout());
-		featureDefinitionDialogPanel.add(distributionSelectionPanel);
+		_featureDefinitionDialogPanel.add(distributionSelectionPanel);
 		distributionSelectionPanel.add(_addFeatureDistributionLabel);
 		distributionSelectionPanel.add(_addFeatureDistributionSelection);
 		distributionSelectionPanel.add(_featureNameLabel);
 		distributionSelectionPanel.add(_featureNameField);
 		SpringUtilities.makeCompactGrid(distributionSelectionPanel, 2, 2, 0, 0, PADDING, PADDING);
 
-		featureDefinitionDialogPanel.add(new JLabel("           "));
-		featureDefinitionDialogPanel.add(new JSeparator());
-		featureDefinitionDialogPanel.add(new JLabel("           "));
-		featureDefinitionDialogPanel.add(new JLabel("Distribution Parameters", JLabel.LEFT));
-		featureDefinitionDialogPanel.add(new JLabel("           "));
-		featureDefinitionDialogPanel.add(_distributionSelectionPanel);
+		_featureDefinitionDialogPanel.add(new JSeparator());
+		JPanel distributionParametersLabelPanel = new JPanel();
+		distributionParametersLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		distributionParametersLabelPanel.add(new JLabel("Distribution Parameters"));
+		_featureDefinitionDialogPanel.add(distributionParametersLabelPanel);
+		_featureDefinitionDialogPanel.add(_distributionSelectionPanel);
 
-		SpringUtilities.makeCompactGrid(featureDefinitionDialogPanel, 7, 1, 5, 0, 0, 0);
-
-		_featureDefinitionPane = new JOptionPane(featureDefinitionDialogPanel, JOptionPane.PLAIN_MESSAGE,
+		_featureDefinitionPane = new JOptionPane(_featureDefinitionDialogPanel, JOptionPane.PLAIN_MESSAGE,
 				JOptionPane.OK_CANCEL_OPTION);
 		_featureDefinitionDialog.setContentPane(_featureDefinitionPane);
 		_featureDefinitionDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -477,6 +477,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else if (source.equals(_addFeatureDistributionSelection)) {
 			((CardLayout) _distributionSelectionPanel.getLayout()).show(_distributionSelectionPanel,
 					(String) _addFeatureDistributionSelection.getSelectedItem());
+			_featureDefinitionDialog.pack();
 
 		} else if (source.equals(_editFeatureButton)) {
 			final Object selectedCell = _featureGraph.getSelectionCell();
@@ -622,8 +623,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					.isProbability());
 
 		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
-			return verifyComponent(_uniformCategorialNumberOfStatesField,
-					isInteger(_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
+			return verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
+					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
 			return verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
