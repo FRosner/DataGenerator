@@ -8,6 +8,10 @@ import java.awt.Insets;
 
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
+/**
+ * {@linkplain CardLayout} adjusting its preferred size to the size of the currently visible card. The normal behavior
+ * is to use the maximum size of all cards.
+ */
 public class MinimalCardLayout extends CardLayout {
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
