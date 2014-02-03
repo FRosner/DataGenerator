@@ -22,8 +22,7 @@ import de.frosner.datagenerator.testutils.GuiTestUtil;
 import de.frosner.datagenerator.testutils.SwingTests;
 
 @Category(SwingTests.class)
-// TODO FeatureDefinitionGraphVisualizationManagerTest
-public class FeatureGraphVisualizationManagerTest {
+public class FeatureDefinitionGraphVisualizationManagerTest {
 
 	private GuiTestUtil _testUtil;
 	private JGraph _graph;
