@@ -24,6 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -392,11 +393,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		distributionSelectionPanel.add(_featureNameField);
 		SpringUtilities.makeCompactGrid(distributionSelectionPanel, 2, 2, 0, 0, PADDING, PADDING);
 
+		_featureDefinitionDialogPanel.add(Box.createRigidArea(new Dimension(0, 12)));
 		_featureDefinitionDialogPanel.add(new JSeparator());
+		_featureDefinitionDialogPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		JPanel distributionParametersLabelPanel = new JPanel();
 		distributionParametersLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		distributionParametersLabelPanel.add(new JLabel("Distribution Parameters"));
 		_featureDefinitionDialogPanel.add(distributionParametersLabelPanel);
+		_featureDefinitionDialogPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		_featureDefinitionDialogPanel.add(_distributionSelectionPanel);
 
 		_featureDefinitionPane = new JOptionPane(_featureDefinitionDialogPanel, JOptionPane.PLAIN_MESSAGE,
