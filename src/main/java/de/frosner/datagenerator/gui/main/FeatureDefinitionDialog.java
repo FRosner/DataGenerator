@@ -10,6 +10,8 @@ public class FeatureDefinitionDialog extends JDialog {
 
 	public static final String TITLE_ADD = "Add Feature";
 	public static final String TITLE_EDIT = "Edit Feature";
+	public static final int GAUSSIAN_PANEL_ROWS = 3;
+	public static final int GAUSSIAN_PANEL_COLUMNS = 2;
 
 	private static final long serialVersionUID = ApplicationMetaData.SERIAL_VERSION_UID;
 

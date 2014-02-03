@@ -51,6 +51,8 @@ import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
+import net.sf.qualitycheck.Check;
+
 import org.jgraph.JGraph;
 import org.jgraph.graph.DefaultGraphCell;
 
@@ -60,6 +62,7 @@ import de.frosner.datagenerator.distributions.BernoulliDistribution;
 import de.frosner.datagenerator.distributions.CategorialDistribution;
 import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
+import de.frosner.datagenerator.distributions.VariableParameter;
 import de.frosner.datagenerator.exceptions.UnknownActionEventSourceException;
 import de.frosner.datagenerator.exceptions.UnsupportedSelectionException;
 import de.frosner.datagenerator.export.CsvFileExportConfiguration;
@@ -101,6 +104,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@VisibleForTesting
 	final JTextField _featureNameField;
 	private final JLabel _gaussianMeanLabel;
+	@VisibleForTesting
+	final JComboBox _gaussianMeanParameterTypeSelector;
+	private final JPanel _gaussianMeanValuePanel;
+	@VisibleForTesting
+	final JComboBox _gaussianMeanSelector;
 	@VisibleForTesting
 	final JTextField _gaussianMeanField;
 	private final JLabel _gaussianSigmaLabel;
@@ -170,6 +178,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	private GenerateDataButtonWorker _generateDataButtonWorker;
 
+	private JPanel _gaussianPanel;
+
 	public SwingMenu() {
 		// BEGIN frame initialization
 		setTitle(ApplicationMetaData.getName());
@@ -217,6 +227,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_featureNameField = new JTextField();
 		_featureNameField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianMeanLabel = new JLabel("Mean", JLabel.RIGHT);
+		_gaussianMeanParameterTypeSelector = new JComboBox(new Object[] { FixedParameter.KEY, VariableParameter.KEY });
+		_gaussianMeanParameterTypeSelector.addActionListener(this);
+		_gaussianMeanSelector = new JComboBox();
+		_gaussianMeanSelector.addActionListener(this);
 		_gaussianMeanField = new JTextField();
 		_gaussianMeanField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianSigmaLabel = new JLabel("Sigma", JLabel.RIGHT);
@@ -373,14 +387,20 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesField);
 		SpringUtilities.makeCompactGrid(uniformCategorialPanel, 1, 2, 0, 0, PADDING, PADDING);
 
-		JPanel gaussianPanel = new JPanel();
-		_distributionParametersPanel.add(gaussianPanel, GaussianFeatureEntry.KEY);
-		gaussianPanel.setLayout(new SpringLayout());
-		gaussianPanel.add(_gaussianMeanLabel);
-		gaussianPanel.add(_gaussianMeanField);
-		gaussianPanel.add(_gaussianSigmaLabel);
-		gaussianPanel.add(_gaussianSigmaField);
-		SpringUtilities.makeCompactGrid(gaussianPanel, 2, 2, 0, 0, PADDING, PADDING);
+		_gaussianPanel = new JPanel();
+		_distributionParametersPanel.add(_gaussianPanel, GaussianFeatureEntry.KEY);
+		_gaussianPanel.setLayout(new SpringLayout());
+		_gaussianPanel.add(_gaussianMeanLabel);
+		_gaussianPanel.add(_gaussianMeanParameterTypeSelector);
+		_gaussianPanel.add(new JLabel());
+		_gaussianMeanValuePanel = new JPanel(new MinimalCardLayout());
+		_gaussianMeanValuePanel.add(FixedParameter.KEY, _gaussianMeanField);
+		_gaussianMeanValuePanel.add(VariableParameter.KEY, _gaussianMeanSelector);
+		_gaussianPanel.add(_gaussianMeanValuePanel);
+		_gaussianPanel.add(_gaussianSigmaLabel);
+		_gaussianPanel.add(_gaussianSigmaField);
+		SpringUtilities.makeCompactGrid(_gaussianPanel, FeatureDefinitionDialog.GAUSSIAN_PANEL_ROWS,
+				FeatureDefinitionDialog.GAUSSIAN_PANEL_COLUMNS, 0, 0, PADDING, PADDING);
 
 		_featureDefinitionDialogPanel = new JPanel();
 		_featureDefinitionDialogPanel.setLayout(new BoxLayout(_featureDefinitionDialogPanel, BoxLayout.Y_AXIS));
@@ -479,8 +499,13 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			_featureDefinitionDialog.setVisible(true);
 
 		} else if (source.equals(_distributionSelector)) {
-			((CardLayout) _distributionParametersPanel.getLayout()).show(_distributionParametersPanel,
-					(String) _distributionSelector.getSelectedItem());
+			updateCardLayotedPanelBySelector(_distributionParametersPanel, _distributionSelector);
+			_featureDefinitionDialog.pack();
+
+		} else if (source.equals(_gaussianMeanParameterTypeSelector)) {
+			updateCardLayotedPanelBySelector(_gaussianMeanValuePanel, _gaussianMeanParameterTypeSelector);
+			SpringUtilities.makeCompactGrid(_gaussianPanel, FeatureDefinitionDialog.GAUSSIAN_PANEL_ROWS,
+					FeatureDefinitionDialog.GAUSSIAN_PANEL_COLUMNS, 0, 0, PADDING, PADDING);
 			_featureDefinitionDialog.pack();
 
 		} else if (source.equals(_editFeatureButton)) {
@@ -560,6 +585,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		} else {
 			throw new UnknownActionEventSourceException(source);
 		}
+	}
+
+	private static void updateCardLayotedPanelBySelector(JPanel cardLayoutedPanel, JComboBox selector) {
+		Check.instanceOf(CardLayout.class, cardLayoutedPanel.getLayout());
+		((CardLayout) cardLayoutedPanel.getLayout()).show(cardLayoutedPanel, (String) selector.getSelectedItem());
 	}
 
 	private void addFeatureDefinition() {

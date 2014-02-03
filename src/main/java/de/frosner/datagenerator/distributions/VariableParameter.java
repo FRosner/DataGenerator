@@ -5,6 +5,8 @@ import de.frosner.datagenerator.features.FeatureValue;
 
 public abstract class VariableParameter<T> extends Parameter<T> {
 
+	public static final String KEY = "Conditioned";
+
 	protected T _parameter;
 
 	public abstract void updateParameter(FeatureValue value);
