@@ -94,9 +94,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	@VisibleForTesting
 	final JButton _abortDataGenerationButton;
 
-	private final JLabel _addFeatureDistributionLabel;
+	private final JLabel _distributionSelectorLabel;
 	@VisibleForTesting
-	final JComboBox _addFeatureDistributionSelection;
+	final JComboBox _distributionSelector;
 	private final JLabel _featureNameLabel;
 	@VisibleForTesting
 	final JTextField _featureNameField;
@@ -209,10 +209,10 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		// END menu bar initialization
 
 		// BEGIN component definition
-		_addFeatureDistributionLabel = new JLabel("Distribution", JLabel.RIGHT);
-		_addFeatureDistributionSelection = new JComboBox(new Object[] { BernoulliFeatureEntry.KEY,
+		_distributionSelectorLabel = new JLabel("Distribution", JLabel.RIGHT);
+		_distributionSelector = new JComboBox(new Object[] { BernoulliFeatureEntry.KEY,
 				UniformCategorialFeatureEntry.KEY, GaussianFeatureEntry.KEY });
-		_addFeatureDistributionSelection.addActionListener(this);
+		_distributionSelector.addActionListener(this);
 		_featureNameLabel = new JLabel("Name", JLabel.RIGHT);
 		_featureNameField = new JTextField();
 		_featureNameField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
@@ -387,8 +387,8 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		JPanel distributionSelectionAndFeatureNamePanel = new JPanel();
 		distributionSelectionAndFeatureNamePanel.setLayout(new SpringLayout());
 		_featureDefinitionDialogPanel.add(distributionSelectionAndFeatureNamePanel);
-		distributionSelectionAndFeatureNamePanel.add(_addFeatureDistributionLabel);
-		distributionSelectionAndFeatureNamePanel.add(_addFeatureDistributionSelection);
+		distributionSelectionAndFeatureNamePanel.add(_distributionSelectorLabel);
+		distributionSelectionAndFeatureNamePanel.add(_distributionSelector);
 		distributionSelectionAndFeatureNamePanel.add(_featureNameLabel);
 		distributionSelectionAndFeatureNamePanel.add(_featureNameField);
 		SpringUtilities.makeCompactGrid(distributionSelectionAndFeatureNamePanel, 2, 2, 0, 0, PADDING, PADDING);
@@ -478,9 +478,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		if (source.equals(_addFeatureButton) || source.equals(_addFeatureMenuItem)) {
 			_featureDefinitionDialog.setVisible(true);
 
-		} else if (source.equals(_addFeatureDistributionSelection)) {
+		} else if (source.equals(_distributionSelector)) {
 			((CardLayout) _distributionParametersPanel.getLayout()).show(_distributionParametersPanel,
-					(String) _addFeatureDistributionSelection.getSelectedItem());
+					(String) _distributionSelector.getSelectedItem());
 			_featureDefinitionDialog.pack();
 
 		} else if (source.equals(_editFeatureButton)) {
@@ -491,14 +491,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 				_featureDefinitionDialog.setFeatureToEdit(selectedEntry);
 				_featureNameField.setText(selectedEntry.getFeatureName());
 				if (selectedEntry instanceof BernoulliFeatureEntry) {
-					_addFeatureDistributionSelection.setSelectedItem(BernoulliFeatureEntry.KEY);
+					_distributionSelector.setSelectedItem(BernoulliFeatureEntry.KEY);
 					_bernoulliProbabilityField.setText(((BernoulliFeatureEntry) selectedEntry).getP());
 				} else if (selectedEntry instanceof UniformCategorialFeatureEntry) {
-					_addFeatureDistributionSelection.setSelectedItem(UniformCategorialFeatureEntry.KEY);
+					_distributionSelector.setSelectedItem(UniformCategorialFeatureEntry.KEY);
 					_uniformCategorialNumberOfStatesField.setText(((UniformCategorialFeatureEntry) selectedEntry)
 							.getNumberOfStates());
 				} else if (selectedEntry instanceof GaussianFeatureEntry) {
-					_addFeatureDistributionSelection.setSelectedItem(GaussianFeatureEntry.KEY);
+					_distributionSelector.setSelectedItem(GaussianFeatureEntry.KEY);
 					_gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMean());
 					_gaussianSigmaField.setText(((GaussianFeatureEntry) selectedEntry).getSigma());
 				}
@@ -564,7 +564,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 	private void addFeatureDefinition() {
 		String name = _featureNameField.getText();
-		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
+		Object selectedItem = _distributionSelector.getSelectedItem();
 		final FeatureDefinition featureDefinition;
 		final FeatureDefinitionEntry featureDefinitionEntry;
 
@@ -620,7 +620,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		if (!verifyComponent(_featureNameField, isName(name).isNotLongerThan(30))) {
 			return false;
 		}
-		Object selectedItem = _addFeatureDistributionSelection.getSelectedItem();
+		Object selectedItem = _distributionSelector.getSelectedItem();
 
 		if (selectedItem.equals(BernoulliFeatureEntry.KEY)) {
 			return verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())

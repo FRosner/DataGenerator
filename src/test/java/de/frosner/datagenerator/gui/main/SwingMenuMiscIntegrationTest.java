@@ -52,7 +52,7 @@ public class SwingMenuMiscIntegrationTest extends SwingMenuIntegrationTest {
 		// dummy feature entry, as at least one feature is needed for editing
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureToEdit");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeatureDefinitionEntryByName("FeatureToEdit");

@@ -15,7 +15,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	public void testVerifyFeatureName_addGaussian() {
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
@@ -28,7 +28,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -42,7 +42,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	@Test
 	public void testVerifyFeatureName_addBernoulli() {
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
@@ -54,7 +54,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -67,7 +67,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	@Test
 	public void testVerifyFeatureName_addUniformCategorial() {
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
@@ -79,7 +79,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -93,7 +93,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	public void testVerifyGaussianMean_addFeature() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
@@ -106,7 +106,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -121,7 +121,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	public void testVerifyGaussianSigma_addFeature() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
@@ -134,7 +134,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -148,7 +148,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	@Test
 	public void testVerifyBernoulliProbability_addFeature() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
@@ -160,7 +160,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -174,7 +174,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	@Test
 	public void testVerifyUniformCategorialNumberOfStates_addFeature() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureButton,
@@ -186,7 +186,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -202,7 +202,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	@Test
 	public void testVerifyWithCancel_addFeatureDialog_button() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 
 		_frameTestUtil.openAndCancelAddFeatureDialog(_frame._addFeatureButton);
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
@@ -212,7 +212,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	@Test
 	public void testVerifyWithCancel_addFeatureDialog_menuItem() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 
 		_frameTestUtil.openAndCancelAddFeatureDialog(_frame._addFeatureMenuItem);
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
@@ -224,7 +224,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "FeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 
@@ -246,7 +246,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 	@Test
 	public void testVerifyWithOk_addFeatureDialog_menuItem() {
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 
 		assertThat(
 				_frameTestUtil.clickAddButtonAndCheckComponentVerification(_frame._addFeatureMenuItem,
@@ -271,7 +271,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
@@ -284,7 +284,7 @@ public class SwingMenuInputVerificationIntegrationTest extends SwingMenuIntegrat
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 

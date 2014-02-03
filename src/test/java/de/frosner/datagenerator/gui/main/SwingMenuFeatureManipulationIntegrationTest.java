@@ -22,7 +22,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
@@ -43,7 +43,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
@@ -64,7 +64,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
@@ -86,7 +86,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureMenuItem);
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
@@ -102,7 +102,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, GaussianFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureName");
@@ -124,7 +124,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, BernoulliFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureName");
@@ -145,7 +145,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
-		_frameTestUtil.selectOption(_frame._addFeatureDistributionSelection, UniformCategorialFeatureEntry.KEY);
+		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureName");
