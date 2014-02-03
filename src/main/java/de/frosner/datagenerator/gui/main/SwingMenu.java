@@ -145,7 +145,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 	final JOptionPane _featureDefinitionPane;
 	@VisibleForTesting
 	final FeatureDefinitionDialog _featureDefinitionDialog;
-	private final JPanel _distributionSelectionPanel;
+	private final JPanel _distributionParametersPanel;
 	private final JPanel _featureDefinitionDialogPanel;
 
 	@VisibleForTesting
@@ -356,25 +356,25 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		// END main layout
 
 		// BEGIN dialogs layout
-		_distributionSelectionPanel = new JPanel();
-		_distributionSelectionPanel.setLayout(new MinimalCardLayout());
+		_distributionParametersPanel = new JPanel();
+		_distributionParametersPanel.setLayout(new MinimalCardLayout());
 
 		JPanel bernoulliPanel = new JPanel();
-		_distributionSelectionPanel.add(bernoulliPanel, BernoulliFeatureEntry.KEY);
+		_distributionParametersPanel.add(bernoulliPanel, BernoulliFeatureEntry.KEY);
 		bernoulliPanel.setLayout(new SpringLayout());
 		bernoulliPanel.add(_bernoulliProbabilityLabel);
 		bernoulliPanel.add(_bernoulliProbabilityField);
 		SpringUtilities.makeCompactGrid(bernoulliPanel, 1, 2, 0, 0, PADDING, PADDING);
 
 		JPanel uniformCategorialPanel = new JPanel();
-		_distributionSelectionPanel.add(uniformCategorialPanel, UniformCategorialFeatureEntry.KEY);
+		_distributionParametersPanel.add(uniformCategorialPanel, UniformCategorialFeatureEntry.KEY);
 		uniformCategorialPanel.setLayout(new SpringLayout());
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesLabel);
 		uniformCategorialPanel.add(_uniformCategorialNumberOfStatesField);
 		SpringUtilities.makeCompactGrid(uniformCategorialPanel, 1, 2, 0, 0, PADDING, PADDING);
 
 		JPanel gaussianPanel = new JPanel();
-		_distributionSelectionPanel.add(gaussianPanel, GaussianFeatureEntry.KEY);
+		_distributionParametersPanel.add(gaussianPanel, GaussianFeatureEntry.KEY);
 		gaussianPanel.setLayout(new SpringLayout());
 		gaussianPanel.add(_gaussianMeanLabel);
 		gaussianPanel.add(_gaussianMeanField);
@@ -401,7 +401,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		distributionParametersLabelPanel.add(new JLabel("Distribution Parameters"));
 		_featureDefinitionDialogPanel.add(distributionParametersLabelPanel);
 		_featureDefinitionDialogPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-		_featureDefinitionDialogPanel.add(_distributionSelectionPanel);
+		_featureDefinitionDialogPanel.add(_distributionParametersPanel);
 
 		_featureDefinitionPane = new JOptionPane(_featureDefinitionDialogPanel, JOptionPane.PLAIN_MESSAGE,
 				JOptionPane.OK_CANCEL_OPTION);
@@ -479,7 +479,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			_featureDefinitionDialog.setVisible(true);
 
 		} else if (source.equals(_addFeatureDistributionSelection)) {
-			((CardLayout) _distributionSelectionPanel.getLayout()).show(_distributionSelectionPanel,
+			((CardLayout) _distributionParametersPanel.getLayout()).show(_distributionParametersPanel,
 					(String) _addFeatureDistributionSelection.getSelectedItem());
 			_featureDefinitionDialog.pack();
 
