@@ -5,6 +5,10 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.util.Collection;
+
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.util.ApplicationMetaData;
 
@@ -18,24 +22,26 @@ public class MinimalCardLayout extends CardLayout {
 
 	@Override
 	public Dimension preferredLayoutSize(Container parent) {
-		Component current = findCurrentComponent(parent);
-		if (current != null) {
+		Component visibleCard = getVisibleCard(parent);
+		if (visibleCard != null) {
 			Insets insets = parent.getInsets();
-			Dimension pref = current.getPreferredSize();
-			pref.width += insets.left + insets.right;
-			pref.height += insets.top + insets.bottom;
-			return pref;
+			Dimension preferredSize = visibleCard.getPreferredSize();
+			preferredSize.width += insets.left + insets.right;
+			preferredSize.height += insets.top + insets.bottom;
+			return preferredSize;
 		}
 		return super.preferredLayoutSize(parent);
 	}
 
-	public Component findCurrentComponent(Container parent) {
-		for (Component comp : parent.getComponents()) {
-			if (comp.isVisible()) {
-				return comp;
+	private Component getVisibleCard(Container parent) {
+		Collection<Component> visibleCards = Lists.newArrayList();
+		for (Component component : parent.getComponents()) {
+			if (component.isVisible()) {
+				visibleCards.add(component);
 			}
 		}
-		return null;
+
+		return (visibleCards.isEmpty()) ? null : Iterables.getOnlyElement(visibleCards);
 	}
 
 }
