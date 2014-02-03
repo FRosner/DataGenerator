@@ -384,14 +384,14 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		_featureDefinitionDialogPanel = new JPanel();
 		_featureDefinitionDialogPanel.setLayout(new BoxLayout(_featureDefinitionDialogPanel, BoxLayout.Y_AXIS));
-		JPanel distributionSelectionPanel = new JPanel();
-		distributionSelectionPanel.setLayout(new SpringLayout());
-		_featureDefinitionDialogPanel.add(distributionSelectionPanel);
-		distributionSelectionPanel.add(_addFeatureDistributionLabel);
-		distributionSelectionPanel.add(_addFeatureDistributionSelection);
-		distributionSelectionPanel.add(_featureNameLabel);
-		distributionSelectionPanel.add(_featureNameField);
-		SpringUtilities.makeCompactGrid(distributionSelectionPanel, 2, 2, 0, 0, PADDING, PADDING);
+		JPanel distributionSelectionAndFeatureNamePanel = new JPanel();
+		distributionSelectionAndFeatureNamePanel.setLayout(new SpringLayout());
+		_featureDefinitionDialogPanel.add(distributionSelectionAndFeatureNamePanel);
+		distributionSelectionAndFeatureNamePanel.add(_addFeatureDistributionLabel);
+		distributionSelectionAndFeatureNamePanel.add(_addFeatureDistributionSelection);
+		distributionSelectionAndFeatureNamePanel.add(_featureNameLabel);
+		distributionSelectionAndFeatureNamePanel.add(_featureNameField);
+		SpringUtilities.makeCompactGrid(distributionSelectionAndFeatureNamePanel, 2, 2, 0, 0, PADDING, PADDING);
 
 		_featureDefinitionDialogPanel.add(Box.createRigidArea(new Dimension(0, 12)));
 		_featureDefinitionDialogPanel.add(new JSeparator());
