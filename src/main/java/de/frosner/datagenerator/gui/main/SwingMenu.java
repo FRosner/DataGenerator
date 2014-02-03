@@ -650,22 +650,32 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		if (!verifyComponent(_featureNameField, isName(name).isNotLongerThan(30))) {
 			return false;
 		}
-		Object selectedItem = _distributionSelector.getSelectedItem();
+		Object selectedDistribution = _distributionSelector.getSelectedItem();
 
-		if (selectedItem.equals(BernoulliFeatureEntry.KEY)) {
+		if (selectedDistribution.equals(BernoulliFeatureEntry.KEY)) {
 			return verifyComponent(_bernoulliProbabilityField, isDouble(_bernoulliProbabilityField.getText())
 					.isProbability());
 
-		} else if (selectedItem.equals(UniformCategorialFeatureEntry.KEY)) {
+		} else if (selectedDistribution.equals(UniformCategorialFeatureEntry.KEY)) {
 			return verifyComponent(_uniformCategorialNumberOfStatesField, isInteger(
 					_uniformCategorialNumberOfStatesField.getText()).isPositive().isInInterval(1, 1000));
 
-		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
-			return verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify())
-					& verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText()).isPositive());
+		} else if (selectedDistribution.equals(GaussianFeatureEntry.KEY)) {
+			boolean meanIsVerified;
+			Object selectedMeanParameterType = _gaussianMeanParameterTypeSelector.getSelectedItem();
+			if (selectedMeanParameterType.equals(FixedParameter.KEY)) {
+				meanIsVerified = verifyComponent(_gaussianMeanField, isDouble(_gaussianMeanField.getText()).verify());
+			} else if (selectedMeanParameterType.equals(VariableParameter.KEY)) {
+				meanIsVerified = _gaussianMeanSelector.getSelectedIndex() != -1;
+			} else {
+				throw new UnsupportedSelectionException(selectedMeanParameterType);
+			}
+			boolean sigmaIsVerified = verifyComponent(_gaussianSigmaField, isDouble(_gaussianSigmaField.getText())
+					.isPositive());
+			return meanIsVerified && sigmaIsVerified;
 
 		} else {
-			throw new UnsupportedSelectionException(selectedItem);
+			throw new UnsupportedSelectionException(selectedDistribution);
 		}
 	}
 
