@@ -429,9 +429,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			}
 		});
 
-		_featureDefinitionDialog.pack();
 		_featureDefinitionDialog.setResizable(false);
 		_featureDefinitionDialog.setLocation(getCenteredLocationOf(_featureDefinitionDialog));
+		_featureDefinitionDialog.pack();
 		// END dialog layouts
 
 		// BEGIN define custom focus traversal
