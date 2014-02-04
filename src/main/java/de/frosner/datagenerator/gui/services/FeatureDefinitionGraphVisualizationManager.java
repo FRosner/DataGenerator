@@ -58,7 +58,21 @@ public class FeatureDefinitionGraphVisualizationManager {
 				public void run() {
 					_featureGraphModel.addVertex(entry);
 					adjustLayout(entry, Color.GRAY);
-					JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
+					JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
+				}
+			});
+		}
+	}
+
+	public static void addEdge(@Nonnull final FeatureDefinitionEntry from, @Nonnull final FeatureDefinitionEntry to) {
+		Check.notNull(from, "from");
+		Check.notNull(to, "to");
+		if (_featureGraph != null) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					_featureGraphModel.addEdge(from, to);
+					JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
 				}
 			});
 		}
@@ -76,7 +90,7 @@ public class FeatureDefinitionGraphVisualizationManager {
 					_featureGraphModel.removeVertex(toReplace);
 					_featureGraphModel.addVertex(newEntry);
 					adjustLayout(newEntry, Color.GRAY);
-					JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
+					JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
 				}
 			});
 		}
@@ -90,7 +104,7 @@ public class FeatureDefinitionGraphVisualizationManager {
 				public void run() {
 					_featureGraphModel.removeVertex(entry);
 					if (!_featureGraphModel.vertexSet().isEmpty()) {
-						JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
+						JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
 					}
 				}
 			});
@@ -110,6 +124,12 @@ public class FeatureDefinitionGraphVisualizationManager {
 
 	public static FeatureDefinitionEntry getFeatureDefinitionEntryByCell(Object selectedCell) {
 		return (FeatureDefinitionEntry) _featureGraphModelAdapter.getValue(selectedCell);
+	}
+
+	@VisibleForTesting
+	static Object[] getRoots() {
+		// TODO avoid returning edge as roots
+		return _featureGraph.getRoots();
 	}
 
 	private static void adjustLayout(FeatureDefinitionEntry feature, @Nullable Color bg) {

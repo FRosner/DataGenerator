@@ -27,6 +27,7 @@ public class FeatureDefinitionGraphVisualizationManagerTest {
 	private GuiTestUtil _testUtil;
 	private JGraph _graph;
 	private FeatureDefinitionEntry _entry1;
+	private FeatureDefinitionEntry _entry2;
 
 	@BeforeClass
 	public static void setUpOnce() {
@@ -47,6 +48,7 @@ public class FeatureDefinitionGraphVisualizationManagerTest {
 	@Before
 	public void initEntries() {
 		_entry1 = new DummyFeatureDefinitionEntry(new FeatureDefinition("1", new DummyDistribution()));
+		_entry2 = new DummyFeatureDefinitionEntry(new FeatureDefinition("2", new DummyDistribution()));
 	}
 
 	@After
@@ -60,7 +62,6 @@ public class FeatureDefinitionGraphVisualizationManagerTest {
 		_testUtil.delay();
 
 		assertThat(FeatureDefinitionGraphVisualizationManager._featureGraphModel.containsVertex(_entry1)).isTrue();
-		assertThat(_graph.getModel().getRootAt(0).toString()).isEqualTo(_entry1.toString());
 	}
 
 	@Test
@@ -71,7 +72,19 @@ public class FeatureDefinitionGraphVisualizationManagerTest {
 		_testUtil.delay();
 
 		assertThat(FeatureDefinitionGraphVisualizationManager._featureGraphModel.vertexSet()).isEmpty();
-		assertThat(_graph.getModel().getRootCount()).isZero();
+	}
+
+	@Test
+	public void testAddEdge() {
+		FeatureDefinitionGraphVisualizationManager.addVertex(_entry1);
+		_testUtil.delay();
+		FeatureDefinitionGraphVisualizationManager.addVertex(_entry2);
+		_testUtil.delay();
+		FeatureDefinitionGraphVisualizationManager.addEdge(_entry1, _entry2);
+		_testUtil.delay();
+
+		assertThat(FeatureDefinitionGraphVisualizationManager._featureGraphModel.containsEdge(_entry1, _entry2))
+				.isTrue();
 	}
 
 }
