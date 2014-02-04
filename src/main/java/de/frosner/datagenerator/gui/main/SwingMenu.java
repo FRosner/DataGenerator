@@ -24,6 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -282,7 +283,9 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_abortDataGenerationButton = new JButton("Abort Generation");
 		_abortDataGenerationButton.addActionListener(this);
 		_abortDataGenerationButton.setEnabled(false);
-		GenerationButtonsToggleManager.manageButtons(_generateDataButton, _abortDataGenerationButton);
+		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList((AbstractButton) _generateDataButton,
+				(AbstractButton) _generateDataMenuItem), Lists
+				.newArrayList((AbstractButton) _abortDataGenerationButton));
 		_previewTableModel = new VariableColumnCountTableModel(10, 4);
 		_previewTable = new JTable(_previewTableModel);
 		_previewTable.setEnabled(false);
