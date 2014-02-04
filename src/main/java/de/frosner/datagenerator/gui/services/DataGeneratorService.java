@@ -45,6 +45,7 @@ public final class DataGeneratorService {
 		Check.notNull(featureDefinitionEntry, "featureDefinition");
 
 		_featureDefinitions.add(featureDefinitionEntry.getFeatureDefinition());
+		FeatureParameterDependencySelectorManager.addFeatureDefinitionEntry(featureDefinitionEntry);
 		FeatureDefinitionGraphVisualizationManager.addVertex(featureDefinitionEntry);
 		TextAreaLogManager.info("Added Feature: " + featureDefinitionEntry.getFeatureName());
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
@@ -68,6 +69,9 @@ public final class DataGeneratorService {
 		TextAreaLogManager.info("Edited Feature: "
 				+ _featureDefinitions.set(_featureDefinitions.indexOf(toReplace.getFeatureDefinition()),
 						newEntry.getFeatureDefinition()).getName());
+		// TODO FRosner: create a replace method to replace preserving the order
+		FeatureParameterDependencySelectorManager.removeFeatureDefinitionEntry(toReplace);
+		FeatureParameterDependencySelectorManager.addFeatureDefinitionEntry(newEntry);
 		FeatureDefinitionGraphVisualizationManager.replaceVertex(toReplace, newEntry);
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}
@@ -83,6 +87,7 @@ public final class DataGeneratorService {
 
 		_featureDefinitions.remove(featureDefinitionEntry.getFeatureDefinition());
 		TextAreaLogManager.info("Removed Feature: " + featureDefinitionEntry.getFeatureName());
+		FeatureParameterDependencySelectorManager.removeFeatureDefinitionEntry(featureDefinitionEntry);
 		FeatureDefinitionGraphVisualizationManager.removeVertex(featureDefinitionEntry);
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}

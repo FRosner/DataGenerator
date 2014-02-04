@@ -10,7 +10,7 @@ public class GaussianFeatureEntry extends FeatureDefinitionEntry {
 	private final String _mean;
 	private final String _sigma;
 
-	protected GaussianFeatureEntry(FeatureDefinition featureDefinition, String mean, String sigma) {
+	public GaussianFeatureEntry(FeatureDefinition featureDefinition, String mean, String sigma) {
 		super(featureDefinition);
 		_mean = Check.notNull(mean);
 		_sigma = Check.notNull(sigma);
