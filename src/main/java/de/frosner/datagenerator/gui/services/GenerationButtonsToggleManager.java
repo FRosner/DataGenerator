@@ -44,7 +44,7 @@ public class GenerationButtonsToggleManager {
 	}
 
 	public static void toggle() {
-		if (_initiallyEnabledButtons != null && _initiallyDisabledButtons != null) {
+		if (isCurrentlyManaging()) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
@@ -57,6 +57,10 @@ public class GenerationButtonsToggleManager {
 				}
 			});
 		}
+	}
+
+	private static boolean isCurrentlyManaging() {
+		return _initiallyEnabledButtons != null && _initiallyDisabledButtons != null;
 	}
 
 	private static boolean buttonsHaveSameEnabledState(Collection<AbstractButton> buttons) {
