@@ -502,11 +502,11 @@ public final class SwingMenu extends JFrame implements ActionListener {
 			_featureDefinitionDialog.setVisible(true);
 
 		} else if (source.equals(_distributionSelector)) {
-			updateCardLayotedPanelBySelector(_distributionParametersPanel, _distributionSelector);
+			updateCardLayoutedPanelBySelector(_distributionParametersPanel, _distributionSelector);
 			_featureDefinitionDialog.pack();
 
 		} else if (source.equals(_gaussianMeanParameterTypeSelector)) {
-			updateCardLayotedPanelBySelector(_gaussianMeanValuePanel, _gaussianMeanParameterTypeSelector);
+			updateCardLayoutedPanelBySelector(_gaussianMeanValuePanel, _gaussianMeanParameterTypeSelector);
 			SpringUtilities.makeCompactGrid(_gaussianPanel, FeatureDefinitionDialog.GAUSSIAN_PANEL_ROWS,
 					FeatureDefinitionDialog.GAUSSIAN_PANEL_COLUMNS, 0, 0, PADDING, PADDING);
 			_featureDefinitionDialog.pack();
@@ -590,7 +590,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		}
 	}
 
-	private static void updateCardLayotedPanelBySelector(JPanel cardLayoutedPanel, JComboBox selector) {
+	private static void updateCardLayoutedPanelBySelector(JPanel cardLayoutedPanel, JComboBox selector) {
 		Check.instanceOf(CardLayout.class, cardLayoutedPanel.getLayout());
 		((CardLayout) cardLayoutedPanel.getLayout()).show(cardLayoutedPanel, (String) selector.getSelectedItem());
 	}
