@@ -231,7 +231,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		_gaussianMeanParameterTypeSelector = new JComboBox(new Object[] { FixedParameter.KEY, VariableParameter.KEY });
 		_gaussianMeanParameterTypeSelector.addActionListener(this);
 		_gaussianMeanSelector = new JComboBox();
-		_gaussianMeanSelector.addActionListener(this);
 		_gaussianMeanField = new JTextField();
 		_gaussianMeanField.setMinimumSize(new Dimension(LINE_WIDTH, LINE_HEIGHT));
 		_gaussianSigmaLabel = new JLabel("Sigma", JLabel.RIGHT);
