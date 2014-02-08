@@ -45,6 +45,24 @@ public class GaussianDistributionTest {
 		assertThat(_distribution.getPossibleValueInterval()).isEqualTo(Interval.UNBOUNDED);
 	}
 
+	@Test
+	public void testGetDependentParameters_withDependentParameter() {
+		@SuppressWarnings("unchecked")
+		VariableParameter<Double> mean = mock(VariableParameter.class);
+		@SuppressWarnings("unchecked")
+		VariableParameter<Double> sigma = mock(VariableParameter.class);
+		_distribution = new GaussianDistribution(mean, sigma);
+		assertThat(_distribution.getDependentParameters()).containsOnly(mean, sigma);
+	}
+
+	@Test
+	public void testGetDependentParameters_withoutDependentParameter() {
+		FixedParameter<Double> mean = new FixedParameter<Double>(0d);
+		FixedParameter<Double> sigma = new FixedParameter<Double>(1d);
+		_distribution = new GaussianDistribution(mean, sigma);
+		assertThat(_distribution.getDependentParameters()).isEmpty();
+	}
+
 	@Test(expected = IllegalNullArgumentException.class)
 	public void testCreate_firstArgumentNull() {
 		new GaussianDistribution(null, new FixedParameter<Double>(1d));

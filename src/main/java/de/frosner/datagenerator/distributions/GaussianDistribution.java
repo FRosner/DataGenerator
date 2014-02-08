@@ -1,11 +1,15 @@
 package de.frosner.datagenerator.distributions;
 
+import java.util.Collection;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
+
+import com.google.common.collect.Lists;
+
 import de.frosner.datagenerator.exceptions.IllegalSigmaParameterArgumentException;
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
@@ -63,6 +67,18 @@ public final class GaussianDistribution implements ContinuousDistribution {
 	@Override
 	public Interval getPossibleValueInterval() {
 		return Interval.UNBOUNDED;
+	}
+
+	@Override
+	public Collection<VariableParameter<?>> getDependentParameters() {
+		Collection<VariableParameter<?>> result = Lists.newArrayList();
+		if (_mean instanceof VariableParameter<?>) {
+			result.add((VariableParameter<?>) _mean);
+		}
+		if (_sigma instanceof VariableParameter<?>) {
+			result.add((VariableParameter<?>) _sigma);
+		}
+		return result;
 	}
 
 	@Override

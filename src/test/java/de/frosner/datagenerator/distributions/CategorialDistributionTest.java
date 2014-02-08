@@ -45,10 +45,25 @@ public class CategorialDistributionTest {
 
 	@Test
 	public void testGetPossibleValues() {
-		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(
-				Lists.newArrayList(0.33, 0.33, 0.34)));
+		_distribution = new CategorialDistribution(new FixedParameter<List<Double>>(Lists
+				.newArrayList(0.33, 0.33, 0.34)));
 		assertThat(_distribution.getPossibleValues()).containsOnly(new DiscreteFeatureValue(0),
 				new DiscreteFeatureValue(1), new DiscreteFeatureValue(2));
+	}
+
+	@Test
+	public void testGetDependentParameters_withDependentParameter() {
+		@SuppressWarnings("unchecked")
+		VariableParameter<List<Double>> parameter = mock(VariableParameter.class);
+		_distribution = new CategorialDistribution(parameter);
+		assertThat(_distribution.getDependentParameters()).containsOnly(parameter);
+	}
+
+	@Test
+	public void testGetDependentParameters_withoutDependentParameter() {
+		FixedParameter<List<Double>> parameter = new FixedParameter<List<Double>>(Lists.newArrayList(0.5, 0.5));
+		_distribution = new CategorialDistribution(parameter);
+		assertThat(_distribution.getDependentParameters()).isEmpty();
 	}
 
 	@Test(expected = IllegalNullArgumentException.class)

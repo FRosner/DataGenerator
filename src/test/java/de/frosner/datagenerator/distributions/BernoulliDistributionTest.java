@@ -48,6 +48,21 @@ public class BernoulliDistributionTest {
 				BernoulliDistribution.TAILS);
 	}
 
+	@Test
+	public void testGetDependentParameters_withDependentParameter() {
+		@SuppressWarnings("unchecked")
+		VariableParameter<Double> parameter = mock(VariableParameter.class);
+		_distribution = new BernoulliDistribution(parameter);
+		assertThat(_distribution.getDependentParameters()).containsOnly(parameter);
+	}
+
+	@Test
+	public void testGetDependentParameters_withoutDependentParameter() {
+		FixedParameter<Double> parameter = new FixedParameter<Double>(0.5);
+		_distribution = new BernoulliDistribution(parameter);
+		assertThat(_distribution.getDependentParameters()).isEmpty();
+	}
+
 	@Test(expected = IllegalNullArgumentException.class)
 	public void testCreate_nullArgument() {
 		new BernoulliDistribution(null);

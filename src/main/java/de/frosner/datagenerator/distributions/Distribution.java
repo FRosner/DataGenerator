@@ -1,5 +1,7 @@
 package de.frosner.datagenerator.distributions;
 
+import java.util.Collection;
+
 import javax.annotation.concurrent.Immutable;
 
 import de.frosner.datagenerator.features.FeatureValue;
@@ -34,5 +36,14 @@ public interface Distribution {
 	 * @return parameters
 	 */
 	String getParameterDescription();
+
+	/**
+	 * Returns all parameters that are dependent ({@linkplain VariableParameter}s) and need to be updated before being
+	 * used. The result may not only depend on the concrete implementation but also on the concrete
+	 * {@linkplain Distribution} instance.
+	 * 
+	 * @return dependent parameters
+	 */
+	Collection<VariableParameter<?>> getDependentParameters();
 
 }

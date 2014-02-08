@@ -1,5 +1,8 @@
 package de.frosner.datagenerator.distributions;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import de.frosner.datagenerator.features.DummyFeatureValue;
 import de.frosner.datagenerator.features.FeatureValue;
 
@@ -36,6 +39,11 @@ public class DummyDistribution implements Distribution {
 	@Override
 	public String getParameterDescription() {
 		return "";
+	}
+
+	@Override
+	public Collection<VariableParameter<?>> getDependentParameters() {
+		return Collections.emptyList();
 	}
 
 }

@@ -1,10 +1,13 @@
 package de.frosner.datagenerator.features;
 
+import java.util.Collection;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
 import de.frosner.datagenerator.distributions.Distribution;
+import de.frosner.datagenerator.distributions.VariableParameter;
 import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.generator.Instance;
 
@@ -39,6 +42,17 @@ public final class FeatureDefinition {
 	 */
 	public Distribution getDistribution() {
 		return _distribution;
+	}
+
+	/**
+	 * Returns all dependent parameters of the underlying {@linkplain Distribution}.
+	 * 
+	 * @see Distribution#getDependentParameters()
+	 * 
+	 * @return dependent parameters
+	 */
+	public Collection<VariableParameter<?>> getDependentParameters() {
+		return _distribution.getDependentParameters();
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package de.frosner.datagenerator.distributions;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
 
@@ -8,6 +10,7 @@ import javax.annotation.concurrent.Immutable;
 
 import net.sf.qualitycheck.Check;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import de.frosner.datagenerator.exceptions.IllegalProbabilityArgumentException;
@@ -65,6 +68,16 @@ public class BernoulliDistribution implements DiscreteDistribution {
 	@Override
 	public Set<FeatureValue> getPossibleValues() {
 		return Sets.newHashSet(TAILS, HEADS);
+	}
+
+	@Override
+	public Collection<VariableParameter<?>> getDependentParameters() {
+		if (_p instanceof VariableParameter<?>) {
+			Collection<VariableParameter<?>> result = Lists.newArrayList();
+			result.add((VariableParameter<?>) _p);
+			return result;
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
