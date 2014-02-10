@@ -16,6 +16,12 @@ public class DiscreteVariableParameter<T> extends VariableParameter<T> {
 
 	private final Map<DiscreteFeatureValue, T> _featureValueParameterMapping;
 
+	/**
+	 * Constructs a new {@linkplain DiscreteVariableParameter} with the specified probabilities.
+	 * 
+	 * @param featureValueParameterMapping
+	 *            defining the resulting parameter depending on the given {@linkplain DiscreteFeatureValue}
+	 */
 	public DiscreteVariableParameter(@Nonnull Map<DiscreteFeatureValue, T> featureValueParameterMapping) {
 		_featureValueParameterMapping = Maps.newHashMap(Check.notNull(featureValueParameterMapping));
 	}
