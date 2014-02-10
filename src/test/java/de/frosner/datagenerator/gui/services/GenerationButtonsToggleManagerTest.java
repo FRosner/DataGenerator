@@ -46,7 +46,7 @@ public class GenerationButtonsToggleManagerTest {
 	}
 
 	@Test
-	public void testToggle_oneCollectionEnabled_otherDisabled() {
+	public void testToggle_sameNumberOfButtonsPerGroup() {
 		JButton button1 = _testUtil.createNewJButton("Button1");
 		_testUtil.enableButton(button1, true);
 		JButton button2 = _testUtil.createNewJButton("Button2");
@@ -66,52 +66,27 @@ public class GenerationButtonsToggleManagerTest {
 	}
 
 	@Test
-	public void testToggle_oneEnabledButtonPerCollection() {
-		JButton button1 = _testUtil.createNewJButton("Button1");
-		_testUtil.enableButton(button1, true);
-		JButton button2 = _testUtil.createNewJButton("Button2");
-		_testUtil.enableButton(button2, true);
-		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList((AbstractButton) button1), Lists
-				.newArrayList((AbstractButton) button2));
-
-		GenerationButtonsToggleManager.toggle();
-		_testUtil.delay();
-		assertThat(button1.isEnabled()).isFalse();
-		assertThat(button2.isEnabled()).isFalse();
-
-		GenerationButtonsToggleManager.toggle();
-		_testUtil.delay();
-		assertThat(button1.isEnabled()).isTrue();
-		assertThat(button2.isEnabled()).isTrue();
-	}
-
-	@Test
-	public void testToggle_twoEnabledButtonsPerCollection() {
-		JButton button1_1 = _testUtil.createNewJButton("Button1_2");
+	public void testToggle_differingNumberOfButtonsPerGroup() {
+		JButton button1_1 = _testUtil.createNewJButton("Button1");
 		_testUtil.enableButton(button1_1, true);
-		JButton button1_2 = _testUtil.createNewJButton("Button1_2");
-		_testUtil.enableButton(button1_2, true);
 		JButton button2_1 = _testUtil.createNewJButton("Button2_1");
-		_testUtil.enableButton(button2_1, true);
+		_testUtil.enableButton(button2_1, false);
 		JButton button2_2 = _testUtil.createNewJButton("Button2_2");
-		_testUtil.enableButton(button2_2, true);
-		GenerationButtonsToggleManager
-				.manageButtons(Lists.newArrayList((AbstractButton) button1_1, (AbstractButton) button1_2), Lists
-						.newArrayList((AbstractButton) button2_1, (AbstractButton) button2_2));
+		_testUtil.enableButton(button2_2, false);
+		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList((AbstractButton) button1_1), Lists
+				.newArrayList((AbstractButton) button2_1, (AbstractButton) button2_2));
 
 		GenerationButtonsToggleManager.toggle();
 		_testUtil.delay();
 		assertThat(button1_1.isEnabled()).isFalse();
-		assertThat(button1_2.isEnabled()).isFalse();
-		assertThat(button2_1.isEnabled()).isFalse();
-		assertThat(button2_2.isEnabled()).isFalse();
+		assertThat(button2_1.isEnabled()).isTrue();
+		assertThat(button2_2.isEnabled()).isTrue();
 
 		GenerationButtonsToggleManager.toggle();
 		_testUtil.delay();
 		assertThat(button1_1.isEnabled()).isTrue();
-		assertThat(button1_2.isEnabled()).isTrue();
-		assertThat(button2_1.isEnabled()).isTrue();
-		assertThat(button2_2.isEnabled()).isTrue();
+		assertThat(button2_1.isEnabled()).isFalse();
+		assertThat(button2_2.isEnabled()).isFalse();
 	}
 
 	@Test(expected = IllegalNullArgumentException.class)
@@ -139,6 +114,16 @@ public class GenerationButtonsToggleManagerTest {
 		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList((AbstractButton) button1_1,
 				(AbstractButton) button1_2), Lists.newArrayList((AbstractButton) _testUtil.createNewJButton(""),
 				(AbstractButton) _testUtil.createNewJButton("")));
+	}
+
+	@Test(expected = IllegalStateOfArgumentException.class)
+	public void testManageButtonsThrowsException_buttonsOfCollectionsHaveSameEnabledState() {
+		JButton button1 = _testUtil.createNewJButton("Button1");
+		_testUtil.enableButton(button1, true);
+		JButton button2 = _testUtil.createNewJButton("Button2");
+		_testUtil.enableButton(button2, true);
+		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList((AbstractButton) button1), Lists
+				.newArrayList((AbstractButton) button2));
 	}
 
 }
