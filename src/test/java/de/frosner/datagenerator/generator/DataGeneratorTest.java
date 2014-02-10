@@ -13,7 +13,6 @@ import de.frosner.datagenerator.distributions.DummyDistribution;
 import de.frosner.datagenerator.distributions.ParameterizedDummyDistribution;
 import de.frosner.datagenerator.distributions.VariableDummyParameter;
 import de.frosner.datagenerator.export.ExportConnection;
-import de.frosner.datagenerator.features.DummyFeatureValue;
 import de.frosner.datagenerator.features.FeatureDefinition;
 
 public class DataGeneratorTest {
@@ -87,8 +86,7 @@ public class DataGeneratorTest {
 		_generator = new DataGenerator(1, _mockedOut, _graph);
 		_generator.generate();
 		verify(_mockedOut).exportMetaData(_graph);
-		verify(_mockedOut).exportInstance(
-				new Instance(0, DummyDistribution.ANY_SAMPLE, new DummyFeatureValue(DummyDistribution.ANY_SAMPLE)));
+		verify(_mockedOut).exportInstance(new Instance(0, DummyDistribution.ANY_SAMPLE, DummyDistribution.ANY_SAMPLE));
 	}
 
 }
