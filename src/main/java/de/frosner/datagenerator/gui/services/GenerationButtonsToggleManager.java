@@ -8,6 +8,11 @@ import javax.swing.SwingUtilities;
 
 import net.sf.qualitycheck.Check;
 
+/**
+ * Manager allowing to toggle the enabled state of the managed {@linkplain AbstractButton}s. Given two groups of buttons
+ * (one group initially enabled, one group initially disabled) the enabled state of the buttons can be toggled by
+ * calling {@linkplain GenerationButtonsToggleManager#toggle()}.
+ */
 public class GenerationButtonsToggleManager {
 
 	private GenerationButtonsToggleManager() {
@@ -41,11 +46,20 @@ public class GenerationButtonsToggleManager {
 				"Buttons of this collection must be initially disabled (initiallyDisabledButtons).");
 	}
 
+	/**
+	 * Stops management of all currently managed buttons. Calling {@linkplain GenerationButtonsToggleManager#toggle()}
+	 * will have no effect if not buttons are managed.
+	 */
 	public static void stopManaging() {
 		_initiallyEnabledButtons = null;
 		_initiallyDisabledButtons = null;
 	}
 
+	/**
+	 * Toggles the enabled state of both collections of managed buttons.
+	 * 
+	 * @see AbstractButton#setEnabled(boolean)
+	 */
 	public static void toggle() {
 		if (isCurrentlyManaging()) {
 			SwingUtilities.invokeLater(new Runnable() {
