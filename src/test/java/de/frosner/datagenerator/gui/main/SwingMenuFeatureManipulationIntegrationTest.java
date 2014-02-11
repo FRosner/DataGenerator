@@ -4,6 +4,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -14,12 +15,17 @@ import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.main.GaussianFeatureEntry.MeanIsDependent;
+import de.frosner.datagenerator.gui.services.GraphVisualizationTestUtil;
 
 public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegrationTest {
 
+	@Before
+	public void assertGraphIsEmpty() {
+		GraphVisualizationTestUtil.assertGraphIsEmpty();
+	}
+
 	@Test
 	public void testAddAndRemoveFeature_gaussian() {
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
@@ -35,14 +41,14 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
 		_frameTestUtil.clickButtonOrItem(_frame._removeFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
+
+		GraphVisualizationTestUtil.assertGraphIsEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
 	}
 
 	@Test
 	public void testAddAndRemoveFeature_bernoulli() {
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "1.0");
 		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
@@ -56,14 +62,14 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
 		_frameTestUtil.clickButtonOrItem(_frame._removeFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
+
+		GraphVisualizationTestUtil.assertGraphIsEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
 	}
 
 	@Test
 	public void testAddAndRemoveFeature_uniformCategorial() {
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
@@ -77,14 +83,14 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
 		_frameTestUtil.clickButtonOrItem(_frame._removeFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
+
+		GraphVisualizationTestUtil.assertGraphIsEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEmpty();
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEmpty();
 	}
 
 	@Test
 	public void testAddFeatureWithMenuItem() {
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
@@ -101,7 +107,6 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 
 	@Test
 	public void testEditFeature_gaussian() {
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
@@ -125,7 +130,6 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 
 	@Test
 	public void testEditFeature_bernoulli() {
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.0");
 		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
@@ -146,7 +150,6 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 
 	@Test
 	public void testEditFeature_uniformCategorial() {
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(0);
 		_frameTestUtil.enterText(_frame._featureNameField, "OldFeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "1");
 		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);

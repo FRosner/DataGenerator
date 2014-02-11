@@ -25,6 +25,12 @@ public class GraphVisualizationTestUtil {
 		}
 	}
 
+	public static void assertGraphIsEmpty() {
+		if (!FeatureDefinitionGraphVisualizationManager._featureGraphModel.vertexSet().isEmpty()) {
+			fail("Graph is not empty!");
+		}
+	}
+
 	public static DefaultGraphCell getCellByFeatureName(String featureName) {
 		return FeatureDefinitionGraphVisualizationManager._featureGraphModelAdapter
 				.getVertexCell(getFeatureDefinitionEntryByName(featureName));
