@@ -2,19 +2,9 @@ package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
-
-import de.frosner.datagenerator.distributions.BernoulliDistribution;
-import de.frosner.datagenerator.distributions.CategorialDistribution;
-import de.frosner.datagenerator.distributions.FixedParameter;
-import de.frosner.datagenerator.distributions.GaussianDistribution;
-import de.frosner.datagenerator.features.FeatureDefinition;
-import de.frosner.datagenerator.gui.main.GaussianFeatureEntry.MeanIsDependent;
 import de.frosner.datagenerator.gui.services.GraphVisualizationTestUtil;
 
 public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegrationTest {
@@ -32,10 +22,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
-				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
-						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", MeanIsDependent.FALSE,
-						"1.0").toString());
+
+		GraphVisualizationTestUtil.assertNodeExists("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
@@ -54,9 +42,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
-				new BernoulliFeatureEntry(new FeatureDefinition("Feature", new BernoulliDistribution(
-						new FixedParameter<Double>(1d))), "1.0").toString());
+
+		GraphVisualizationTestUtil.assertNodeExists("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
@@ -75,9 +62,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
-				new UniformCategorialFeatureEntry(new FeatureDefinition("Feature", new CategorialDistribution(
-						new FixedParameter<List<Double>>(Lists.newArrayList(1D)))), "1").toString());
+
+		GraphVisualizationTestUtil.assertNodeExists("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
@@ -97,10 +83,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureMenuItem);
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
-				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
-						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", MeanIsDependent.FALSE,
-						"1.0").toString());
+
+		GraphVisualizationTestUtil.assertNodeExists("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 	}
@@ -120,10 +104,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(1);
-		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
-				new GaussianFeatureEntry(new FeatureDefinition("NewFeatureName", new GaussianDistribution(
-						new FixedParameter<Double>(-1000d), new FixedParameter<Double>(2d))), "-1000",
-						MeanIsDependent.FALSE, "2").toString());
+
+		GraphVisualizationTestUtil.assertNodeExists("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-[0-9]+.*$");
 	}
@@ -141,9 +123,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(1);
-		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
-				new BernoulliFeatureEntry(new FeatureDefinition("NewFeatureName", new BernoulliDistribution(
-						new FixedParameter<Double>(1d))), "1.0").toString());
+
+		GraphVisualizationTestUtil.assertNodeExists("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 	}
@@ -161,9 +142,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(1);
-		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
-				new UniformCategorialFeatureEntry(new FeatureDefinition("NewFeatureName", new CategorialDistribution(
-						new FixedParameter<List<Double>>(Lists.newArrayList(0.5, 0.5)))), "2").toString());
+
+		GraphVisualizationTestUtil.assertNodeExists("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^(0|1)$");
 	}
