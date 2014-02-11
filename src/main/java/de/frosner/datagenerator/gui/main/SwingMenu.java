@@ -467,9 +467,6 @@ public final class SwingMenu extends JFrame implements ActionListener {
 
 		// BEGIN define custom focus traversal
 		List<Component> focusOrder = Lists.newArrayList();
-		focusOrder.add(_featureNameField);
-		focusOrder.add(_gaussianMeanField);
-		focusOrder.add(_gaussianSigmaField);
 		focusOrder.add(_addFeatureButton);
 		focusOrder.add(_featureGraph);
 		focusOrder.add(_removeFeatureButton);
