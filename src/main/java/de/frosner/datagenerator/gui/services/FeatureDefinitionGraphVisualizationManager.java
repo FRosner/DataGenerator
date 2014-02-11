@@ -113,10 +113,29 @@ public class FeatureDefinitionGraphVisualizationManager {
 
 	@VisibleForTesting
 	@Nullable
+	// TODO move to util
 	public static DefaultGraphCell getCellByFeatureName(String name) {
 		for (FeatureDefinitionEntry featureDefinitionEntry : _featureGraphModel.vertexSet()) {
 			if (featureDefinitionEntry.getFeatureName().equals(name)) {
 				return _featureGraphModelAdapter.getVertexCell(featureDefinitionEntry);
+			}
+		}
+		return null;
+	}
+
+	@VisibleForTesting
+	@Nullable
+	// TODO move to util
+	public static boolean containsEdge(String sourceFeatureName, String targetFeatureName) {
+		FeatureDefinitionEntry sourceVertex = getFeatureDefinitionEntryByName(sourceFeatureName);
+		FeatureDefinitionEntry targetVertex = getFeatureDefinitionEntryByName(targetFeatureName);
+		return _featureGraphModel.containsEdge(sourceVertex, targetVertex);
+	}
+
+	private static FeatureDefinitionEntry getFeatureDefinitionEntryByName(String name) {
+		for (FeatureDefinitionEntry featureDefinitionEntry : _featureGraphModel.vertexSet()) {
+			if (featureDefinitionEntry.getFeatureName().equals(name)) {
+				return featureDefinitionEntry;
 			}
 		}
 		return null;
