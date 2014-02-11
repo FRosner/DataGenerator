@@ -24,6 +24,7 @@ import org.jgraph.graph.DefaultGraphCell;
 import de.frosner.datagenerator.gui.services.FeatureDefinitionGraphVisualizationManager;
 import de.frosner.datagenerator.gui.services.FeatureParameterDependencySelectorManager;
 import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
+import de.frosner.datagenerator.gui.services.GraphVisualizationTestUtil;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
 import de.frosner.datagenerator.gui.services.TextAreaLogManager;
@@ -161,7 +162,7 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 	}
 
 	void selectFeatureDefinitionEntryByName(String name) {
-		final DefaultGraphCell cell = FeatureDefinitionGraphVisualizationManager.getCellByFeatureName(name);
+		final DefaultGraphCell cell = GraphVisualizationTestUtil.getCellByFeatureName(name);
 		if (cell == null) {
 			fail("No feature with the given name exists: " + name);
 		}

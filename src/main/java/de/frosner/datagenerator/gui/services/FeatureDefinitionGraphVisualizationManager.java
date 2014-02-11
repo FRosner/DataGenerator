@@ -28,7 +28,8 @@ public class FeatureDefinitionGraphVisualizationManager {
 
 	@VisibleForTesting
 	static ListenableGraph<FeatureDefinitionEntry, DefaultEdge> _featureGraphModel;
-	private static JGraphModelAdapter<FeatureDefinitionEntry, DefaultEdge> _featureGraphModelAdapter;
+	@VisibleForTesting
+	static JGraphModelAdapter<FeatureDefinitionEntry, DefaultEdge> _featureGraphModelAdapter;
 	private static JGraph _featureGraph;
 
 	private FeatureDefinitionGraphVisualizationManager() {
@@ -58,7 +59,7 @@ public class FeatureDefinitionGraphVisualizationManager {
 				public void run() {
 					_featureGraphModel.addVertex(entry);
 					adjustLayout(entry, Color.GRAY);
-					JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
+					JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
 				}
 			});
 		}
@@ -72,7 +73,7 @@ public class FeatureDefinitionGraphVisualizationManager {
 				@Override
 				public void run() {
 					_featureGraphModel.addEdge(from, to);
-					JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
+					JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
 				}
 			});
 		}
@@ -90,7 +91,7 @@ public class FeatureDefinitionGraphVisualizationManager {
 					_featureGraphModel.removeVertex(toReplace);
 					_featureGraphModel.addVertex(newEntry);
 					adjustLayout(newEntry, Color.GRAY);
-					JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
+					JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
 				}
 			});
 		}
@@ -104,51 +105,15 @@ public class FeatureDefinitionGraphVisualizationManager {
 				public void run() {
 					_featureGraphModel.removeVertex(entry);
 					if (!_featureGraphModel.vertexSet().isEmpty()) {
-						JGraphLayoutAlgorithm.applyLayout(_featureGraph, getRoots(), LAYOUT);
+						JGraphLayoutAlgorithm.applyLayout(_featureGraph, _featureGraph.getRoots(), LAYOUT);
 					}
 				}
 			});
 		}
 	}
 
-	@VisibleForTesting
-	@Nullable
-	// TODO move to util
-	public static DefaultGraphCell getCellByFeatureName(String name) {
-		for (FeatureDefinitionEntry featureDefinitionEntry : _featureGraphModel.vertexSet()) {
-			if (featureDefinitionEntry.getFeatureName().equals(name)) {
-				return _featureGraphModelAdapter.getVertexCell(featureDefinitionEntry);
-			}
-		}
-		return null;
-	}
-
-	@VisibleForTesting
-	@Nullable
-	// TODO move to util
-	public static boolean containsEdge(String sourceFeatureName, String targetFeatureName) {
-		FeatureDefinitionEntry sourceVertex = getFeatureDefinitionEntryByName(sourceFeatureName);
-		FeatureDefinitionEntry targetVertex = getFeatureDefinitionEntryByName(targetFeatureName);
-		return _featureGraphModel.containsEdge(sourceVertex, targetVertex);
-	}
-
-	private static FeatureDefinitionEntry getFeatureDefinitionEntryByName(String name) {
-		for (FeatureDefinitionEntry featureDefinitionEntry : _featureGraphModel.vertexSet()) {
-			if (featureDefinitionEntry.getFeatureName().equals(name)) {
-				return featureDefinitionEntry;
-			}
-		}
-		return null;
-	}
-
 	public static FeatureDefinitionEntry getFeatureDefinitionEntryByCell(Object selectedCell) {
 		return (FeatureDefinitionEntry) _featureGraphModelAdapter.getValue(selectedCell);
-	}
-
-	@VisibleForTesting
-	static Object[] getRoots() {
-		// TODO avoid returning edge as roots
-		return _featureGraph.getRoots();
 	}
 
 	private static void adjustLayout(FeatureDefinitionEntry feature, @Nullable Color bg) {

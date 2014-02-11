@@ -2,11 +2,10 @@ package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import org.jgraph.graph.DefaultGraphCell;
 import org.junit.Test;
 
 import de.frosner.datagenerator.distributions.VariableParameter;
-import de.frosner.datagenerator.gui.services.FeatureDefinitionGraphVisualizationManager;
+import de.frosner.datagenerator.gui.services.GraphVisualizationTestUtil;
 
 public class SwingMenuFeatureDependencyManipulationIntegrationTest extends SwingMenuIntegrationTest {
 
@@ -34,10 +33,6 @@ public class SwingMenuFeatureDependencyManipulationIntegrationTest extends Swing
 		assertThat(_frame._gaussianMeanSelector.getItemAt(0).toString()).contains("GaussianFeature");
 		assertThat(_frame._gaussianMeanSelector.getItemAt(1).toString()).contains("DependentGaussianFeature");
 
-		DefaultGraphCell dependentFeature = FeatureDefinitionGraphVisualizationManager
-				.getCellByFeatureName("DependentGaussianFeature");
-		assertThat(_frame._featureGraph.getModel().contains(dependentFeature)).isTrue();
-		assertThat(FeatureDefinitionGraphVisualizationManager.containsEdge("GaussianFeature",
-				"DependentGaussianFeature"));
+		GraphVisualizationTestUtil.assertEdgeExists("GaussianFeature", "DependentGaussianFeature");
 	}
 }
