@@ -48,7 +48,7 @@ public class GenerationButtonsToggleManager {
 
 	/**
 	 * Stops management of all currently managed buttons. Calling {@linkplain GenerationButtonsToggleManager#toggle()}
-	 * will have no effect if not buttons are managed.
+	 * will have no effect if no buttons are managed.
 	 */
 	public static void stopManaging() {
 		_initiallyEnabledButtons = null;
