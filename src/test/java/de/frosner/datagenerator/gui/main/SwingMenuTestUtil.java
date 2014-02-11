@@ -22,6 +22,7 @@ import org.fest.swing.edt.GuiTask;
 import org.jgraph.graph.DefaultGraphCell;
 
 import de.frosner.datagenerator.gui.services.FeatureDefinitionGraphVisualizationManager;
+import de.frosner.datagenerator.gui.services.FeatureParameterDependencySelectorManager;
 import de.frosner.datagenerator.gui.services.GenerationButtonsToggleManager;
 import de.frosner.datagenerator.gui.services.PreviewTableManager;
 import de.frosner.datagenerator.gui.services.ProgressBarManager;
@@ -307,5 +308,6 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		ProgressBarManager.stopManaging();
 		GenerationButtonsToggleManager.stopManaging();
 		FeatureDefinitionGraphVisualizationManager.stopManaging();
+		FeatureParameterDependencySelectorManager.stopManaging();
 	}
 }
