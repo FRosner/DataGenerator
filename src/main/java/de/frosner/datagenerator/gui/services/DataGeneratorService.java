@@ -15,6 +15,7 @@ import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.generator.DataGenerator;
 import de.frosner.datagenerator.generator.FeatureDefinitionGraph;
 import de.frosner.datagenerator.gui.main.FeatureDefinitionEntry;
+import de.frosner.datagenerator.gui.main.GaussianFeatureEntry;
 import de.frosner.datagenerator.util.VisibleForTesting;
 
 /**
@@ -47,6 +48,14 @@ public final class DataGeneratorService {
 		_featureDefinitions.add(featureDefinitionEntry.getFeatureDefinition());
 		FeatureParameterDependencySelectorManager.addFeatureDefinitionEntry(featureDefinitionEntry);
 		FeatureDefinitionGraphVisualizationManager.addVertex(featureDefinitionEntry);
+		// TODO FRosner: create FeatureDefinition#getDependencies to avoid instanceof-if here
+		if (featureDefinitionEntry instanceof GaussianFeatureEntry) {
+			GaussianFeatureEntry gaussianEntry = (GaussianFeatureEntry) featureDefinitionEntry;
+			if (gaussianEntry.meanIsDependent()) {
+				FeatureDefinitionGraphVisualizationManager.addEdge((FeatureDefinitionEntry) gaussianEntry.getMean(),
+						gaussianEntry);
+			}
+		}
 		TextAreaLogManager.info("Added Feature: " + featureDefinitionEntry.getFeatureName());
 		PreviewTableManager.generatePreview(FeatureDefinitionGraph.createFromList(_featureDefinitions));
 	}

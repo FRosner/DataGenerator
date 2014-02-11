@@ -13,6 +13,7 @@ import de.frosner.datagenerator.distributions.CategorialDistribution;
 import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.gui.main.GaussianFeatureEntry.MeanIsDependent;
 
 public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegrationTest {
 
@@ -27,7 +28,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
-						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0").toString());
+						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", MeanIsDependent.FALSE,
+						"1.0").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
@@ -91,7 +93,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.delay(500);
 		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("Feature", new GaussianDistribution(
-						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", "1.0").toString());
+						new FixedParameter<Double>(0d), new FixedParameter<Double>(1d))), "0", MeanIsDependent.FALSE,
+						"1.0").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
 	}
@@ -114,7 +117,8 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(1);
 		assertThat(_frame._featureGraph.getModel().getRootAt(0).toString()).isEqualTo(
 				new GaussianFeatureEntry(new FeatureDefinition("NewFeatureName", new GaussianDistribution(
-						new FixedParameter<Double>(-1000d), new FixedParameter<Double>(2d))), "-1000", "2").toString());
+						new FixedParameter<Double>(-1000d), new FixedParameter<Double>(2d))), "-1000",
+						MeanIsDependent.FALSE, "2").toString());
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-[0-9]+.*$");
 	}

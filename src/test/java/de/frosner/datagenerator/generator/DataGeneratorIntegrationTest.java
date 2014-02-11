@@ -85,8 +85,8 @@ public class DataGeneratorIntegrationTest {
 				new FixedParameter<Double>(-1000d), new FixedParameter<Double>(1d)));
 		FeatureDefinition sigmaFeature = new FeatureDefinition("Sigma", new GaussianDistribution(
 				new FixedParameter<Double>(10d), new FixedParameter<Double>(1d)));
-		ContinuousVariableParameter meanParameter = new ContinuousVariableParameter();
-		ContinuousVariableParameter sigmaParameter = new ContinuousVariableParameter();
+		ContinuousVariableParameter meanParameter = new ContinuousVariableParameter(meanFeature);
+		ContinuousVariableParameter sigmaParameter = new ContinuousVariableParameter(sigmaFeature);
 		FeatureDefinition dependentFeature = new FeatureDefinition("D", new GaussianDistribution(meanParameter,
 				sigmaParameter));
 
@@ -122,7 +122,7 @@ public class DataGeneratorIntegrationTest {
 		Map<DiscreteFeatureValue, Double> bCoinsProbabilities = Maps.newHashMap();
 		bCoinsProbabilities.put(new DiscreteFeatureValue(0), 0d);
 		bCoinsProbabilities.put(new DiscreteFeatureValue(1), 1d);
-		DiscreteVariableParameter<Double> bParameter = new DiscreteVariableParameter<Double>(bCoinsProbabilities);
+		DiscreteVariableParameter<Double> bParameter = new DiscreteVariableParameter<Double>(bCoinsProbabilities, coinA);
 		FeatureDefinition coinB = new FeatureDefinition("B", new BernoulliDistribution(bParameter));
 
 		_featureDefinitions.addFeatureDefinition(coinA);
@@ -154,7 +154,7 @@ public class DataGeneratorIntegrationTest {
 		bDicesProbabilities.put(new DiscreteFeatureValue(1), Lists.newArrayList(0d, 0d, 1d, 0d));
 		bDicesProbabilities.put(new DiscreteFeatureValue(2), Lists.newArrayList(0d, 0d, 0d, 1d));
 		DiscreteVariableParameter<List<Double>> bParameter = new DiscreteVariableParameter<List<Double>>(
-				bDicesProbabilities);
+				bDicesProbabilities, diceA);
 		FeatureDefinition coinB = new FeatureDefinition("B", new CategorialDistribution(bParameter));
 
 		_featureDefinitions.addFeatureDefinition(diceA);
@@ -186,11 +186,11 @@ public class DataGeneratorIntegrationTest {
 		cMeans.put(new DiscreteFeatureValue(0), -100d);
 		cMeans.put(new DiscreteFeatureValue(1), 0d);
 		cMeans.put(new DiscreteFeatureValue(2), 100d);
-		DiscreteVariableParameter<Double> cMeanParameter = new DiscreteVariableParameter<Double>(cMeans);
+		DiscreteVariableParameter<Double> cMeanParameter = new DiscreteVariableParameter<Double>(cMeans, diceA);
 		Map<DiscreteFeatureValue, Double> cSigmas = Maps.newHashMap();
 		cSigmas.put(new DiscreteFeatureValue(0), 0.1d);
 		cSigmas.put(new DiscreteFeatureValue(1), 0.001d);
-		DiscreteVariableParameter<Double> cSigmaParameter = new DiscreteVariableParameter<Double>(cSigmas);
+		DiscreteVariableParameter<Double> cSigmaParameter = new DiscreteVariableParameter<Double>(cSigmas, coinB);
 		FeatureDefinition gaussianC = new FeatureDefinition("C", new GaussianDistribution(cMeanParameter,
 				cSigmaParameter));
 

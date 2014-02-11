@@ -40,9 +40,17 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 
 	public static FeatureDefinitionGraph createFromList(List<FeatureDefinition> featureDefinitions) {
 		FeatureDefinitionGraph graph = new FeatureDefinitionGraph();
+		// TODO create graph.addFeatureDefinitions(featureDefinitions)
 		for (FeatureDefinition featureDefinition : featureDefinitions) {
 			graph.addFeatureDefinition(featureDefinition);
 		}
+		for (FeatureDefinition featureDefinition : featureDefinitions) {
+			for (VariableParameter<?> parameter : featureDefinition.getDependentParameters()) {
+				graph.addFeatureDefinitionParameterDependency(parameter.getFeatureDefinitionConditionedOn(), featureDefinition,
+						parameter);
+			}
+		}
+
 		return graph;
 	}
 
@@ -67,6 +75,7 @@ public class FeatureDefinitionGraph implements Iterable<FeatureDefinition> {
 		Check.notNull(childFeature, "childFeature");
 		Check.notNull(childParameter, "childParameter");
 		Check.stateIsTrue(_adjacentNodes.containsKey(parentFeature), "parent feature must be part of the graph");
+
 		Set<FeatureDefinitionParameterPair> children = _adjacentNodes.get(parentFeature);
 		FeatureDefinitionParameterPair pair = new FeatureDefinitionParameterPair(childFeature, childParameter);
 		if (children.add(pair)) {

@@ -20,6 +20,7 @@ import de.frosner.datagenerator.features.FeatureDefinition;
 import de.frosner.datagenerator.gui.main.DummyFeatureDefinitionEntry;
 import de.frosner.datagenerator.gui.main.FeatureDefinitionEntry;
 import de.frosner.datagenerator.gui.main.GaussianFeatureEntry;
+import de.frosner.datagenerator.gui.main.GaussianFeatureEntry.MeanIsDependent;
 import de.frosner.datagenerator.testutils.GuiTestUtil;
 import de.frosner.datagenerator.testutils.SwingTests;
 
@@ -50,7 +51,8 @@ public class FeatureParameterDependencySelectorManagerTest {
 
 	@Before
 	public void setUpEntries() {
-		_gaussianEntry = new GaussianFeatureEntry(new FeatureDefinition("Gaussian", new DummyDistribution()), "", "");
+		_gaussianEntry = new GaussianFeatureEntry(new FeatureDefinition("Gaussian", new DummyDistribution()), "",
+				MeanIsDependent.FALSE, "");
 		_unacceptableEntry = new DummyFeatureDefinitionEntry(new FeatureDefinition("Unacceptable",
 				new DummyDistribution()));
 	}

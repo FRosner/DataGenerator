@@ -61,8 +61,10 @@ import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.BernoulliDistribution;
 import de.frosner.datagenerator.distributions.CategorialDistribution;
+import de.frosner.datagenerator.distributions.ContinuousVariableParameter;
 import de.frosner.datagenerator.distributions.FixedParameter;
 import de.frosner.datagenerator.distributions.GaussianDistribution;
+import de.frosner.datagenerator.distributions.Parameter;
 import de.frosner.datagenerator.distributions.VariableParameter;
 import de.frosner.datagenerator.exceptions.UnknownActionEventSourceException;
 import de.frosner.datagenerator.exceptions.UnsupportedSelectionException;
@@ -70,6 +72,7 @@ import de.frosner.datagenerator.export.CsvFileExportConfiguration;
 import de.frosner.datagenerator.export.ExportFeatureNames;
 import de.frosner.datagenerator.export.ExportInstanceIds;
 import de.frosner.datagenerator.features.FeatureDefinition;
+import de.frosner.datagenerator.gui.main.GaussianFeatureEntry.MeanIsDependent;
 import de.frosner.datagenerator.gui.services.DataGeneratorService;
 import de.frosner.datagenerator.gui.services.FeatureDefinitionGraphVisualizationManager;
 import de.frosner.datagenerator.gui.services.FeatureParameterDependencySelectorManager;
@@ -528,7 +531,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 							.getNumberOfStates());
 				} else if (selectedEntry instanceof GaussianFeatureEntry) {
 					_distributionSelector.setSelectedItem(GaussianFeatureEntry.KEY);
-					_gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMean());
+					_gaussianMeanField.setText(((GaussianFeatureEntry) selectedEntry).getMeanAsString());
 					_gaussianSigmaField.setText(((GaussianFeatureEntry) selectedEntry).getSigma());
 				}
 				_featureDefinitionDialog.setVisible(true);
@@ -619,11 +622,27 @@ public final class SwingMenu extends JFrame implements ActionListener {
 					_uniformCategorialNumberOfStatesField.getText());
 
 		} else if (selectedItem.equals(GaussianFeatureEntry.KEY)) {
-			double mean = Double.parseDouble(_gaussianMeanField.getText());
+			Parameter<Double> meanParameter;
+			MeanIsDependent meanIsDependent;
+			Object meanEntry;
+
+			if (_gaussianMeanParameterTypeSelector.getSelectedItem().equals(FixedParameter.KEY)) {
+				double mean = Double.parseDouble(_gaussianMeanField.getText());
+				meanParameter = new FixedParameter<Double>(mean);
+				meanIsDependent = MeanIsDependent.FALSE;
+				meanEntry = _gaussianMeanField.getText();
+			} else {
+				meanIsDependent = MeanIsDependent.TRUE;
+				meanEntry = _gaussianMeanSelector.getSelectedItem();
+				meanParameter = new ContinuousVariableParameter(((FeatureDefinitionEntry) meanEntry)
+						.getFeatureDefinition());
+			}
+
 			double sigma = Double.parseDouble(_gaussianSigmaField.getText());
-			featureDefinition = new FeatureDefinition(name, new GaussianDistribution(new FixedParameter<Double>(mean),
+
+			featureDefinition = new FeatureDefinition(name, new GaussianDistribution(meanParameter,
 					new FixedParameter<Double>(sigma)));
-			featureDefinitionEntry = new GaussianFeatureEntry(featureDefinition, _gaussianMeanField.getText(),
+			featureDefinitionEntry = new GaussianFeatureEntry(featureDefinition, meanEntry, meanIsDependent,
 					_gaussianSigmaField.getText());
 
 		} else {

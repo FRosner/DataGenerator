@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.frosner.datagenerator.distributions.DummyDistribution;
+import de.frosner.datagenerator.distributions.ParameterizedDummyDistribution;
 import de.frosner.datagenerator.distributions.VariableDummyParameter;
 import de.frosner.datagenerator.exceptions.CircularDependencyException;
 import de.frosner.datagenerator.features.FeatureDefinition;
@@ -275,7 +276,7 @@ public class FeatureDefinitionGraphTest {
 	}
 
 	@Test
-	public void testCreateFromList() {
+	public void testCreateFromList_withoutDependencies() {
 		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
 		FeatureDefinition feature2 = new FeatureDefinition("feature2", new DummyDistribution());
 		FeatureDefinition feature3 = new FeatureDefinition("feature3", new DummyDistribution());
@@ -285,6 +286,22 @@ public class FeatureDefinitionGraphTest {
 		_graph.addFeatureDefinition(feature3);
 
 		List<FeatureDefinition> featureDefinitions = Lists.newArrayList(feature1, feature2, feature3);
+
+		assertThat(_graph.equals(FeatureDefinitionGraph.createFromList(featureDefinitions))).isTrue();
+	}
+
+	@Test
+	public void testCreateFromList_withDependencies() {
+		FeatureDefinition feature1 = new FeatureDefinition("feature1", new DummyDistribution());
+		VariableDummyParameter parameter1_2 = new VariableDummyParameter(feature1);
+		FeatureDefinition feature1_2 = new FeatureDefinition("feature2", new ParameterizedDummyDistribution(
+				parameter1_2));
+
+		_graph.addFeatureDefinition(feature1);
+		_graph.addFeatureDefinition(feature1_2);
+		_graph.addFeatureDefinitionParameterDependency(feature1, feature1_2, parameter1_2);
+
+		List<FeatureDefinition> featureDefinitions = Lists.newArrayList(feature1, feature1_2);
 
 		assertThat(_graph.equals(FeatureDefinitionGraph.createFromList(featureDefinitions))).isTrue();
 	}

@@ -14,17 +14,20 @@ import com.google.common.collect.Maps;
 import de.frosner.datagenerator.exceptions.FeatureValueCannotBeMappedException;
 import de.frosner.datagenerator.features.ContinuousFeatureValue;
 import de.frosner.datagenerator.features.DiscreteFeatureValue;
+import de.frosner.datagenerator.features.FeatureDefinition;
 
 public class DiscreteVariableParameterTest {
 
+	private FeatureDefinition _featureDefinition;
 	private DiscreteVariableParameter<Double> _parameter;
 
 	@Before
 	public void setupParameter() {
+		_featureDefinition = new FeatureDefinition("F", new DummyDistribution());
 		Map<DiscreteFeatureValue, Double> parameterSelection = Maps.newHashMap();
 		parameterSelection.put(new DiscreteFeatureValue(0), -100d);
 		parameterSelection.put(new DiscreteFeatureValue(1), 100d);
-		_parameter = new DiscreteVariableParameter<Double>(parameterSelection);
+		_parameter = new DiscreteVariableParameter<Double>(parameterSelection, _featureDefinition);
 	}
 
 	@Test
@@ -34,6 +37,11 @@ public class DiscreteVariableParameterTest {
 
 		_parameter.updateParameter(new DiscreteFeatureValue(1));
 		assertThat(_parameter.getParameter()).isEqualTo(100d);
+	}
+
+	@Test
+	public void testGetFeatureDefinition() {
+		assertThat(_parameter.getFeatureDefinitionConditionedOn()).isEqualTo(_featureDefinition);
 	}
 
 	@Test(expected = IllegalInstanceOfArgumentException.class)
