@@ -6,8 +6,7 @@ import static org.fest.swing.edt.GuiActionRunner.execute;
 import java.awt.AWTException;
 
 import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
-import org.fest.swing.edt.GuiQuery;
-import org.jgraph.JGraph;
+import org.fest.swing.edt.GuiTask;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -25,7 +24,6 @@ import de.frosner.datagenerator.testutils.SwingTests;
 public class FeatureDefinitionGraphVisualizationManagerTest {
 
 	private GuiTestUtil _testUtil;
-	private JGraph _graph;
 	private FeatureDefinitionEntry _entry1;
 	private FeatureDefinitionEntry _entry2;
 
@@ -36,10 +34,10 @@ public class FeatureDefinitionGraphVisualizationManagerTest {
 
 	@Before
 	public void initGUI() throws AWTException {
-		_graph = execute(new GuiQuery<JGraph>() {
+		execute(new GuiTask() {
 			@Override
-			public JGraph executeInEDT() {
-				return FeatureDefinitionGraphVisualizationManager.createNewManagedJGraph();
+			public void executeInEDT() {
+				FeatureDefinitionGraphVisualizationManager.createNewManagedJGraph();
 			}
 		});
 		_testUtil = new GuiTestUtil();
