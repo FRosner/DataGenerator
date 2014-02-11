@@ -469,6 +469,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		List<Component> focusOrder = Lists.newArrayList();
 		focusOrder.add(_addFeatureButton);
 		focusOrder.add(_featureGraph);
+		focusOrder.add(_editFeatureButton);
 		focusOrder.add(_removeFeatureButton);
 		focusOrder.add(_numberOfInstancesField);
 		focusOrder.add(_exportFileButton);
@@ -476,6 +477,7 @@ public final class SwingMenu extends JFrame implements ActionListener {
 		focusOrder.add(_exportFeatureNamesBox);
 		focusOrder.add(_generateDataButton);
 		focusOrder.add(_abortDataGenerationButton);
+		focusOrder.add(_logArea);
 		setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(focusOrder));
 		// END define custom focus traversal
 
