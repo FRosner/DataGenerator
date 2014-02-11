@@ -26,6 +26,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		GraphVisualizationTestUtil.assertNodeExists("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-?[0-9]+.*$");
+
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
 		_frameTestUtil.clickButtonOrItem(_frame._removeFeatureButton);
 		_frameTestUtil.delay(500);
@@ -46,6 +47,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		GraphVisualizationTestUtil.assertNodeExists("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
+
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
 		_frameTestUtil.clickButtonOrItem(_frame._removeFeatureButton);
 		_frameTestUtil.delay(500);
@@ -66,6 +68,7 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		GraphVisualizationTestUtil.assertNodeExists("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("Feature");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("0");
+
 		_frameTestUtil.selectFeatureDefinitionEntryByName("Feature");
 		_frameTestUtil.clickButtonOrItem(_frame._removeFeatureButton);
 		_frameTestUtil.delay(500);
@@ -97,15 +100,16 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
+
 		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureName");
 		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "-1000");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "2");
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(1);
 
 		GraphVisualizationTestUtil.assertNodeExists("NewFeatureName");
+		assertThat(GraphVisualizationTestUtil.getNodeCount()).isEqualTo(1);
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^\\-[0-9]+.*$");
 	}
@@ -117,14 +121,15 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
+
 		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureName");
 		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "1.0");
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(1);
 
 		GraphVisualizationTestUtil.assertNodeExists("NewFeatureName");
+		assertThat(GraphVisualizationTestUtil.getNodeCount()).isEqualTo(1);
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).isEqualTo("1");
 	}
@@ -136,14 +141,15 @@ public class SwingMenuFeatureManipulationIntegrationTest extends SwingMenuIntegr
 		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 		_frameTestUtil.delay(500);
+
 		_frameTestUtil.selectFeatureDefinitionEntryByName("OldFeatureName");
 		_frameTestUtil.enterText(_frame._featureNameField, "NewFeatureName");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "2");
 		_frameTestUtil.updateSelectedFeature();
 		_frameTestUtil.delay(500);
-		assertThat(_frame._featureGraph.getModel().getRootCount()).isEqualTo(1);
 
 		GraphVisualizationTestUtil.assertNodeExists("NewFeatureName");
+		assertThat(GraphVisualizationTestUtil.getNodeCount()).isEqualTo(1);
 		assertThat((String) _frame._previewTableModel.getValueAt(0, 0)).isEqualTo("NewFeatureName");
 		assertThat((String) _frame._previewTableModel.getValueAt(1, 0)).matches("^(0|1)$");
 	}

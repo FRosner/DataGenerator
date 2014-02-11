@@ -31,6 +31,10 @@ public class GraphVisualizationTestUtil {
 		}
 	}
 
+	public static int getNodeCount() {
+		return FeatureDefinitionGraphVisualizationManager._featureGraphModel.vertexSet().size();
+	}
+
 	public static DefaultGraphCell getCellByFeatureName(String featureName) {
 		return FeatureDefinitionGraphVisualizationManager._featureGraphModelAdapter
 				.getVertexCell(getFeatureDefinitionEntryByName(featureName));
