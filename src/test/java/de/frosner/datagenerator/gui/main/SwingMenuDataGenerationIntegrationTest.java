@@ -10,19 +10,30 @@ public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegration
 	public void testGenerateData_clickButton() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
+		_frameTestUtil.enterText(_frame._featureNameField, "DependentGaussianFeature");
+		_frameTestUtil.selectOption(_frame._gaussianMeanParameterTypeSelector, VariableParameter.KEY);
+		_frameTestUtil.selectOption(_frame._gaussianMeanSelector, _frame._gaussianMeanSelector.getItemAt(0));
+		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1.0");
+		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
+		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
@@ -38,19 +49,23 @@ public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegration
 	public void testGenerateData_clickMenuItem() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataMenuItem);
@@ -66,19 +81,23 @@ public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegration
 	public void testAbortGeneration() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
 		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
 		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
 		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
 		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
+
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
 		_frameTestUtil.enterText(_frame._numberOfInstancesField, "10000000");
 		_frameTestUtil.clickButtonOrItem(_frame._generateDataButton);
