@@ -4,10 +4,12 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
+import de.frosner.datagenerator.distributions.VariableParameter;
+
 public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegrationTest {
 
 	@Test(timeout = 10000)
-	public void testGenerateData_clickButton() throws InterruptedException {
+	public void testGenerateData() throws InterruptedException {
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 
@@ -50,20 +52,10 @@ public class SwingMenuDataGenerationIntegrationTest extends SwingMenuIntegration
 		assertThat(_frame._progressBar.getValue()).isEqualTo(0);
 		assertThat(_testFile).doesNotExist();
 
-		_frameTestUtil.enterText(_frame._featureNameField, "Feature 1");
+		_frameTestUtil.enterText(_frame._featureNameField, "Feature");
 		_frameTestUtil.enterText(_frame._gaussianMeanField, "0");
 		_frameTestUtil.enterText(_frame._gaussianSigmaField, "1");
 		_frameTestUtil.selectOption(_frame._distributionSelector, GaussianFeatureEntry.KEY);
-		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
-
-		_frameTestUtil.enterText(_frame._featureNameField, "Feature 2");
-		_frameTestUtil.enterText(_frame._bernoulliProbabilityField, "0.4");
-		_frameTestUtil.selectOption(_frame._distributionSelector, BernoulliFeatureEntry.KEY);
-		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
-
-		_frameTestUtil.enterText(_frame._featureNameField, "Feature 3");
-		_frameTestUtil.enterText(_frame._uniformCategorialNumberOfStatesField, "5");
-		_frameTestUtil.selectOption(_frame._distributionSelector, UniformCategorialFeatureEntry.KEY);
 		_frameTestUtil.tryToAddEnteredFeature(_frame._addFeatureButton);
 
 		_frameTestUtil.selectFileUsingFileChooserDialog(_testFile);
