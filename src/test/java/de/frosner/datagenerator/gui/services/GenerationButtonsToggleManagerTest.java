@@ -46,9 +46,9 @@ public class GenerationButtonsToggleManagerTest {
 
 	@Test
 	public void testToggle_sameNumberOfButtonsPerGroup() {
-		AbstractButton button1 = GuiTestUtil.createNewButton("Button1");
+		AbstractButton button1 = GuiTestUtil.createNewJButton("Button1");
 		GuiTestUtil.enableButton(button1, true);
-		AbstractButton button2 = GuiTestUtil.createNewButton("Button2");
+		AbstractButton button2 = GuiTestUtil.createNewJButton("Button2");
 		GuiTestUtil.enableButton(button2, false);
 		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList(button1), Lists.newArrayList(button2));
 
@@ -65,11 +65,11 @@ public class GenerationButtonsToggleManagerTest {
 
 	@Test
 	public void testToggle_differingNumberOfButtonsPerGroup() {
-		AbstractButton button1_1 = GuiTestUtil.createNewButton("Button1");
+		AbstractButton button1_1 = GuiTestUtil.createNewJButton("Button1");
 		GuiTestUtil.enableButton(button1_1, true);
-		AbstractButton button2_1 = GuiTestUtil.createNewButton("Button2_1");
+		AbstractButton button2_1 = GuiTestUtil.createNewJButton("Button2_1");
 		GuiTestUtil.enableButton(button2_1, false);
-		AbstractButton button2_2 = GuiTestUtil.createNewButton("Button2_2");
+		AbstractButton button2_2 = GuiTestUtil.createNewJButton("Button2_2");
 		GuiTestUtil.enableButton(button2_2, false);
 		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList(button1_1), Lists.newArrayList(button2_1,
 				button2_2));
@@ -105,11 +105,11 @@ public class GenerationButtonsToggleManagerTest {
 
 	@Test(expected = IllegalStateOfArgumentException.class)
 	public void testManageButtonsThrowsException_notAllButtonsOfFirstGroupEnabled() {
-		AbstractButton button1_1 = GuiTestUtil.createNewButton("Button1_1");
+		AbstractButton button1_1 = GuiTestUtil.createNewJButton("Button1_1");
 		GuiTestUtil.enableButton(button1_1, true);
-		AbstractButton button1_2 = GuiTestUtil.createNewButton("Button1_2");
+		AbstractButton button1_2 = GuiTestUtil.createNewJButton("Button1_2");
 		GuiTestUtil.enableButton(button1_2, false);
-		AbstractButton button2 = GuiTestUtil.createNewButton("Button2");
+		AbstractButton button2 = GuiTestUtil.createNewJButton("Button2");
 		GuiTestUtil.enableButton(button2, false);
 		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList(button1_1, button1_2), Lists
 				.newArrayList(button2));
@@ -117,11 +117,11 @@ public class GenerationButtonsToggleManagerTest {
 
 	@Test(expected = IllegalStateOfArgumentException.class)
 	public void testManageButtonsThrowsException_notAllButtonsOfSecondGroupDisabled() {
-		AbstractButton button1 = GuiTestUtil.createNewButton("Button1");
+		AbstractButton button1 = GuiTestUtil.createNewJButton("Button1");
 		GuiTestUtil.enableButton(button1, true);
-		AbstractButton button2_1 = GuiTestUtil.createNewButton("Button2_1");
+		AbstractButton button2_1 = GuiTestUtil.createNewJButton("Button2_1");
 		GuiTestUtil.enableButton(button2_1, true);
-		AbstractButton button2_2 = GuiTestUtil.createNewButton("Button2_2");
+		AbstractButton button2_2 = GuiTestUtil.createNewJButton("Button2_2");
 		GuiTestUtil.enableButton(button2_2, false);
 		GenerationButtonsToggleManager.manageButtons(Lists.newArrayList(button1), Lists.newArrayList(button2_1,
 				button2_2));

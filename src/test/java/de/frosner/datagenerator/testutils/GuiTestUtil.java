@@ -43,7 +43,7 @@ public class GuiTestUtil {
 		delay(ROBOT_DELAY);
 	}
 
-	public static AbstractButton createNewButton(final String name) {
+	public static JButton createNewJButton(final String name) {
 		return execute(new GuiQuery<JButton>() {
 			@Override
 			public JButton executeInEDT() {
