@@ -6,3 +6,5 @@
 target/*
 *.csv
 *.tmp
+*.cache
+project/target/*
