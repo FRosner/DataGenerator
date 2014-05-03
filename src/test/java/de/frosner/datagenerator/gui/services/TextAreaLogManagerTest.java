@@ -1,17 +1,13 @@
 package de.frosner.datagenerator.gui.services;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import java.awt.AWTException;
 
 import javax.swing.JEditorPane;
 
-import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
-import org.fest.swing.edt.GuiQuery;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -25,19 +21,9 @@ public class TextAreaLogManagerTest {
 	private JEditorPane _editorPane;
 	private static final String END_OF_HTML_DOCUMENT = "</font>\n  </body>\n</html>\n";
 
-	@BeforeClass
-	public static void setUpOnce() {
-		FailOnThreadViolationRepaintManager.install();
-	}
-
 	@Before
 	public void initGUI() throws AWTException {
-		_editorPane = execute(new GuiQuery<JEditorPane>() {
-			@Override
-			public JEditorPane executeInEDT() {
-				return new JEditorPane("text/html", null);
-			}
-		});
+		_editorPane = new JEditorPane("text/html", null);
 		TextAreaLogManager.manageLogArea(_editorPane);
 		_testUtil = new GuiTestUtil();
 	}

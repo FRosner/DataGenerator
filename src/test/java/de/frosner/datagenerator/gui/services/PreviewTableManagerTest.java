@@ -1,15 +1,11 @@
 package de.frosner.datagenerator.gui.services;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import java.awt.AWTException;
 
-import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
-import org.fest.swing.edt.GuiQuery;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -28,19 +24,9 @@ public class PreviewTableManagerTest {
 	private GuiTestUtil _testUtil;
 	private VariableColumnCountTableModel _table;
 
-	@BeforeClass
-	public static void setUpOnce() {
-		FailOnThreadViolationRepaintManager.install();
-	}
-
 	@Before
 	public void initGUI() throws AWTException {
-		_table = execute(new GuiQuery<VariableColumnCountTableModel>() {
-			@Override
-			public VariableColumnCountTableModel executeInEDT() {
-				return new VariableColumnCountTableModel(5, 1);
-			}
-		});
+		_table = new VariableColumnCountTableModel(5, 1);
 		PreviewTableManager.managePreviewTable(_table);
 		_testUtil = new GuiTestUtil();
 	}
