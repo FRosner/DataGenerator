@@ -1,11 +1,15 @@
 package de.frosner.datagenerator.gui.services;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import java.awt.AWTException;
 
+import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
+import org.fest.swing.edt.GuiTask;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -23,9 +27,19 @@ public class FeatureDefinitionGraphVisualizationManagerTest {
 	private FeatureDefinitionEntry _entry1;
 	private FeatureDefinitionEntry _entry2;
 
+	@BeforeClass
+	public static void setUpOnce() {
+		FailOnThreadViolationRepaintManager.install();
+	}
+
 	@Before
 	public void initGUI() throws AWTException {
-		FeatureDefinitionGraphVisualizationManager.createNewManagedJGraph();
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				FeatureDefinitionGraphVisualizationManager.createNewManagedJGraph();
+			}
+		});
 		_testUtil = new GuiTestUtil();
 	}
 

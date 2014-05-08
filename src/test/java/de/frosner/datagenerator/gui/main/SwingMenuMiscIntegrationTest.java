@@ -13,6 +13,8 @@ import java.util.concurrent.Future;
 
 import javax.swing.ImageIcon;
 
+import org.fest.swing.edt.GuiActionRunner;
+import org.fest.swing.edt.GuiQuery;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -55,29 +57,34 @@ public class SwingMenuMiscIntegrationTest extends SwingMenuIntegrationTest {
 		_frameTestUtil.delay(500);
 		_frameTestUtil.selectFeatureDefinitionEntryByName("FeatureToEdit");
 
-		Boolean isInEditMode = null;
-		ExecutorService executor = Executors.newFixedThreadPool(1);
-		Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+		assertThat(GuiActionRunner.execute(new GuiQuery<Boolean>() {
 			@Override
-			public Boolean call() {
-				_frameTestUtil.delay(500);
-				boolean isInEditMode = _frame._featureDefinitionDialog.isInEditMode();
-				_frameTestUtil.pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+			protected Boolean executeInEDT() {
+				Boolean isInEditMode = null;
+
+				ExecutorService executor = Executors.newFixedThreadPool(1);
+				Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+					@Override
+					public Boolean call() {
+						_frameTestUtil.delay(500);
+						boolean isInEditMode = _frame._featureDefinitionDialog.isInEditMode();
+						_frameTestUtil.pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+						return isInEditMode;
+					}
+				});
+
+				_frame.actionPerformed(new ActionEvent(_frame._editFeatureButton, 1, ""));
+
+				try {
+					isInEditMode = future.get();
+				} catch (InterruptedException e1) {
+					fail(e1.getMessage());
+				} catch (ExecutionException e2) {
+					fail(e2.getMessage());
+				}
 				return isInEditMode;
 			}
-		});
-
-		_frame.actionPerformed(new ActionEvent(_frame._editFeatureButton, 1, ""));
-
-		try {
-			isInEditMode = future.get();
-		} catch (InterruptedException e1) {
-			fail(e1.getMessage());
-		} catch (ExecutionException e2) {
-			fail(e2.getMessage());
-		}
-
-		assertThat(isInEditMode).isTrue();
+		})).isTrue();
 
 		assertThat(_frame._featureDefinitionDialog.isInEditMode()).isFalse();
 	}

@@ -1,13 +1,17 @@
 package de.frosner.datagenerator.gui.services;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import java.awt.AWTException;
 
 import javax.swing.JComboBox;
 
+import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
+import org.fest.swing.edt.GuiQuery;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -28,9 +32,19 @@ public class FeatureParameterDependencySelectorManagerTest {
 	private FeatureDefinitionEntry _gaussianEntry;
 	private FeatureDefinitionEntry _unacceptableEntry;
 
+	@BeforeClass
+	public static void setUpOnce() {
+		FailOnThreadViolationRepaintManager.install();
+	}
+
 	@Before
 	public void initGUI() throws AWTException {
-		_gaussianMeanComboBox = new JComboBox();
+		_gaussianMeanComboBox = execute(new GuiQuery<JComboBox>() {
+			@Override
+			public JComboBox executeInEDT() {
+				return new JComboBox();
+			}
+		});
 		FeatureParameterDependencySelectorManager.manageGaussianMeanSelector(_gaussianMeanComboBox);
 		_testUtil = new GuiTestUtil();
 	}

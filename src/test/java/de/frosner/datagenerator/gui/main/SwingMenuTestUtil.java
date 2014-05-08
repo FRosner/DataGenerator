@@ -16,6 +16,9 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
+import org.fest.swing.edt.GuiActionRunner;
+import org.fest.swing.edt.GuiQuery;
+import org.fest.swing.edt.GuiTask;
 import org.jgraph.graph.DefaultGraphCell;
 
 import de.frosner.datagenerator.gui.services.FeatureDefinitionGraphVisualizationManager;
@@ -35,12 +38,22 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 	SwingMenuTestUtil(SwingMenu swingMenu) {
 		super();
 		_menu = swingMenu;
-		_menu.setVisible(true);
-		_menu.toFront();
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.setVisible(true);
+				_menu.toFront();
+			}
+		});
 	}
 
 	void clickButtonOrItem(final AbstractButton button) {
-		_menu.actionPerformed(new ActionEvent(button, 1, ""));
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
+			}
+		});
 	}
 
 	void tryToAddEnteredFeature(final AbstractButton button) {
@@ -51,7 +64,12 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 				pressAndReleaseKey(KeyEvent.VK_ENTER);
 			}
 		}).start();
-		_menu.actionPerformed(new ActionEvent(button, 1, ""));
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
+			}
+		});
 	}
 
 	void openAndCancelAddFeatureDialog(final AbstractButton button) {
@@ -62,7 +80,12 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
 			}
 		}).start();
-		_menu.actionPerformed(new ActionEvent(button, 1, ""));
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
+			}
+		});
 	}
 
 	void updateSelectedFeature() {
@@ -75,16 +98,26 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 			@Override
 			public void run() {
 				delay(DIALOG_OPEN_DELAY / 2);
-				_menu._featureNameField.setText(featureName);
-				_menu._gaussianMeanField.setText(gaussianMean);
-				_menu._gaussianSigmaField.setText(gaussianSigma);
-				_menu._bernoulliProbabilityField.setText(bernoulliProbability);
-				_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() {
+						_menu._featureNameField.setText(featureName);
+						_menu._gaussianMeanField.setText(gaussianMean);
+						_menu._gaussianSigmaField.setText(gaussianSigma);
+						_menu._bernoulliProbabilityField.setText(bernoulliProbability);
+						_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+					}
+				});
 				delay(DIALOG_OPEN_DELAY / 2);
 				pressAndReleaseKey(KeyEvent.VK_ENTER);
 			}
 		}).start();
-		_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+			}
+		});
 	}
 
 	void openAndCancelEditFeatureDialog() {
@@ -97,20 +130,35 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 			@Override
 			public void run() {
 				delay(DIALOG_OPEN_DELAY / 2);
-				_menu._featureNameField.setText(featureName);
-				_menu._gaussianMeanField.setText(gaussianMean);
-				_menu._gaussianSigmaField.setText(gaussianSigma);
-				_menu._bernoulliProbabilityField.setText(bernoulliProbability);
-				_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() {
+						_menu._featureNameField.setText(featureName);
+						_menu._gaussianMeanField.setText(gaussianMean);
+						_menu._gaussianSigmaField.setText(gaussianSigma);
+						_menu._bernoulliProbabilityField.setText(bernoulliProbability);
+						_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+					}
+				});
 				delay(DIALOG_OPEN_DELAY / 2);
 				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
 			}
 		}).start();
-		_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+			}
+		});
 	}
 
 	void selectOption(final JComboBox comboBox, final Object option) {
-		comboBox.setSelectedItem(option);
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				comboBox.setSelectedItem(option);
+			}
+		});
 	}
 
 	void selectFeatureDefinitionEntryByName(String name) {
@@ -118,19 +166,39 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		if (cell == null) {
 			fail("No feature with the given name exists: " + name);
 		}
-		_menu._featureGraph.setSelectionCell(cell);
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu._featureGraph.setSelectionCell(cell);
+			}
+		});
 	}
 
 	void selectFile(final File file) {
-		_menu._exportFileDialog.setSelectedFile(file);
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu._exportFileDialog.setSelectedFile(file);
+			}
+		});
 	}
 
 	void enterText(final JTextField textField, final String text) {
-		textField.setText(text);
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				textField.setText(text);
+			}
+		});
 	}
 
 	void setExportFileFilter(final FileFilter filter) {
-		_menu._exportFileDialog.setFileFilter(filter);
+		GuiActionRunner.execute(new GuiTask() {
+			@Override
+			protected void executeInEDT() {
+				_menu._exportFileDialog.setFileFilter(filter);
+			}
+		});
 	}
 
 	void selectFileUsingFileChooserDialog(final File file) {
@@ -138,40 +206,50 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 			@Override
 			public void run() {
 				delay(DIALOG_OPEN_DELAY);
-				_menu._exportFileDialog.setSelectedFile(file);
-				_menu._exportFileDialog.approveSelection();
+				GuiActionRunner.execute(new GuiTask() {
+					@Override
+					protected void executeInEDT() {
+						_menu._exportFileDialog.setSelectedFile(file);
+						_menu._exportFileDialog.approveSelection();
+					}
+				});
 			}
 		}).start();
 		clickButtonOrItem(_menu._exportFileButton);
 	}
 
 	Boolean clickAddButtonAndCheckComponentVerification(final AbstractButton button, final JTextField component) {
-		Boolean inputIsValid = null;
-
-		ExecutorService executor = Executors.newFixedThreadPool(1);
-		Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+		return GuiActionRunner.execute(new GuiQuery<Boolean>() {
 			@Override
-			public Boolean call() {
-				delay(DIALOG_OPEN_DELAY);
-				pressAndReleaseKey(KeyEvent.VK_ENTER);
-				delay(DIALOG_OPEN_DELAY);
-				boolean inputIsValid = component.getBackground().equals(InputVerifier.VALID_INPUT_WHITE);
-				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
-				delay(DIALOG_OPEN_DELAY);
+			protected Boolean executeInEDT() {
+				Boolean inputIsValid = null;
+
+				ExecutorService executor = Executors.newFixedThreadPool(1);
+				Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+					@Override
+					public Boolean call() {
+						delay(DIALOG_OPEN_DELAY);
+						pressAndReleaseKey(KeyEvent.VK_ENTER);
+						delay(DIALOG_OPEN_DELAY);
+						boolean inputIsValid = component.getBackground().equals(InputVerifier.VALID_INPUT_WHITE);
+						pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+						delay(DIALOG_OPEN_DELAY);
+						return inputIsValid;
+					}
+				});
+
+				_menu.actionPerformed(new ActionEvent(button, 1, ""));
+
+				try {
+					inputIsValid = future.get();
+				} catch (InterruptedException e1) {
+					fail(e1.getMessage());
+				} catch (ExecutionException e2) {
+					fail(e2.getMessage());
+				}
 				return inputIsValid;
 			}
 		});
-
-		_menu.actionPerformed(new ActionEvent(button, 1, ""));
-
-		try {
-			inputIsValid = future.get();
-		} catch (InterruptedException e1) {
-			fail(e1.getMessage());
-		} catch (ExecutionException e2) {
-			fail(e2.getMessage());
-		}
-		return inputIsValid;
 	}
 
 	Boolean clickEditButtonAndCheckComponentVerification(final JTextField component) {
@@ -181,38 +259,48 @@ public final class SwingMenuTestUtil extends GuiTestUtil {
 		final String bernoulliProbability = _menu._bernoulliProbabilityField.getText();
 		final String categorialNumberOfStates = _menu._uniformCategorialNumberOfStatesField.getText();
 
-		Boolean inputIsValid = null;
-
-		ExecutorService executor = Executors.newFixedThreadPool(1);
-		Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+		return GuiActionRunner.execute(new GuiQuery<Boolean>() {
 			@Override
-			public Boolean call() {
-				delay(DIALOG_OPEN_DELAY);
-				_menu._featureNameField.setText(featureName);
-				_menu._gaussianMeanField.setText(gaussianMean);
-				_menu._gaussianSigmaField.setText(gaussianSigma);
-				_menu._bernoulliProbabilityField.setText(bernoulliProbability);
-				_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
-				delay(DIALOG_OPEN_DELAY);
-				pressAndReleaseKey(KeyEvent.VK_ENTER);
-				delay(DIALOG_OPEN_DELAY);
-				boolean inputIsValid = component.getBackground().equals(InputVerifier.VALID_INPUT_WHITE);
+			protected Boolean executeInEDT() {
+				Boolean inputIsValid = null;
 
-				pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+				ExecutorService executor = Executors.newFixedThreadPool(1);
+				Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+					@Override
+					public Boolean call() {
+						delay(DIALOG_OPEN_DELAY);
+						GuiActionRunner.execute(new GuiTask() {
+							@Override
+							protected void executeInEDT() {
+								_menu._featureNameField.setText(featureName);
+								_menu._gaussianMeanField.setText(gaussianMean);
+								_menu._gaussianSigmaField.setText(gaussianSigma);
+								_menu._bernoulliProbabilityField.setText(bernoulliProbability);
+								_menu._uniformCategorialNumberOfStatesField.setText(categorialNumberOfStates);
+							}
+						});
+						delay(DIALOG_OPEN_DELAY);
+						pressAndReleaseKey(KeyEvent.VK_ENTER);
+						delay(DIALOG_OPEN_DELAY);
+						boolean inputIsValid = component.getBackground().equals(InputVerifier.VALID_INPUT_WHITE);
+
+						pressAndReleaseKey(KeyEvent.VK_ESCAPE);
+						return inputIsValid;
+					}
+				});
+
+				_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
+
+				try {
+					inputIsValid = future.get();
+				} catch (InterruptedException e1) {
+					fail(e1.getMessage());
+				} catch (ExecutionException e2) {
+					fail(e2.getMessage());
+				}
 				return inputIsValid;
 			}
 		});
-
-		_menu.actionPerformed(new ActionEvent(_menu._editFeatureButton, 1, ""));
-
-		try {
-			inputIsValid = future.get();
-		} catch (InterruptedException e1) {
-			fail(e1.getMessage());
-		} catch (ExecutionException e2) {
-			fail(e2.getMessage());
-		}
-		return inputIsValid;
 	}
 
 	public static void resetComponentManagers() {

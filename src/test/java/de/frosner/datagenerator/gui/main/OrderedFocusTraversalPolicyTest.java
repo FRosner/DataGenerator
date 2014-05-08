@@ -1,6 +1,7 @@
 package de.frosner.datagenerator.gui.main;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.swing.edt.GuiActionRunner.execute;
 
 import java.awt.AWTException;
 import java.awt.Component;
@@ -13,8 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import org.fest.swing.edt.FailOnThreadViolationRepaintManager;
+import org.fest.swing.edt.GuiQuery;
+import org.fest.swing.edt.GuiTask;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -32,24 +37,54 @@ public class OrderedFocusTraversalPolicyTest {
 	private JFrame _frame;
 	private GuiTestUtil _testUtil;
 
+	@BeforeClass
+	public static void setUpOnce() {
+		FailOnThreadViolationRepaintManager.install();
+	}
+
 	@Before
 	public void initGUI() {
-		_button = new JButton("Button");
-		_textField = new JTextField("TextField");
-		_frame = new JFrame("Frame");
-		_frame.setLocationRelativeTo(null);
-		_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		_frame.setLayout(new FlowLayout());
-		_frame.add(_button);
-		_frame.add(_textField);
-		_frame.setVisible(true);
-		_frame.pack();
+		_button = execute(new GuiQuery<JButton>() {
+			@Override
+			public JButton executeInEDT() {
+				return new JButton("Button");
+			}
+		});
+		_textField = execute(new GuiQuery<JTextField>() {
+			@Override
+			public JTextField executeInEDT() {
+				return new JTextField("TextField");
+			}
+		});
+		_frame = execute(new GuiQuery<JFrame>() {
+			@Override
+			public JFrame executeInEDT() {
+				return new JFrame("Frame");
+			}
+		});
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				_frame.setLocationRelativeTo(null);
+				_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				_frame.setLayout(new FlowLayout());
+				_frame.add(_button);
+				_frame.add(_textField);
+				_frame.setVisible(true);
+				_frame.pack();
+			}
+		});
 		_testUtil = new GuiTestUtil();
 	}
 
 	@After
 	public void destroyGUI() {
-		_frame.dispose();
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				_frame.dispose();
+			}
+		});
 	}
 
 	@Test
@@ -57,7 +92,12 @@ public class OrderedFocusTraversalPolicyTest {
 		final List<Component> tabOrder = Lists.newArrayList();
 		tabOrder.add(_button);
 		tabOrder.add(_textField);
-		_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
+			}
+		});
 		Robot robot = new Robot();
 		_testUtil.delay();
 		assertThat(_button.isFocusOwner()).isTrue();
@@ -73,8 +113,13 @@ public class OrderedFocusTraversalPolicyTest {
 		final List<Component> tabOrder = Lists.newArrayList();
 		tabOrder.add(_button);
 		tabOrder.add(_textField);
-		_textField.setEnabled(false);
-		_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				_textField.setEnabled(false);
+				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
+			}
+		});
 		Robot robot = new Robot();
 		_testUtil.delay();
 		assertThat(_button.isFocusOwner()).isTrue();
@@ -90,8 +135,13 @@ public class OrderedFocusTraversalPolicyTest {
 		final List<Component> tabOrder = Lists.newArrayList();
 		tabOrder.add(_button);
 		tabOrder.add(_textField);
-		_button.setEnabled(false);
-		_textField.setEnabled(false);
-		_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
+		execute(new GuiTask() {
+			@Override
+			public void executeInEDT() {
+				_button.setEnabled(false);
+				_textField.setEnabled(false);
+				_frame.setFocusTraversalPolicy(new OrderedFocusTraversalPolicy(tabOrder));
+			}
+		});
 	}
 }
